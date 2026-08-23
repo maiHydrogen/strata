@@ -1,2 +1,51 @@
-/.venv/
-CLAUDE.md
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+
+/CLAUDE.md
+
+# Model checkpoints
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.h5
+
+# Project data (synced separately via rsync to Param Kamrupa)
+data/reference_docs/*
+data/knowledge_graph/*
+!data/reference_docs/.gitkeep
+!data/knowledge_graph/.gitkeep

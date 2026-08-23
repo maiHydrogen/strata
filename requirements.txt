@@ -1,0 +1,7 @@
+pymupdf
+paddlepaddle
+paddleocr
+transformers
+torch
+Pillow
+pytest
