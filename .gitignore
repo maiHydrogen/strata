@@ -34,7 +34,7 @@ htmlcov/
 .ruff_cache/
 
 
-../CLAUDE.md
+/CLAUDE.md
 
 # Model checkpoints
 *.pt
