@@ -8,11 +8,11 @@
 
 ## Phase 0 — Environment Setup (Week 1)
 
-- [ ] Set up WSL2 + Ubuntu as primary dev environment; clone the STRATA repo inside the Linux filesystem (not `/mnt/c/...`)
-- [ ] Create Python virtual environment inside WSL2; pin dependency versions in `requirements.txt`
-- [ ] Set up VS Code with the WSL extension; confirm `code .` opens the project natively in WSL2
-- [ ] Set up git remote (GitHub/GitLab); confirm push/pull works from WSL2
-- [ ] Set up SSH access + git pull capability on Param Kamrupa login node
+- [x] Set up WSL2 + Ubuntu as primary dev environment; clone the STRATA repo inside the Linux filesystem (not `/mnt/c/...`)
+- [x] Create Python virtual environment inside WSL2; pin dependency versions in `requirements.txt`
+- [x] Set up VS Code with the WSL extension; confirm `code .` opens the project natively in WSL2
+- [x] Set up git remote (GitHub/GitLab); confirm push/pull works from WSL2
+- [x] Set up SSH access + git pull capability on Param Kamrupa login node
 - [ ] Check Param Kamrupa onboarding docs (`kamrupasupport@iitg.ac.in`) for module-load conventions (CUDA/Python versions) and scratch-storage quota
 - [x] Write a minimal `CLAUDE.md` at repo root describing the project architecture (see companion prompts file)
 - [ ] Confirm PyRevit + Revit are installed and licensed on the native Windows side (Revit doesn't run on Linux)
