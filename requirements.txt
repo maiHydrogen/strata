@@ -5,3 +5,5 @@ transformers
 torch
 Pillow
 pytest
+pydantic
+anthropic

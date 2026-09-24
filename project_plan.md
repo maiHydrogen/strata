@@ -35,9 +35,9 @@
 
 ## Phase 3 — Intent Extraction Agent (Weeks 4–5)
 
-- [ ] Design the structured JSON schema (action / object / specification / quantity)
-- [ ] Write the few-shot prompt template using Phase 1's tagged examples
-- [ ] Build the Extractor agent (API wrapper) that returns schema-conformant JSON
+- [x] Design the structured JSON schema (action / object / specification / quantity)
+- [x] Write the few-shot prompt template using Phase 1's tagged examples (placeholder synthetic examples for now — swap in real Phase 1 examples once that corpus exists)
+- [x] Build the Extractor agent (API wrapper) that returns schema-conformant JSON
 - [ ] Build the coreference/disambiguation pass (second read-through of the full document)
 - [ ] Evaluate extraction accuracy against manually-annotated ground truth on the reference set
 
