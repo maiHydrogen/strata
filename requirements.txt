@@ -7,3 +7,9 @@ Pillow
 pytest
 pydantic
 anthropic
+
+ifcopenshell
+numpy
+streamlit
+python-dotenv
+google-genai
