@@ -1,7 +1,7 @@
 """Multi-agent orchestrator for text-to-IFC generation.
 
 Adapted from Text2BIM's multi_agents_workflow.py.
-Pipeline: User prompt -> PO Agent -> (optional Architect) -> Coder Agent -> exec() -> .ifc file
+Pipeline: User prompt -> PO Agent -> (optional Architect) -> Coder Agent -> IfcBuilder script -> .ifc file -> checks
 """
 
 import os
@@ -59,45 +59,81 @@ def run_coder_agent(po_output: str, model: str, chat_history: str = "") -> str:
     return _extract_code(response)
 
 
+ALLOWED_IMPORTS = {"math"}
+SAFE_BUILTINS = (
+    "abs all any bool dict enumerate float int len list max min pow divmod range reversed round "
+    "set sorted str sum tuple zip isinstance ValueError Exception True False None print"
+).split()
+
+
+def _restricted_import(name, globals=None, locals=None, fromlist=(), level=0):
+    if name.split(".")[0] not in ALLOWED_IMPORTS:
+        raise ImportError(f"Import of '{name}' is not allowed; the script may only import {sorted(ALLOWED_IMPORTS)}")
+    return __import__(name, globals, locals, fromlist, level)
+
+
 def execute_ifc_script(code: str) -> tuple:
-    """Execute the generated IfcOpenShell script.
-    
+    """Execute a generated IfcBuilder script and write output/building.ifc.
+
+    The script runs with IfcBuilder, m(), math and OUTPUT_PATH pre-defined and
+    a restricted import hook. This is a guard against accidents, not a security
+    sandbox: only run scripts from LLMs you trust.
+
     Returns:
         (ifc_path: str | None, log: str, success: bool)
     """
+    import builtins
+    import math
+
+    from src.execution.ifc_builder import IfcBuilder
+
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    
-    # Inject the output directory into the code
-    # Replace any hardcoded output path with our output directory
     output_path = os.path.join(OUTPUT_DIR, "building.ifc")
-    
-    # Make output dir available to the exec'd code
-    modified_code = f'import os\nos.makedirs("{OUTPUT_DIR}", exist_ok=True)\n' + code
-    # Replace common output paths
-    modified_code = modified_code.replace(
-        '"output/building.ifc"', f'"{output_path}"'
-    ).replace(
-        "'output/building.ifc'", f"'{output_path}'"
-    )
-    
+    if os.path.exists(output_path):
+        os.remove(output_path)  # never report a stale file as this run's result
+
+    builders = []
+
+    class _TrackedBuilder(IfcBuilder):
+        """Records instances and pins the output location."""
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            builders.append(self)
+
+        def save(self, path=None):
+            return super().save(output_path)
+
+    safe_builtins = {name: getattr(builtins, name) for name in SAFE_BUILTINS}
+    safe_builtins["__import__"] = _restricted_import
+    exec_globals = {
+        "__builtins__": safe_builtins,
+        "IfcBuilder": _TrackedBuilder,
+        "OUTPUT_PATH": output_path,
+        "math": math,
+        "m": lambda mm_value: mm_value / 1000.0,
+    }
+
     try:
-        exec_globals = {"__builtins__": __builtins__}
-        exec(modified_code, exec_globals)
-        
-        # Check if IFC file was generated
-        if os.path.exists(output_path):
-            return output_path, "Code executed successfully!", True
-        
-        # Check for any .ifc file in output dir
-        for f in os.listdir(OUTPUT_DIR):
-            if f.endswith(".ifc"):
-                found_path = os.path.join(OUTPUT_DIR, f)
-                return found_path, "Code executed successfully!", True
-        
-        return None, "Script ran but no .ifc file was generated.", False
-    except Exception as e:
-        error_msg = traceback.format_exc()
-        return None, f"Execution error:\n{error_msg}", False
+        exec(code, exec_globals)
+        if not os.path.exists(output_path) and builders:
+            builders[-1].save()  # script forgot to save; write the last model built
+        if not os.path.exists(output_path):
+            return None, "Script ran but no .ifc file was generated.", False
+        log = "Code executed successfully!"
+        warnings = [w for b in builders for w in b.warnings]
+        if warnings:
+            log += "\nBuilder adjustments:\n- " + "\n- ".join(warnings)
+        return output_path, log, True
+    except Exception:
+        return None, f"Execution error:\n{traceback.format_exc()}", False
+
+
+def validate_ifc_file(ifc_path: str) -> dict:
+    """Run Revit-readiness checks; returns {"errors", "warnings", "counts"}."""
+    from src.execution.ifc_checks import check_ifc
+
+    return check_ifc(ifc_path)
 
 
 def run_pipeline(user_prompt: str, model: str = "gpt",
@@ -120,6 +156,7 @@ def run_pipeline(user_prompt: str, model: str = "gpt",
         "code": "",
         "ifc_path": None,
         "log": "",
+        "validation": None,
         "success": False
     }
     
@@ -142,5 +179,7 @@ def run_pipeline(user_prompt: str, model: str = "gpt",
     result["ifc_path"] = ifc_path
     result["log"] = log
     result["success"] = success
+    if success:
+        result["validation"] = validate_ifc_file(ifc_path)
     
     return result

@@ -10,7 +10,7 @@ import sys
 # Add project root to path
 sys.path.insert(0, os.path.dirname(__file__))
 
-from src.execution.orchestrator import run_po_agent, run_architect_agent, run_coder_agent, execute_ifc_script
+from src.execution.orchestrator import run_po_agent, run_architect_agent, run_coder_agent, execute_ifc_script, validate_ifc_file
 
 # Page config
 st.set_page_config(
@@ -128,6 +128,17 @@ if prompt := st.chat_input("Describe a building... (e.g., 'Create a single-story
             if success:
                 st.success(f"✅ Model generated successfully!")
                 st.session_state.ifc_path = ifc_path
+                if "Builder adjustments" in log:
+                    st.warning(log)
+                checks = validate_ifc_file(ifc_path)
+                counts = ", ".join(f"{n} {k[3:]}" for k, n in checks["counts"].items() if n)
+                st.caption(f"Model contains: {counts}")
+                if checks["errors"]:
+                    st.error("Revit-readiness check found problems:\n\n" + "\n".join(f"- {e}" for e in checks["errors"]))
+                else:
+                    st.success("✅ Revit-readiness checks passed")
+                for w in checks["warnings"]:
+                    st.warning(w)
                 status.update(label="✅ IFC model built", state="complete")
             else:
                 st.error(f"❌ Execution failed:")
@@ -167,7 +178,10 @@ if st.session_state.ifc_path and os.path.exists(st.session_state.ifc_path):
     
     with col2:
         if st.button("🚀 Open in Default Viewer", use_container_width=True):
-            os.startfile(st.session_state.ifc_path)
+            try:
+                os.startfile(st.session_state.ifc_path)
+            except AttributeError:  # not on Windows (e.g. WSL): no default-viewer hook
+                st.info(f"Open this file manually: {st.session_state.ifc_path}")
     
     with col3:
         if st.session_state.generated_code:
