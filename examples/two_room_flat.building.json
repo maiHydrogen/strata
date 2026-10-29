@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1",
+  "name": "STRATA two-room flat",
+  "levels": [
+    {"id": "L0", "name": "STRATA Ground Floor", "elevation": 0.0}
+  ],
+  "wall_types": [
+    {
+      "id": "EXT230",
+      "name": "STRATA External 230 Brick + Plaster",
+      "layers": [
+        {"material": "Plaster", "thickness": 0.015, "function": "Finish1"},
+        {"material": "Brick", "thickness": 0.23, "function": "Structure"},
+        {"material": "Plaster", "thickness": 0.012, "function": "Finish2"}
+      ]
+    },
+    {
+      "id": "INT115",
+      "name": "STRATA Internal 115 Brick + Plaster",
+      "layers": [
+        {"material": "Plaster", "thickness": 0.012, "function": "Finish2"},
+        {"material": "Brick", "thickness": 0.115, "function": "Structure"},
+        {"material": "Plaster", "thickness": 0.012, "function": "Finish2"}
+      ]
+    }
+  ],
+  "walls": [
+    {"id": "W1", "level": "L0", "type": "EXT230", "start": [0, 0], "end": [8, 0], "height": 3.0, "external": true},
+    {"id": "W2", "level": "L0", "type": "EXT230", "start": [8, 0], "end": [8, 6], "height": 3.0, "external": true},
+    {"id": "W3", "level": "L0", "type": "EXT230", "start": [8, 6], "end": [0, 6], "height": 3.0, "external": true},
+    {"id": "W4", "level": "L0", "type": "EXT230", "start": [0, 6], "end": [0, 0], "height": 3.0, "external": true},
+    {"id": "P1", "level": "L0", "type": "INT115", "start": [4, 0], "end": [4, 6], "height": 3.0}
+  ],
+  "openings": [
+    {"id": "D1", "kind": "door", "wall": "W1", "offset": 1.5, "width": 1.0, "height": 2.1},
+    {"id": "D2", "kind": "door", "wall": "P1", "offset": 2.5, "width": 0.9, "height": 2.1},
+    {"id": "WIN1", "kind": "window", "wall": "W3", "offset": 5.3, "width": 1.2, "height": 1.2, "sill": 0.9},
+    {"id": "WIN2", "kind": "window", "wall": "W3", "offset": 1.3, "width": 1.2, "height": 1.2, "sill": 0.9}
+  ],
+  "floors": [
+    {"id": "F1", "level": "L0", "boundary": [[0, 0], [8, 0], [8, 6], [0, 6]], "thickness": 0.15}
+  ],
+  "rooms": [
+    {"id": "R1", "level": "L0", "name": "Living Room", "point": [2, 3]},
+    {"id": "R2", "level": "L0", "name": "Bedroom", "point": [6, 3]}
+  ]
+}
