@@ -71,3 +71,21 @@ def test_eudl_run_clears_udl_warnings_and_raises_capacity_shear():
     assert eudl.joint_strength_failed  # strong-column/weak-beam still fails: needs the resize loop
     text = open(os.path.join(os.path.dirname(__file__), "fixtures", "frame_g1_eudl.anl"), encoding="latin-1").read()
     assert "DESIGN SHEAR FORCE AT SECTION     0.0 IS   110.40 KN" in text
+
+
+def test_bare_error_lines_fail_their_columns():
+    """STAAD 2026 prints 'ERROR:' without '***'; IS 13920 cl. 7.1.1(a) column size check."""
+    r = read_anl(os.path.join(os.path.dirname(__file__), "fixtures", "frame_g1_col_bar_error.anl"))
+    assert len(r.errors) == 8
+    assert all("7.1.1 a)" in e for e in r.errors)
+    assert sorted(r.columns) == list(range(1, 9))
+    assert all(c.failed and len(c.errors) == 1 for c in r.columns.values())
+    assert not r.all_passed
+
+
+def test_members_missing_from_results_count_as_failed():
+    text = open(FIXTURE, encoding="latin-1").read()
+    start = text.index("C O L U M N   N O.      8")
+    end = text.index("END OF COLUMN DESIGN RESULTS")
+    r = parse_anl(text[:start] + text[end:])
+    assert r.columns[8].failed and r.columns[8].width_mm == 0.0

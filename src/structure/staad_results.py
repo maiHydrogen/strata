@@ -24,7 +24,10 @@ _IR_PROVIDED = re.compile(r"REINFORCEMENT PROVIDED.*?IR:\s+([\d.]+)", re.S)
 _BASE_SHEAR = re.compile(r"TIME PERIOD FOR ([XZ]) 1893 LOADING =\s+([\d.]+).*?VB PER 1893=\s+([\d.]+) X\s+([\d.]+)=\s+([\d.]+)", re.S)
 _VERSION = re.compile(r"Version\s+([\d.]+)")
 _WARNING = re.compile(r"\*\*\* ?WARNING ?:(.*?)(?=\n\s*\n)", re.S)
-_ERROR = re.compile(r"\*\*\*\s*ERROR(.*?)(?=\n\s*\n)", re.S)
+# STAAD prints errors both as "*** ERROR ..." and as a bare "ERROR: ..." with continuation lines
+_ERROR = re.compile(r"^\s*(?:\*+\s*)?ERROR\s*:?(.*?)(?=\n\s*\n|\n\s*(?:\*+\s*)?ERROR|\Z)", re.S | re.M)
+_ERROR_MEMBER = re.compile(r"\b(BEAM|COLUMN|MEMBER)\s+(\d+)")
+_DESIGN_CMD = re.compile(r"^\s*\d+\.\s+DESIGN (BEAM|COLUMN) ([\d TO]+)$", re.M)
 _FAIL = re.compile(r"FAIL", re.I)
 
 
@@ -39,6 +42,7 @@ class BeamResult:
     max_bottom_provided: float = 0.0
     min_stirrup_spacing_mm: int = 0
     failed: bool = False
+    errors: list = field(default_factory=list)
 
 
 @dataclass
@@ -52,6 +56,7 @@ class ColumnResult:
     steel_ratio_pct: float = 0.0
     interaction_ratio: float = 0.0  # with steel provided; must be <= 1.0
     failed: bool = False
+    errors: list = field(default_factory=list)
 
 
 @dataclass
@@ -77,6 +82,19 @@ def _blocks(text, pattern):
     for i, m in enumerate(heads):
         end = heads[i + 1].start() if i + 1 < len(heads) else text.find("END OF", m.end())
         yield int(m.group(1)), text[m.start():end if end != -1 else len(text)]
+
+
+def _expand(id_list):
+    """'1 TO 4 7' -> [1, 2, 3, 4, 7]"""
+    tokens, ids, i = id_list.split(), [], 0
+    while i < len(tokens):
+        if i + 2 < len(tokens) and tokens[i + 1] == "TO":
+            ids += range(int(tokens[i]), int(tokens[i + 2]) + 1)
+            i += 3
+        else:
+            ids.append(int(tokens[i]))
+            i += 1
+    return ids
 
 
 def parse_anl(text: str) -> StaadResults:
@@ -118,6 +136,20 @@ def parse_anl(text: str) -> StaadResults:
 
     res.warnings = sorted({" ".join(w.split()) for w in _WARNING.findall(text)})
     res.errors = [" ".join(e.split()) for e in _ERROR.findall(text)]
+
+    # Members STAAD was asked to design but reported no result for count as failed
+    for kind, ids in _DESIGN_CMD.findall(text):
+        table, cls = (res.beams, BeamResult) if kind == "BEAM" else (res.columns, ColumnResult)
+        for member in _expand(ids):
+            if member not in table:
+                table[member] = cls(member, 0.0, 0.0, failed=True)
+    # Attach member-specific errors (e.g. IS 13920 cl. 7.1.1 column size) to that member
+    for err in res.errors:
+        if m := _ERROR_MEMBER.search(err):
+            table = res.columns if m.group(1) == "COLUMN" else res.beams
+            if (member := int(m.group(2))) in table:
+                table[member].failed = True
+                table[member].errors.append(err)
     res.joint_strength_failed = "Relative strength checks have failed" in text
     return res
 

@@ -56,7 +56,7 @@ class Loads:
 class Frame:
     nodes: dict = field(default_factory=dict)  # id -> (x, y, z)
     members: dict = field(default_factory=dict)  # id -> Member
-    sections: dict = field(default_factory=dict)  # kind -> Section
+    sections: dict = field(default_factory=dict)  # group name ("column-0", "beam-1", ...) -> Section
     storey_height: float = 3.0
     storeys: int = 2
     loads: Loads = field(default_factory=Loads)
@@ -64,6 +64,14 @@ class Frame:
     fck: float = 25.0  # MPa
     fy: float = 500.0  # MPa
     ductile: bool = True  # IS 13920 design
+
+    def group_of(self, member_id: int) -> str:
+        """Members are sized in groups: columns per storey, beams per floor level."""
+        m = self.members[member_id]
+        return f"{m.kind}-{m.level}"
+
+    def section(self, member_id: int) -> Section:
+        return self.sections[self.group_of(member_id)]
 
 
 def make_rc_frame(bays_x, bays_z, storeys=2, storey_height=3.0,
@@ -76,8 +84,9 @@ def make_rc_frame(bays_x, bays_z, storeys=2, storey_height=3.0,
     for b in bays_z:
         zs.append(zs[-1] + b)
 
-    frame = Frame(storey_height=storey_height, storeys=storeys,
-                  sections={"column": column, "beam": beam})
+    sections = {f"column-{lvl}": column for lvl in range(storeys)}
+    sections.update({f"beam-{lvl}": beam for lvl in range(1, storeys + 1)})
+    frame = Frame(storey_height=storey_height, storeys=storeys, sections=sections)
     ids = {}
     nid = 1
     for level in range(storeys + 1):
@@ -126,6 +135,33 @@ def _yrange(y):
     return f"YRANGE {_num(y - 0.1)} {_num(y + 0.1)}"
 
 
+def _grouped(values: dict) -> list:
+    """{member: value} -> [(value, [members])] sorted by value, for compact STAAD lists."""
+    by_value = {}
+    for i, v in values.items():
+        by_value.setdefault(v, []).append(i)
+    return sorted(by_value.items())
+
+
+def wall_line_loads(frame: Frame) -> dict:
+    """Masonry line load (kN/m) carried by each beam.
+
+    A floor beam carries the wall of the storey above, up to the soffit of the
+    beam above it; a roof beam carries the parapet.
+    """
+    L = frame.loads
+    loads = {}
+    for i, m in frame.members.items():
+        if m.kind != "beam":
+            continue
+        if m.level == frame.storeys:
+            height = L.parapet_height
+        else:
+            height = frame.storey_height - frame.sections[f"beam-{m.level + 1}"].depth
+        loads[i] = round(L.wall_thickness * L.masonry_density * height, 3)
+    return loads
+
+
 def _slab_share(span, across):
     """Equivalent UDL factor (m) for a two-way panel on a beam of length `span`.
 
@@ -143,9 +179,7 @@ def beam_gravity_udl(frame: Frame) -> dict:
     L = frame.loads
     xs = sorted({x for x, _, _ in frame.nodes.values()})
     zs = sorted({z for _, _, z in frame.nodes.values()})
-    beam_sec = frame.sections["beam"]
-    wall = L.wall_thickness * L.masonry_density * (frame.storey_height - beam_sec.depth)
-    parapet = L.wall_thickness * L.masonry_density * L.parapet_height
+    walls = wall_line_loads(frame)
     udl = {}
     for i, m in frame.members.items():
         if m.kind != "beam":
@@ -161,8 +195,9 @@ def beam_gravity_udl(frame: Frame) -> dict:
         widths += [across_lines[k + 1] - across_lines[k]] if k + 1 < len(across_lines) else []
         w_slab = L.floor_dead() + (L.roof_live if roof else L.floor_live)
         slab = sum(w_slab * _slab_share(span, c) for c in widths)
-        self_wt = beam_sec.depth * beam_sec.width * L.concrete_density
-        udl[i] = 1.2 * (self_wt + (parapet if roof else wall) + slab)
+        sec = frame.section(i)
+        self_wt = sec.depth * sec.width * L.concrete_density
+        udl[i] = 1.2 * (self_wt + walls[i] + slab)
     return udl
 
 
@@ -173,10 +208,7 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
     base_nodes = [i for i, (_, y, _) in frame.nodes.items() if y == 0.0]
     floor_levels = [lvl * frame.storey_height for lvl in range(1, frame.storeys + 1)]
     roof_y = floor_levels[-1]
-    wall_load = L.wall_thickness * L.masonry_density * (frame.storey_height - frame.sections["beam"].depth)
-    parapet_load = L.wall_thickness * L.masonry_density * L.parapet_height
-    wall_beams = [i for i in beams if frame.members[i].level < frame.storeys]
-    roof_beams = [i for i in beams if frame.members[i].level == frame.storeys]
+    walls = _grouped(wall_line_loads(frame))
     e_conc = 5000 * frame.fck ** 0.5 * 1000  # IS 456 cl. 6.2.3.1, kN/m2
     s = frame.seismic
 
@@ -205,9 +237,12 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
         "END DEFINE MATERIAL",
         "MEMBER PROPERTY INDIAN",
     ]
-    for kind, ids in (("column", columns), ("beam", beams)):
-        sec = frame.sections[kind]
-        out.append(f"{_id_list(ids)} PRISMATIC YD {_num(sec.depth)} ZD {_num(sec.width)}")
+    by_section = {}
+    for i in columns + beams:
+        sec = frame.section(i)
+        by_section.setdefault((sec.depth, sec.width), []).append(i)
+    for (depth, width), ids in by_section.items():
+        out.append(f"{_id_list(ids)} PRISMATIC YD {_num(depth)} ZD {_num(width)}")
     out += [
         "CONSTANTS",
         "MATERIAL CONCRETE ALL",
@@ -219,8 +254,9 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
         f"SS {s.soil_type} ST {s.structure_type} DM {_num(s.damping)}",
         "SELFWEIGHT 1",
         "MEMBER WEIGHT",
-        f"{_id_list(wall_beams)} UNI {_num(round(wall_load, 3))}",
-        f"{_id_list(roof_beams)} UNI {_num(round(parapet_load, 3))}",
+    ]
+    out += [f"{_id_list(ids)} UNI {_num(w)}" for w, ids in walls]
+    out += [
         "FLOOR WEIGHT",
     ]
     for y in floor_levels:
@@ -235,8 +271,9 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
         "LOAD 3 LOADTYPE DEAD TITLE DL",
         "SELFWEIGHT Y -1",
         "MEMBER LOAD",
-        f"{_id_list(wall_beams)} UNI GY {_num(-round(wall_load, 3))}",
-        f"{_id_list(roof_beams)} UNI GY {_num(-round(parapet_load, 3))}",
+    ]
+    out += [f"{_id_list(ids)} UNI GY {_num(-w)}" for w, ids in walls]
+    out += [
         "FLOOR LOAD",
     ]
     out += [f"{_yrange(y)} FLOAD {_num(-round(L.floor_dead(), 3))} GY" for y in floor_levels]
@@ -271,10 +308,8 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
         "TRACK 2 ALL",
     ]
     # IS 13920 shear design needs the gravity UDL on each beam; STAAD's EUDL is in current units (N/mm = kN/m)
-    by_value = {}
-    for i, w in beam_gravity_udl(frame).items():
-        by_value.setdefault(round(w, 2), []).append(i)
-    out += [f"EUDL {_num(w)} MEMB {_id_list(ids)}" for w, ids in sorted(by_value.items())]
+    eudl = {i: round(w, 2) for i, w in beam_gravity_udl(frame).items()}
+    out += [f"EUDL {_num(w)} MEMB {_id_list(ids)}" for w, ids in _grouped(eudl)]
     out += [
         f"DESIGN BEAM {_id_list(beams)}",
         f"DESIGN COLUMN {_id_list(columns)}",
