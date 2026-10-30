@@ -4,7 +4,7 @@ import re
 
 import pytest
 
-from src.structure.std_writer import _id_list, beam_gravity_udl, make_rc_frame, write_std
+from src.structure.std_writer import Section, _id_list, beam_gravity_udl, make_rc_frame, write_std
 
 
 def _section(text, start, end):
@@ -98,3 +98,27 @@ def test_output_is_deterministic_and_job_info_valid():
     assert text == write_std(make_rc_frame([4.0], [4.0]))
     job = _section(text, "START JOB INFORMATION", "END JOB INFORMATION")
     assert all(line.split()[0] in {"JOB", "ENGINEER", "CLIENT", "CHECKER"} for line in job)
+
+
+def test_column_bars_become_minmain_per_group():
+    frame = make_rc_frame([4.0], [4.0])
+    assert "MINMAIN" not in write_std(frame)
+    frame.column_bars = {"column-1": 16, "column-0": 20}
+    text = write_std(frame)
+    assert "MINMAIN 20 MEMB 1 TO 4\nMINMAIN 16 MEMB 5 TO 8\n" in text
+    assert text.index("TRACK 2 ALL") < text.index("MINMAIN") < text.index("DESIGN BEAM")
+    assert frame.min_bar("column-1") == 16 and make_rc_frame([4.0], [4.0]).min_bar("column-1") == 12
+
+
+def test_beam_bars_capped_at_column_size_over_20():
+    """IS 13920 cl. 7.1.1(a): 300 mm columns allow 15 mm beam bars -> 12 mm; 350 mm -> 16 mm."""
+    frame = make_rc_frame([4.0], [4.0])
+    text = write_std(frame)
+    assert "MAXMAIN 12 MEMB 9 TO 12\nMAXMAIN 12 MEMB 13 TO 16\n" in text
+    frame.sections.update({"column-0": Section(0.45, 0.45), "column-1": Section(0.35, 0.35)})
+    assert frame.beam_bar_cap(1) == 16  # floor beams meet both storeys: the smaller 350 column governs
+    assert frame.beam_bar_cap(2) == 16
+    frame.sections["column-1"] = Section(0.40, 0.40)
+    assert frame.beam_bar_cap(1) == 20 and frame.beam_bar_cap(2) == 20
+    frame.ductile = False
+    assert "MAXMAIN" not in write_std(frame)

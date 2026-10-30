@@ -89,13 +89,18 @@
 
 ## Phase 5 — Structural Design with STAAD.Pro (3 weeks)
 
-- [ ] Spike: generate a `.std` file for a single-bay G+1 RCC frame (Zone V, IS 875 loads, IS 456 + IS 13920 design), run it in STAAD, parse the results
-- [ ] Automate STAAD runs via OpenSTAAD or command line from the pipeline
+- [x] Spike: generate a `.std` file for a single-bay G+1 RCC frame (Zone V, IS 875 loads, IS 456 + IS 13920 design), run it in STAAD, parse the results
+- [x] Automate STAAD runs via OpenSTAAD or command line from the pipeline (SProStaad.exe called from WSL, headless)
 - [ ] Initial member sizing from IS 456 / IS 13920 rules (columns at wall junctions, beam and slab depths, footings from soil bearing capacity)
-- [ ] Load combinations, seismic (IS 1893) and wind (IS 875) load generation in the `.std` file
-- [ ] Result parser: utilisation, steel required, pass/fail per member
-- [ ] Resize-and-rerun loop until all members pass; send infeasible layouts back to Phase 4 with the constraint that failed
-- [ ] Validate one frame against hand calculations
+- [x] Load combinations (IS 456 / IS 1893) and seismic (IS 1893) load generation in the `.std` file
+- [ ] Wind load (IS 875 Part 3) and the IS 1893 100% + 30% orthogonal combination
+- [x] Result parser: utilisation, steel required, pass/fail per member, member-level errors
+- [x] Resize-and-rerun loop until all members pass (steel-first for IS 13920 cl. 7.2; G+1 test house passes in 8 rounds, uniform 400x400 columns)
+- [ ] Send infeasible layouts back to Phase 4 with the constraint that failed
+- [x] Per-joint strong-column/weak-beam resizing from STAAD's `<name>_13920.txt` joint report (roof joints checked: IS 13920 cl. 7.2.1.3 waives them only above 4 storeys); bigger column bars (MINMAIN) before bigger sections
+- [x] IS 456 cl. 26.5.3.1(a) minimum column steel on the gross area (STAAD applies the 0.8% to the concrete area required)
+- [x] Sizing order and practice rules: at failing joints column bars, then shallower lightly reinforced beams, then bigger columns; lower-storey columns never smaller than the ones above; beam bars capped at column size / 20 (IS 13920 cl. 7.1.1(a), STAAD MAXMAIN)
+- [ ] Validate one frame against hand calculations (dead load, seismic weight, base shear and period already match; member design still to check)
 
 ## Phase 6 — Services & Finishes (2 weeks)
 
@@ -106,8 +111,8 @@
 
 ## Phase 7 — Building JSON & Revit Execution (3 weeks)
 
-- [ ] Define the building JSON schema: levels, grids, wall types with layers, walls, hosted doors/windows, floors, roofs, stairs, rooms, columns, beams, footings, fixtures, finishes
-- [ ] Spike: pyRevit script on Revit 2027 builds walls, doors, windows, floor and rooms for a 2-room flat from JSON
+- [ ] Define the building JSON schema: levels, grids, wall types with layers, walls, hosted doors/windows, floors, roofs, stairs, rooms, columns, beams, footings, fixtures, finishes (v0.2 has levels, wall types, walls, openings, floors, rooms, columns, beams)
+- [x] Spike: script on Revit 2027 builds walls, doors, windows, floor and rooms for a 2-room flat from JSON (run via Dynamo; pyRevit button also written)
 - [ ] Revit listener: pyRevit Routes, or a folder-watch add-in as fallback
 - [ ] Full deterministic builder for all 5 layers with native families and types (no LLM in this step)
 - [ ] Write STAAD results into Revit element parameters (utilisation, steel required, check status)

@@ -1,9 +1,10 @@
 """Run STAAD.Pro on a .std file from WSL.
 
 STAAD runs on the Windows side. The input is copied into a Windows folder
-(STAAD rewrites the .std it runs), the analysis engine is started through
-WSL interop, and the .anl is read back. ManualRunner is the fallback: it
-writes the .std and waits for a person to run it and save the .anl.
+(STAAD rewrites the .std it runs), the analysis engine is started hidden
+through WSL interop, and the .anl is read back with STAAD's IS 13920 joint report
+(<name>_13920.txt) appended. ManualRunner is the fallback: it writes the
+.std and waits for a person to run it and save the .anl.
 """
 
 import os
@@ -12,6 +13,21 @@ import time
 
 DEFAULT_ENGINE = "/mnt/c/Program Files/Bentley/Engineering/STAAD.Pro 2026/STAAD/SProStaad/SProStaad.exe"
 DEFAULT_WORKDIR = "/mnt/c/Users/Public/Documents/STRATA"
+
+
+def joint_report_path(workdir, name):
+    return os.path.join(workdir, f"{name}_13920.txt")
+
+
+def read_report(workdir, name):
+    """The .anl text, followed by the IS 13920 joint report when STAAD wrote one."""
+    with open(os.path.join(workdir, f"{name}.anl"), encoding="latin-1") as f:
+        text = f.read()
+    joints = joint_report_path(workdir, name)
+    if os.path.exists(joints):
+        with open(joints, encoding="latin-1") as f:
+            text += "\n" + f.read()
+    return text
 
 
 def _windows_path(path):
@@ -30,17 +46,19 @@ class StaadRunner:
         os.makedirs(self.workdir, exist_ok=True)
         std_path = os.path.join(self.workdir, f"{name}.std")
         anl_path = os.path.join(self.workdir, f"{name}.anl")
-        if os.path.exists(anl_path):
-            os.remove(anl_path)
+        for stale in (anl_path, joint_report_path(self.workdir, name)):
+            if os.path.exists(stale):
+                os.remove(stale)
         with open(std_path, "w", encoding="ascii", newline="\r\n") as f:
             f.write(std_text)
-        proc = subprocess.run([self.engine, _windows_path(std_path)], capture_output=True,
+        # STAAD command line syntax: SProStaad.exe STAAD <input> [/s | /h]. /h runs hidden and
+        # closes at the end; without it the engine waits for someone to click Done.
+        proc = subprocess.run([self.engine, "STAAD", _windows_path(std_path), "/h"], capture_output=True,
                               text=True, timeout=self.timeout)
         if not os.path.exists(anl_path):
             raise RuntimeError(f"STAAD produced no {name}.anl (exit {proc.returncode}): "
                                f"{proc.stdout[-500:]} {proc.stderr[-500:]}")
-        with open(anl_path, encoding="latin-1") as f:
-            return f.read()
+        return read_report(self.workdir, name)
 
 
 class ManualRunner:
@@ -53,6 +71,9 @@ class ManualRunner:
         os.makedirs(self.workdir, exist_ok=True)
         std_path = os.path.join(self.workdir, f"{name}.std")
         anl_path = os.path.join(self.workdir, f"{name}.anl")
+        stale = joint_report_path(self.workdir, name)
+        if os.path.exists(stale):
+            os.remove(stale)
         with open(std_path, "w", encoding="ascii", newline="\r\n") as f:
             f.write(std_text)
         written = os.path.getmtime(std_path)
@@ -61,7 +82,6 @@ class ManualRunner:
         while time.time() < deadline:
             if os.path.exists(anl_path) and os.path.getmtime(anl_path) > written:
                 time.sleep(1)  # let STAAD finish writing
-                with open(anl_path, encoding="latin-1") as f:
-                    return f.read()
+                return read_report(self.workdir, name)
             time.sleep(self.poll)
         raise TimeoutError(f"No {anl_path} after {self.timeout} s")

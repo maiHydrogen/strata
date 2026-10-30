@@ -40,6 +40,12 @@ PREFERRED_FAMILIES = {
     ("window", True): ("M_Window-Casement-Double", "Window-Casement-Double"),
     ("window", False): ("M_Window-Fixed", "Window-Fixed"),
 }
+STRUCTURAL_FAMILIES = {
+    "column": (BuiltInCategory.OST_StructuralColumns,
+               ("M_Concrete-Rectangular-Column", "Concrete-Rectangular-Column")),
+    "beam": (BuiltInCategory.OST_StructuralFraming,
+             ("M_Concrete-Rectangular Beam", "Concrete-Rectangular Beam", "M_Concrete-Rectangular-Beam")),
+}
 
 
 def ft(metres):
@@ -76,7 +82,7 @@ class Builder(object):
         self.placed = []  # (opening spec, instance, host wall) for the diagnostics
         self.cut_info = {}  # opening id -> (placement method, wall volume removed m3, expected m3)
         self.report = {"levels": 0, "wall_types": 0, "walls": 0, "doors": 0, "windows": 0,
-                       "floors": 0, "rooms": [], "openings": [], "warnings": []}
+                       "floors": 0, "columns": 0, "beams": 0, "rooms": [], "openings": [], "warnings": []}
 
     def warn(self, msg):
         self.report["warnings"].append(msg)
@@ -325,9 +331,84 @@ class Builder(object):
                 return "{0:.0f}".format(UnitUtils.ConvertFromInternalUnits(p.AsDouble(), UnitTypeId.Millimeters))
         return "?"
 
+    def structural_type(self, kind, width, depth):
+        """A concrete column/beam type of width x depth, duplicated from the loaded family."""
+        category, preferred = STRUCTURAL_FAMILIES[kind]
+        symbols = list(FilteredElementCollector(self.doc).OfCategory(category).OfClass(FamilySymbol))
+        families = sorted(set(_name(s.Family) for s in symbols))
+        family = next((f for f in preferred if f in families), None)
+        if family is None:
+            family = next((f for f in families if "concrete" in f.lower() and "rect" in f.lower()), None)
+        if family is None:
+            raise RuntimeError(
+                "No concrete rectangular {0} family loaded (found: {1}). Load '{2}' via "
+                "Insert > Load Autodesk Family, or start from the Default-Multi-Discipline_Metric "
+                "template.".format(kind, ", ".join(families) or "none", preferred[0]))
+        symbols = [s for s in symbols if _name(s.Family) == family]
+        name = "STRATA {0} {1:.0f}x{2:.0f}".format("C" if kind == "column" else "B", width * 1000, depth * 1000)
+        sym = next((s for s in symbols if _name(s) == name), None)
+        if sym is None:
+            sym = self.doc.GetElement(symbols[0].Duplicate(name).Id)
+            # b = width across, h = depth (section height) in the Autodesk concrete families
+            for label, value in (("b", width), ("h", depth)):
+                p = sym.LookupParameter(label)
+                if p is None or p.IsReadOnly:
+                    self.warn("{0} type '{1}': no settable '{2}' parameter".format(kind, name, label))
+                else:
+                    p.Set(ft(value))
+        if not sym.IsActive:
+            sym.Activate()
+            self.doc.Regenerate()
+        return sym
+
+    def _comment(self, element, design):
+        """Write the STAAD result summary into the element's Comments."""
+        if not design:
+            return
+        parts = ["STAAD {0}".format(design.get("status", "?"))]
+        if "bars" in design:
+            parts.append("{0}, {1}% steel, IR {2}".format(design["bars"], design.get("steel_ratio_pct"),
+                                                          design.get("interaction_ratio")))
+        if "top_steel_provided_mm2" in design:
+            parts.append("top {0}/{1} mm2, bottom {2}/{3} mm2, stirrups @{4} mm".format(
+                design["top_steel_required_mm2"], design["top_steel_provided_mm2"],
+                design["bottom_steel_required_mm2"], design["bottom_steel_provided_mm2"],
+                design["min_stirrup_spacing_mm"]))
+        if design.get("code"):
+            parts.append(design["code"])
+        p = element.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS)
+        if p is not None and not p.IsReadOnly:
+            p.Set("; ".join(parts))
+
+    def make_columns(self):
+        for spec in self.data.get("columns", []):
+            base, top = self.levels[spec["base_level"]], self.levels[spec["top_level"]]
+            sym = self.structural_type("column", spec["width"], spec["depth"])
+            point = XYZ(ft(spec["at"][0]), ft(spec["at"][1]), base.Elevation)
+            col = self.doc.Create.NewFamilyInstance(point, sym, base, StructuralType.Column)
+            col.get_Parameter(BuiltInParameter.FAMILY_TOP_LEVEL_PARAM).Set(top.Id)
+            col.get_Parameter(BuiltInParameter.FAMILY_BASE_LEVEL_OFFSET_PARAM).Set(0.0)
+            col.get_Parameter(BuiltInParameter.FAMILY_TOP_LEVEL_OFFSET_PARAM).Set(0.0)
+            self._comment(col, spec.get("design"))
+            self.report["columns"] += 1
+        self.doc.Regenerate()
+
+    def make_beams(self):
+        for spec in self.data.get("beams", []):
+            level = self.levels[spec["level"]]
+            sym = self.structural_type("beam", spec["width"], spec["depth"])
+            (x1, y1), (x2, y2) = spec["start"], spec["end"]
+            line = Line.CreateBound(XYZ(ft(x1), ft(y1), level.Elevation), XYZ(ft(x2), ft(y2), level.Elevation))
+            beam = self.doc.Create.NewFamilyInstance(line, sym, level, StructuralType.Beam)
+            self._comment(beam, spec.get("design"))
+            self.report["beams"] += 1
+        self.doc.Regenerate()
+
     def build(self):
         self.make_levels()
         self.make_wall_types()
+        self.make_columns()
+        self.make_beams()
         self.make_walls()
         self.make_openings()
         self.check_openings()
@@ -346,6 +427,7 @@ def format_report(report):
     lines = ["STRATA build complete",
              "Levels created: {0}".format(report["levels"]),
              "Wall types created: {0}".format(report["wall_types"]),
+             "Columns: {0}  Beams: {1}".format(report.get("columns", 0), report.get("beams", 0)),
              "Walls: {0}  Doors: {1}  Windows: {2}  Floors: {3}".format(
                  report["walls"], report["doors"], report["windows"], report["floors"]),
              "Rooms: " + ", ".join(report["rooms"]),

@@ -12,6 +12,9 @@ Codes applied:
 
 from dataclasses import dataclass, field
 
+DEFAULT_COLUMN_BAR = 12  # mm, IS 456 cl. 26.5.3.1(c): column bars at least 12 mm
+BAR_SIZES = (12, 16, 20, 25)  # mm, main bar catalogue
+
 
 @dataclass
 class Section:
@@ -57,6 +60,7 @@ class Frame:
     nodes: dict = field(default_factory=dict)  # id -> (x, y, z)
     members: dict = field(default_factory=dict)  # id -> Member
     sections: dict = field(default_factory=dict)  # group name ("column-0", "beam-1", ...) -> Section
+    column_bars: dict = field(default_factory=dict)  # column group -> minimum main bar diameter, mm (STAAD MINMAIN)
     storey_height: float = 3.0
     storeys: int = 2
     loads: Loads = field(default_factory=Loads)
@@ -72,6 +76,18 @@ class Frame:
 
     def section(self, member_id: int) -> Section:
         return self.sections[self.group_of(member_id)]
+
+    def min_bar(self, group: str) -> int:
+        return self.column_bars.get(group, DEFAULT_COLUMN_BAR)
+
+    def beam_bar_cap(self, level: int) -> int:
+        """Largest beam bar at floor `level`: IS 13920 cl. 7.1.1(a) needs every column
+        meeting there (the storeys below and above) at least 20 x the beam bar diameter."""
+        below = self.sections[f"column-{level - 1}"]
+        above = self.sections.get(f"column-{level}", below)
+        least_mm = min(below.depth, below.width, above.depth, above.width) * 1000
+        fitting = [d for d in BAR_SIZES if 20 * d <= least_mm + 1e-6]
+        return fitting[-1] if fitting else BAR_SIZES[0]
 
 
 def make_rc_frame(bays_x, bays_z, storeys=2, storey_height=3.0,
@@ -307,6 +323,13 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
         f"FYSEC {_num(frame.fy)} ALL",
         "TRACK 2 ALL",
     ]
+    # Bigger column bars raise the column's moment capacity (IS 13920 cl. 7.2) and its steel ratio
+    for group, bar in sorted(frame.column_bars.items()):
+        out.append(f"MINMAIN {bar} MEMB {_id_list(i for i in columns if frame.group_of(i) == group)}")
+    if frame.ductile:  # cap beam bars so the columns at each joint satisfy IS 13920 cl. 7.1.1(a)
+        for level in range(1, frame.storeys + 1):
+            ids = [i for i in beams if frame.members[i].level == level]
+            out.append(f"MAXMAIN {frame.beam_bar_cap(level)} MEMB {_id_list(ids)}")
     # IS 13920 shear design needs the gravity UDL on each beam; STAAD's EUDL is in current units (N/mm = kN/m)
     eudl = {i: round(w, 2) for i, w in beam_gravity_udl(frame).items()}
     out += [f"EUDL {_num(w)} MEMB {_id_list(ids)}" for w, ids in _grouped(eudl)]

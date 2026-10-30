@@ -4,7 +4,8 @@ import os
 
 import pytest
 
-from src.structure.staad_results import parse_anl, read_anl
+from src.structure.staad_results import JointCheck, parse_anl, parse_joint_table, read_anl
+from src.structure.staad_runner import read_report
 
 FIXTURE = os.path.join(os.path.dirname(__file__), "fixtures", "frame_g1.anl")
 
@@ -89,3 +90,91 @@ def test_members_missing_from_results_count_as_failed():
     end = text.index("END OF COLUMN DESIGN RESULTS")
     r = parse_anl(text[:start] + text[end:])
     assert r.columns[8].failed and r.columns[8].width_mm == 0.0
+
+
+def test_errors_inside_a_member_block_belong_to_that_member():
+    """G+1 house round 3: STAAD's over-reinforced error names no member, only its position does."""
+    r = read_anl(os.path.join(os.path.dirname(__file__), "fixtures", "g1_house_overreinforced.anl"))
+    assert r.general_errors == []
+    failed = {i for i, b in r.beams.items() if b.failed}
+    assert failed == {21, 22}
+    assert all("OVER-REINFORCED" in r.beams[i].errors[0] for i in failed)
+
+
+FIXTURES = os.path.dirname(FIXTURE)
+
+
+def test_joint_report_rows_and_the_failing_roof_joint():
+    """G+1 house round 8: STAAD's <name>_13920.txt lists both ends of all 18 columns."""
+    r = read_report(FIXTURES, "g1_house_r8")
+    res = parse_anl(r)
+    assert len(res.joints) == 36
+    assert res.joints[1] == JointCheck(1, 10, 10, (19,), (25,), "P", "P")
+    assert res.failed_joints == [JointCheck(14, 23, 0, (33, 34), (39, 40), "F", "P")]
+    j = res.failed_joints[0]
+    assert j.failed_directions == "X" and j.failed_beams == (33, 34)
+    assert res.joint_strength_failed and not res.all_passed
+
+
+def test_anl_alone_still_flags_the_joint_failure():
+    res = read_anl(os.path.join(FIXTURES, "g1_house_r8.anl"))
+    assert res.joints == [] and res.joint_strength_failed
+
+
+def test_track4_anl_table_lists_failing_rows_only():
+    text = """
+   RELATIVE STRENGTHS OF BEAMS AND COLUMNS AT A JOINT
+   ==================================================
+
+     COLUMN     JOINT   CONNECTED COLUMN   CONNECTED             BEAM       STATUS
+     -------    -----   ----------------   --------------------------     ----------
+
+                                             X                  Z          X      Z
+
+   *** WARNING: Relative strength checks have failed at beam/column joints
+                as per Clause 7.2 of IS-13920:2016.
+        14         23           -       33       34        39      40      F      P
+   167. FINISH
+"""
+    assert parse_joint_table(text) == [JointCheck(14, 23, 0, (33, 34), (39, 40), "F", "P")]
+
+
+def test_passing_joint_report_clears_the_joint_check():
+    table = open(os.path.join(FIXTURES, "g1_house_r8_13920.txt"), encoding="latin-1").read()
+    res = parse_anl(table.replace("F      P", "P      P"))
+    assert len(res.joints) == 36 and res.failed_joints == [] and not res.joint_strength_failed
+
+
+def test_column_steel_below_0_8_pct_of_gross_fails(res):
+    """IS 456 cl. 26.5.3.1(a); STAAD puts its 0.8% on the concrete area required, not the gross area."""
+    r8 = read_anl(os.path.join(FIXTURES, "g1_house_r8.anl"))
+    assert {c.steel_ratio_pct for c in r8.columns.values()} == {0.36}
+    assert all(c.below_min_steel and not c.failed for c in r8.columns.values())
+    assert not any(c.below_min_steel for c in res.columns.values())  # 300 mm columns at 0.89% and 1.4%
+    text = open(os.path.join(FIXTURES, "g1_house_r8.anl"), encoding="latin-1").read()
+    assert not parse_anl(text.replace("(0.36%,", "(0.80%,")).columns[1].below_min_steel
+
+
+def test_report_without_joint_file_is_the_anl(tmp_path):
+    (tmp_path / "x.anl").write_text("ANL TEXT", encoding="latin-1")
+    assert read_report(str(tmp_path), "x") == "ANL TEXT"
+    (tmp_path / "x_13920.txt").write_text("JOINTS", encoding="latin-1")
+    assert read_report(str(tmp_path), "x") == "ANL TEXT\nJOINTS"
+
+
+def test_runner_starts_staad_hidden_so_no_done_click(tmp_path, monkeypatch):
+    from src.structure import staad_runner
+    engine = tmp_path / "SProStaad.exe"
+    engine.write_text("")
+    calls = []
+
+    def fake_run(cmd, **kwargs):
+        calls.append(cmd)
+        (tmp_path / "x.anl").write_text("ANL TEXT", encoding="latin-1")
+        return staad_runner.subprocess.CompletedProcess(cmd, 0, "", "")
+
+    monkeypatch.setattr(staad_runner, "_windows_path", lambda p: "C:\\STRATA\\x.std")
+    monkeypatch.setattr(staad_runner.subprocess, "run", fake_run)
+    out = staad_runner.StaadRunner(engine=str(engine), workdir=str(tmp_path))("STAAD SPACE\n", "x")
+    assert calls == [[str(engine), "STAAD", "C:\\STRATA\\x.std", "/h"]]
+    assert out == "ANL TEXT"

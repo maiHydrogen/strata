@@ -1,0 +1,3746 @@
+                                                                 PAGE NO.    1
+
+
+
+             ****************************************************        
+             *                                                  *        
+             *           STAAD.Pro 2026/Academic                *        
+             *           Version  26.00.00.340                  *        
+             *           Proprietary Program of                 *        
+             *           Bentley Systems, Inc.                  *        
+             *           Date=    OCT 30, 2026                  *        
+             *           Time=     1: 9: 5                      *        
+             *                                                  *        
+             *  Licensed to:                                    *        
+             ****************************************************        
+
+
+
+     1. STAAD SPACE
+INPUT FILE: C:\Users\Public\Documents\STRATA\g1_house_r8.STD
+     2. START JOB INFORMATION
+     3. JOB NAME G1_HOUSE ROUND 8
+     4. END JOB INFORMATION
+     5. INPUT WIDTH 79
+     6. UNIT METER KN
+     7. JOINT COORDINATES
+     8. 1 0 0 0
+     9. 2 4 0 0
+    10. 3 8 0 0
+    11. 4 0 0 3.5
+    12. 5 4 0 3.5
+    13. 6 8 0 3.5
+    14. 7 0 0 7
+    15. 8 4 0 7
+    16. 9 8 0 7
+    17. 10 0 3 0
+    18. 11 4 3 0
+    19. 12 8 3 0
+    20. 13 0 3 3.5
+    21. 14 4 3 3.5
+    22. 15 8 3 3.5
+    23. 16 0 3 7
+    24. 17 4 3 7
+    25. 18 8 3 7
+    26. 19 0 6 0
+    27. 20 4 6 0
+    28. 21 8 6 0
+    29. 22 0 6 3.5
+    30. 23 4 6 3.5
+    31. 24 8 6 3.5
+    32. 25 0 6 7
+    33. 26 4 6 7
+    34. 27 8 6 7
+    35. MEMBER INCIDENCES
+    36. 1 1 10
+    37. 2 2 11
+    38. 3 3 12
+     STAAD SPACE                                              -- PAGE NO.    2
+        
+    39. 4 4 13
+    40. 5 5 14
+    41. 6 6 15
+    42. 7 7 16
+    43. 8 8 17
+    44. 9 9 18
+    45. 10 10 19
+    46. 11 11 20
+    47. 12 12 21
+    48. 13 13 22
+    49. 14 14 23
+    50. 15 15 24
+    51. 16 16 25
+    52. 17 17 26
+    53. 18 18 27
+    54. 19 10 11
+    55. 20 11 12
+    56. 21 13 14
+    57. 22 14 15
+    58. 23 16 17
+    59. 24 17 18
+    60. 25 10 13
+    61. 26 13 16
+    62. 27 11 14
+    63. 28 14 17
+    64. 29 12 15
+    65. 30 15 18
+    66. 31 19 20
+    67. 32 20 21
+    68. 33 22 23
+    69. 34 23 24
+    70. 35 25 26
+    71. 36 26 27
+    72. 37 19 22
+    73. 38 22 25
+    74. 39 20 23
+    75. 40 23 26
+    76. 41 21 24
+    77. 42 24 27
+    78. DEFINE MATERIAL START
+    79. ISOTROPIC CONCRETE
+    80. E 2.5E+07
+    81. POISSON 0.17
+    82. DENSITY 25
+    83. ALPHA 1E-05
+    84. DAMP 0.05
+    85. TYPE CONCRETE
+    86. STRENGTH FCU 25000
+    87. END DEFINE MATERIAL
+    88. MEMBER PROPERTY INDIAN
+    89. 1 TO 18 PRISMATIC YD 0.5 ZD 0.5
+    90. 19 TO 30 PRISMATIC YD 0.45 ZD 0.23
+    91. 31 TO 42 PRISMATIC YD 0.35 ZD 0.23
+    92. CONSTANTS
+    93. MATERIAL CONCRETE ALL
+    94. SUPPORTS
+     STAAD SPACE                                              -- PAGE NO.    3
+        
+    95. 1 TO 9 FIXED
+    96. DEFINE 1893 LOAD
+    97. ZONE 0.36 RF 5 I 1 SS 2 ST 1 DM 0.05
+    98. SELFWEIGHT 1
+    99. MEMBER WEIGHT
+   100. 31 TO 42 UNI 4.6
+   101. 19 TO 30 UNI 12.19
+   102. FLOOR WEIGHT
+ **NOTE** about Floor/OneWay Loads/Weights.
+   Please note that depending on the shape of the floor you may
+   have to break up the FLOOR/ONEWAY LOAD into multiple commands.
+   For details please refer to Technical Reference Manual
+   Section 5.32.4.2 Note d and/or "5.32.4.3 Note f.
+ 
+   103. YRANGE 2.9 3.1 FLOAD 4.625
+   104. YRANGE 5.9 6.1 FLOAD 4.125
+   105. LOAD 1 LOADTYPE SEISMIC TITLE EQ X
+   106. 1893 LOAD X 1
+   107. LOAD 2 LOADTYPE SEISMIC TITLE EQ Z
+   108. 1893 LOAD Z 1
+   109. LOAD 3 LOADTYPE DEAD TITLE DL
+   110. SELFWEIGHT Y -1
+   111. MEMBER LOAD
+   112. 31 TO 42 UNI GY -4.6
+   113. 19 TO 30 UNI GY -12.19
+   114. FLOOR LOAD
+   115. YRANGE 2.9 3.1 FLOAD -4.125 GY
+   116. YRANGE 5.9 6.1 FLOAD -4.125 GY
+   117. LOAD 4 LOADTYPE LIVE TITLE LL
+   118. FLOOR LOAD
+   119. YRANGE 2.9 3.1 FLOAD -2 GY
+   120. YRANGE 5.9 6.1 FLOAD -1.5 GY
+   121. LOAD COMB 101 1.5(DL+LL)
+   122. 3 1.5 4 1.5
+   123. LOAD COMB 102 1.2(DL+LL+EQX)
+   124. 1 1.2 3 1.2 4 1.2
+   125. LOAD COMB 103 1.5(DL+EQX)
+   126. 1 1.5 3 1.5
+   127. LOAD COMB 104 0.9DL+1.5EQX
+   128. 1 1.5 3 0.9
+   129. LOAD COMB 105 1.2(DL+LL-EQX)
+   130. 1 -1.2 3 1.2 4 1.2
+   131. LOAD COMB 106 1.5(DL-EQX)
+   132. 1 -1.5 3 1.5
+     STAAD SPACE                                              -- PAGE NO.    4
+        
+   133. LOAD COMB 107 0.9DL-1.5EQX
+   134. 1 -1.5 3 0.9
+   135. LOAD COMB 108 1.2(DL+LL+EQZ)
+   136. 2 1.2 3 1.2 4 1.2
+   137. LOAD COMB 109 1.5(DL+EQZ)
+   138. 2 1.5 3 1.5
+   139. LOAD COMB 110 0.9DL+1.5EQZ
+   140. 2 1.5 3 0.9
+   141. LOAD COMB 111 1.2(DL+LL-EQZ)
+   142. 2 -1.2 3 1.2 4 1.2
+   143. LOAD COMB 112 1.5(DL-EQZ)
+   144. 2 -1.5 3 1.5
+   145. LOAD COMB 113 0.9DL-1.5EQZ
+   146. 2 -1.5 3 0.9
+   147. PERFORM ANALYSIS PRINT STATICS CHECK
+
+
+
+            P R O B L E M   S T A T I S T I C S
+            -----------------------------------
+
+     NUMBER OF JOINTS         27  NUMBER OF MEMBERS      42
+     NUMBER OF PLATES          0  NUMBER OF SOLIDS        0
+     NUMBER OF SURFACES        0  NUMBER OF SUPPORTS      9
+
+           Using 64-bit analysis engine.
+ 
+           SOLVER USED IS THE IN-CORE ADVANCED MATH SOLVER
+ 
+   TOTAL      PRIMARY LOAD CASES =     4, TOTAL DEGREES OF FREEDOM =     108
+   TOTAL LOAD COMBINATION  CASES =    13  SO FAR.
+
+     STAAD SPACE                                              -- PAGE NO.    5
+        
+ 
+  **WARNING: IF THIS UBC/IBC ANALYSIS HAS TENSION/COMPRESSION
+  OR REPEAT LOAD OR RE-ANALYSIS OR SELECT OPTIMIZE, THEN EACH
+  UBC/IBC CASE SHOULD BE FOLLOWED BY PERFORM ANALYSIS & CHANGE.
+ 
+
+
+   *********************************************************
+   * UNITS - KN    METE                                    *
+   * TIME PERIOD FOR X 1893 LOADING =    0.28752 SEC       *
+   * SA/G PER 1893=    2.500, LOAD FACTOR= 1.000           *
+   * VB PER 1893=    0.0900 X     1790.05=     161.10 KN   *
+   *                                                       *
+   *********************************************************
+
+
+
+   *********************************************************
+   * UNITS - KN    METE                                    *
+   * TIME PERIOD FOR Z 1893 LOADING =    0.28752 SEC       *
+   * SA/G PER 1893=    2.500, LOAD FACTOR= 1.000           *
+   * VB PER 1893=    0.0900 X     1790.05=     161.10 KN   *
+   *                                                       *
+   *********************************************************
+
+
+   *** LOADING     1 : ADDITIONAL APPLIED FORCES AND MOMENTS ABOUT ORIGIN
+       DUE TO SEISMIC LOADS(KN  ,METE)
+
+       FORCE-X =       161.10  FORCE-Y =         0.00  FORCE-Z =         0.00
+       MOM-X   =         0.00  MOM-Y   =       563.87  MOM-Z   =      -817.63
+
+
+   *** LOADING     2 : ADDITIONAL APPLIED FORCES AND MOMENTS ABOUT ORIGIN
+       DUE TO SEISMIC LOADS(KN  ,METE)
+
+       FORCE-X =         0.00  FORCE-Y =         0.00  FORCE-Z =       161.10
+       MOM-X   =       817.63  MOM-Y   =      -644.42  MOM-Z   =         0.00
+
+
+
+
+          STATIC LOAD/REACTION/EQUILIBRIUM SUMMARY FOR CASE NO.     1
+          LOADTYPE SEISMIC TITLE EQ X                                 
+
+
+           CENTER OF FORCE BASED ON X FORCES ONLY (METE).
+         (FORCES IN NON-GLOBAL DIRECTIONS WILL INVALIDATE RESULTS)
+
+                        X =  0.400000014E+01
+                        Y =  0.507512362E+01
+                        Z =  0.349999982E+01
+     STAAD SPACE                                              -- PAGE NO.    6
+        
+TOTAL APPLIED LOAD     1
+
+   ***TOTAL APPLIED LOAD ( KN   METE ) SUMMARY (LOADING     1 )
+       SUMMATION FORCE-X =         161.10
+       SUMMATION FORCE-Y =           0.00
+       SUMMATION FORCE-Z =           0.00
+
+      SUMMATION OF MOMENTS AROUND THE ORIGIN-
+      MX=           0.00  MY=         563.87  MZ=        -817.63
+
+TOTAL REACTION LOAD    1
+
+   ***TOTAL REACTION LOAD( KN   METE ) SUMMARY (LOADING     1 )
+       SUMMATION FORCE-X =        -161.10
+       SUMMATION FORCE-Y =           0.00
+       SUMMATION FORCE-Z =          -0.00
+
+      SUMMATION OF MOMENTS AROUND THE ORIGIN-
+      MX=           0.00  MY=        -563.87  MZ=         817.63
+
+
+   MAXIMUM DISPLACEMENTS (  CM  /RADIANS) (LOADING      1)
+             MAXIMUMS    AT NODE
+      X =  2.64411E-01      22
+      Y = -1.30121E-03      24
+      Z = -4.98513E-05      25
+      RX=  2.77447E-08      21
+      RY= -5.57201E-05      27
+      RZ= -4.96105E-04      24
+
+
+          STATIC LOAD/REACTION/EQUILIBRIUM SUMMARY FOR CASE NO.     2
+          LOADTYPE SEISMIC TITLE EQ Z                                 
+
+
+           CENTER OF FORCE BASED ON Z FORCES ONLY (METE).
+         (FORCES IN NON-GLOBAL DIRECTIONS WILL INVALIDATE RESULTS)
+
+                        X =  0.400000014E+01
+                        Y =  0.507512362E+01
+                        Z =  0.349999982E+01
+TOTAL APPLIED LOAD     2
+
+   ***TOTAL APPLIED LOAD ( KN   METE ) SUMMARY (LOADING     2 )
+       SUMMATION FORCE-X =           0.00
+       SUMMATION FORCE-Y =           0.00
+       SUMMATION FORCE-Z =         161.10
+
+      SUMMATION OF MOMENTS AROUND THE ORIGIN-
+      MX=         817.63  MY=        -644.42  MZ=           0.00
+
+TOTAL REACTION LOAD    2
+
+   ***TOTAL REACTION LOAD( KN   METE ) SUMMARY (LOADING     2 )
+       SUMMATION FORCE-X =          -0.00
+       SUMMATION FORCE-Y =          -0.00
+       SUMMATION FORCE-Z =        -161.10
+     STAAD SPACE                                              -- PAGE NO.    7
+        
+
+      SUMMATION OF MOMENTS AROUND THE ORIGIN-
+      MX=        -817.63  MY=         644.42  MZ=          -0.00
+
+
+   MAXIMUM DISPLACEMENTS (  CM  /RADIANS) (LOADING      2)
+             MAXIMUMS    AT NODE
+      X = -6.70298E-05      25
+      Y = -1.58139E-03      26
+      Z =  2.55665E-01      20
+      RX=  4.66773E-04      26
+      RY= -5.18694E-05      19
+      RZ= -4.31389E-08      10
+
+
+          STATIC LOAD/REACTION/EQUILIBRIUM SUMMARY FOR CASE NO.     3
+          LOADTYPE DEAD TITLE DL                                      
+
+
+           CENTER OF FORCE BASED ON Y FORCES ONLY (METE).
+         (FORCES IN NON-GLOBAL DIRECTIONS WILL INVALIDATE RESULTS)
+
+                        X =  0.400000001E+01
+                        Y =  0.389991051E+01
+                        Z =  0.349999991E+01
+TOTAL APPLIED LOAD     3
+
+   ***TOTAL APPLIED LOAD ( KN   METE ) SUMMARY (LOADING     3 )
+       SUMMATION FORCE-X =           0.00
+       SUMMATION FORCE-Y =       -1762.05
+       SUMMATION FORCE-Z =           0.00
+
+      SUMMATION OF MOMENTS AROUND THE ORIGIN-
+      MX=        6167.18  MY=           0.00  MZ=       -7048.20
+
+TOTAL REACTION LOAD    3
+
+   ***TOTAL REACTION LOAD( KN   METE ) SUMMARY (LOADING     3 )
+       SUMMATION FORCE-X =           0.00
+       SUMMATION FORCE-Y =        1762.05
+       SUMMATION FORCE-Z =           0.00
+
+      SUMMATION OF MOMENTS AROUND THE ORIGIN-
+      MX=       -6167.18  MY=          -0.00  MZ=        7048.20
+
+
+   MAXIMUM DISPLACEMENTS (  CM  /RADIANS) (LOADING      3)
+             MAXIMUMS    AT NODE
+      X =  2.52759E-03      22
+      Y = -2.04984E-02      23
+      Z = -1.61213E-03      26
+      RX= -7.50575E-05      26
+      RY= -2.92726E-07      25
+      RZ= -1.06796E-04      22
+
+
+          STATIC LOAD/REACTION/EQUILIBRIUM SUMMARY FOR CASE NO.     4
+          LOADTYPE LIVE TITLE LL                                      
+
+     STAAD SPACE                                              -- PAGE NO.    8
+        
+
+           CENTER OF FORCE BASED ON Y FORCES ONLY (METE).
+         (FORCES IN NON-GLOBAL DIRECTIONS WILL INVALIDATE RESULTS)
+
+                        X =  0.400000008E+01
+                        Y =  0.428571440E+01
+                        Z =  0.349999997E+01
+TOTAL APPLIED LOAD     4
+
+   ***TOTAL APPLIED LOAD ( KN   METE ) SUMMARY (LOADING     4 )
+       SUMMATION FORCE-X =           0.00
+       SUMMATION FORCE-Y =        -196.00
+       SUMMATION FORCE-Z =           0.00
+
+      SUMMATION OF MOMENTS AROUND THE ORIGIN-
+      MX=         686.00  MY=           0.00  MZ=        -784.00
+
+TOTAL REACTION LOAD    4
+
+   ***TOTAL REACTION LOAD( KN   METE ) SUMMARY (LOADING     4 )
+       SUMMATION FORCE-X =           0.00
+       SUMMATION FORCE-Y =         196.00
+       SUMMATION FORCE-Z =           0.00
+
+      SUMMATION OF MOMENTS AROUND THE ORIGIN-
+      MX=        -686.00  MY=          -0.00  MZ=         784.00
+
+
+   MAXIMUM DISPLACEMENTS (  CM  /RADIANS) (LOADING      4)
+             MAXIMUMS    AT NODE
+      X =  5.33289E-04      22
+      Y = -3.41305E-03      23
+      Z =  3.24554E-04      20
+      RX=  1.65749E-05      20
+      RY= -1.22855E-07      21
+      RZ= -2.43691E-05      22
+
+
+
+   ************ END OF DATA FROM INTERNAL STORAGE ************
+
+
+   148. LOAD LIST 101 TO 113
+   149. START CONCRETE DESIGN
+CONCRETE DESIGN
+   150. CODE IS13920
+   151. UNIT MMS NEWTON
+   152. FC 25 ALL
+   153. FYMAIN 500 ALL
+   154. FYSEC 500 ALL
+   155. TRACK 2 ALL
+   156. EUDL 15.81 MEMB 37 TO 38 41 TO 42
+   157. EUDL 16.73 MEMB 31 TO 32 35 TO 36
+   158. EUDL 23.68 MEMB 39 TO 40
+   159. EUDL 25.53 MEMB 33 TO 34
+   160. EUDL 26.31 MEMB 25 TO 26 29 TO 30
+   161. EUDL 27.31 MEMB 19 TO 20 23 TO 24
+   162. EUDL 34.88 MEMB 27 TO 28
+   163. EUDL 36.89 MEMB 21 TO 22
+     STAAD SPACE                                              -- PAGE NO.    9
+        
+   164. DESIGN BEAM 19 TO 42
+     STAAD SPACE                                              -- PAGE NO.   10
+        
+BEAM
+
+                ====================================================
+                IS-13920:2016  B E A M   D E S I G N   R E S U L T S
+                ====================================================
+
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      19   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00     11.46     -0.03   104     |   71.76    -0.04    106
+           |    -0.00    -69.98     -0.04   106     |
+     333.3 |    -0.00     16.37     -0.03   104     |   64.22    -0.04    106
+           |    -0.00    -47.32     -0.04   106     |
+     666.7 |    -0.00     19.65     -0.03   104     |   55.65    -0.04    106
+           |    -0.00    -27.38     -0.04   106     |
+    1000.0 |    -0.00     23.93     -0.04   103     |   45.89    -0.04    106
+           |    -0.00    -13.04     -0.03   107     |
+    1333.3 |    -0.00     26.93     -0.04   103     |   36.87    -0.04    106
+           |    -0.00     -2.55     -0.03   107     |
+    1666.7 |    -0.00     26.61     -0.04   103     |   25.34    -0.04    106
+           |    -0.00      0.00      0.00   101     |
+    2000.0 |    -0.00     24.82     -0.07   101     |  -17.33    -0.04    103
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     24.24     -0.04   106     |  -27.43    -0.04    103
+           |    -0.00      0.00      0.00   101     |
+    2666.7 |    -0.00     23.86     -0.04   106     |  -38.96    -0.04    103
+           |    -0.00     -1.72     -0.03   104     |
+    3000.0 |    -0.00     20.17     -0.04   106     |  -47.98    -0.04    103
+           |    -0.00    -12.63     -0.03   104     |
+    3333.3 |    -0.00     16.31     -0.03   107     |  -57.74    -0.04    103
+           |    -0.00    -28.50     -0.04   103     |
+    3666.7 |    -0.00     12.61     -0.03   107     |  -66.31    -0.04    103
+           |    -0.00    -49.14     -0.04   103     |
+    4000.0 |    -0.00      7.28     -0.03   107     |  -73.85    -0.04    103
+           |    -0.00    -72.50     -0.04   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   111.19 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS   111.19 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   11
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  427.88/ 452.39( 4-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     333.3 |  279.88/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     666.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    1000.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1666.7 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2000.0 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2333.3 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2666.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    3000.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    3333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3666.7 |  291.37/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    4000.0 |  445.02/ 452.39( 4-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM START SUPPORT
+     VY =    45.98 MX =    -0.04 LD=  106
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM END SUPPORT
+     VY =   -45.93 MX =    -0.04 LD=  103
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      20   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00      7.28      0.03   104     |   73.85     0.04    106
+           |    -0.00    -72.50      0.04   106     |
+     333.3 |    -0.00     12.61      0.03   104     |   66.31     0.04    106
+           |    -0.00    -49.14      0.04   106     |
+     666.7 |    -0.00     16.31      0.03   104     |   57.74     0.04    106
+           |    -0.00    -28.50      0.04   106     |
+    1000.0 |    -0.00     20.17      0.04   103     |   47.98     0.04    106
+           |    -0.00    -12.63      0.03   107     |
+    1333.3 |    -0.00     23.86      0.04   103     |   38.96     0.04    106
+           |    -0.00     -1.72      0.03   107     |
+    1666.7 |    -0.00     24.24      0.04   103     |   27.43     0.04    106
+           |    -0.00      0.00      0.00   101     |
+    2000.0 |    -0.00     24.82      0.07   101     |   17.33     0.04    106
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     26.61      0.04   106     |  -25.34     0.04    103
+           |    -0.00      0.00      0.00   101     |
+    2666.7 |    -0.00     26.93      0.04   106     |  -36.87     0.04    103
+           |    -0.00     -2.55      0.03   104     |
+    3000.0 |    -0.00     23.93      0.04   106     |  -45.89     0.04    103
+           |    -0.00    -13.04      0.03   104     |
+    3333.3 |    -0.00     19.65      0.03   107     |  -55.65     0.04    103
+           |    -0.00    -27.38      0.04   103     |
+    3666.7 |    -0.00     16.37      0.03   107     |  -64.22     0.04    103
+           |    -0.00    -47.32      0.04   103     |
+    4000.0 |    -0.00     11.46      0.03   107     |  -71.76     0.04    103
+           |    -0.00    -69.98      0.04   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   111.19 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS   111.19 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   12
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  445.02/ 452.39( 4-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     333.3 |  291.37/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     666.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    1000.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1666.7 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2000.0 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2333.3 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2666.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    3000.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    3333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3666.7 |  279.88/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    4000.0 |  427.88/ 452.39( 4-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM START SUPPORT
+     VY =    48.07 MX =     0.04 LD=  106
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM END SUPPORT
+     VY =   -43.84 MX =     0.04 LD=  103
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      21   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00     12.64     -0.00   104     |   87.22    -0.00    106
+           |    -0.00    -86.64     -0.00   106     |
+     333.3 |    -0.00     18.81     -0.00   104     |   79.53    -0.00    106
+           |    -0.00    -58.85     -0.00   106     |
+     666.7 |    -0.00     23.20     -0.00   104     |   69.78    -0.00    106
+           |    -0.00    -34.03     -0.00   106     |
+    1000.0 |    -0.00     28.88     -0.00   103     |   57.65    -0.00    106
+           |    -0.00    -15.78     -0.00   107     |
+    1333.3 |    -0.00     33.33     -0.00   103     |   47.00    -0.00    106
+           |    -0.00     -2.61     -0.00   107     |
+    1666.7 |    -0.00     33.60     -0.00   103     |   31.33    -0.00    106
+           |    -0.00      0.00      0.00   101     |
+    2000.0 |    -0.00     34.05     -0.00   101     |  -20.87    -0.00    103
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     30.81     -0.00   106     |  -33.67    -0.00    103
+           |    -0.00      0.00      0.00   101     |
+    2666.7 |    -0.00     29.76     -0.00   106     |  -49.35    -0.00    103
+           |    -0.00     -1.55     -0.00   104     |
+    3000.0 |    -0.00     24.54     -0.00   106     |  -59.99    -0.00    103
+           |    -0.00    -15.19     -0.00   104     |
+    3333.3 |    -0.00     19.32     -0.00   107     |  -72.12    -0.00    103
+           |    -0.00    -35.15     -0.00   103     |
+    3666.7 |    -0.00     14.46     -0.00   107     |  -81.88    -0.00    103
+           |    -0.00    -60.76     -0.00   103     |
+    4000.0 |    -0.00      7.83     -0.00   107     |  -89.56    -0.00    103
+           |    -0.00    -89.32     -0.00   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   141.38 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS   141.38 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   13
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  547.20/ 603.19( 3-16d )|  273.60/ 339.29( 3-12d )| 12d  @  70 mm
+     333.3 |  355.34/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @  70 mm
+     666.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @  70 mm
+    1000.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    1333.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    1666.7 |  141.71/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    2000.0 |  141.71/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    2333.3 |  141.71/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    2666.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    3000.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    3333.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @  70 mm
+    3666.7 |  367.89/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @  70 mm
+    4000.0 |  566.83/ 603.19( 3-16d )|  283.41/ 339.29( 3-12d )| 12d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM START SUPPORT
+     VY =    59.39 MX =    -0.00 LD=  106
+     Provide 2 Legged  8d  @ 200 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM END SUPPORT
+     VY =   -57.45 MX =    -0.00 LD=  103
+     Provide 2 Legged  8d  @ 200 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 a)
+                              of IS-13920:2016 at member end.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      22   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00      7.83      0.00   104     |   89.56     0.00    106
+           |    -0.00    -89.32      0.00   106     |
+     333.3 |    -0.00     14.46      0.00   104     |   81.88     0.00    106
+           |    -0.00    -60.76      0.00   106     |
+     666.7 |    -0.00     19.32      0.00   104     |   72.12     0.00    106
+           |    -0.00    -35.15      0.00   106     |
+    1000.0 |    -0.00     24.54      0.00   103     |   59.99     0.00    106
+           |    -0.00    -15.19      0.00   107     |
+    1333.3 |    -0.00     29.76      0.00   103     |   49.35     0.00    106
+           |    -0.00     -1.55      0.00   107     |
+    1666.7 |    -0.00     30.81      0.00   103     |   33.67     0.00    106
+           |    -0.00      0.00      0.00   101     |
+    2000.0 |    -0.00     34.05      0.00   101     |   20.87     0.00    106
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     33.60      0.00   106     |  -31.33     0.00    103
+           |    -0.00      0.00      0.00   101     |
+    2666.7 |    -0.00     33.32      0.00   106     |  -47.00     0.00    103
+           |    -0.00     -2.61      0.00   104     |
+    3000.0 |    -0.00     28.88      0.00   106     |  -57.65     0.00    103
+           |    -0.00    -15.78      0.00   104     |
+    3333.3 |    -0.00     23.20      0.00   107     |  -69.78     0.00    103
+           |    -0.00    -34.03      0.00   103     |
+    3666.7 |    -0.00     18.81      0.00   107     |  -79.53     0.00    103
+           |    -0.00    -58.85      0.00   103     |
+    4000.0 |    -0.00     12.64      0.00   107     |  -87.22     0.00    103
+           |    -0.00    -86.64      0.00   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   141.38 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS   141.38 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+     STAAD SPACE                                              -- PAGE NO.   14
+        
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   15
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  566.83/ 603.19( 3-16d )|  283.41/ 339.29( 3-12d )| 12d  @  70 mm
+     333.3 |  367.90/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @  70 mm
+     666.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @  70 mm
+    1000.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    1333.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    1666.7 |  141.71/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    2000.0 |  141.71/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    2333.3 |  141.71/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    2666.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    3000.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @ 200 mm
+    3333.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @  70 mm
+    3666.7 |  355.34/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )| 12d  @  70 mm
+    4000.0 |  547.20/ 603.19( 3-16d )|  273.60/ 339.29( 3-12d )| 12d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM START SUPPORT
+     VY =    61.73 MX =     0.00 LD=  106
+     Provide 2 Legged  8d  @ 200 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM END SUPPORT
+     VY =   -55.10 MX =     0.00 LD=  103
+     Provide 2 Legged  8d  @ 200 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 a)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      23   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00     11.46      0.03   104     |   71.76     0.04    106
+           |    -0.00    -69.98      0.04   106     |
+     333.3 |    -0.00     16.37      0.03   104     |   64.22     0.04    106
+           |    -0.00    -47.32      0.04   106     |
+     666.7 |    -0.00     19.65      0.03   104     |   55.65     0.04    106
+           |    -0.00    -27.38      0.04   106     |
+    1000.0 |    -0.00     23.93      0.04   103     |   45.89     0.04    106
+           |    -0.00    -13.04      0.03   107     |
+    1333.3 |    -0.00     26.93      0.04   103     |   36.87     0.04    106
+           |    -0.00     -2.55      0.03   107     |
+    1666.7 |    -0.00     26.61      0.04   103     |   25.34     0.04    106
+           |    -0.00      0.00      0.00   101     |
+    2000.0 |    -0.00     24.82      0.07   101     |  -17.33     0.04    103
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     24.24      0.04   106     |  -27.43     0.04    103
+           |    -0.00      0.00      0.00   101     |
+    2666.7 |    -0.00     23.86      0.04   106     |  -38.96     0.04    103
+           |    -0.00     -1.72      0.03   104     |
+    3000.0 |    -0.00     20.17      0.04   106     |  -47.98     0.04    103
+           |    -0.00    -12.63      0.03   104     |
+    3333.3 |    -0.00     16.31      0.03   107     |  -57.74     0.04    103
+           |    -0.00    -28.50      0.04   103     |
+    3666.7 |    -0.00     12.61      0.03   107     |  -66.31     0.04    103
+           |    -0.00    -49.14      0.04   103     |
+    4000.0 |    -0.00      7.28      0.03   107     |  -73.85     0.04    103
+           |    -0.00    -72.50      0.04   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   111.19 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS   111.19 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+     STAAD SPACE                                              -- PAGE NO.   16
+        
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   17
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  427.88/ 452.39( 4-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     333.3 |  279.88/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     666.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    1000.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1666.7 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2000.0 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2333.3 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2666.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    3000.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    3333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3666.7 |  291.37/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    4000.0 |  445.02/ 452.39( 4-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM START SUPPORT
+     VY =    45.98 MX =     0.04 LD=  106
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM END SUPPORT
+     VY =   -45.93 MX =     0.04 LD=  103
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      24   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00      7.28     -0.03   104     |   73.85    -0.04    106
+           |    -0.00    -72.50     -0.04   106     |
+     333.3 |    -0.00     12.61     -0.03   104     |   66.31    -0.04    106
+           |    -0.00    -49.14     -0.04   106     |
+     666.7 |    -0.00     16.31     -0.03   104     |   57.74    -0.04    106
+           |    -0.00    -28.50     -0.04   106     |
+    1000.0 |    -0.00     20.17     -0.04   103     |   47.98    -0.04    106
+           |    -0.00    -12.63     -0.03   107     |
+    1333.3 |    -0.00     23.86     -0.04   103     |   38.96    -0.04    106
+           |    -0.00     -1.72     -0.03   107     |
+    1666.7 |    -0.00     24.24     -0.04   103     |   27.43    -0.04    106
+           |    -0.00      0.00      0.00   101     |
+    2000.0 |    -0.00     24.82     -0.07   101     |   17.33    -0.04    106
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     26.61     -0.04   106     |  -25.34    -0.04    103
+           |    -0.00      0.00      0.00   101     |
+    2666.7 |    -0.00     26.93     -0.04   106     |  -36.87    -0.04    103
+           |    -0.00     -2.55     -0.03   104     |
+    3000.0 |    -0.00     23.93     -0.04   106     |  -45.89    -0.04    103
+           |    -0.00    -13.04     -0.03   104     |
+    3333.3 |    -0.00     19.65     -0.03   107     |  -55.65    -0.04    103
+           |    -0.00    -27.38     -0.04   103     |
+    3666.7 |    -0.00     16.37     -0.03   107     |  -64.22    -0.04    103
+           |    -0.00    -47.32     -0.04   103     |
+    4000.0 |    -0.00     11.46     -0.03   107     |  -71.76    -0.04    103
+           |    -0.00    -69.98     -0.04   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   111.19 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS   111.19 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   18
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  445.02/ 452.39( 4-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     333.3 |  291.37/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     666.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    1000.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1666.7 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2000.0 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2333.3 |  111.26/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2666.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    3000.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    3333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3666.7 |  279.88/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    4000.0 |  427.88/ 452.39( 4-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM START SUPPORT
+     VY =    48.07 MX =    -0.04 LD=  106
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM END SUPPORT
+     VY =   -43.84 MX =    -0.04 LD=  103
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      25   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00     17.52      0.04   110     |   66.22     0.07    112
+           |    -0.00    -61.06      0.07   112     |
+     291.7 |    -0.00     19.76      0.04   110     |   59.61     0.07    112
+           |    -0.00    -42.71      0.07   112     |
+     583.3 |    -0.00     20.78      0.04   110     |   51.96     0.07    112
+           |    -0.00    -26.40      0.07   112     |
+     875.0 |    -0.00     22.51      0.07   109     |   44.46     0.07    112
+           |    -0.00    -14.34      0.04   113     |
+    1166.7 |    -0.00     23.33      0.07   109     |   36.66     0.07    112
+           |    -0.00     -5.07      0.04   113     |
+    1458.3 |    -0.00     21.64      0.07   109     |   26.64     0.07    112
+           |    -0.00      0.00      0.00   101     |
+    1750.0 |    -0.00     18.41      0.11   101     |  -19.64     0.07    109
+           |    -0.00      0.00      0.00   101     |
+    2041.7 |    -0.00     19.24      0.07   112     |  -28.32     0.07    109
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     20.44      0.07   112     |  -38.34     0.07    109
+           |    -0.00     -3.75      0.04   110     |
+    2625.0 |    -0.00     19.13      0.07   112     |  -46.14     0.07    109
+           |    -0.00    -13.31      0.04   110     |
+    2916.7 |    -0.00     17.69      0.04   113     |  -53.64     0.07    109
+           |    -0.00    -26.45      0.07   109     |
+    3208.3 |    -0.00     16.38      0.04   113     |  -61.29     0.07    109
+           |    -0.00    -43.26      0.07   109     |
+    3500.0 |    -0.00     13.85      0.04   113     |  -67.90     0.07    109
+           |    -0.00    -62.10      0.07   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   104.31 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS   104.31 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   19
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  370.74/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     291.7 |  252.68/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     583.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     875.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1166.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1458.3 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1750.0 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2041.7 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2333.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2625.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2916.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3208.3 |  256.07/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3500.0 |  377.59/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM START SUPPORT
+     VY =    39.98 MX =     0.07 LD=  112
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM END SUPPORT
+     VY =   -41.12 MX =     0.07 LD=  109
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      26   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00     13.85     -0.04   110     |   67.90    -0.07    112
+           |    -0.00    -62.10     -0.07   112     |
+     291.7 |    -0.00     16.38     -0.04   110     |   61.29    -0.07    112
+           |    -0.00    -43.26     -0.07   112     |
+     583.3 |    -0.00     17.69     -0.04   110     |   53.64    -0.07    112
+           |    -0.00    -26.45     -0.07   112     |
+     875.0 |    -0.00     19.13     -0.07   109     |   46.14    -0.07    112
+           |    -0.00    -13.31     -0.04   113     |
+    1166.7 |    -0.00     20.44     -0.07   109     |   38.34    -0.07    112
+           |    -0.00     -3.75     -0.04   113     |
+    1458.3 |    -0.00     19.24     -0.07   109     |   28.32    -0.07    112
+           |    -0.00      0.00      0.00   101     |
+    1750.0 |    -0.00     18.41     -0.11   101     |   19.64    -0.07    112
+           |    -0.00      0.00      0.00   101     |
+    2041.7 |    -0.00     21.64     -0.07   112     |  -26.64    -0.07    109
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     23.33     -0.07   112     |  -36.66    -0.07    109
+           |    -0.00     -5.07     -0.04   110     |
+    2625.0 |    -0.00     22.51     -0.07   112     |  -44.46    -0.07    109
+           |    -0.00    -14.34     -0.04   110     |
+    2916.7 |    -0.00     20.78     -0.04   113     |  -51.96    -0.07    109
+           |    -0.00    -26.40     -0.07   109     |
+    3208.3 |    -0.00     19.76     -0.04   113     |  -59.61    -0.07    109
+           |    -0.00    -42.71     -0.07   109     |
+    3500.0 |    -0.00     17.52     -0.04   113     |  -66.22    -0.07    109
+           |    -0.00    -61.06     -0.07   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   104.31 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS   104.31 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   20
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  377.59/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     291.7 |  256.07/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     583.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     875.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1166.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1458.3 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1750.0 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2041.7 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2333.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2625.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2916.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3208.3 |  252.68/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3500.0 |  370.74/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM START SUPPORT
+     VY =    41.66 MX =    -0.07 LD=  112
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM END SUPPORT
+     VY =   -39.44 MX =    -0.07 LD=  109
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      27   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00     22.91      0.00   110     |   80.92     0.00    112
+           |    -0.00    -77.21      0.00   112     |
+     291.7 |    -0.00     25.26      0.00   110     |   74.16     0.00    112
+           |    -0.00    -54.60      0.00   112     |
+     583.3 |    -0.00     26.30      0.00   110     |   65.32     0.00    112
+           |    -0.00    -34.17      0.00   112     |
+     875.0 |    -0.00     28.21      0.00   109     |   56.79     0.00    112
+           |    -0.00    -18.66      0.00   113     |
+    1166.7 |    -0.00     29.33      0.00   109     |   47.66     0.00    112
+           |    -0.00     -6.77      0.00   113     |
+    1458.3 |    -0.00     27.32      0.00   109     |   34.09     0.00    112
+           |    -0.00      0.00      0.00   101     |
+    1750.0 |    -0.00     24.80      0.00   101     |  -24.89     0.00    109
+           |    -0.00      0.00      0.00   101     |
+    2041.7 |    -0.00     24.40      0.00   112     |  -35.80     0.00    109
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     25.91      0.00   112     |  -49.37     0.00    109
+           |    -0.00     -4.95      0.00   110     |
+    2625.0 |    -0.00     24.29      0.00   112     |  -58.50     0.00    109
+           |    -0.00    -17.14      0.00   110     |
+    2916.7 |    -0.00     22.68      0.00   113     |  -67.04     0.00    109
+           |    -0.00    -33.74      0.00   109     |
+    3208.3 |    -0.00     21.34      0.00   113     |  -75.87     0.00    109
+           |    -0.00    -54.67      0.00   109     |
+    3500.0 |    -0.00     18.69      0.00   113     |  -82.63     0.00    109
+           |    -0.00    -77.78      0.00   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   131.81 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS   131.81 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   21
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  477.02/ 565.49( 5-12d )|  238.51/ 339.29( 3-12d )|  8d  @  70 mm
+     291.7 |  325.74/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     583.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     875.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    1166.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    1458.3 |  120.25/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    1750.0 |  120.25/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    2041.7 |  120.25/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    2333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    2625.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    2916.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3208.3 |  326.19/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3500.0 |  480.99/ 565.49( 5-12d )|  240.49/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM START SUPPORT
+     VY =    52.15 MX =     0.00 LD=  112
+     Provide 2 Legged  8d  @ 200 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM END SUPPORT
+     VY =   -52.79 MX =     0.00 LD=  109
+     Provide 2 Legged  8d  @ 200 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 a)
+                              of IS-13920:2016 at member end.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      28   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00     18.69     -0.00   110     |   82.63    -0.00    112
+           |    -0.00    -77.78     -0.00   112     |
+     291.7 |    -0.00     21.34     -0.00   110     |   75.87    -0.00    112
+           |    -0.00    -54.67     -0.00   112     |
+     583.3 |    -0.00     22.68     -0.00   110     |   67.04    -0.00    112
+           |    -0.00    -33.74     -0.00   112     |
+     875.0 |    -0.00     24.29     -0.00   109     |   58.50    -0.00    112
+           |    -0.00    -17.14     -0.00   113     |
+    1166.7 |    -0.00     25.91     -0.00   109     |   49.37    -0.00    112
+           |    -0.00     -4.95     -0.00   113     |
+    1458.3 |    -0.00     24.40     -0.00   109     |   35.80    -0.00    112
+           |    -0.00      0.00      0.00   101     |
+    1750.0 |    -0.00     24.80     -0.00   101     |   24.89    -0.00    112
+           |    -0.00      0.00      0.00   101     |
+    2041.7 |    -0.00     27.32     -0.00   112     |  -34.09    -0.00    109
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     29.33     -0.00   112     |  -47.66    -0.00    109
+           |    -0.00     -6.77     -0.00   110     |
+    2625.0 |    -0.00     28.21     -0.00   112     |  -56.79    -0.00    109
+           |    -0.00    -18.66     -0.00   110     |
+    2916.7 |    -0.00     26.30     -0.00   113     |  -65.32    -0.00    109
+           |    -0.00    -34.17     -0.00   109     |
+    3208.3 |    -0.00     25.26     -0.00   113     |  -74.16    -0.00    109
+           |    -0.00    -54.60     -0.00   109     |
+    3500.0 |    -0.00     22.91     -0.00   113     |  -80.92    -0.00    109
+           |    -0.00    -77.21     -0.00   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   131.81 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS   131.81 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+     STAAD SPACE                                              -- PAGE NO.   22
+        
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   23
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  480.99/ 565.49( 5-12d )|  240.49/ 339.29( 3-12d )|  8d  @  70 mm
+     291.7 |  326.19/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     583.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     875.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    1166.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    1458.3 |  120.25/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    1750.0 |  120.25/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    2041.7 |  120.25/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    2333.3 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    2625.0 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @ 200 mm
+    2916.7 |  228.53/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3208.3 |  325.74/ 339.29( 3-12d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3500.0 |  477.02/ 565.49( 5-12d )|  238.51/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM START SUPPORT
+     VY =    53.87 MX =    -0.00 LD=  112
+     Provide 2 Legged  8d  @ 200 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1078.0 mm AWAY FROM END SUPPORT
+     VY =   -51.08 MX =    -0.00 LD=  109
+     Provide 2 Legged  8d  @ 200 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 a)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      29   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00     17.52     -0.04   110     |   66.22    -0.07    112
+           |    -0.00    -61.06     -0.07   112     |
+     291.7 |    -0.00     19.76     -0.04   110     |   59.61    -0.07    112
+           |    -0.00    -42.71     -0.07   112     |
+     583.3 |    -0.00     20.78     -0.04   110     |   51.96    -0.07    112
+           |    -0.00    -26.40     -0.07   112     |
+     875.0 |    -0.00     22.51     -0.07   109     |   44.46    -0.07    112
+           |    -0.00    -14.34     -0.04   113     |
+    1166.7 |    -0.00     23.33     -0.07   109     |   36.66    -0.07    112
+           |    -0.00     -5.07     -0.04   113     |
+    1458.3 |    -0.00     21.64     -0.07   109     |   26.64    -0.07    112
+           |    -0.00      0.00      0.00   101     |
+    1750.0 |    -0.00     18.41     -0.11   101     |  -19.64    -0.07    109
+           |    -0.00      0.00      0.00   101     |
+    2041.7 |    -0.00     19.24     -0.07   112     |  -28.32    -0.07    109
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     20.44     -0.07   112     |  -38.34    -0.07    109
+           |    -0.00     -3.75     -0.04   110     |
+    2625.0 |    -0.00     19.13     -0.07   112     |  -46.14    -0.07    109
+           |    -0.00    -13.31     -0.04   110     |
+    2916.7 |    -0.00     17.69     -0.04   113     |  -53.64    -0.07    109
+           |    -0.00    -26.45     -0.07   109     |
+    3208.3 |    -0.00     16.38     -0.04   113     |  -61.29    -0.07    109
+           |    -0.00    -43.26     -0.07   109     |
+    3500.0 |    -0.00     13.85     -0.04   113     |  -67.90    -0.07    109
+           |    -0.00    -62.10     -0.07   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   104.31 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS   104.31 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+     STAAD SPACE                                              -- PAGE NO.   24
+        
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   25
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  370.74/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     291.7 |  252.68/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     583.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     875.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1166.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1458.3 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1750.0 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2041.7 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2333.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2625.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2916.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3208.3 |  256.07/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3500.0 |  377.59/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM START SUPPORT
+     VY =    39.98 MX =    -0.07 LD=  112
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM END SUPPORT
+     VY =   -41.12 MX =    -0.07 LD=  109
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      30   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  450.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |    -0.00     13.85      0.04   110     |   67.90     0.07    112
+           |    -0.00    -62.10      0.07   112     |
+     291.7 |    -0.00     16.38      0.04   110     |   61.29     0.07    112
+           |    -0.00    -43.26      0.07   112     |
+     583.3 |    -0.00     17.69      0.04   110     |   53.64     0.07    112
+           |    -0.00    -26.45      0.07   112     |
+     875.0 |    -0.00     19.13      0.07   109     |   46.14     0.07    112
+           |    -0.00    -13.31      0.04   113     |
+    1166.7 |    -0.00     20.44      0.07   109     |   38.34     0.07    112
+           |    -0.00     -3.75      0.04   113     |
+    1458.3 |    -0.00     19.24      0.07   109     |   28.32     0.07    112
+           |    -0.00      0.00      0.00   101     |
+    1750.0 |    -0.00     18.41      0.11   101     |   19.64     0.07    112
+           |    -0.00      0.00      0.00   101     |
+    2041.7 |    -0.00     21.64      0.07   112     |  -26.64     0.07    109
+           |    -0.00      0.00      0.00   101     |
+    2333.3 |    -0.00     23.33      0.07   112     |  -36.66     0.07    109
+           |    -0.00     -5.07      0.04   110     |
+    2625.0 |    -0.00     22.51      0.07   112     |  -44.46     0.07    109
+           |    -0.00    -14.34      0.04   110     |
+    2916.7 |    -0.00     20.78      0.04   113     |  -51.96     0.07    109
+           |    -0.00    -26.40      0.07   109     |
+    3208.3 |    -0.00     19.76      0.04   113     |  -59.61     0.07    109
+           |    -0.00    -42.71      0.07   109     |
+    3500.0 |    -0.00     17.52      0.04   113     |  -66.22     0.07    109
+           |    -0.00    -61.06      0.07   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS   104.31 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS   104.31 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   26
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  377.59/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     291.7 |  256.07/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     583.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+     875.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1166.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1458.3 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    1750.0 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2041.7 |   94.40/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2333.3 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2625.0 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @ 140 mm
+    2916.7 |  228.53/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3208.3 |  252.68/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+    3500.0 |  370.74/ 402.12( 2-16d )|  228.53/ 339.29( 3-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM START SUPPORT
+     VY =    41.66 MX =     0.07 LD=  112
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   SHEAR DESIGN RESULTS AT  1074.0 mm AWAY FROM END SUPPORT
+     VY =   -39.44 MX =     0.07 LD=  109
+     Provide 2 Legged  8d  @ 140 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      31   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      4.78     -0.05   104     |   40.22    -0.08    106
+           |     0.00    -39.56     -0.08   106     |
+     333.3 |     0.00      7.82     -0.05   104     |   36.77    -0.08    106
+           |     0.00    -26.73     -0.08   106     |
+     666.7 |     0.00     10.04     -0.05   104     |   32.28    -0.08    106
+           |     0.00    -15.25     -0.08   106     |
+    1000.0 |     0.00     12.87     -0.08   103     |   26.60    -0.08    106
+           |     0.00     -6.81     -0.05   107     |
+    1333.3 |     0.00     15.16     -0.08   103     |   21.67    -0.08    106
+           |     0.00     -0.78     -0.05   107     |
+    1666.7 |     0.00     15.49     -0.08   103     |   14.22    -0.08    106
+           |     0.00      0.00      0.00   101     |
+    2000.0 |     0.00     15.44     -0.11   101     |   -9.27    -0.08    103
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     14.44     -0.08   106     |  -15.28    -0.08    103
+           |     0.00      0.00      0.00   101     |
+    2666.7 |     0.00     13.76     -0.08   106     |  -22.73    -0.08    103
+           |     0.00     -0.51     -0.05   104     |
+    3000.0 |     0.00     11.12     -0.08   106     |  -27.67    -0.08    103
+           |     0.00     -6.76     -0.05   104     |
+    3333.3 |     0.00      8.50     -0.05   107     |  -33.34    -0.08    103
+           |     0.00    -15.98     -0.08   103     |
+    3666.7 |     0.00      6.06     -0.05   107     |  -37.83    -0.08    103
+           |     0.00    -27.81     -0.08   103     |
+    4000.0 |     0.00      2.81     -0.05   107     |  -41.29    -0.08    103
+           |     0.00    -40.99     -0.08   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    64.97 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS    64.97 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   27
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  321.44/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     333.3 |  210.30/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1666.7 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2000.0 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2333.3 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3666.7 |  219.36/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    4000.0 |  334.40/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    28.53 MX =    -0.08 LD=  106
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -30.60 MX =    -0.08 LD=  103
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      32   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      2.81      0.05   104     |   41.29     0.08    106
+           |     0.00    -40.99      0.08   106     |
+     333.3 |     0.00      6.06      0.05   104     |   37.83     0.08    106
+           |     0.00    -27.81      0.08   106     |
+     666.7 |     0.00      8.50      0.05   104     |   33.34     0.08    106
+           |     0.00    -15.98      0.08   106     |
+    1000.0 |     0.00     11.12      0.08   103     |   27.67     0.08    106
+           |     0.00     -6.76      0.05   107     |
+    1333.3 |     0.00     13.76      0.08   103     |   22.73     0.08    106
+           |     0.00     -0.51      0.05   107     |
+    1666.7 |     0.00     14.44      0.08   103     |   15.28     0.08    106
+           |     0.00      0.00      0.00   101     |
+    2000.0 |     0.00     15.44      0.11   101     |    9.27     0.08    106
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     15.49      0.08   106     |  -14.22     0.08    103
+           |     0.00      0.00      0.00   101     |
+    2666.7 |     0.00     15.16      0.08   106     |  -21.67     0.08    103
+           |     0.00     -0.78      0.05   104     |
+    3000.0 |     0.00     12.87      0.08   106     |  -26.60     0.08    103
+           |     0.00     -6.81      0.05   104     |
+    3333.3 |     0.00     10.04      0.05   107     |  -32.28     0.08    103
+           |     0.00    -15.25      0.08   103     |
+    3666.7 |     0.00      7.82      0.05   107     |  -36.77     0.08    103
+           |     0.00    -26.73      0.08   103     |
+    4000.0 |     0.00      4.78      0.05   107     |  -40.22     0.08    103
+           |     0.00    -39.56      0.08   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    64.97 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS    64.97 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   28
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  334.40/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     333.3 |  219.36/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1666.7 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2000.0 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2333.3 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3666.7 |  210.30/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    4000.0 |  321.44/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    29.59 MX =     0.08 LD=  106
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -29.54 MX =     0.08 LD=  103
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      33   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      2.88     -0.00   104     |   53.95    -0.00    106
+           |     0.00    -52.56     -0.00   106     |
+     333.3 |     0.00      7.68     -0.00   104     |   50.34    -0.00    106
+           |     0.00    -35.19     -0.00   106     |
+     666.7 |     0.00     11.52     -0.00   104     |   44.67    -0.00    106
+           |     0.00    -19.41     -0.00   106     |
+    1000.0 |     0.00     16.34     -0.00   103     |   36.62    -0.00    106
+           |     0.00     -7.73     -0.00   107     |
+    1333.3 |     0.00     20.55     -0.00   103     |   30.06    -0.00    106
+           |     0.00      0.00      0.00   101     |
+    1666.7 |     0.00     22.23     -0.00   101     |   18.46    -0.00    106
+           |     0.00      0.00      0.00   101     |
+    2000.0 |     0.00     23.99     -0.00   101     |  -11.35    -0.00    103
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     21.57     -0.00   101     |  -20.07    -0.00    103
+           |     0.00      0.00      0.00   101     |
+    2666.7 |     0.00     18.66     -0.00   106     |  -31.67    -0.00    103
+           |     0.00      0.00      0.00   101     |
+    3000.0 |     0.00     13.91     -0.00   106     |  -38.23    -0.00    103
+           |     0.00     -7.87     -0.00   104     |
+    3333.3 |     0.00      9.40     -0.00   107     |  -46.28    -0.00    103
+           |     0.00    -20.73     -0.00   103     |
+    3666.7 |     0.00      5.24     -0.00   107     |  -51.95    -0.00    103
+           |     0.00    -37.04     -0.00   103     |
+    4000.0 |     0.00      0.12     -0.00   107     |  -55.55    -0.00    103
+           |     0.00    -54.96     -0.00   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    94.86 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS    94.18 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   29
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  438.55/ 452.39( 4-12d )|  219.28/ 226.19( 2-12d )| 10d  @  70 mm
+     333.3 |  279.48/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )| 10d  @  70 mm
+     666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    1000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    1333.3 |  115.49/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    1666.7 |  115.49/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    2000.0 |  115.49/ 226.19( 2-12d )|  185.26/ 226.19( 2-12d )| 10d  @ 150 mm
+    2333.3 |  115.49/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    2666.7 |  115.49/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    3000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    3333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    3666.7 |  295.68/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )| 10d  @  70 mm
+    4000.0 |  461.96/ 565.49( 5-12d )|  230.98/ 339.29( 3-12d )| 10d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    39.18 MX =    -0.00 LD=  106
+     Provide 2 Legged  8d  @ 150 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -42.82 MX =    -0.00 LD=  103
+     Provide 2 Legged  8d  @ 150 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 a)
+                              of IS-13920:2016 at member end.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      34   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      0.12      0.00   104     |   55.55     0.00    106
+           |     0.00    -54.96      0.00   106     |
+     333.3 |     0.00      5.24      0.00   104     |   51.95     0.00    106
+           |     0.00    -37.04      0.00   106     |
+     666.7 |     0.00      9.40      0.00   104     |   46.28     0.00    106
+           |     0.00    -20.73      0.00   106     |
+    1000.0 |     0.00     13.91      0.00   103     |   38.23     0.00    106
+           |     0.00     -7.87      0.00   107     |
+    1333.3 |     0.00     18.66      0.00   103     |   31.67     0.00    106
+           |     0.00      0.00      0.00   101     |
+    1666.7 |     0.00     21.57      0.00   101     |   20.07     0.00    106
+           |     0.00      0.00      0.00   101     |
+    2000.0 |     0.00     23.99      0.00   101     |   11.35     0.00    106
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     22.23      0.00   101     |  -18.46     0.00    103
+           |     0.00      0.00      0.00   101     |
+    2666.7 |     0.00     20.55      0.00   106     |  -30.06     0.00    103
+           |     0.00      0.00      0.00   101     |
+    3000.0 |     0.00     16.34      0.00   106     |  -36.62     0.00    103
+           |     0.00     -7.73      0.00   104     |
+    3333.3 |     0.00     11.52      0.00   107     |  -44.67     0.00    103
+           |     0.00    -19.41      0.00   103     |
+    3666.7 |     0.00      7.68      0.00   107     |  -50.34     0.00    103
+           |     0.00    -35.19      0.00   103     |
+    4000.0 |     0.00      2.88      0.00   107     |  -53.95     0.00    103
+           |     0.00    -52.56      0.00   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    94.18 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS    94.86 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+     STAAD SPACE                                              -- PAGE NO.   30
+        
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   31
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  461.96/ 565.49( 5-12d )|  230.98/ 339.29( 3-12d )| 10d  @  70 mm
+     333.3 |  295.68/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )| 10d  @  70 mm
+     666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    1000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    1333.3 |  115.49/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    1666.7 |  115.49/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    2000.0 |  115.49/ 226.19( 2-12d )|  185.26/ 226.19( 2-12d )| 10d  @ 150 mm
+    2333.3 |  115.49/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    2666.7 |  115.49/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    3000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    3333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )| 10d  @ 150 mm
+    3666.7 |  279.48/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )| 10d  @  70 mm
+    4000.0 |  438.55/ 452.39( 4-12d )|  219.28/ 226.19( 2-12d )| 10d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    40.79 MX =     0.00 LD=  106
+     Provide 2 Legged  8d  @ 150 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -41.21 MX =     0.00 LD=  103
+     Provide 2 Legged  8d  @ 150 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 a)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      35   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      4.78      0.05   104     |   40.22     0.08    106
+           |     0.00    -39.56      0.08   106     |
+     333.3 |     0.00      7.82      0.05   104     |   36.77     0.08    106
+           |     0.00    -26.73      0.08   106     |
+     666.7 |     0.00     10.04      0.05   104     |   32.28     0.08    106
+           |     0.00    -15.25      0.08   106     |
+    1000.0 |     0.00     12.87      0.08   103     |   26.60     0.08    106
+           |     0.00     -6.81      0.05   107     |
+    1333.3 |     0.00     15.16      0.08   103     |   21.67     0.08    106
+           |     0.00     -0.78      0.05   107     |
+    1666.7 |     0.00     15.49      0.08   103     |   14.22     0.08    106
+           |     0.00      0.00      0.00   101     |
+    2000.0 |     0.00     15.44      0.11   101     |   -9.27     0.08    103
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     14.44      0.08   106     |  -15.28     0.08    103
+           |     0.00      0.00      0.00   101     |
+    2666.7 |     0.00     13.76      0.08   106     |  -22.73     0.08    103
+           |     0.00     -0.51      0.05   104     |
+    3000.0 |     0.00     11.12      0.08   106     |  -27.67     0.08    103
+           |     0.00     -6.76      0.05   104     |
+    3333.3 |     0.00      8.50      0.05   107     |  -33.34     0.08    103
+           |     0.00    -15.98      0.08   103     |
+    3666.7 |     0.00      6.06      0.05   107     |  -37.83     0.08    103
+           |     0.00    -27.81      0.08   103     |
+    4000.0 |     0.00      2.81      0.05   107     |  -41.29     0.08    103
+           |     0.00    -40.99      0.08   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    64.97 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS    64.97 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+     STAAD SPACE                                              -- PAGE NO.   32
+        
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   33
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  321.44/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     333.3 |  210.30/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1666.7 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2000.0 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2333.3 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3666.7 |  219.36/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    4000.0 |  334.40/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    28.53 MX =     0.08 LD=  106
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -30.60 MX =     0.08 LD=  103
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      36   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  4000.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      2.81     -0.05   104     |   41.29    -0.08    106
+           |     0.00    -40.99     -0.08   106     |
+     333.3 |     0.00      6.06     -0.05   104     |   37.83    -0.08    106
+           |     0.00    -27.81     -0.08   106     |
+     666.7 |     0.00      8.50     -0.05   104     |   33.34    -0.08    106
+           |     0.00    -15.98     -0.08   106     |
+    1000.0 |     0.00     11.12     -0.08   103     |   27.67    -0.08    106
+           |     0.00     -6.76     -0.05   107     |
+    1333.3 |     0.00     13.76     -0.08   103     |   22.73    -0.08    106
+           |     0.00     -0.51     -0.05   107     |
+    1666.7 |     0.00     14.44     -0.08   103     |   15.28    -0.08    106
+           |     0.00      0.00      0.00   101     |
+    2000.0 |     0.00     15.44     -0.11   101     |    9.27    -0.08    106
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     15.49     -0.08   106     |  -14.22    -0.08    103
+           |     0.00      0.00      0.00   101     |
+    2666.7 |     0.00     15.16     -0.08   106     |  -21.67    -0.08    103
+           |     0.00     -0.78     -0.05   104     |
+    3000.0 |     0.00     12.87     -0.08   106     |  -26.60    -0.08    103
+           |     0.00     -6.81     -0.05   104     |
+    3333.3 |     0.00     10.04     -0.05   107     |  -32.28    -0.08    103
+           |     0.00    -15.25     -0.08   103     |
+    3666.7 |     0.00      7.82     -0.05   107     |  -36.77    -0.08    103
+           |     0.00    -26.73     -0.08   103     |
+    4000.0 |     0.00      4.78     -0.05   107     |  -40.22    -0.08    103
+           |     0.00    -39.56     -0.08   103     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    64.97 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  4000.0 IS    64.97 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   34
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  334.40/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     333.3 |  219.36/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1666.7 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2000.0 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2333.3 |   83.60/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2666.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3000.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    3666.7 |  210.30/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    4000.0 |  321.44/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    29.59 MX =    -0.08 LD=  106
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -29.54 MX =    -0.08 LD=  103
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      37   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      8.32      0.08   110     |   36.46     0.13    112
+           |     0.00    -33.83      0.13   112     |
+     291.7 |     0.00      9.76      0.08   110     |   33.42     0.13    112
+           |     0.00    -23.64      0.13   112     |
+     583.3 |     0.00     10.62      0.08   110     |   29.34     0.13    112
+           |     0.00    -14.45      0.13   112     |
+     875.0 |     0.00     11.86      0.13   109     |   25.41     0.13    112
+           |     0.00     -7.50      0.08   113     |
+    1166.7 |     0.00     12.78      0.13   109     |   21.19     0.13    112
+           |     0.00     -2.29      0.08   113     |
+    1458.3 |     0.00     12.23      0.13   109     |   14.74     0.13    112
+           |     0.00      0.00      0.00   101     |
+    1750.0 |     0.00     11.23      0.18   101     |  -10.37     0.13    109
+           |     0.00      0.00      0.00   101     |
+    2041.7 |     0.00     11.23      0.13   112     |  -15.48     0.13    109
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     11.57      0.13   112     |  -21.93     0.13    109
+           |     0.00     -1.77      0.08   110     |
+    2625.0 |     0.00     10.43      0.13   112     |  -26.15     0.13    109
+           |     0.00     -7.11      0.08   110     |
+    2916.7 |     0.00      9.32      0.08   113     |  -30.08     0.13    109
+           |     0.00    -14.53      0.13   109     |
+    3208.3 |     0.00      8.34      0.08   113     |  -34.16     0.13    109
+           |     0.00    -23.94      0.13   109     |
+    3500.0 |     0.00      6.76      0.08   113     |  -37.20     0.13    109
+           |     0.00    -34.35      0.13   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    61.57 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS    61.57 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   35
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  269.49/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     291.7 |  184.06/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     583.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     875.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1166.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1458.3 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1750.0 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2041.7 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2625.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2916.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3208.3 |  186.50/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3500.0 |  273.93/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    25.48 MX =     0.13 LD=  112
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -26.07 MX =     0.13 LD=  109
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      38   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      6.76     -0.08   110     |   37.20    -0.13    112
+           |     0.00    -34.35     -0.13   112     |
+     291.7 |     0.00      8.34     -0.08   110     |   34.16    -0.13    112
+           |     0.00    -23.94     -0.13   112     |
+     583.3 |     0.00      9.32     -0.08   110     |   30.08    -0.13    112
+           |     0.00    -14.53     -0.13   112     |
+     875.0 |     0.00     10.43     -0.13   109     |   26.15    -0.13    112
+           |     0.00     -7.11     -0.08   113     |
+    1166.7 |     0.00     11.57     -0.13   109     |   21.93    -0.13    112
+           |     0.00     -1.77     -0.08   113     |
+    1458.3 |     0.00     11.23     -0.13   109     |   15.48    -0.13    112
+           |     0.00      0.00      0.00   101     |
+    1750.0 |     0.00     11.23     -0.18   101     |   10.37    -0.13    112
+           |     0.00      0.00      0.00   101     |
+    2041.7 |     0.00     12.23     -0.13   112     |  -14.74    -0.13    109
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     12.78     -0.13   112     |  -21.19    -0.13    109
+           |     0.00     -2.29     -0.08   110     |
+    2625.0 |     0.00     11.86     -0.13   112     |  -25.41    -0.13    109
+           |     0.00     -7.50     -0.08   110     |
+    2916.7 |     0.00     10.62     -0.08   113     |  -29.34    -0.13    109
+           |     0.00    -14.45     -0.13   109     |
+    3208.3 |     0.00      9.76     -0.08   113     |  -33.42    -0.13    109
+           |     0.00    -23.64     -0.13   109     |
+    3500.0 |     0.00      8.32     -0.08   113     |  -36.46    -0.13    109
+           |     0.00    -33.83     -0.13   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    61.57 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS    61.57 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   36
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  273.93/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     291.7 |  186.50/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     583.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     875.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1166.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1458.3 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1750.0 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2041.7 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2625.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2916.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3208.3 |  184.06/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3500.0 |  269.49/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    26.22 MX =    -0.13 LD=  112
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -25.33 MX =    -0.13 LD=  109
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      39   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      9.40      0.00   110     |   48.53     0.00    112
+           |     0.00    -45.19      0.00   112     |
+     291.7 |     0.00     11.66      0.00   110     |   45.34     0.00    112
+           |     0.00    -31.50      0.00   112     |
+     583.3 |     0.00     13.23      0.00   110     |   40.08     0.00    112
+           |     0.00    -18.95      0.00   112     |
+     875.0 |     0.00     15.41      0.00   109     |   35.11     0.00    112
+           |     0.00     -9.40      0.00   113     |
+    1166.7 |     0.00     17.31      0.00   109     |   29.56     0.00    112
+           |     0.00     -2.31      0.00   113     |
+    1458.3 |     0.00     17.12      0.00   109     |   19.56     0.00    112
+           |     0.00      0.00      0.00   101     |
+    1750.0 |     0.00     17.15      0.00   101     |  -13.30     0.00    109
+           |     0.00      0.00      0.00   101     |
+    2041.7 |     0.00     15.82      0.00   112     |  -20.63     0.00    109
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     15.71      0.00   112     |  -30.63     0.00    109
+           |     0.00     -1.70      0.00   110     |
+    2625.0 |     0.00     13.49      0.00   112     |  -36.19     0.00    109
+           |     0.00     -8.98      0.00   110     |
+    2916.7 |     0.00     11.50      0.00   113     |  -41.15     0.00    109
+           |     0.00    -19.22      0.00   109     |
+    3208.3 |     0.00      9.74      0.00   113     |  -46.42     0.00    109
+           |     0.00    -32.08      0.00   109     |
+    3500.0 |     0.00      7.29      0.00   113     |  -49.60     0.00    109
+           |     0.00    -46.08      0.00   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    80.68 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS    80.68 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   37
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  371.84/ 402.12( 2-16d )|  185.92/ 226.19( 2-12d )|  8d  @  70 mm
+     291.7 |  249.64/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     583.3 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     875.0 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    1166.7 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    1458.3 |   95.05/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    1750.0 |   95.05/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    2041.7 |   95.05/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    2333.3 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    2625.0 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    2916.7 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3208.3 |  254.65/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3500.0 |  380.21/ 402.12( 2-16d )|  190.11/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   874.0 mm AWAY FROM START SUPPORT
+     VY =    35.21 MX =     0.00 LD=  112
+     Provide 2 Legged  8d  @  70 mm c/c
+
+   SHEAR DESIGN RESULTS AT   874.0 mm AWAY FROM END SUPPORT
+     VY =   -35.98 MX =     0.00 LD=  109
+     Provide 2 Legged  8d  @  70 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 a)
+                              of IS-13920:2016 at member end.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      40   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      7.29     -0.00   110     |   49.60    -0.00    112
+           |     0.00    -46.08     -0.00   112     |
+     291.7 |     0.00      9.74     -0.00   110     |   46.42    -0.00    112
+           |     0.00    -32.08     -0.00   112     |
+     583.3 |     0.00     11.50     -0.00   110     |   41.15    -0.00    112
+           |     0.00    -19.22     -0.00   112     |
+     875.0 |     0.00     13.49     -0.00   109     |   36.19    -0.00    112
+           |     0.00     -8.98     -0.00   113     |
+    1166.7 |     0.00     15.71     -0.00   109     |   30.63    -0.00    112
+           |     0.00     -1.70     -0.00   113     |
+    1458.3 |     0.00     15.82     -0.00   109     |   20.63    -0.00    112
+           |     0.00      0.00      0.00   101     |
+    1750.0 |     0.00     17.15     -0.00   101     |   13.30    -0.00    112
+           |     0.00      0.00      0.00   101     |
+    2041.7 |     0.00     17.12     -0.00   112     |  -19.56    -0.00    109
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     17.31     -0.00   112     |  -29.56    -0.00    109
+           |     0.00     -2.31     -0.00   110     |
+    2625.0 |     0.00     15.41     -0.00   112     |  -35.11    -0.00    109
+           |     0.00     -9.40     -0.00   110     |
+    2916.7 |     0.00     13.23     -0.00   113     |  -40.08    -0.00    109
+           |     0.00    -18.95     -0.00   109     |
+    3208.3 |     0.00     11.66     -0.00   113     |  -45.34    -0.00    109
+           |     0.00    -31.50     -0.00   109     |
+    3500.0 |     0.00      9.40     -0.00   113     |  -48.53    -0.00    109
+           |     0.00    -45.19     -0.00   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    80.68 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS    80.68 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+     STAAD SPACE                                              -- PAGE NO.   38
+        
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   39
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  380.21/ 402.12( 2-16d )|  190.11/ 226.19( 2-12d )|  8d  @  70 mm
+     291.7 |  254.65/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     583.3 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     875.0 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    1166.7 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    1458.3 |   95.05/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    1750.0 |   95.05/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    2041.7 |   95.05/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    2333.3 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    2625.0 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @ 150 mm
+    2916.7 |  173.33/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3208.3 |  249.64/ 402.12( 2-16d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3500.0 |  371.84/ 402.12( 2-16d )|  185.92/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   874.0 mm AWAY FROM START SUPPORT
+     VY =    36.28 MX =    -0.00 LD=  112
+     Provide 2 Legged  8d  @  70 mm c/c
+
+   SHEAR DESIGN RESULTS AT   874.0 mm AWAY FROM END SUPPORT
+     VY =   -34.91 MX =    -0.00 LD=  109
+     Provide 2 Legged  8d  @  70 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 a)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      41   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      8.32     -0.08   110     |   36.46    -0.13    112
+           |     0.00    -33.83     -0.13   112     |
+     291.7 |     0.00      9.76     -0.08   110     |   33.42    -0.13    112
+           |     0.00    -23.64     -0.13   112     |
+     583.3 |     0.00     10.62     -0.08   110     |   29.34    -0.13    112
+           |     0.00    -14.45     -0.13   112     |
+     875.0 |     0.00     11.86     -0.13   109     |   25.41    -0.13    112
+           |     0.00     -7.50     -0.08   113     |
+    1166.7 |     0.00     12.78     -0.13   109     |   21.19    -0.13    112
+           |     0.00     -2.29     -0.08   113     |
+    1458.3 |     0.00     12.23     -0.13   109     |   14.74    -0.13    112
+           |     0.00      0.00      0.00   101     |
+    1750.0 |     0.00     11.23     -0.18   101     |  -10.37    -0.13    109
+           |     0.00      0.00      0.00   101     |
+    2041.7 |     0.00     11.23     -0.13   112     |  -15.48    -0.13    109
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     11.57     -0.13   112     |  -21.93    -0.13    109
+           |     0.00     -1.77     -0.08   110     |
+    2625.0 |     0.00     10.43     -0.13   112     |  -26.15    -0.13    109
+           |     0.00     -7.11     -0.08   110     |
+    2916.7 |     0.00      9.32     -0.08   113     |  -30.08    -0.13    109
+           |     0.00    -14.53     -0.13   109     |
+    3208.3 |     0.00      8.34     -0.08   113     |  -34.16    -0.13    109
+           |     0.00    -23.94     -0.13   109     |
+    3500.0 |     0.00      6.76     -0.08   113     |  -37.20    -0.13    109
+           |     0.00    -34.35     -0.13   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    61.57 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS    61.57 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+     STAAD SPACE                                              -- PAGE NO.   40
+        
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   41
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  269.49/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     291.7 |  184.06/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     583.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     875.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1166.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1458.3 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1750.0 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2041.7 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2625.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2916.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3208.3 |  186.50/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3500.0 |  273.93/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    25.48 MX =    -0.13 LD=  112
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -26.07 MX =    -0.13 LD=  109
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ============================================================================
+                   IS-13920   L I M I T    S T A T E    D E S I G N
+                  B E A M  N O.      42   D E S I G N  R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+       LENGTH:  3500.0 mm      SIZE:   230.0 mm X  350.0 mm   COVER: 30.0 mm
+
+
+                          DESIGN LOAD SUMMARY (KN MET)
+   ----------------------------------------------------------------------------
+   SECTION |FLEXURE  (Maxm. Sagging/Hogging moments)|           SHEAR
+   (in mm) |     P        MZ        MX   Load Case  |    VY       MX  Load Case
+   ----------------------------------------------------------------------------
+       0.0 |     0.00      6.76      0.08   110     |   37.20     0.13    112
+           |     0.00    -34.35      0.13   112     |
+     291.7 |     0.00      8.34      0.08   110     |   34.16     0.13    112
+           |     0.00    -23.94      0.13   112     |
+     583.3 |     0.00      9.32      0.08   110     |   30.08     0.13    112
+           |     0.00    -14.53      0.13   112     |
+     875.0 |     0.00     10.43      0.13   109     |   26.15     0.13    112
+           |     0.00     -7.11      0.08   113     |
+    1166.7 |     0.00     11.57      0.13   109     |   21.93     0.13    112
+           |     0.00     -1.77      0.08   113     |
+    1458.3 |     0.00     11.23      0.13   109     |   15.48     0.13    112
+           |     0.00      0.00      0.00   101     |
+    1750.0 |     0.00     11.23      0.18   101     |   10.37     0.13    112
+           |     0.00      0.00      0.00   101     |
+    2041.7 |     0.00     12.23      0.13   112     |  -14.74     0.13    109
+           |     0.00      0.00      0.00   101     |
+    2333.3 |     0.00     12.78      0.13   112     |  -21.19     0.13    109
+           |     0.00     -2.29      0.08   110     |
+    2625.0 |     0.00     11.86      0.13   112     |  -25.41     0.13    109
+           |     0.00     -7.50      0.08   110     |
+    2916.7 |     0.00     10.62      0.08   113     |  -29.34     0.13    109
+           |     0.00    -14.45      0.13   109     |
+    3208.3 |     0.00      9.76      0.08   113     |  -33.42     0.13    109
+           |     0.00    -23.64      0.13   109     |
+    3500.0 |     0.00      8.32      0.08   113     |  -36.46     0.13    109
+           |     0.00    -33.83      0.13   109     |
+   *** DESIGN SHEAR FORCE AT SECTION     0.0 IS    61.57 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   *** DESIGN SHEAR FORCE AT SECTION  3500.0 IS    61.57 KN.
+                                                - CLAUSE 6.3.3 OF IS-13920
+   Note : 
+
+   MOMENT OF RESISTANCE IS CALCULATED BASED ON THE AREA OF STEEL PROVIDED.
+   IF AREA OF STEEL PROVIDED IS MUCH HIGHER COMPARED TO AREA OF STEEL
+   REQUIRED MOMENT OF RESISTANCE WILL INCREASE WHICH MAY INCREASE DESIGN
+   SHEAR FORCE.
+   ----------------------------------------------------------------------------
+     STAAD SPACE                                              -- PAGE NO.   42
+        
+
+                        SUMMARY OF REINF. AREA (Sq.mm)
+
+   ----------------------------------------------------------------------------
+   SECTION |          TOP            |         BOTTOM          |    STIRRUPS
+   (in mm) | Reqd./Provided reinf.   | Reqd./Provided reinf.   |   (2 legged)
+   ----------------------------------------------------------------------------
+       0.0 |  273.93/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     291.7 |  186.50/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     583.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+     875.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1166.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1458.3 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    1750.0 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2041.7 |   68.48/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2333.3 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2625.0 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @ 110 mm
+    2916.7 |  173.33/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3208.3 |  184.06/ 226.19( 2-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+    3500.0 |  269.49/ 339.29( 3-12d )|  173.33/ 226.19( 2-12d )|  8d  @  70 mm
+   ----------------------------------------------------------------------------
+   SHEAR DESIGN RESULTS AT DISTANCE 2d (TWICE EFFECTIVE DEPTH) FROM FACE OF THE SUPPORT
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM START SUPPORT
+     VY =    26.22 MX =     0.13 LD=  112
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   SHEAR DESIGN RESULTS AT   878.0 mm AWAY FROM END SUPPORT
+     VY =   -25.33 MX =     0.13 LD=  109
+     Provide 2 Legged  8d  @ 110 mm c/c
+
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member start.
+   CONFINING REINFORCEMENT  : Provide reinforcement as per CL 9.2.1 b)
+                              of IS-13920:2016 at member end.
+
+   ********************END OF BEAM DESIGN RESULTS********************
+
+
+   165. DESIGN COLUMN 1 TO 18
+     STAAD SPACE                                              -- PAGE NO.   43
+        
+COLUMN
+
+          ==========================================================
+          IS-13920:2016   C O L U M N   D E S I G N   R E S U L T S
+          ==========================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.      1  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  110 END JOINT:     1  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     101.41
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :       4.75              51.77
+   MOMENTS DUE TO MINIMUM ECC.         :       2.30               2.30
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :       4.75              51.77
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   25.90               4.83   
+     STAAD SPACE                                              -- PAGE NO.   44
+        
+
+   REQD. STEEL AREA   :      370.47 Sq.mm.
+   REQD. CONCRETE AREA:    46308.20 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2947.26   Muz1 :     59.31   Muy1 :     59.31
+
+   INTERACTION RATIO: 0.95 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    10 Puz :   3141.61   Muz :    126.92   Muy :    126.92   IR: 0.25
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.      2  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  110 END JOINT:     2  SHORT COLUMN
+
+     STAAD SPACE                                              -- PAGE NO.   45
+        
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     160.78
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :       0.00              66.95
+   MOMENTS DUE TO MINIMUM ECC.         :       3.64               3.64
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :       3.64              66.95
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   33.21               0.00   
+
+   REQD. STEEL AREA   :      362.54 Sq.mm.
+   REQD. CONCRETE AREA:    45317.65 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2944.37   Muz1 :     70.90   Muy1 :     70.90
+
+   INTERACTION RATIO: 1.00 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    11 Puz :   3141.61   Muz :    150.32   Muy :    150.32   IR: 0.16
+   ============================================================================
+
+     STAAD SPACE                                              -- PAGE NO.   46
+        
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.      3  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  110 END JOINT:     3  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     101.41
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :       4.75              51.77
+   MOMENTS DUE TO MINIMUM ECC.         :       2.30               2.30
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :       4.75              51.77
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   25.90               4.83   
+
+   REQD. STEEL AREA   :      370.47 Sq.mm.
+   REQD. CONCRETE AREA:    46308.19 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+     STAAD SPACE                                              -- PAGE NO.   47
+        
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2947.26   Muz1 :     59.31   Muy1 :     59.31
+
+   INTERACTION RATIO: 0.95 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    12 Puz :   3141.61   Muz :    126.92   Muy :    126.92   IR: 0.25
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.      4  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  107 END JOINT:     4  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     222.02
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      77.04               0.00
+   MOMENTS DUE TO MINIMUM ECC.         :       5.03               5.03
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      77.04               5.03
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   28.70               5.87   
+     STAAD SPACE                                              -- PAGE NO.   48
+        
+
+   REQD. STEEL AREA   :      381.39 Sq.mm.
+   REQD. CONCRETE AREA:    47673.79 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2951.23   Muz1 :     84.68   Muy1 :     84.68
+
+   INTERACTION RATIO: 0.97 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    13 Puz :   3141.61   Muz :    148.67   Muy :    148.67   IR: 0.21
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.      5  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  101 END JOINT:     5  SHORT COLUMN
+
+     STAAD SPACE                                              -- PAGE NO.   49
+        
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     551.48
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :       0.00               0.00
+   MOMENTS DUE TO MINIMUM ECC.         :      12.50              12.50
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      12.50              12.50
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   37.01               0.00   
+
+   REQD. STEEL AREA   :      395.68 Sq.mm.
+   REQD. CONCRETE AREA:    49460.26 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2956.43   Muz1 :    139.91   Muy1 :    139.91
+
+   INTERACTION RATIO: 0.18 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:     5 Puz :   3141.61   Muz :    181.37   Muy :    181.37   IR: 0.14
+   ============================================================================
+
+     STAAD SPACE                                              -- PAGE NO.   50
+        
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.      6  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  104 END JOINT:     6  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     222.02
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      77.04               0.00
+   MOMENTS DUE TO MINIMUM ECC.         :       5.03               5.03
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      77.04               5.03
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   28.70               5.87   
+
+   REQD. STEEL AREA   :      381.39 Sq.mm.
+   REQD. CONCRETE AREA:    47673.79 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+     STAAD SPACE                                              -- PAGE NO.   51
+        
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2951.23   Muz1 :     84.68   Muy1 :     84.68
+
+   INTERACTION RATIO: 0.97 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    15 Puz :   3141.61   Muz :    148.67   Muy :    148.67   IR: 0.21
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.      7  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  113 END JOINT:     7  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     101.41
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :       4.75              51.77
+   MOMENTS DUE TO MINIMUM ECC.         :       2.30               2.30
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :       4.75              51.77
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   18.79               4.78   
+     STAAD SPACE                                              -- PAGE NO.   52
+        
+
+   REQD. STEEL AREA   :      370.47 Sq.mm.
+   REQD. CONCRETE AREA:    46308.20 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2947.26   Muz1 :     59.31   Muy1 :     59.31
+
+   INTERACTION RATIO: 0.95 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    16 Puz :   3141.61   Muz :    126.92   Muy :    126.92   IR: 0.25
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.      8  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  113 END JOINT:     8  SHORT COLUMN
+
+     STAAD SPACE                                              -- PAGE NO.   53
+        
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     160.78
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :       0.00              66.95
+   MOMENTS DUE TO MINIMUM ECC.         :       3.64               3.64
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :       3.64              66.95
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   24.65               0.00   
+
+   REQD. STEEL AREA   :      362.54 Sq.mm.
+   REQD. CONCRETE AREA:    45317.65 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2944.37   Muz1 :     70.90   Muy1 :     70.90
+
+   INTERACTION RATIO: 1.00 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    17 Puz :   3141.61   Muz :    150.32   Muy :    150.32   IR: 0.16
+   ============================================================================
+
+     STAAD SPACE                                              -- PAGE NO.   54
+        
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.      9  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  113 END JOINT:     9  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     101.41
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :       4.75              51.77
+   MOMENTS DUE TO MINIMUM ECC.         :       2.30               2.30
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :       4.75              51.77
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   18.79               4.78   
+
+   REQD. STEEL AREA   :      370.47 Sq.mm.
+   REQD. CONCRETE AREA:    46308.19 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+     STAAD SPACE                                              -- PAGE NO.   55
+        
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2947.26   Muz1 :     59.31   Muy1 :     59.31
+
+   INTERACTION RATIO: 0.95 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    18 Puz :   3141.61   Muz :    126.92   Muy :    126.92   IR: 0.25
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.     10  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  106 END JOINT:    19  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :      66.71
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      39.36              16.06
+   MOMENTS DUE TO MINIMUM ECC.         :       1.51               1.51
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      39.36              16.06
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   19.34               8.52   
+     STAAD SPACE                                              -- PAGE NO.   56
+        
+
+   REQD. STEEL AREA   :      438.34 Sq.mm.
+   REQD. CONCRETE AREA:    54793.10 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2971.95   Muz1 :     58.16   Muy1 :     58.16
+
+   INTERACTION RATIO: 0.95 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    19 Puz :   3141.61   Muz :     99.34   Muy :     99.34   IR: 0.44
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.     11  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  104 END JOINT:    11  SHORT COLUMN
+
+     STAAD SPACE                                              -- PAGE NO.   57
+        
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :      77.40
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      40.03              11.75
+   MOMENTS DUE TO MINIMUM ECC.         :       1.75               1.75
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      40.03              11.75
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   25.73               0.00   
+
+   REQD. STEEL AREA   :      381.24 Sq.mm.
+   REQD. CONCRETE AREA:    47655.16 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2951.18   Muz1 :     55.21   Muy1 :     55.21
+
+   INTERACTION RATIO: 0.94 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    20 Puz :   3141.61   Muz :    109.53   Muy :    109.53   IR: 0.27
+   ============================================================================
+
+     STAAD SPACE                                              -- PAGE NO.   58
+        
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.     12  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  103 END JOINT:    21  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :      66.71
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      39.36              16.06
+   MOMENTS DUE TO MINIMUM ECC.         :       1.51               1.51
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      39.36              16.06
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   19.34               8.52   
+
+   REQD. STEEL AREA   :      438.34 Sq.mm.
+   REQD. CONCRETE AREA:    54793.10 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+     STAAD SPACE                                              -- PAGE NO.   59
+        
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2971.95   Muz1 :     58.16   Muy1 :     58.16
+
+   INTERACTION RATIO: 0.95 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    21 Puz :   3141.61   Muz :     99.34   Muy :     99.34   IR: 0.44
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.     13  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  109 END JOINT:    22  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :      97.80
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      30.78              33.91
+   MOMENTS DUE TO MINIMUM ECC.         :       2.22               2.22
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      30.78              33.91
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   24.27              11.47   
+     STAAD SPACE                                              -- PAGE NO.   60
+        
+
+   REQD. STEEL AREA   :      469.75 Sq.mm.
+   REQD. CONCRETE AREA:    58718.21 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2983.37   Muz1 :     67.54   Muy1 :     67.54
+
+   INTERACTION RATIO: 0.96 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    22 Puz :   3141.61   Muz :    108.89   Muy :    108.89   IR: 0.37
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.     14  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  110 END JOINT:    14  SHORT COLUMN
+
+     STAAD SPACE                                              -- PAGE NO.   61
+        
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :     115.09
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :       0.00              50.57
+   MOMENTS DUE TO MINIMUM ECC.         :       2.61               2.61
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :       2.61              50.57
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   31.62               0.00   
+
+   REQD. STEEL AREA   :      287.41 Sq.mm.
+   REQD. CONCRETE AREA:    35925.85 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2917.04   Muz1 :     54.63   Muy1 :     54.63
+
+   INTERACTION RATIO: 0.97 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    14 Puz :   3141.61   Muz :    130.06   Muy :    130.06   IR: 0.08
+   ============================================================================
+
+     STAAD SPACE                                              -- PAGE NO.   62
+        
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.     15  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  109 END JOINT:    24  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :      97.80
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      30.78              33.91
+   MOMENTS DUE TO MINIMUM ECC.         :       2.22               2.22
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      30.78              33.91
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :   24.27              11.47   
+
+   REQD. STEEL AREA   :      469.75 Sq.mm.
+   REQD. CONCRETE AREA:    58718.19 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+     STAAD SPACE                                              -- PAGE NO.   63
+        
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2983.37   Muz1 :     67.54   Muy1 :     67.54
+
+   INTERACTION RATIO: 0.96 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    24 Puz :   3141.61   Muz :    108.89   Muy :    108.89   IR: 0.37
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.     16  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  106 END JOINT:    25  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :      66.71
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      39.36              16.06
+   MOMENTS DUE TO MINIMUM ECC.         :       1.51               1.51
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      39.36              16.06
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :    6.78               8.47   
+     STAAD SPACE                                              -- PAGE NO.   64
+        
+
+   REQD. STEEL AREA   :      438.34 Sq.mm.
+   REQD. CONCRETE AREA:    54793.10 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2971.95   Muz1 :     58.16   Muy1 :     58.16
+
+   INTERACTION RATIO: 0.95 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    25 Puz :   3141.61   Muz :     99.34   Muy :     99.34   IR: 0.44
+   ============================================================================
+
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.     17  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  104 END JOINT:    17  SHORT COLUMN
+
+     STAAD SPACE                                              -- PAGE NO.   65
+        
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :      77.40
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      40.03              11.75
+   MOMENTS DUE TO MINIMUM ECC.         :       1.75               1.75
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      40.03              11.75
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :    9.02               0.00   
+
+   REQD. STEEL AREA   :      381.24 Sq.mm.
+   REQD. CONCRETE AREA:    47655.16 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2951.18   Muz1 :     55.21   Muy1 :     55.21
+
+   INTERACTION RATIO: 0.94 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    26 Puz :   3141.61   Muz :    109.53   Muy :    109.53   IR: 0.27
+   ============================================================================
+
+     STAAD SPACE                                              -- PAGE NO.   66
+        
+
+   ============================================================================
+               IS-13920   L I M I T    S T A T E    D E S I G N
+            C O L U M N   N O.     18  D E S I G N   R E S U L T S
+
+         M25                    Fe500 (Main)               Fe500 (Sec.)
+
+   LENGTH:  3000.0 mm   CROSS SECTION:  500.0 mm X  500.0 mm  COVER: 40.0 mm
+
+   ** GUIDING LOAD CASE:  103 END JOINT:    27  SHORT COLUMN
+
+
+   DESIGN FORCES (KNS-MET)
+   -----------------------
+   DESIGN AXIAL FORCE (Pu)             :      66.71
+
+                                            About Z            About Y
+   INITIAL MOMENTS                     :      39.36              16.06
+   MOMENTS DUE TO MINIMUM ECC.         :       1.51               1.51
+
+   SLENDERNESS RATIOS                  :     -                  -     
+   MOMENTS DUE TO SLENDERNESS EFFECT   :     -                  -     
+   MOMENT REDUCTION FACTORS            :     -                  -     
+   ADDITION MOMENTS (Maz and May)      :     -                  -     
+
+   TOTAL DESIGN MOMENTS                :      39.36              16.06
+
+   ** GUIDING LOAD CASE:  113
+                                          Along Z         Along Y
+   DESIGN SHEAR FORCES                 :    6.78               8.47   
+
+   REQD. STEEL AREA   :      438.34 Sq.mm.
+   REQD. CONCRETE AREA:    54793.09 Sq.mm.
+   MAIN REINFORCEMENT : Provide   8 - 12 dia. (0.36%,    904.78 Sq.mm.)
+                        (Equally distributed)                   
+   CONFINING REINFORCEMENT  : Provide  8 mm dia. rectangular ties @  70 mm c/c
+                              over a length   500.0 mm from each joint face towards
+                              midspan as per IS-13920.
+                               2 number overlapping hoops or a single hoop 
+                              with crossties are provided along Y direction.
+                              (As per IS-13920)
+                               2 number overlapping hoops or a single hoop
+                              with crossties are provided along Z direction.
+                              (As per IS-13920)
+   TIE REINFORCEMENT        : Provide  8 mm dia. rectangular ties @ 190 mm c/c
+     STAAD SPACE                                              -- PAGE NO.   67
+        
+
+   SECTION CAPACITY BASED ON REINFORCEMENT REQUIRED (KNS-MET)
+   ----------------------------------------------------------
+   Puz :   2971.95   Muz1 :     58.16   Muy1 :     58.16
+
+   INTERACTION RATIO: 0.95 (as per Cl. 39.6, IS456:2000)
+
+   SECTION CAPACITY BASED ON REINFORCEMENT PROVIDED (KNS-MET)
+   ----------------------------------------------------------
+   WORST LOAD CASE:   101
+   END JOINT:    27 Puz :   3141.61   Muz :     99.34   Muy :     99.34   IR: 0.44
+   ============================================================================
+
+
+   ********************END OF COLUMN DESIGN RESULTS********************
+
+
+   166. END CONCRETE DESIGN
+JOINT
+   *** WARNING: Relative strength checks have failed at beam/column joints
+                as per Clause 7.2 of IS-13920:2016.
+
+                Use TRACK 4 for details.
+
+   167. FINISH
+
+
+             *********** END OF THE STAAD.Pro RUN ***********         
+
+               **** DATE= OCT 30,2026   TIME=  1: 9: 6 ****
+
+     STAAD SPACE                                              -- PAGE NO.   68
+        
+         ************************************************************
+         *   For technical assistance on STAAD.Pro, please visit    *
+         *   http://www.bentley.com/en/support/                     *
+         *                                                          *
+         *   Details about additional assistance from               *
+         *   Bentley and Partners can be found at program menu      *
+         *   Help->Technical Support                                *
+         *                                                          *
+         *           Copyright (c) Bentley Systems, Inc.            *
+         *                http://www.bentley.com                    *
+         ************************************************************
+                                                                     

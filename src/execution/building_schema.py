@@ -10,7 +10,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-SCHEMA_VERSION = "0.1"
+SCHEMA_VERSION = "0.2"
 
 Point = tuple[float, float]
 
@@ -69,6 +69,28 @@ class Floor(BaseModel):
     material: str = "Concrete"
 
 
+class Column(BaseModel):
+    id: str
+    at: Point
+    base_level: str
+    top_level: str
+    width: float = Field(gt=0)  # along x
+    depth: float = Field(gt=0)  # along y
+    material: str = "Concrete"
+    design: dict = {}  # STAAD results, e.g. {"bars": "4-16d", "interaction_ratio": 0.59, "status": "pass"}
+
+
+class Beam(BaseModel):
+    id: str
+    level: str  # top of beam at this level
+    start: Point
+    end: Point
+    width: float = Field(gt=0)
+    depth: float = Field(gt=0)
+    material: str = "Concrete"
+    design: dict = {}
+
+
 class Room(BaseModel):
     id: str
     level: str
@@ -85,6 +107,8 @@ class Building(BaseModel):
     openings: list[Opening] = []
     floors: list[Floor] = []
     rooms: list[Room] = []
+    columns: list[Column] = []
+    beams: list[Beam] = []
 
 
 def _polygon_area(points):
@@ -103,6 +127,24 @@ def _inside(point, polygon):
     return inside
 
 
+def _covered_by_beams(wall, beams, tol=1e-6):
+    """True if collinear beams together cover the wall's whole length."""
+    length = wall.length
+    ux, uy = (wall.end[0] - wall.start[0]) / length, (wall.end[1] - wall.start[1]) / length
+    spans = []
+    for bm in beams:
+        on_line = all(abs((p[0] - wall.start[0]) * uy - (p[1] - wall.start[1]) * ux) < tol for p in (bm.start, bm.end))
+        if on_line:
+            t = sorted((p[0] - wall.start[0]) * ux + (p[1] - wall.start[1]) * uy for p in (bm.start, bm.end))
+            spans.append(t)
+    reach = 0.0
+    for t0, t1 in sorted(spans):
+        if t0 > reach + tol:
+            break
+        reach = max(reach, t1)
+    return reach >= length - tol
+
+
 def validate_building(b: Building) -> list[str]:
     """Return a list of problems; empty means the model is consistent."""
     problems = []
@@ -111,7 +153,8 @@ def validate_building(b: Building) -> list[str]:
     walls = {w.id: w for w in b.walls}
 
     for kind, items in (("level", b.levels), ("wall_type", b.wall_types), ("wall", b.walls),
-                        ("opening", b.openings), ("floor", b.floors), ("room", b.rooms)):
+                        ("opening", b.openings), ("floor", b.floors), ("room", b.rooms),
+                        ("column", b.columns), ("beam", b.beams)):
         ids = [i.id for i in items]
         problems += [f"duplicate {kind} id '{i}'" for i in sorted({i for i in ids if ids.count(i) > 1})]
 
@@ -145,5 +188,33 @@ def validate_building(b: Building) -> list[str]:
             problems.append(f"room {r.id}: unknown level '{r.level}'")
         elif not any(f.level == r.level and _inside(r.point, f.boundary) for f in b.floors):
             problems.append(f"room {r.id}: point {r.point} is not inside any floor on level {r.level}")
+
+    elevation = {lv.id: lv.elevation for lv in b.levels}
+    for c in b.columns:
+        if c.base_level not in levels or c.top_level not in levels:
+            problems.append(f"column {c.id}: unknown level")
+        elif elevation[c.base_level] >= elevation[c.top_level]:
+            problems.append(f"column {c.id}: base level is not below top level")
+
+    def column_at(point, z):
+        return any(math.dist(point, c.at) < 1e-6 and c.base_level in elevation and c.top_level in elevation
+                   and elevation[c.base_level] < z <= elevation[c.top_level] + 1e-9 for c in b.columns)
+
+    for bm in b.beams:
+        if bm.level not in levels:
+            problems.append(f"beam {bm.id}: unknown level '{bm.level}'")
+            continue
+        for end in (bm.start, bm.end):
+            if not column_at(end, elevation[bm.level]):
+                problems.append(f"beam {bm.id}: end {end} is not on a column reaching level {bm.level}")
+
+    # With a frame present, every wall above ground must sit on a beam at its level
+    if b.beams:
+        ground = min(elevation.values())
+        for w in b.walls:
+            if w.level not in elevation or elevation[w.level] <= ground:
+                continue
+            if not _covered_by_beams(w, [bm for bm in b.beams if bm.level == w.level]):
+                problems.append(f"wall {w.id}: not supported by a beam at level {w.level}")
 
     return problems
