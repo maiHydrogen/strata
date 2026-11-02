@@ -17,9 +17,9 @@ import clr
 clr.AddReference("RevitAPI")
 from Autodesk.Revit.DB import (  # noqa: E402
     BuiltInCategory, BuiltInParameter, Color, CompoundStructure, CompoundStructureLayer,
-    CurveLoop, Element, ElementTypeGroup, FamilySymbol, FilteredElementCollector, Floor,
+    CurveLoop, Element, ElementLevelFilter, ElementTypeGroup, FamilySymbol, FilteredElementCollector, Floor,
     FloorType, Level, Line, Material, MaterialFunctionAssignment, ShellLayerType, UnitTypeId,
-    UnitUtils, UV, Wall, WallKind, WallType, XYZ,
+    UnitUtils, UV, View, Wall, WallKind, WallType, XYZ,
 )
 from Autodesk.Revit.DB.Structure import StructuralType  # noqa: E402
 from System.Collections.Generic import List  # noqa: E402
@@ -81,7 +81,7 @@ class Builder(object):
         self.materials = {}
         self.placed = []  # (opening spec, instance, host wall) for the diagnostics
         self.cut_info = {}  # opening id -> (placement method, wall volume removed m3, expected m3)
-        self.report = {"levels": 0, "wall_types": 0, "walls": 0, "doors": 0, "windows": 0,
+        self.report = {"levels": 0, "levels_renamed": [], "levels_removed": [], "wall_types": 0, "walls": 0, "doors": 0, "windows": 0,
                        "floors": 0, "columns": 0, "beams": 0, "rooms": [], "openings": [], "warnings": []}
 
     def warn(self, msg):
@@ -196,7 +196,38 @@ class Builder(object):
                 level = Level.Create(self.doc, ft(spec["elevation"]))
                 level.Name = spec["name"]
                 self.report["levels"] += 1
+            elif level.Name != spec["name"]:
+                old = level.Name
+                try:
+                    level.Name = spec["name"]
+                    self.report["levels_renamed"].append("{0} -> {1}".format(old, spec["name"]))
+                except Exception as e:  # name already taken by another level
+                    self.warn("Level '{0}' kept its name, could not rename to '{1}': {2}".format(old, spec["name"], e))
             self.levels[spec["id"]] = level
+        self.remove_unused_levels(existing)
+
+    def remove_unused_levels(self, levels):
+        """Delete template levels the building does not use, so IFC has no empty storeys.
+
+        A level is kept if any model element sits on it; its plan views go with it.
+        """
+        used = list(self.levels.values())
+        for lv in levels:
+            if any(lv.Id == u.Id for u in used):  # ElementId equality; IntegerValue is gone in recent Revit
+                continue
+            on_level = [e for e in FilteredElementCollector(self.doc).WherePasses(ElementLevelFilter(lv.Id))
+                        .WhereElementIsNotElementType() if not isinstance(e, View)]
+            name = lv.Name
+            if on_level:
+                self.warn("Level '{0}' is not in the building JSON but hosts {1} elements; kept".format(
+                    name, len(on_level)))
+                continue
+            try:
+                self.doc.Delete(lv.Id)
+                self.report["levels_removed"].append(name)
+            except Exception as e:  # e.g. one of its views is the active view
+                self.warn("Unused level '{0}' could not be deleted ({1}); switch to another view and delete it".format(
+                    name, e))
 
     def make_walls(self):
         ext = [w for w in self.data["walls"] if w.get("external")]
@@ -426,6 +457,8 @@ def build_from_file(doc, path):
 def format_report(report):
     lines = ["STRATA build complete",
              "Levels created: {0}".format(report["levels"]),
+             "Levels renamed: {0}".format(", ".join(report.get("levels_renamed", [])) or "none"),
+             "Template levels removed: {0}".format(", ".join(report.get("levels_removed", [])) or "none"),
              "Wall types created: {0}".format(report["wall_types"]),
              "Columns: {0}  Beams: {1}".format(report.get("columns", 0), report.get("beams", 0)),
              "Walls: {0}  Doors: {1}  Windows: {2}  Floors: {3}".format(
