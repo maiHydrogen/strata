@@ -1,0 +1,48 @@
+@prefix strata: <https://strata.iitg.ac.in/kg#> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+# Validation shapes: a value cannot enter the graph without its citation.
+
+strata:RequirementShape a sh:NodeShape ;
+    sh:targetClass strata:Requirement ;
+    sh:property [ sh:path strata:appliesTo ; sh:class strata:ElementType ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path strata:quantity ; sh:class strata:Quantity ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path strata:comparator ; sh:in ( "ge" "le" "eq" ) ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path strata:citedBy ; sh:class strata:Clause ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path strata:jurisdiction ; sh:class strata:Jurisdiction ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path strata:layer ; sh:in ( "A" "C" "P" "E" "F" ) ; sh:minCount 1 ] ;
+    sh:property [ sh:path strata:status ; sh:in ( "transcribed" "verified" "assumed" ) ;
+                  sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path strata:value ; sh:datatype xsd:decimal ; sh:maxCount 1 ] ;
+    sh:property [ sh:path strata:condition ; sh:class strata:Condition ] ;
+    # exactly one of a numeric value with its unit, or a categorical value
+    sh:xone (
+        [ sh:property [ sh:path strata:value ; sh:minCount 1 ] ,
+                      [ sh:path strata:unit ; sh:minCount 1 ; sh:maxCount 1 ] ]
+        [ sh:property [ sh:path strata:valueText ; sh:minCount 1 ; sh:maxCount 1 ] ]
+    ) .
+
+strata:ClauseShape a sh:NodeShape ;
+    sh:targetClass strata:Clause ;
+    sh:property [ sh:path strata:inStandard ; sh:class strata:Standard ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path strata:clauseId ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+    sh:property [ sh:path strata:page ; sh:minCount 1 ] ;
+    sh:property [ sh:path strata:quote ; sh:datatype xsd:string ; sh:minCount 1 ; sh:minLength 15 ] .
+
+strata:StandardShape a sh:NodeShape ;
+    sh:targetClass strata:Standard ;
+    sh:property [ sh:path strata:edition ; sh:minCount 1 ] ;
+    sh:property [ sh:path strata:sourceFile ; sh:minCount 1 ] ;
+    sh:property [ sh:path strata:legallyBinding ; sh:datatype xsd:boolean ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+strata:ConditionShape a sh:NodeShape ;
+    sh:targetClass strata:Condition ;
+    sh:property [ sh:path strata:onParameter ; sh:class strata:Parameter ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:or (
+        [ sh:path strata:minInclusive ; sh:minCount 1 ]
+        [ sh:path strata:maxExclusive ; sh:minCount 1 ]
+        [ sh:path strata:minExclusive ; sh:minCount 1 ]
+        [ sh:path strata:maxInclusive ; sh:minCount 1 ]
+        [ sh:path strata:equals ; sh:minCount 1 ]
+    ) .

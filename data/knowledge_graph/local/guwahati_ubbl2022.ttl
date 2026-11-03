@@ -1,0 +1,357 @@
+@prefix strata: <https://strata.iitg.ac.in/kg#> .
+@prefix kg:     <https://strata.iitg.ac.in/kg/id/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Assam Unified Building Construction (Regulation) Byelaws, 2022, as amended in 2024, 2025
+# and 2026. They apply to the Guwahati master plan area under the Assam Building Construction
+# (Regulation) Act, 2010 (renamed and extended statewide by the Amendment Act, 2022).
+# Chapter III Part I (bye-laws 22-33) is written for the city of Guwahati. Values transcribed
+# from OCR of the gazette scans (data/reference_docs/gmda/ocr/); pages are gazette pages.
+# The amendments list their changes in bye-law order: none touches 24(a) or 24(b).
+
+kg:AssamUBBL2022 a strata:Standard ;
+    rdfs:label "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)" ;
+    strata:edition "2022, amended 20 Nov 2024, 25 Jul 2025, 4 Aug 2026" ;
+    strata:sourceFile "data/reference_docs/gmda/assam-unified-building-construction-regulation-byelaws-2022.pdf",
+                      "data/reference_docs/gmda/assam-unified-building-construction-regulation-amendment-byelaws-2024.pdf",
+                      "data/reference_docs/gmda/assam-unified-building-construction-regulation-byelaws-25th-july2025amendments.pdf",
+                      "data/reference_docs/gmda/assam-unified-building-construction-regulation-amendment-byelaws-2026.pdf" ;
+    strata:legallyBinding true .
+
+
+kg:ubbl_24_a_i a strata:Clause ; strata:inStandard kg:AssamUBBL2022 ;
+    strata:clauseId "Bye-law 24(a)(i), front setback table" ; strata:page "9723-9724" ;
+    strata:quote "Every building fronting a street shall have a front space from the prescribed street line ... Existing width of Street fronting the plot | Upto 9.6m | Up to 15.6 m | Above 15.6m ... Up to 6.6 Mts. 3.6m 4.5 Mts. 6.0 Mts. More than 6.6 to 15.0 Mts. 4.5m 6.0 Mts. 7.5 Mts. More than 15.0 to 24.0 Mts. 6.0m 7.5 Mts. 9.0 Mts. More than 24.0 to 45.0 Mts. 6.0m 9.0 Mts. 12.0 Mts. More than 45.0 Mts. 7.5m 12.0 Mts. 15.0 Mts. * Assuming 0.6 m to be the plinth height" .
+
+kg:req_front_setback_upto6_6_h9_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 3.6 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:maxInclusive 6.6 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:maxInclusive 9.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" ;
+    strata:note "Measured from the prescribed street line, which may lie inside the plot where the road is to be widened (bye-law 23)." .
+
+kg:req_front_setback_6_6to15_h9_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 4.5 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 6.6 ; strata:maxInclusive 15.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:maxInclusive 9.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_front_setback_15to24_h9_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 6.0 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 15.0 ; strata:maxInclusive 24.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:maxInclusive 9.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_front_setback_24to45_h9_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 6.0 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 24.0 ; strata:maxInclusive 45.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:maxInclusive 9.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_front_setback_over45_h9_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 7.5 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 45.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:maxInclusive 9.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_front_setback_upto6_6_h15_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 4.5 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:maxInclusive 6.6 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:minExclusive 9.6 ; strata:maxInclusive 15.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_front_setback_6_6to15_h15_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 6.0 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 6.6 ; strata:maxInclusive 15.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:minExclusive 9.6 ; strata:maxInclusive 15.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_front_setback_15to24_h15_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 7.5 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 15.0 ; strata:maxInclusive 24.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:minExclusive 9.6 ; strata:maxInclusive 15.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_front_setback_24to45_h15_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 9.0 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 24.0 ; strata:maxInclusive 45.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:minExclusive 9.6 ; strata:maxInclusive 15.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_front_setback_over45_h15_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:frontSetback ; strata:comparator "ge" ;
+    strata:value 12.0 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_i ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 45.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:minExclusive 9.6 ; strata:maxInclusive 15.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:ubbl_24_a_ii a strata:Clause ; strata:inStandard kg:AssamUBBL2022 ;
+    strata:clauseId "Bye-law 24(a)(ii), side and rear setback table" ; strata:page "9724" ;
+    strata:quote "SIDE AND REAR SETBACK ... Height of the building | Side and Rear Open space to be left around the Building 1 9.6 m 1.8m 2 12.6m 2.4m 3 15.6m 3.6 m ... If the building height is in between two building heights specified above and if it exceeds 10% subject to maximum 1.5 m the higher height will be considered" .
+
+kg:req_side_setback_h9_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:sideSetback ; strata:comparator "ge" ;
+    strata:value 1.8 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_ii ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:maxInclusive 9.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" ;
+    strata:note "A height up to 10% (max 1.5 m) over a row still uses that row; beyond it the next row applies." .
+
+kg:req_rear_setback_h9_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:rearSetback ; strata:comparator "ge" ;
+    strata:value 1.8 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_ii ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:maxInclusive 9.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" ;
+    strata:note "A height up to 10% (max 1.5 m) over a row still uses that row; beyond it the next row applies." .
+
+kg:req_side_setback_h12_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:sideSetback ; strata:comparator "ge" ;
+    strata:value 2.4 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_ii ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:minExclusive 9.6 ; strata:maxInclusive 12.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_rear_setback_h12_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:rearSetback ; strata:comparator "ge" ;
+    strata:value 2.4 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_ii ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:minExclusive 9.6 ; strata:maxInclusive 12.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_side_setback_h15_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:sideSetback ; strata:comparator "ge" ;
+    strata:value 3.6 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_ii ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:minExclusive 12.6 ; strata:maxInclusive 15.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:req_rear_setback_h15_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:rearSetback ; strata:comparator "ge" ;
+    strata:value 3.6 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_a_ii ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:heightOfBuilding ; strata:minExclusive 12.6 ; strata:maxInclusive 15.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C2" ; strata:status "transcribed" .
+
+kg:ubbl_24_b a strata:Clause ; strata:inStandard kg:AssamUBBL2022 ;
+    strata:clauseId "Bye-law 24(b), minimum plot size for residential use" ; strata:page "9725" ;
+    strata:quote "MINIMUM PLOT SIZE FOR RESIDENTIAL USE ... (a) The minimum size of plot for residential building within ULB area to be 134 sq.m. 6.0m. (b) The minimum size of plot for residential building outside ULB area to be 200 sq.m. 7.50 m." .
+
+kg:req_plot_area_in_ulb a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 134.0 ; strata:unit "m2" ; strata:citedBy kg:ubbl_24_b ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:insideULB ; strata:equals "yes" ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "B1" ; strata:status "transcribed" .
+
+kg:req_plot_width_in_ulb a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 6.0 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_b ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:insideULB ; strata:equals "yes" ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "B1" ; strata:status "transcribed" .
+
+kg:req_plot_area_outside_ulb a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 200.0 ; strata:unit "m2" ; strata:citedBy kg:ubbl_24_b ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:insideULB ; strata:equals "no" ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "B1" ; strata:status "transcribed" .
+
+kg:req_plot_width_outside_ulb a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 7.5 ; strata:unit "m" ; strata:citedBy kg:ubbl_24_b ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:insideULB ; strata:equals "no" ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "B1" ; strata:status "transcribed" .
+
+kg:ubbl_26_a a strata:Clause ; strata:inStandard kg:AssamUBBL2022 ;
+    strata:clauseId "Bye-law 26(a), FAR table" ; strata:page "9730" ;
+    strata:quote "FLOOR AREA RATIO (FAR) for Residential, Commercial, Mixed-Use ... Base FAR | Existing Road Width | Plot Size up to 670 sq m | above 670 sq m up to 1338 sq m ... 100 Above 3.6 upto 4.5 125 125 ... 125 Above 4.5 upto 6.6 125 125 ... 150 Above 6.6 upto 8.0 150 160 ... 150 Above 8.0 upto 15 150 175 ... 160 Above 15 175 200" .
+
+kg:req_far_base_3_6to4_5 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:far ; strata:comparator "le" ;
+    strata:value 1.00 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 3.6 ; strata:maxInclusive 4.5 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_3_6to4_5_plot670 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 1.25 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 3.6 ; strata:maxInclusive 4.5 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:maxInclusive 670.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_3_6to4_5_plot1338 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 1.25 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 3.6 ; strata:maxInclusive 4.5 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:minExclusive 670.0 ; strata:maxInclusive 1338.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_base_4_5to6_6 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:far ; strata:comparator "le" ;
+    strata:value 1.25 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 4.5 ; strata:maxInclusive 6.6 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_4_5to6_6_plot670 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 1.25 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 4.5 ; strata:maxInclusive 6.6 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:maxInclusive 670.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_4_5to6_6_plot1338 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 1.25 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 4.5 ; strata:maxInclusive 6.6 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:minExclusive 670.0 ; strata:maxInclusive 1338.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_base_6_6to8 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:far ; strata:comparator "le" ;
+    strata:value 1.50 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 6.6 ; strata:maxInclusive 8.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_6_6to8_plot670 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 1.50 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 6.6 ; strata:maxInclusive 8.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:maxInclusive 670.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_6_6to8_plot1338 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 1.60 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 6.6 ; strata:maxInclusive 8.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:minExclusive 670.0 ; strata:maxInclusive 1338.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_base_8to15 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:far ; strata:comparator "le" ;
+    strata:value 1.50 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 8.0 ; strata:maxInclusive 15.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_8to15_plot670 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 1.50 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 8.0 ; strata:maxInclusive 15.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:maxInclusive 670.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_8to15_plot1338 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 1.75 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 8.0 ; strata:maxInclusive 15.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:minExclusive 670.0 ; strata:maxInclusive 1338.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_base_over15 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:far ; strata:comparator "le" ;
+    strata:value 1.60 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 15.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_over15_plot670 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 1.75 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 15.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:maxInclusive 670.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:req_far_max_over15_plot1338 a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:farWithPremium ; strata:comparator "le" ;
+    strata:value 2.00 ; strata:unit "ratio" ; strata:citedBy kg:ubbl_26_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roadWidth ; strata:minExclusive 15.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:minExclusive 670.0 ; strata:maxInclusive 1338.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C4" ; strata:status "assumed" ;
+    strata:note "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots." .
+
+kg:ubbl_app1_res a strata:Clause ; strata:inStandard kg:AssamUBBL2022 ;
+    strata:clauseId "Appendix-I, Sl. 1 Residential Buildings" ; strata:page "9798" ;
+    strata:quote "Residential Buildings/ Group Housing / Apartment Building | Car: 1 per Dwelling Unit measuring 66 Sqm and above in carpet area; 2 Per Dwelling Unit measuring 120 sq m and above in carpet area including units constructed under PMAY. | Two Wheeler: 1 per Dwelling unit of 66 sq.m. of carpet area or below." .
+
+kg:req_parking_car_66to120 a strata:Requirement ;
+    strata:appliesTo strata:DwellingUnit ; strata:quantity strata:parkingSpaces ; strata:comparator "ge" ;
+    strata:value 1.0 ; strata:unit "spaces" ; strata:citedBy kg:ubbl_app1_res ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:carpetArea ; strata:minInclusive 66.0 ; strata:maxExclusive 120.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C6" ; strata:status "transcribed" .
+
+kg:req_parking_car_120 a strata:Requirement ;
+    strata:appliesTo strata:DwellingUnit ; strata:quantity strata:parkingSpaces ; strata:comparator "ge" ;
+    strata:value 2.0 ; strata:unit "spaces" ; strata:citedBy kg:ubbl_app1_res ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:carpetArea ; strata:minInclusive 120.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C6" ; strata:status "transcribed" .
+
+kg:req_parking_2w_upto66 a strata:Requirement ;
+    strata:appliesTo strata:DwellingUnit ; strata:quantity strata:twoWheelerSpaces ; strata:comparator "ge" ;
+    strata:value 1.0 ; strata:unit "spaces" ; strata:citedBy kg:ubbl_app1_res ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:carpetArea ; strata:maxInclusive 66.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C6" ; strata:status "transcribed" ;
+    strata:note "Read as: a unit of up to 66 m2 carpet area needs one two-wheeler space instead of a car space." .
+
+kg:ubbl_app1_space a strata:Clause ; strata:inStandard kg:AssamUBBL2022 ;
+    strata:clauseId "Appendix-I, area of each car space" ; strata:page "9800" ;
+    strata:quote "For calculation of car space the following shall be considered: Area of each car space- (i) Basement parking-30 sq. m. (ii) Stilt-25 sq. m. (iii) Open Parking-20 sq. m." .
+
+kg:req_car_space_open a strata:Requirement ;
+    strata:appliesTo strata:CarSpace ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 20.0 ; strata:unit "m2" ; strata:citedBy kg:ubbl_app1_space ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:parkingType ; strata:equals "open" ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C6" ; strata:status "transcribed" ;
+    strata:note "Includes circulation; the net car space is 13.75 m2 (Appendix-I, p. 9801)." .
+
+kg:req_car_space_stilt a strata:Requirement ;
+    strata:appliesTo strata:CarSpace ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 25.0 ; strata:unit "m2" ; strata:citedBy kg:ubbl_app1_space ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:parkingType ; strata:equals "stilt" ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C6" ; strata:status "transcribed" .
+
+kg:req_car_space_basement a strata:Requirement ;
+    strata:appliesTo strata:CarSpace ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 30.0 ; strata:unit "m2" ; strata:citedBy kg:ubbl_app1_space ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:parkingType ; strata:equals "basement" ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C6" ; strata:status "transcribed" .
+
+kg:ubbl_app1_note1 a strata:Clause ; strata:inStandard kg:AssamUBBL2022 ;
+    strata:clauseId "Appendix-I, Note 1" ; strata:page "9801" ;
+    strata:quote "The minimum width of circulation driveway to be provided for adequate maneuvering of vehicles shall be 3.6 m for cars." .
+
+kg:req_driveway_width a strata:Requirement ;
+    strata:appliesTo strata:Driveway ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 3.6 ; strata:unit "m" ; strata:citedBy kg:ubbl_app1_note1 ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "C6" ; strata:status "transcribed" .
+
+kg:ubbl_app6 a strata:Clause ; strata:inStandard kg:AssamUBBL2022 ;
+    strata:clauseId "Appendix-VI (bye-law 38(i)), buildings other than commercial and residential apartments" ; strata:page "9809" ;
+    strata:quote "For all types of Buildings except Commercial and Residential Apartment Buildings (a) Percolation Pits: In areas around the buildings, percolation pits of size 1.2m x 1.2m x 1.5m shall be provided at the rate of 1 nos. such pit for every 100 sq.m. of Plot area. ... (b) Storage and re-use: All buildings with plot area 134sq m and above shall have the provision of rain water harvesting storage and reuse." .
+
+kg:req_rwh_pits a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:percolationPits ; strata:comparator "ge" ;
+    strata:value 0.01 ; strata:unit "pits per m2 of plot area" ; strata:citedBy kg:ubbl_app6 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:buildingType ; strata:equals "house" ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "P" ; strata:matrixItem "C7" ; strata:status "transcribed" ;
+    strata:note "One pit of 1.2 x 1.2 x 1.5 m per 100 m2 of plot area; rain and waste water drains discharge through the pits." .
+
+kg:req_rwh_storage a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:rainwaterStorage ; strata:comparator "eq" ;
+    strata:valueText "required" ; strata:citedBy kg:ubbl_app6 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:buildingType ; strata:equals "house" ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:minInclusive 134.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "P" ; strata:matrixItem "C7" ; strata:status "transcribed" .

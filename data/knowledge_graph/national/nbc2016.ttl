@@ -1,0 +1,383 @@
+@prefix strata: <https://strata.iitg.ac.in/kg#> .
+@prefix kg:     <https://strata.iitg.ac.in/kg/id/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+# National Building Code of India 2016 (SP 7:2016). Values transcribed from the
+# Public.Resource.Org digital copy (archive.org items nationalbuilding01/02); quotes are
+# from its OCR text. Pages are the printed pages, which restart in every Part/Section.
+# Units are SI: lengths in m (the quote keeps the code's own units).
+
+kg:NBC2016 a strata:Standard ;
+    rdfs:label "National Building Code of India 2016 (SP 7:2016)" ;
+    strata:edition "2016" ;
+    strata:sourceFile "data/reference_docs/nbc2016/nbc2016_vol1_ocr.txt",
+                      "data/reference_docs/nbc2016/nbc2016_vol2_ocr.txt" ;
+    strata:legallyBinding false ;
+    strata:note "Recommendatory: binding only where a bye-law adopts it. Followed in STRATA per supervisor (2026-11-02)." .
+
+# ---- Part 3, 12.1 Plinth -------------------------------------------------------
+
+kg:nbc_3_12_1_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.1.1" ; strata:page "43" ;
+    strata:quote "The height of the plinth shall be not less than 450 mm from the surrounding ground level." .
+kg:req_plinth_height a strata:Requirement ;
+    strata:appliesTo strata:Plinth ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 0.45 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_1_1 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "C" ; strata:matrixItem "C8" ; strata:status "transcribed" .
+
+# ---- Part 3, 12.2 Habitable rooms ----------------------------------------------
+
+kg:nbc_3_12_2_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.2.1" ; strata:page "43" ;
+    strata:quote "The height of all rooms for human habitation shall not be less than 2.75 m measured from the surface of the floor to the lowest point of the ceiling (bottom of slab). ... The minimum clear head room under a beam, folded plates or eaves shall be 2.4 m." .
+kg:req_habitable_height a strata:Requirement ;
+    strata:appliesTo strata:HabitableRoom ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 2.75 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_2_1 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D1" ; strata:status "transcribed" ;
+    strata:note "12.2.1.1: applies to residential, business and mercantile buildings." .
+kg:req_habitable_headroom a strata:Requirement ;
+    strata:appliesTo strata:HabitableRoom ; strata:quantity strata:headroom ; strata:comparator "ge" ;
+    strata:value 2.4 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_2_1 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "C" ; strata:matrixItem "D1" ; strata:status "transcribed" ;
+    strata:note "Clear head room under a beam: governs beam soffit level in habitable rooms." .
+
+kg:nbc_3_12_2_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.2.2" ; strata:page "44" ;
+    strata:quote "The area of habitable room shall not be less than 9.5 m2, where there is only one room with a minimum width of 2.4 m. Where there are two rooms, one of these shall not be less than 9.5 m2 and the other not less than 7.5 m2, with a minimum width of 2.1 m." .
+kg:req_habitable_area_principal a strata:Requirement ;
+    strata:appliesTo strata:HabitableRoom ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 9.5 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_2_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roomRole ; strata:equals "principal" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D1" ; strata:status "transcribed" .
+kg:req_habitable_width_principal a strata:Requirement ;
+    strata:appliesTo strata:HabitableRoom ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 2.4 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_2_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roomRole ; strata:equals "principal" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D1" ; strata:status "transcribed" .
+kg:req_habitable_area_other a strata:Requirement ;
+    strata:appliesTo strata:HabitableRoom ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 7.5 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_2_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roomRole ; strata:equals "other" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D1" ; strata:status "transcribed" .
+kg:req_habitable_width_other a strata:Requirement ;
+    strata:appliesTo strata:HabitableRoom ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 2.1 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_2_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roomRole ; strata:equals "other" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D1" ; strata:status "transcribed" ;
+    strata:note "Read as: the 2.1 m minimum width applies to the second (7.5 m2) room." .
+
+# ---- Part 3, 12.3 Kitchen ------------------------------------------------------
+
+kg:nbc_3_12_3_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.3.1" ; strata:page "44" ;
+    strata:quote "The height of a kitchen measured from the surface of the floor to the lowest point in the ceiling (bottom slab) shall not be less than 2.75 m, except for the portion to accommodate floor trap of the upper floor." .
+kg:req_kitchen_height a strata:Requirement ;
+    strata:appliesTo strata:Kitchen ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 2.75 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_3_1 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+
+kg:nbc_3_12_3_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.3.2" ; strata:page "44" ;
+    strata:quote "The area of a kitchen where separate dining area is provided, shall be not less than 5.0 m2 with a minimum width of 1.8 m. Where there is a separate store, the area of the kitchen may be reduced to 4.5 m2. A kitchen, which is intended for use as a dining area also, shall have a floor area of not less than 7.5 m2 with a minimum width of 2.1 m." .
+kg:req_kitchen_area_separate_dining a strata:Requirement ;
+    strata:appliesTo strata:Kitchen ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 5.0 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_3_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:kitchenType ; strata:equals "separate_dining" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_kitchen_width_separate_dining a strata:Requirement ;
+    strata:appliesTo strata:Kitchen ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 1.8 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_3_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:kitchenType ; strata:equals "separate_dining" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_kitchen_area_with_store a strata:Requirement ;
+    strata:appliesTo strata:Kitchen ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 4.5 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_3_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:kitchenType ; strata:equals "with_store" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_kitchen_width_with_store a strata:Requirement ;
+    strata:appliesTo strata:Kitchen ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 1.8 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_3_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:kitchenType ; strata:equals "with_store" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" ;
+    strata:note "The clause reduces only the area for a kitchen with a separate store; the 1.8 m width is kept." .
+kg:req_kitchen_area_with_dining a strata:Requirement ;
+    strata:appliesTo strata:Kitchen ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 7.5 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_3_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:kitchenType ; strata:equals "with_dining" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_kitchen_width_with_dining a strata:Requirement ;
+    strata:appliesTo strata:Kitchen ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 2.1 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_3_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:kitchenType ; strata:equals "with_dining" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+
+# ---- Part 3, 12.4 Bathrooms and water-closets ----------------------------------
+
+kg:nbc_3_12_4_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.4.1" ; strata:page "44" ;
+    strata:quote "The height of a bathroom or water-closet measured from the surface of the floor to the lowest point in the ceiling (bottom of slab) shall not be less than 2.1 m." .
+kg:req_bathroom_height a strata:Requirement ;
+    strata:appliesTo strata:Bathroom ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 2.1 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_4_1 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_wc_height a strata:Requirement ;
+    strata:appliesTo strata:WaterCloset ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 2.1 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_4_1 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bath_wc_height a strata:Requirement ;
+    strata:appliesTo strata:BathWC ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 2.1 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_4_1 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+
+kg:nbc_3_12_4_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.4.2" ; strata:page "44" ;
+    strata:quote "The area of a bathroom shall not be less than 1.8 m2 with a minimum width of 1.2 m. The floor area of water-closet shall be 1.1 m2 with a minimum width of 0.9 m. If bath and water-closet are combined, its floor area shall not be less than 2.8 m2 with a minimum width of 1.2 m." .
+kg:req_bathroom_area a strata:Requirement ;
+    strata:appliesTo strata:Bathroom ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 1.8 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_4_2 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "P" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bathroom_width a strata:Requirement ;
+    strata:appliesTo strata:Bathroom ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 1.2 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_4_2 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "P" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_wc_area a strata:Requirement ;
+    strata:appliesTo strata:WaterCloset ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 1.1 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_4_2 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "P" ; strata:matrixItem "D2" ; strata:status "transcribed" ;
+    strata:note "The clause says 'shall be 1.1 m2'; encoded as a minimum." .
+kg:req_wc_width a strata:Requirement ;
+    strata:appliesTo strata:WaterCloset ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 0.9 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_4_2 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "P" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bath_wc_area a strata:Requirement ;
+    strata:appliesTo strata:BathWC ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 2.8 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_4_2 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "P" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bath_wc_width a strata:Requirement ;
+    strata:appliesTo strata:BathWC ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 1.2 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_4_2 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "P" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+
+# ---- Part 3, 12.7 Store room, 12.8 Garage --------------------------------------
+
+kg:nbc_3_12_7 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.7" ; strata:page "45" ;
+    strata:quote "The height of a store room shall be not less than 2.2 m. ... The size of a store room, where provided in a residential building, shall be not less than 3 m2." .
+kg:req_store_height a strata:Requirement ;
+    strata:appliesTo strata:StoreRoom ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 2.2 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_7 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D1" ; strata:status "transcribed" .
+kg:req_store_area a strata:Requirement ;
+    strata:appliesTo strata:StoreRoom ; strata:quantity strata:area ; strata:comparator "ge" ;
+    strata:value 3.0 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_7 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D1" ; strata:status "transcribed" .
+
+kg:nbc_3_12_8 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.8" ; strata:page "45" ;
+    strata:quote "The height of a garage shall be not less than 2.4 m. ... a) Private garage - 3.0 m x 6.0 m, minimum" .
+kg:req_garage_height a strata:Requirement ;
+    strata:appliesTo strata:Garage ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 2.4 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_8 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "A6" ; strata:status "transcribed" .
+kg:req_garage_width a strata:Requirement ;
+    strata:appliesTo strata:Garage ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 3.0 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_8 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "A6" ; strata:status "transcribed" .
+kg:req_garage_length a strata:Requirement ;
+    strata:appliesTo strata:Garage ; strata:quantity strata:length ; strata:comparator "ge" ;
+    strata:value 6.0 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_8 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "A6" ; strata:status "transcribed" .
+
+# ---- Part 3, 12.11 Parapet -----------------------------------------------------
+
+kg:nbc_3_12_11 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.11" ; strata:page "46" ;
+    strata:quote "Parapet walls and handrails provided on the edges of roof terraces, balcony, Verandah, etc, shall not be less than 1.0 m and not more than 1.2 m in height from the finished floor level." .
+kg:req_parapet_min a strata:Requirement ;
+    strata:appliesTo strata:Parapet ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 1.0 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_11 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "C" ; strata:matrixItem "D6" ; strata:status "transcribed" .
+kg:req_parapet_max a strata:Requirement ;
+    strata:appliesTo strata:Parapet ; strata:quantity strata:height ; strata:comparator "le" ;
+    strata:value 1.2 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_11 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "C" ; strata:matrixItem "D6" ; strata:status "transcribed" .
+
+# ---- Part 3, 12.18 Staircases (one or two family dwellings, occupancy A-2) -----
+
+kg:nbc_3_12_18_1_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.18.1.1(a)" ; strata:page "49" ;
+    strata:quote "The following minimum width shall be provided for staircases for respective occupancies ... a) Residential (A-2) : 1.00 m" .
+kg:req_stair_width a strata:Requirement ;
+    strata:appliesTo strata:Staircase ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 1.0 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_18_1_1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:occupancy ; strata:equals "A-2" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A", "C" ; strata:matrixItem "D3" ; strata:status "transcribed" ;
+    strata:note "NOTE to the clause: 0.75 m for two-storey row housing (not encoded; STRATA builds detached houses)." .
+
+kg:nbc_3_12_18_1_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.18.1.2" ; strata:page "49" ;
+    strata:quote "The minimum width of tread without nosing shall be 300 mm. However, for one or two family dwelling, it may be reduced to not less than 250 mm." .
+kg:req_stair_tread a strata:Requirement ;
+    strata:appliesTo strata:Staircase ; strata:quantity strata:treadWidth ; strata:comparator "ge" ;
+    strata:value 0.25 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_18_1_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:occupancy ; strata:equals "A-2" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A", "C" ; strata:matrixItem "D3" ; strata:status "transcribed" .
+
+kg:nbc_3_12_18_1_3 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.18.1.3" ; strata:page "49" ;
+    strata:quote "The maximum height of riser shall be 150 mm. However, for one or two family dwelling, it may be increased to not more than 190 mm. The number of risers shall be limited to 12 per flight." .
+kg:req_stair_riser a strata:Requirement ;
+    strata:appliesTo strata:Staircase ; strata:quantity strata:riserHeight ; strata:comparator "le" ;
+    strata:value 0.19 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_18_1_3 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:occupancy ; strata:equals "A-2" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A", "C" ; strata:matrixItem "D3" ; strata:status "transcribed" .
+kg:req_stair_risers_per_flight a strata:Requirement ;
+    strata:appliesTo strata:Staircase ; strata:quantity strata:risersPerFlight ; strata:comparator "le" ;
+    strata:value 12.0 ; strata:unit "count" ; strata:citedBy kg:nbc_3_12_18_1_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "C" ; strata:matrixItem "D3" ; strata:status "transcribed" .
+
+kg:nbc_3_12_18_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.18.2" ; strata:page "49" ;
+    strata:quote "The minimum head-room in a passage under the landing of a staircase shall be 2.2 m. The minimum clear head-room in any staircase shall be 2.2 m." .
+kg:req_stair_headroom a strata:Requirement ;
+    strata:appliesTo strata:Staircase ; strata:quantity strata:headroom ; strata:comparator "ge" ;
+    strata:value 2.2 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_18_2 ;
+    strata:jurisdiction strata:India ; strata:layer "A", "C" ; strata:matrixItem "D3" ; strata:status "transcribed" .
+
+kg:nbc_4_3_1_2_b a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 4, cl. 3.1.2(b)" ; strata:page "13" ;
+    strata:quote "Subdivision A-2 One or two family private dwellings - These shall include any private dwelling, which is occupied by members of one or two families and has a total sleeping accommodation for not more than 20 persons." .
+
+# ---- Part 3, 20.1.2 Lighting and ventilation openings --------------------------
+
+kg:nbc_3_20_1_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 20.1.2" ; strata:page "57" ;
+    strata:quote "the minimum aggregate area of such openings, excluding doors inclusive of frames, shall be not less than, a) one-tenth of the floor area for hot-dry climate; b) one-sixth of the floor area for warm-humid climate; c) one-eighth of the floor area for temperate and composite climate; and d) one-twelfth of the floor area for cold climate. ... 3 The area of openings as given in (a) to (d) above shall be increased by 25 percent in the case of a kitchen" .
+kg:req_opening_hot_dry a strata:Requirement ;
+    strata:appliesTo strata:Room ; strata:quantity strata:openingArea ; strata:comparator "ge" ;
+    strata:value 0.1 ; strata:unit "fraction of floor area" ; strata:citedBy kg:nbc_3_20_1_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:climateZone ; strata:equals "hot-dry" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D4" ; strata:status "transcribed" .
+kg:req_opening_warm_humid a strata:Requirement ;
+    strata:appliesTo strata:Room ; strata:quantity strata:openingArea ; strata:comparator "ge" ;
+    strata:value 0.1667 ; strata:unit "fraction of floor area" ; strata:citedBy kg:nbc_3_20_1_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:climateZone ; strata:equals "warm-humid" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D4" ; strata:status "transcribed" ;
+    strata:note "One-sixth, rounded up to 4 decimals." .
+kg:req_opening_temperate a strata:Requirement ;
+    strata:appliesTo strata:Room ; strata:quantity strata:openingArea ; strata:comparator "ge" ;
+    strata:value 0.125 ; strata:unit "fraction of floor area" ; strata:citedBy kg:nbc_3_20_1_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:climateZone ; strata:equals "temperate" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D4" ; strata:status "transcribed" .
+kg:req_opening_composite a strata:Requirement ;
+    strata:appliesTo strata:Room ; strata:quantity strata:openingArea ; strata:comparator "ge" ;
+    strata:value 0.125 ; strata:unit "fraction of floor area" ; strata:citedBy kg:nbc_3_20_1_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:climateZone ; strata:equals "composite" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D4" ; strata:status "transcribed" .
+kg:req_opening_cold a strata:Requirement ;
+    strata:appliesTo strata:Room ; strata:quantity strata:openingArea ; strata:comparator "ge" ;
+    strata:value 0.0834 ; strata:unit "fraction of floor area" ; strata:citedBy kg:nbc_3_20_1_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:climateZone ; strata:equals "cold" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D4" ; strata:status "transcribed" ;
+    strata:note "One-twelfth, rounded up to 4 decimals." .
+kg:req_opening_kitchen_warm_humid a strata:Requirement ;
+    strata:appliesTo strata:Kitchen ; strata:quantity strata:openingArea ; strata:comparator "ge" ;
+    strata:value 0.2084 ; strata:unit "fraction of floor area" ; strata:citedBy kg:nbc_3_20_1_2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:climateZone ; strata:equals "warm-humid" ] ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D4" ; strata:status "transcribed" ;
+    strata:note "Note 3: one-sixth increased by 25 percent for a kitchen = 5/24, rounded up." .
+
+# ---- Part 6 Section 1: imposed loads (dwelling houses) -------------------------
+
+kg:nbc_6_1_table1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 6 Section 1, cl. 3.3.1, Table 1 (i)(a)" ; strata:page "9" ;
+    strata:quote "Residential Buildings a) Dwelling houses: 1) All rooms and kitchens 2.0 2) Toilets and bath rooms 2.0 3) Corridors, passages, staircases including fire escapes and store rooms 3.0 4) Balconies 3.0" .
+kg:req_load_rooms a strata:Requirement ;
+    strata:appliesTo strata:Floor ; strata:quantity strata:imposedLoad ; strata:comparator "ge" ;
+    strata:value 2.0 ; strata:unit "kN/m2" ; strata:citedBy kg:nbc_6_1_table1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roomUse ; strata:equals "rooms" ] ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D8" ; strata:status "transcribed" .
+kg:req_load_toilets a strata:Requirement ;
+    strata:appliesTo strata:Floor ; strata:quantity strata:imposedLoad ; strata:comparator "ge" ;
+    strata:value 2.0 ; strata:unit "kN/m2" ; strata:citedBy kg:nbc_6_1_table1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roomUse ; strata:equals "toilets" ] ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D8" ; strata:status "transcribed" .
+kg:req_load_circulation a strata:Requirement ;
+    strata:appliesTo strata:Floor ; strata:quantity strata:imposedLoad ; strata:comparator "ge" ;
+    strata:value 3.0 ; strata:unit "kN/m2" ; strata:citedBy kg:nbc_6_1_table1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roomUse ; strata:equals "circulation" ] ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D8" ; strata:status "transcribed" ;
+    strata:note "Corridors, passages, staircases and store rooms." .
+kg:req_load_balcony a strata:Requirement ;
+    strata:appliesTo strata:Floor ; strata:quantity strata:imposedLoad ; strata:comparator "ge" ;
+    strata:value 3.0 ; strata:unit "kN/m2" ; strata:citedBy kg:nbc_6_1_table1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roomUse ; strata:equals "balcony" ] ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D8" ; strata:status "transcribed" ;
+    strata:note "Plus 1.5 kN per metre run concentrated at the outer edge (not encoded)." .
+
+kg:nbc_6_1_table2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 6 Section 1, cl. 3.4.1, Table 2 (i)" ; strata:page "13" ;
+    strata:quote "Flat, sloping or curved roof with slopes up to and including 10: a) Access provided b) Access not provided except for maintenance ... 1.5 kN/m2 0.75 kN/m2" .
+kg:req_load_roof_access a strata:Requirement ;
+    strata:appliesTo strata:Roof ; strata:quantity strata:imposedLoad ; strata:comparator "ge" ;
+    strata:value 1.5 ; strata:unit "kN/m2" ; strata:citedBy kg:nbc_6_1_table2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roofAccess ; strata:equals "access" ] ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D8" ; strata:status "transcribed" ;
+    strata:note "Flat roofs (slope up to 10 degrees)." .
+kg:req_load_roof_maintenance a strata:Requirement ;
+    strata:appliesTo strata:Roof ; strata:quantity strata:imposedLoad ; strata:comparator "ge" ;
+    strata:value 0.75 ; strata:unit "kN/m2" ; strata:citedBy kg:nbc_6_1_table2 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:roofAccess ; strata:equals "maintenance_only" ] ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D8" ; strata:status "transcribed" ;
+    strata:note "Flat roofs (slope up to 10 degrees)." .
+
+# ---- Site facts for Guwahati ---------------------------------------------------
+
+kg:nbc_6_1_annex_k a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 6 Section 1, Annex K (cl. 5.3.4.2)" ; strata:page "121" ;
+    strata:quote "LIST OF SOME IMPORTANT TOWNS AND THEIR SEISMIC ZONE FACTOR (Z) ... Guwahati V 0.36" .
+kg:fact_guwahati_zone a strata:Requirement ;
+    strata:appliesTo strata:Site ; strata:quantity strata:seismicZone ; strata:comparator "eq" ;
+    strata:valueText "V" ; strata:citedBy kg:nbc_6_1_annex_k ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "C" ; strata:matrixItem "D7" ; strata:status "transcribed" .
+kg:fact_guwahati_z a strata:Requirement ;
+    strata:appliesTo strata:Site ; strata:quantity strata:zoneFactor ; strata:comparator "eq" ;
+    strata:value 0.36 ; strata:unit "g" ; strata:citedBy kg:nbc_6_1_annex_k ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "C" ; strata:matrixItem "D7" ; strata:status "transcribed" .
+
+kg:nbc_6_1_annex_c a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 6 Section 1, Annex C (cl. 4.4.2)" ; strata:page "105" ;
+    strata:quote "BASIC WIND SPEED AT 10 m HEIGHT FOR SOME IMPORTANT CITIES/TOWNS ... Guwahati 50" .
+kg:fact_guwahati_wind a strata:Requirement ;
+    strata:appliesTo strata:Site ; strata:quantity strata:basicWindSpeed ; strata:comparator "eq" ;
+    strata:value 50.0 ; strata:unit "m/s" ; strata:citedBy kg:nbc_6_1_annex_c ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "C" ; strata:matrixItem "D9" ; strata:status "transcribed" .
+
+kg:nbc_8_1_3_2_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map" ; strata:page "8" ;
+    strata:quote "For the purpose of design of buildings, the country may be divided into the major climatic zones as given in Table 2 ... Warm-humid Above 30 Above 55 Above 25 Above 75" .
+kg:fact_guwahati_climate a strata:Requirement ;
+    strata:appliesTo strata:Site ; strata:quantity strata:climate ; strata:comparator "eq" ;
+    strata:valueText "warm-humid" ; strata:citedBy kg:nbc_8_1_3_2_1 ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "D4" ; strata:status "assumed" ;
+    strata:note "Guwahati is not named in the text; read from the climatic classification map. Check the map before relying on it." .
+
+# ---- Part 9 Section 1: water demand --------------------------------------------
+
+kg:nbc_9_1_4_1_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 2, Part 9 Section 1, cl. 4.1.1(b), (c)" ; strata:page "12" ;
+    strata:quote "b) For communities with population 20 000 to 100 000 together with full flushing system: 100 to 135 lphd c) For communities with population above 100 000 together with full flushing system: 150 to 200 lphd" .
+kg:req_water_city a strata:Requirement ;
+    strata:appliesTo strata:Building ; strata:quantity strata:waterDemand ; strata:comparator "ge" ;
+    strata:value 150.0 ; strata:unit "l/person/day" ; strata:citedBy kg:nbc_9_1_4_1_1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:population ; strata:minInclusive 100000.0 ] ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "transcribed" ;
+    strata:note "Range 150 to 200 lphd with full flushing; the lower bound is encoded." .
+kg:req_water_town a strata:Requirement ;
+    strata:appliesTo strata:Building ; strata:quantity strata:waterDemand ; strata:comparator "ge" ;
+    strata:value 100.0 ; strata:unit "l/person/day" ; strata:citedBy kg:nbc_9_1_4_1_1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:population ;
+                       strata:minInclusive 20000.0 ; strata:maxExclusive 100000.0 ] ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "transcribed" ;
+    strata:note "Range 100 to 135 lphd with full flushing; the lower bound is encoded." .

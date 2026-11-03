@@ -1,0 +1,16 @@
+# Every clause cited, per standard, with how many requirements rest on it.
+PREFIX strata: <https://strata.iitg.ac.in/kg#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?standard ?binding ?clauseId ?page (COUNT(?req) AS ?requirements)
+WHERE {
+  ?clause a strata:Clause ;
+          strata:inStandard ?std ;
+          strata:clauseId ?clauseId ;
+          strata:page ?page .
+  ?std rdfs:label ?standard ;
+       strata:legallyBinding ?binding .
+  OPTIONAL { ?req strata:citedBy ?clause }
+}
+GROUP BY ?standard ?binding ?clauseId ?page
+ORDER BY ?standard ?clauseId

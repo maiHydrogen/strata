@@ -45,7 +45,6 @@ htmlcov/
 *.h5
 
 # Project data (synced separately via rsync to Param Kamrupa)
+# Source PDFs and their OCR text stay out of git; the knowledge graph (.ttl) is source and is committed.
 data/reference_docs/*
-data/knowledge_graph/*
 !data/reference_docs/.gitkeep
-!data/knowledge_graph/.gitkeep

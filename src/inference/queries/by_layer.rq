@@ -1,0 +1,17 @@
+# Requirements feeding one BIM layer (bind ?layer: A, C, P, E or F).
+PREFIX strata: <https://strata.iitg.ac.in/kg#>
+
+SELECT ?req ?elementKey ?quantityKey ?comparator ?value ?valueText ?unit
+WHERE {
+  ?req a strata:Requirement ;
+       strata:layer ?layer ;
+       strata:appliesTo ?el ;
+       strata:quantity ?q ;
+       strata:comparator ?comparator .
+  ?el strata:key ?elementKey .
+  ?q strata:key ?quantityKey .
+  OPTIONAL { ?req strata:value ?value }
+  OPTIONAL { ?req strata:valueText ?valueText }
+  OPTIONAL { ?req strata:unit ?unit }
+}
+ORDER BY ?elementKey ?quantityKey

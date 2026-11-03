@@ -1,0 +1,30 @@
+# Audit: where a local requirement replaces a wider one for the same element, quantity and
+# comparator. ?weaker is true when the local value is less strict (lower minimum or higher
+# maximum); the local value still governs, but these cases deserve a second look.
+# Conditions are not compared, so pairs with different conditions also appear.
+PREFIX strata: <https://strata.iitg.ac.in/kg#>
+
+SELECT ?local ?wider ?localJur ?widerJur ?elementKey ?quantityKey ?comparator
+       ?localValue ?widerValue ?weaker
+WHERE {
+  ?local a strata:Requirement ;
+         strata:jurisdiction ?lj ;
+         strata:appliesTo ?el ;
+         strata:quantity ?q ;
+         strata:comparator ?comparator ;
+         strata:value ?localValue .
+  ?wider a strata:Requirement ;
+         strata:jurisdiction ?wj ;
+         strata:appliesTo ?el ;
+         strata:quantity ?q ;
+         strata:comparator ?comparator ;
+         strata:value ?widerValue .
+  ?lj strata:within+ ?wj .
+  ?lj strata:key ?localJur .
+  ?wj strata:key ?widerJur .
+  ?el strata:key ?elementKey .
+  ?q strata:key ?quantityKey .
+  BIND ((?comparator = "ge" && ?localValue < ?widerValue) ||
+        (?comparator = "le" && ?localValue > ?widerValue) AS ?weaker)
+}
+ORDER BY ?elementKey ?quantityKey

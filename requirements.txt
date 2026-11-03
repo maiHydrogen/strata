@@ -7,3 +7,5 @@ Pillow
 pytest
 pydantic
 anthropic
+rdflib==7.6.0
+pyshacl==0.40.2

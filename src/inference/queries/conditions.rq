@@ -1,0 +1,14 @@
+# Every condition of every requirement, with the API keyword it is tested against.
+PREFIX strata: <https://strata.iitg.ac.in/kg#>
+
+SELECT ?req ?paramKey ?minInclusive ?minExclusive ?maxInclusive ?maxExclusive ?equals
+WHERE {
+  ?req strata:condition ?c .
+  ?c strata:onParameter ?p .
+  ?p strata:contextKey ?paramKey .
+  OPTIONAL { ?c strata:minInclusive ?minInclusive }
+  OPTIONAL { ?c strata:minExclusive ?minExclusive }
+  OPTIONAL { ?c strata:maxInclusive ?maxInclusive }
+  OPTIONAL { ?c strata:maxExclusive ?maxExclusive }
+  OPTIONAL { ?c strata:equals ?equals }
+}

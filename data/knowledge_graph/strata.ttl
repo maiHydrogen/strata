@@ -1,0 +1,181 @@
+@prefix strata: <https://strata.iitg.ac.in/kg#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+# STRATA standards ontology. A Requirement is one checkable rule ("a habitable room's
+# area >= 9.5 m2"), cited by exactly one Clause of one Standard, applying within one
+# Jurisdiction, optionally only under Conditions (plot area, road width, occupancy...).
+# Every Requirement carries a status saying how far its value has been checked.
+
+<https://strata.iitg.ac.in/kg> a owl:Ontology ;
+    rdfs:label "STRATA standards knowledge graph" ;
+    rdfs:comment "NBC 2016, IS codes and the Assam/Guwahati building bye-laws as citable requirements." .
+
+# ---- classes -------------------------------------------------------------------
+
+strata:Standard a owl:Class ;
+    rdfs:comment "A code, standard or bye-law document (one edition)." .
+strata:Clause a owl:Class ;
+    rdfs:comment "A citable unit of a Standard: clause, table row or annex entry, with page and quote." .
+strata:Requirement a owl:Class ;
+    rdfs:comment "One rule: <element> <property> <comparator> <value> <unit>, cited by a Clause." .
+strata:Condition a owl:Class ;
+    rdfs:comment "Restricts a Requirement to a range or value of a context parameter." .
+strata:ElementType a owl:Class ;
+    rdfs:comment "What a Requirement constrains: a room type, building part, plot, building or site." .
+strata:Quantity a owl:Class ;
+    rdfs:comment "A measurable or categorical property a Requirement constrains." .
+strata:Parameter a owl:Class ;
+    rdfs:comment "A context variable a Condition tests (plot area, road width, occupancy...)." .
+strata:Jurisdiction a owl:Class ;
+    rdfs:comment "Area a Requirement applies in. Nested by strata:within; the most specific one governs." .
+
+# ---- properties ----------------------------------------------------------------
+
+strata:inStandard a owl:ObjectProperty ; rdfs:domain strata:Clause ; rdfs:range strata:Standard .
+strata:clauseId a owl:DatatypeProperty ; rdfs:domain strata:Clause ;
+    rdfs:comment "Clause reference as printed, e.g. 'Part 3, 12.2.2'." .
+strata:page a owl:DatatypeProperty ; rdfs:domain strata:Clause ;
+    rdfs:comment "Printed page (NBC pages restart in every Part/Section)." .
+strata:quote a owl:DatatypeProperty ; rdfs:domain strata:Clause ;
+    rdfs:comment "Words of the clause the value was read from." .
+
+strata:edition a owl:DatatypeProperty ; rdfs:domain strata:Standard .
+strata:sourceFile a owl:DatatypeProperty ; rdfs:domain strata:Standard ;
+    rdfs:comment "Path under data/reference_docs of the text the values were read from." .
+strata:legallyBinding a owl:DatatypeProperty ; rdfs:domain strata:Standard ; rdfs:range xsd:boolean .
+
+strata:appliesTo a owl:ObjectProperty ; rdfs:domain strata:Requirement ; rdfs:range strata:ElementType .
+strata:quantity a owl:ObjectProperty ; rdfs:domain strata:Requirement ; rdfs:range strata:Quantity .
+strata:comparator a owl:DatatypeProperty ; rdfs:domain strata:Requirement ;
+    rdfs:comment "'ge' (minimum), 'le' (maximum) or 'eq' (fixed value or fact)." .
+strata:value a owl:DatatypeProperty ; rdfs:domain strata:Requirement ; rdfs:range xsd:decimal .
+strata:valueText a owl:DatatypeProperty ; rdfs:domain strata:Requirement ;
+    rdfs:comment "Categorical value, e.g. seismic zone 'V' or climate 'warm-humid'." .
+strata:unit a owl:DatatypeProperty ; rdfs:domain strata:Requirement .
+strata:citedBy a owl:ObjectProperty ; rdfs:domain strata:Requirement ; rdfs:range strata:Clause .
+strata:jurisdiction a owl:ObjectProperty ; rdfs:domain strata:Requirement ; rdfs:range strata:Jurisdiction .
+strata:condition a owl:ObjectProperty ; rdfs:domain strata:Requirement ; rdfs:range strata:Condition .
+strata:layer a owl:DatatypeProperty ; rdfs:domain strata:Requirement ;
+    rdfs:comment "BIM layer: A architectural, C civil/structural, P plumbing, E electrical, F finishing." .
+strata:matrixItem a owl:DatatypeProperty ; rdfs:domain strata:Requirement ;
+    rdfs:comment "Item of the pre-BIM information requirements matrix this answers, e.g. 'D1'." .
+strata:status a owl:DatatypeProperty ; rdfs:domain strata:Requirement ;
+    rdfs:comment """'transcribed': read from the source text, quote attached;
+'verified': transcribed and checked against the source by a person;
+'assumed': not stated in text (e.g. read off a map); must be checked before use.""" .
+strata:note a owl:DatatypeProperty ;
+    rdfs:comment "Interpretation made while encoding the clause." .
+
+strata:onParameter a owl:ObjectProperty ; rdfs:domain strata:Condition ; rdfs:range strata:Parameter .
+strata:minInclusive a owl:DatatypeProperty ; rdfs:domain strata:Condition ; rdfs:range xsd:decimal .
+strata:maxExclusive a owl:DatatypeProperty ; rdfs:domain strata:Condition ; rdfs:range xsd:decimal .
+strata:minExclusive a owl:DatatypeProperty ; rdfs:domain strata:Condition ; rdfs:range xsd:decimal ;
+    rdfs:comment "For bands written 'more than x'." .
+strata:maxInclusive a owl:DatatypeProperty ; rdfs:domain strata:Condition ; rdfs:range xsd:decimal ;
+    rdfs:comment "For bands written 'up to x'." .
+strata:equals a owl:DatatypeProperty ; rdfs:domain strata:Condition ;
+    rdfs:comment "Required value of a categorical parameter." .
+strata:contextKey a owl:DatatypeProperty ; rdfs:domain strata:Parameter ;
+    rdfs:comment "Keyword argument name in the Python API (src/inference/kg.py)." .
+
+strata:within a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain strata:Jurisdiction ; rdfs:range strata:Jurisdiction .
+strata:key a owl:DatatypeProperty ;
+    rdfs:comment "Short name used by the Python API for element types, quantities and jurisdictions." .
+
+# ---- jurisdictions -------------------------------------------------------------
+
+strata:India a strata:Jurisdiction ; rdfs:label "India" ; strata:key "india" .
+strata:Assam a strata:Jurisdiction ; rdfs:label "Assam" ; strata:key "assam" ; strata:within strata:India .
+strata:Guwahati a strata:Jurisdiction ; rdfs:label "Guwahati (GMDA master plan area)" ;
+    strata:key "guwahati" ; strata:within strata:Assam .
+
+# ---- element types -------------------------------------------------------------
+
+strata:HabitableRoom a strata:ElementType ; rdfs:label "Habitable room" ; strata:key "habitable_room" .
+strata:Kitchen a strata:ElementType ; rdfs:label "Kitchen" ; strata:key "kitchen" .
+strata:Bathroom a strata:ElementType ; rdfs:label "Bathroom" ; strata:key "bathroom" .
+strata:WaterCloset a strata:ElementType ; rdfs:label "Water-closet" ; strata:key "wc" .
+strata:BathWC a strata:ElementType ; rdfs:label "Combined bath and water-closet" ; strata:key "bath_wc" .
+strata:StoreRoom a strata:ElementType ; rdfs:label "Store room" ; strata:key "store" .
+strata:Garage a strata:ElementType ; rdfs:label "Private garage" ; strata:key "garage" .
+strata:Staircase a strata:ElementType ; rdfs:label "Staircase" ; strata:key "staircase" .
+strata:Parapet a strata:ElementType ; rdfs:label "Parapet or handrail at a roof, balcony or verandah edge" ;
+    strata:key "parapet" .
+strata:Plinth a strata:ElementType ; rdfs:label "Plinth" ; strata:key "plinth" .
+strata:Room a strata:ElementType ; rdfs:label "Any room (light and ventilation)" ; strata:key "room" .
+strata:Floor a strata:ElementType ; rdfs:label "Floor (structural loading)" ; strata:key "floor" .
+strata:Roof a strata:ElementType ; rdfs:label "Roof" ; strata:key "roof" .
+strata:Plot a strata:ElementType ; rdfs:label "Plot" ; strata:key "plot" .
+strata:Building a strata:ElementType ; rdfs:label "Building" ; strata:key "building" .
+strata:DwellingUnit a strata:ElementType ; rdfs:label "Dwelling unit" ; strata:key "dwelling_unit" .
+strata:CarSpace a strata:ElementType ; rdfs:label "Car parking space (with its share of circulation)" ;
+    strata:key "car_space" .
+strata:Driveway a strata:ElementType ; rdfs:label "Parking circulation driveway" ; strata:key "driveway" .
+strata:Site a strata:ElementType ; rdfs:label "Site location (facts about the place)" ; strata:key "site" .
+
+# ---- quantities ----------------------------------------------------------------
+
+strata:area a strata:Quantity ; strata:key "area" .
+strata:width a strata:Quantity ; strata:key "width" .
+strata:height a strata:Quantity ; rdfs:comment "Floor to lowest point of ceiling (bottom of slab)." ; strata:key "height" .
+strata:headroom a strata:Quantity ; strata:key "headroom" .
+strata:length a strata:Quantity ; strata:key "length" .
+strata:treadWidth a strata:Quantity ; strata:key "tread" .
+strata:riserHeight a strata:Quantity ; strata:key "riser" .
+strata:risersPerFlight a strata:Quantity ; strata:key "risers_per_flight" .
+strata:openingArea a strata:Quantity ; rdfs:comment "Aggregate window/ventilator area excluding doors, as a fraction of floor area." ;
+    strata:key "opening_ratio" .
+strata:imposedLoad a strata:Quantity ; strata:key "imposed_load" .
+strata:seismicZone a strata:Quantity ; strata:key "seismic_zone" .
+strata:zoneFactor a strata:Quantity ; strata:key "zone_factor" .
+strata:basicWindSpeed a strata:Quantity ; strata:key "wind_speed" .
+strata:climate a strata:Quantity ; strata:key "climate" .
+strata:waterDemand a strata:Quantity ; strata:key "water_demand" .
+strata:frontSetback a strata:Quantity ; strata:key "front_setback" .
+strata:rearSetback a strata:Quantity ; strata:key "rear_setback" .
+strata:sideSetback a strata:Quantity ; strata:key "side_setback" .
+strata:groundCoverage a strata:Quantity ; strata:key "ground_coverage" .
+strata:far a strata:Quantity ; strata:key "far" ;
+    rdfs:comment "Floor area ratio allowed without premium (base FAR), as a ratio (bye-law '125' = 1.25)." .
+strata:farWithPremium a strata:Quantity ; strata:key "far_max" ;
+    rdfs:comment "Maximum floor area ratio on payment of the premium charge, as a ratio." .
+strata:buildingHeight a strata:Quantity ; strata:key "building_height" .
+strata:parkingSpaces a strata:Quantity ; strata:key "parking" ; rdfs:comment "Car parking spaces." .
+strata:twoWheelerSpaces a strata:Quantity ; strata:key "two_wheeler_parking" .
+strata:percolationPits a strata:Quantity ; strata:key "percolation_pits" ;
+    rdfs:comment "Rainwater percolation pits per m2 of plot area." .
+strata:rainwaterStorage a strata:Quantity ; strata:key "rainwater_storage" ;
+    rdfs:comment "Whether rainwater harvesting storage and reuse must be provided ('required')." .
+
+# ---- condition parameters ------------------------------------------------------
+
+strata:occupancy a strata:Parameter ; strata:contextKey "occupancy" ;
+    rdfs:comment "NBC 2016 Part 4 occupancy subdivision, e.g. 'A-2' (one or two family private dwelling)." .
+strata:roomRole a strata:Parameter ; strata:contextKey "room_role" ;
+    rdfs:comment "'principal' (the only or the larger habitable room of a dwelling) or 'other'." .
+strata:kitchenType a strata:Parameter ; strata:contextKey "kitchen_type" ;
+    rdfs:comment "'separate_dining', 'with_store' or 'with_dining' (kitchen also used for dining)." .
+strata:roofAccess a strata:Parameter ; strata:contextKey "roof_access" ;
+    rdfs:comment "'access' or 'maintenance_only'." .
+strata:roomUse a strata:Parameter ; strata:contextKey "room_use" ;
+    rdfs:comment "Loading use: 'rooms', 'toilets', 'circulation', 'balcony'." .
+strata:climateZone a strata:Parameter ; strata:contextKey "climate" ;
+    rdfs:comment "NBC 2016 Part 8 Section 1 Table 2 climatic zone." .
+strata:population a strata:Parameter ; strata:contextKey "population" .
+strata:plotArea a strata:Parameter ; strata:contextKey "plot_area" ; rdfs:comment "m2" .
+strata:roadWidth a strata:Parameter ; strata:contextKey "road_width" ; rdfs:comment "m" .
+strata:storeys a strata:Parameter ; strata:contextKey "storeys" .
+strata:heightOfBuilding a strata:Parameter ; strata:contextKey "building_height" ;
+    rdfs:comment "m, as the governing bye-law measures it." .
+strata:carpetArea a strata:Parameter ; strata:contextKey "carpet_area" ;
+    rdfs:comment "Carpet area of the dwelling unit, m2." .
+strata:parkingType a strata:Parameter ; strata:contextKey "parking_type" ;
+    rdfs:comment "'open', 'stilt' or 'basement'." .
+strata:buildingType a strata:Parameter ; strata:contextKey "building_type" ;
+    rdfs:comment "'house' (individual residential building) or 'apartment'." .
+strata:insideULB a strata:Parameter ; strata:contextKey "in_ulb" ;
+    rdfs:comment "'yes' if the plot is within an urban local body (e.g. Guwahati Municipal Corporation)." .
