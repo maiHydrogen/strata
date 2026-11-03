@@ -66,11 +66,13 @@ class KnowledgeGraph:
                 self.graph.parse(path)
         self.shapes = rdflib.Graph().parse(self.directory / SHAPES)
         self._load_conditions()
+        self._rows = {}  # jurisdiction -> requirement rows; the graph is read-only between add_turtle calls
 
     def add_turtle(self, text):
         """Add statements (e.g. a draft bye-law layer) and refresh the cached conditions."""
         self.graph.parse(data=text, format="turtle")
         self._load_conditions()
+        self._rows = {}
 
     def validate(self):
         """SHACL violations as messages; empty when the graph conforms."""
@@ -126,7 +128,11 @@ class KnowledgeGraph:
                     assumed[key] = fact
         self._missing = set()
         best = {}
-        for row in self.query("requirements", siteKey=jurisdiction, elementKey=element, quantityKey=quantity):
+        if jurisdiction not in self._rows:
+            self._rows[jurisdiction] = self.query("requirements", siteKey=jurisdiction)
+        for row in self._rows[jurisdiction]:
+            if (element and row["elementKey"] != element) or (quantity and row["quantityKey"] != quantity):
+                continue
             if not self._holds(row["req"], context, self._missing):
                 continue
             group = (row["elementKey"], row["quantityKey"], row["comparator"])

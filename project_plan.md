@@ -49,11 +49,11 @@
 
 - [x] Pick one target building typology — G+1/G+2 individual houses, Guwahati reference
 - [x] Draft the pre-BIM information requirements matrix (76 items, 5 sources × 5 layers) and share with supervisor
-- [ ] Verify every † code value in the matrix against NBC 2016 and the IS code texts
-- [ ] Encode GMDA bylaws (setbacks, ground coverage, FAR, height, parking, rainwater harvesting) as a jurisdiction layer
-- [ ] Identify the NBC/IS clauses that gate the typology across all 5 layers (room sizes, heights, stairs, ventilation, loads, seismic, water, drainage, electrical)
-- [ ] Encode those clauses as RDF triples in a `.ttl` file using `rdflib`, each value with its clause citation
-- [ ] Write and test 5–10 SPARQL queries against the graph before wiring it into the pipeline
+- [ ] Verify every † code value in the matrix against NBC 2016 and the IS code texts — D1–D4, D6–D9, D12 transcribed from the NBC 2016 text (two matrix values were wrong: water demand is 150–200 lphd for cities over 1 lakh, and a second habitable room may be 7.5 m²); a person still has to sign them off (`unverified` query); D5, D10, D11, D13–D18 not yet encoded
+- [x] Encode the Guwahati bye-laws as a jurisdiction layer — the governing text is the Assam Unified Building Construction (Regulation) Byelaws 2022 (amended 2024, 2025, 2026), which replaced the GMDA 2014 bye-laws under the Assam Building Construction (Regulation) Act; setbacks, minimum plot, FAR, parking, rainwater harvesting encoded (`data/knowledge_graph/local/`). No residential coverage % (setbacks govern); height limits start above G+3. FAR marked assumed: the 2025 amendment retitled the 26(a) table to commercial/institutional
+- [ ] Identify the NBC/IS clauses that gate the typology across all 5 layers (room sizes, heights, stairs, ventilation, loads, seismic, water, drainage, electrical) — done for room sizes, heights, stairs, ventilation, parapet, plinth, loads, seismic, wind, water demand; drainage and electrical pending (Phase 6)
+- [x] Encode those clauses as RDF triples in a `.ttl` file using `rdflib`, each value with its clause citation — NBC 2016 per supervisor (not NBCS 2026); every value carries clause, printed page, quote and status, enforced by SHACL (`data/knowledge_graph/`)
+- [x] Write and test 5–10 SPARQL queries against the graph before wiring it into the pipeline — 8 queries in `src/inference/queries/`, API in `src/inference/kg.py`
 - [ ] Collect 50–150 Indian plot-based floor plans (30×40 ft, 30×50 ft, etc.) from Google Images, recording source and plot size
 - [ ] Convert plan images to structured JSON (rooms, sizes, adjacency, doors) with a vision LLM; manually verify a sample
 - [ ] Note copyright limits: plans used as reference/retrieval data only, not redistributed
@@ -62,7 +62,7 @@
 
 - [x] Build PyMuPDF path for native/digital PDFs — kept as an optional upload path (plot documents, existing sketches)
 - [x] Design a structured JSON extraction schema and few-shot prompt; build the Extractor agent — reused as the base for brief extraction
-- [ ] Define the brief schema (pydantic) from the matrix's Must and Should items
+- [x] Define the brief schema (pydantic) from the matrix's Must and Should items — `src/brief/schema.py`; matrix defaults applied with their source recorded
 - [ ] Build the chatbot: asks only for missing Must items in plain language, offers defaults for the rest, confirms a summary with the user
 - [ ] Enforce schema-valid output with automatic retries; pin model version, temperature 0, log every prompt and response
 - [ ] Build a test set of 20–30 synthetic client briefs, including deliberate omissions
@@ -71,10 +71,10 @@
 
 ## Phase 3 — Standard Inference Engine (1–2 weeks)
 
-- [ ] Wire the brief into the RDF graph from Phase 1
-- [ ] Implement missing-parameter resolution via SPARQL, with clause-level traceability on every filled value
-- [ ] Apply the jurisdiction layer by location (Guwahati first)
-- [ ] Test: deliberately omit a parameter from a sample brief, confirm the engine fills it correctly with the correct citation
+- [x] Wire the brief into the RDF graph from Phase 1 — `src/inference/spec.py`, `scripts/make_spec.py`
+- [x] Implement missing-parameter resolution via SPARQL, with clause-level traceability on every filled value — unresolved and layout-deferred values listed explicitly (water demand needs city population; parking needs carpet area)
+- [x] Apply the jurisdiction layer by location (Guwahati first) — most specific jurisdiction governs; cities without a layer fall back to NBC 2016
+- [x] Test: deliberately omit a parameter from a sample brief, confirm the engine fills it correctly with the correct citation — `tests/test_spec.py`
 
 ## Phase 4 — Layout Generation (3 weeks)
 

@@ -1,0 +1,1252 @@
+{
+  "schema_version": "0.1",
+  "jurisdiction": "guwahati",
+  "brief_sources": {
+    "building_use": "client",
+    "floors_now": "client",
+    "floors_future": "client",
+    "family": "client",
+    "programme": "client",
+    "parking": "client",
+    "site.plot": "client",
+    "site.north": "client",
+    "site.roads": "client",
+    "site.city": "client",
+    "site.in_ulb": "client",
+    "balcony_per_bedroom_floor": "default (A7)",
+    "lift": "default (A7)",
+    "budget": "default (A8)",
+    "vastu": "default (A9)",
+    "finish_level": "default (A11)",
+    "electrical_loads": "default (A12)",
+    "water_source": "default (A13)",
+    "rental_unit": "default (A14)",
+    "site.plot_level_below_road": "default (B6)",
+    "site.soil_bearing_capacity": "default (B7)",
+    "site.water_table_below_foundation": "default (B8)",
+    "site.water_main": "default (B11)",
+    "site.sewer": "default (B11)",
+    "site.power_phase": "default (B12)",
+    "site.storm_drain": "default (B13)"
+  },
+  "context": {
+    "occupancy": {
+      "value": "A-2",
+      "from": "building use 'single_family' (NBC 2016 Part 4 cl. 3.1.2(b))"
+    },
+    "building_height": {
+      "value": 9.45,
+      "from": "3 storeys (floors_future, designed for) x 3.0 m (E1) + plinth 0.45 m"
+    },
+    "road_width": {
+      "value": 6.0,
+      "from": "widest abutting road, client"
+    },
+    "plot_area": {
+      "value": 138.32,
+      "from": "client"
+    },
+    "in_ulb": {
+      "value": "yes",
+      "from": "client"
+    }
+  },
+  "rooms": [
+    {
+      "name": "Living room",
+      "type": "habitable_room",
+      "room_role": "principal",
+      "requirements": [
+        {
+          "element": "habitable_room",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 9.5,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "width",
+          "comparator": "ge",
+          "value": 2.4,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.75,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.1",
+            "page": "43",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "12.2.1.1: applies to residential, business and mercantile buildings."
+        },
+        {
+          "element": "room",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.1667,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "One-sixth, rounded up to 4 decimals.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bedroom 1",
+      "type": "habitable_room",
+      "room_role": "other",
+      "requirements": [
+        {
+          "element": "habitable_room",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 7.5,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "width",
+          "comparator": "ge",
+          "value": 2.1,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "Read as: the 2.1 m minimum width applies to the second (7.5 m2) room."
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.75,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.1",
+            "page": "43",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "12.2.1.1: applies to residential, business and mercantile buildings."
+        },
+        {
+          "element": "room",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.1667,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "One-sixth, rounded up to 4 decimals.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bedroom 2",
+      "type": "habitable_room",
+      "room_role": "other",
+      "requirements": [
+        {
+          "element": "habitable_room",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 7.5,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "width",
+          "comparator": "ge",
+          "value": 2.1,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "Read as: the 2.1 m minimum width applies to the second (7.5 m2) room."
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.75,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.1",
+            "page": "43",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "12.2.1.1: applies to residential, business and mercantile buildings."
+        },
+        {
+          "element": "room",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.1667,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "One-sixth, rounded up to 4 decimals.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bedroom 3",
+      "type": "habitable_room",
+      "room_role": "other",
+      "requirements": [
+        {
+          "element": "habitable_room",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 7.5,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "width",
+          "comparator": "ge",
+          "value": 2.1,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "Read as: the 2.1 m minimum width applies to the second (7.5 m2) room."
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.75,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.1",
+            "page": "43",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "12.2.1.1: applies to residential, business and mercantile buildings."
+        },
+        {
+          "element": "room",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.1667,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "One-sixth, rounded up to 4 decimals.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dining",
+      "type": "habitable_room",
+      "room_role": "other",
+      "requirements": [
+        {
+          "element": "habitable_room",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 7.5,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "width",
+          "comparator": "ge",
+          "value": 2.1,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "Read as: the 2.1 m minimum width applies to the second (7.5 m2) room."
+        },
+        {
+          "element": "habitable_room",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.75,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.2.1",
+            "page": "43",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "12.2.1.1: applies to residential, business and mercantile buildings."
+        },
+        {
+          "element": "room",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.1667,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "One-sixth, rounded up to 4 decimals.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kitchen",
+      "type": "kitchen",
+      "kitchen_type": "separate_dining",
+      "requirements": [
+        {
+          "element": "kitchen",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 5.0,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.3.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "kitchen",
+          "quantity": "width",
+          "comparator": "ge",
+          "value": 1.8,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.3.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "kitchen",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.75,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.3.1",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "kitchen",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.2084,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "Note 3: one-sixth increased by 25 percent for a kitchen = 5/24, rounded up.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Attached bathroom 1",
+      "type": "bath_wc",
+      "requirements": [
+        {
+          "element": "bath_wc",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 2.8,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "width",
+          "comparator": "ge",
+          "value": 1.2,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.1,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.1",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "room",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.1667,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "One-sixth, rounded up to 4 decimals.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Attached bathroom 2",
+      "type": "bath_wc",
+      "requirements": [
+        {
+          "element": "bath_wc",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 2.8,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "width",
+          "comparator": "ge",
+          "value": 1.2,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.1,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.1",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "room",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.1667,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "One-sixth, rounded up to 4 decimals.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Common bathroom 1",
+      "type": "bath_wc",
+      "requirements": [
+        {
+          "element": "bath_wc",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 2.8,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "width",
+          "comparator": "ge",
+          "value": 1.2,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.2",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.1,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.1",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "room",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.1667,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "One-sixth, rounded up to 4 decimals.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Store",
+      "type": "store",
+      "requirements": [
+        {
+          "element": "store",
+          "quantity": "area",
+          "comparator": "ge",
+          "value": 3.0,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.7",
+            "page": "45",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "store",
+          "quantity": "height",
+          "comparator": "ge",
+          "value": 2.2,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.7",
+            "page": "45",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "room",
+          "quantity": "opening_ratio",
+          "comparator": "ge",
+          "value": 0.1667,
+          "unit": "fraction of floor area",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 20.1.2",
+            "page": "57",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          },
+          "note": "One-sixth, rounded up to 4 decimals.",
+          "assumptions": [
+            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
+          ]
+        }
+      ]
+    }
+  ],
+  "building": [
+    {
+      "element": "plinth",
+      "quantity": "height",
+      "comparator": "ge",
+      "value": 0.45,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 3, cl. 12.1.1",
+        "page": "43",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "parapet",
+      "quantity": "height",
+      "comparator": "ge",
+      "value": 1.0,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 3, cl. 12.11",
+        "page": "46",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "parapet",
+      "quantity": "height",
+      "comparator": "le",
+      "value": 1.2,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 3, cl. 12.11",
+        "page": "46",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "staircase",
+      "quantity": "width",
+      "comparator": "ge",
+      "value": 1.0,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 3, cl. 12.18.1.1(a)",
+        "page": "49",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      },
+      "note": "NOTE to the clause: 0.75 m for two-storey row housing (not encoded; STRATA builds detached houses)."
+    },
+    {
+      "element": "staircase",
+      "quantity": "tread",
+      "comparator": "ge",
+      "value": 0.25,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 3, cl. 12.18.1.2",
+        "page": "49",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "staircase",
+      "quantity": "riser",
+      "comparator": "le",
+      "value": 0.19,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 3, cl. 12.18.1.3",
+        "page": "49",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "staircase",
+      "quantity": "headroom",
+      "comparator": "ge",
+      "value": 2.2,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 3, cl. 12.18.2",
+        "page": "49",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "staircase",
+      "quantity": "risers_per_flight",
+      "comparator": "le",
+      "value": 12.0,
+      "unit": "count",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 3, cl. 12.18.1.3",
+        "page": "49",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "habitable_room",
+      "quantity": "headroom",
+      "comparator": "ge",
+      "value": 2.4,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 3, cl. 12.2.1",
+        "page": "43",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      },
+      "note": "Clear head room under a beam: governs beam soffit level in habitable rooms."
+    }
+  ],
+  "plot": [
+    {
+      "element": "plot",
+      "quantity": "area",
+      "comparator": "ge",
+      "value": 134.0,
+      "unit": "m2",
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Bye-law 24(b), minimum plot size for residential use",
+        "page": "9725",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "plot",
+      "quantity": "width",
+      "comparator": "ge",
+      "value": 6.0,
+      "unit": "m",
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Bye-law 24(b), minimum plot size for residential use",
+        "page": "9725",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "plot",
+      "quantity": "front_setback",
+      "comparator": "ge",
+      "value": 3.6,
+      "unit": "m",
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Bye-law 24(a)(i), front setback table",
+        "page": "9723-9724",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      },
+      "note": "Measured from the prescribed street line, which may lie inside the plot where the road is to be widened (bye-law 23).",
+      "inputs": {
+        "road": "front",
+        "road_width": 6.0,
+        "building_height": 9.45
+      }
+    },
+    {
+      "element": "plot",
+      "quantity": "side_setback",
+      "comparator": "ge",
+      "value": 1.8,
+      "unit": "m",
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Bye-law 24(a)(ii), side and rear setback table",
+        "page": "9724",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      },
+      "note": "A height up to 10% (max 1.5 m) over a row still uses that row; beyond it the next row applies."
+    },
+    {
+      "element": "plot",
+      "quantity": "rear_setback",
+      "comparator": "ge",
+      "value": 1.8,
+      "unit": "m",
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Bye-law 24(a)(ii), side and rear setback table",
+        "page": "9724",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      },
+      "note": "A height up to 10% (max 1.5 m) over a row still uses that row; beyond it the next row applies."
+    },
+    {
+      "element": "plot",
+      "quantity": "far",
+      "comparator": "le",
+      "value": 1.25,
+      "unit": "ratio",
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Bye-law 26(a), FAR table",
+        "page": "9730",
+        "jurisdiction": "guwahati",
+        "status": "assumed"
+      },
+      "note": "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots."
+    },
+    {
+      "element": "plot",
+      "quantity": "far_max",
+      "comparator": "le",
+      "value": 1.25,
+      "unit": "ratio",
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Bye-law 26(a), FAR table",
+        "page": "9730",
+        "jurisdiction": "guwahati",
+        "status": "assumed"
+      },
+      "note": "26(a) was the FAR table for residential and mixed use (heading as amended 2024); the 2025 amendment substituted 26(a) with a table headed commercial and institutional buildings whose rows up to 15 m roads carry the same values. Confirm with GMDA which table governs residential plots."
+    },
+    {
+      "element": "plot",
+      "quantity": "percolation_pits",
+      "comparator": "ge",
+      "value": 0.01,
+      "unit": "pits per m2 of plot area",
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Appendix-VI (bye-law 38(i)), buildings other than commercial and residential apartments",
+        "page": "9809",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      },
+      "note": "One pit of 1.2 x 1.2 x 1.5 m per 100 m2 of plot area; rain and waste water drains discharge through the pits.",
+      "required_count": 2
+    },
+    {
+      "element": "plot",
+      "quantity": "rainwater_storage",
+      "comparator": "eq",
+      "value": "required",
+      "unit": null,
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Appendix-VI (bye-law 38(i)), buildings other than commercial and residential apartments",
+        "page": "9809",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "check": "plot area >= 134.0 m2",
+      "actual": 138.32,
+      "pass": true,
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Bye-law 24(b), minimum plot size for residential use",
+        "page": "9725",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      }
+    },
+    {
+      "check": "plot width >= 6.0 m",
+      "actual": 9.1,
+      "pass": true,
+      "source": {
+        "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+        "clause": "Bye-law 24(b), minimum plot size for residential use",
+        "page": "9725",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      }
+    },
+    {
+      "check": "buildable envelope after setbacks",
+      "actual": {
+        "width": 5.5,
+        "depth": 9.8,
+        "setbacks": {
+          "front": 3.6,
+          "rear": 1.8,
+          "left": 1.8,
+          "right": 1.8
+        },
+        "unit": "m"
+      },
+      "pass": true
+    }
+  ],
+  "structure": [
+    {
+      "element": "floor",
+      "quantity": "imposed_load",
+      "comparator": "ge",
+      "value": 2.0,
+      "unit": "kN/m2",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 6 Section 1, cl. 3.3.1, Table 1 (i)(a)",
+        "page": "9",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "floor",
+      "quantity": "imposed_load",
+      "comparator": "ge",
+      "value": 2.0,
+      "unit": "kN/m2",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 6 Section 1, cl. 3.3.1, Table 1 (i)(a)",
+        "page": "9",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "floor",
+      "quantity": "imposed_load",
+      "comparator": "ge",
+      "value": 3.0,
+      "unit": "kN/m2",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 6 Section 1, cl. 3.3.1, Table 1 (i)(a)",
+        "page": "9",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      },
+      "note": "Corridors, passages, staircases and store rooms."
+    },
+    {
+      "element": "floor",
+      "quantity": "imposed_load",
+      "comparator": "ge",
+      "value": 3.0,
+      "unit": "kN/m2",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 6 Section 1, cl. 3.3.1, Table 1 (i)(a)",
+        "page": "9",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      },
+      "note": "Plus 1.5 kN per metre run concentrated at the outer edge (not encoded)."
+    },
+    {
+      "element": "roof",
+      "quantity": "imposed_load",
+      "comparator": "ge",
+      "value": 1.5,
+      "unit": "kN/m2",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 6 Section 1, cl. 3.4.1, Table 2 (i)",
+        "page": "13",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      },
+      "note": "Flat roofs (slope up to 10 degrees)."
+    }
+  ],
+  "site": [
+    {
+      "element": "site",
+      "quantity": "climate",
+      "comparator": "eq",
+      "value": "warm-humid",
+      "unit": null,
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map",
+        "page": "8",
+        "jurisdiction": "guwahati",
+        "status": "assumed"
+      },
+      "note": "Guwahati is not named in the text; read from the climatic classification map. Check the map before relying on it."
+    },
+    {
+      "element": "site",
+      "quantity": "seismic_zone",
+      "comparator": "eq",
+      "value": "V",
+      "unit": null,
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 6 Section 1, Annex K (cl. 5.3.4.2)",
+        "page": "121",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "site",
+      "quantity": "wind_speed",
+      "comparator": "eq",
+      "value": 50.0,
+      "unit": "m/s",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 6 Section 1, Annex C (cl. 4.4.2)",
+        "page": "105",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "site",
+      "quantity": "zone_factor",
+      "comparator": "eq",
+      "value": 0.36,
+      "unit": "g",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 6 Section 1, Annex K (cl. 5.3.4.2)",
+        "page": "121",
+        "jurisdiction": "guwahati",
+        "status": "transcribed"
+      }
+    }
+  ],
+  "services": [],
+  "defaults": [
+    {
+      "item": "floor_to_floor_height",
+      "value": 3.0,
+      "unit": "m",
+      "source": "engineering default (E1)"
+    },
+    {
+      "item": "structural_system",
+      "value": "RCC frame with brick infill",
+      "unit": null,
+      "source": "engineering default (E2)"
+    },
+    {
+      "item": "foundation",
+      "value": "isolated footings, 1.5 m deep",
+      "unit": null,
+      "source": "engineering default (E4)"
+    },
+    {
+      "item": "external_wall",
+      "value": 0.23,
+      "unit": "m brick + 12-15 mm plaster",
+      "source": "engineering default (E5)"
+    },
+    {
+      "item": "internal_wall",
+      "value": 0.115,
+      "unit": "m brick + 12-15 mm plaster",
+      "source": "engineering default (E5)"
+    },
+    {
+      "item": "main_door",
+      "value": "1.0 x 2.1",
+      "unit": "m",
+      "source": "engineering default (E6)"
+    },
+    {
+      "item": "room_door",
+      "value": "0.9 x 2.1",
+      "unit": "m",
+      "source": "engineering default (E6)"
+    },
+    {
+      "item": "bath_door",
+      "value": "0.75 x 2.1",
+      "unit": "m",
+      "source": "engineering default (E6)"
+    },
+    {
+      "item": "sill_level",
+      "value": 0.9,
+      "unit": "m",
+      "source": "engineering default (E7)"
+    },
+    {
+      "item": "lintel_level",
+      "value": 2.1,
+      "unit": "m",
+      "source": "engineering default (E7)"
+    },
+    {
+      "item": "roof",
+      "value": "flat RCC roof with waterproofing",
+      "unit": null,
+      "source": "engineering default (E9)"
+    }
+  ],
+  "deferred": [
+    {
+      "element": "dwelling_unit",
+      "quantity": "parking",
+      "needs": [
+        "carpet_area"
+      ],
+      "reason": "depends on the carpet area fixed by the layout",
+      "clauses": [
+        "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026), Appendix-I, Sl. 1 Residential Buildings, p. 9798"
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "element": "building",
+      "quantity": "water_demand",
+      "reason": "no requirement for building.water_demand at guwahati; conditions need: population"
+    }
+  ],
+  "notes": []
+}
