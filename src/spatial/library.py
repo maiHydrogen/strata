@@ -336,3 +336,40 @@ def adjacency_stats(index):
 
 __all__ = ["load_resplan", "convert", "features", "load_index", "retrieve", "floor_compatibility",
            "adjacency_stats", "structural_lines", "MultiPolygon", "Point"]
+
+
+# ---- plans as text, for the LLM's layout proposals ----
+
+def load_layouts(ids, path=LIBRARY):
+    """Layouts for the given ResPlan ids, read from the library file (one JSON layout per line)."""
+    want, out = {int(i) for i in ids}, {}
+    with open(path) as f:
+        for line in f:
+            if not want:
+                break
+            for i in list(want):
+                if f'"id":{i},' in line.replace(" ", ""):
+                    layout = Layout.model_validate_json(line)
+                    if layout.source.get("id") == i:
+                        out[i] = layout
+                        want.discard(i)
+    return [out[int(i)] for i in ids if int(i) in out]
+
+
+def describe(layout):
+    """One line per plan: its size, then its rooms band by band (front to rear) and side by side."""
+    f = layout.floors[0]
+    rooms = [r for r in f.rooms if r.type not in ("corridor",)]
+    footprint = unary_union([r.shape for r in f.rooms])
+    minx, miny, maxx, maxy = footprint.bounds
+    w, d = maxx - minx, maxy - miny
+    zones = {"front": [], "middle": [], "rear": []}
+    for r in rooms:
+        c = r.shape.centroid
+        y = (c.y - miny) / d
+        x = (c.x - minx) / w
+        zone = "front" if y < 1 / 3 else "middle" if y < 2 / 3 else "rear"
+        side = "left" if x < 0.4 else "right" if x > 0.6 else "centre"
+        zones[zone].append((x, f"{r.type.replace('_', ' ')} {r.shape.area:.0f} m2 ({side})"))
+    parts = [f"{z}: " + ", ".join(t for _, t in sorted(v)) for z, v in zones.items() if v]
+    return f"{w:.1f} x {d:.1f} m, " + "; ".join(parts)

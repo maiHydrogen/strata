@@ -1,0 +1,17 @@
+# Audit: every value not yet checked against its source by a person, with where to check it.
+PREFIX strata: <https://strata.iitg.ac.in/kg#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?req ?status ?standard ?clauseId ?page ?note
+WHERE {
+  ?req a strata:Requirement ;
+       strata:status ?status ;
+       strata:citedBy ?clause .
+  FILTER (?status != "verified")
+  ?clause strata:clauseId ?clauseId ;
+          strata:page ?page ;
+          strata:inStandard ?std .
+  ?std rdfs:label ?standard .
+  OPTIONAL { ?req strata:note ?note }
+}
+ORDER BY DESC(?status = "assumed") ?standard ?clauseId

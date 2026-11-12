@@ -1,0 +1,38 @@
+# Requirements in force at a place: those of the place and of every jurisdiction containing it.
+# Bind ?siteKey (e.g. "guwahati"); optionally ?elementKey and ?quantityKey.
+# ?depth counts the jurisdiction's ancestors including itself (India 1, Assam 2, Guwahati 3);
+# the Python API keeps the deepest (most specific) one per element, quantity and comparator.
+PREFIX strata: <https://strata.iitg.ac.in/kg#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?req ?elementKey ?quantityKey ?comparator ?value ?valueText ?unit ?status ?note
+       ?jurKey ?depth ?standard ?clauseId ?page ?quote
+WHERE {
+  ?site strata:key ?siteKey ;
+        strata:within* ?jur .
+  ?req a strata:Requirement ;
+       strata:jurisdiction ?jur ;
+       strata:appliesTo ?el ;
+       strata:quantity ?q ;
+       strata:comparator ?comparator ;
+       strata:status ?status ;
+       strata:citedBy ?clause .
+  ?el strata:key ?elementKey .
+  ?q strata:key ?quantityKey .
+  ?jur strata:key ?jurKey .
+  ?clause strata:clauseId ?clauseId ;
+          strata:page ?page ;
+          strata:quote ?quote ;
+          strata:inStandard ?std .
+  ?std rdfs:label ?standard .
+  OPTIONAL { ?req strata:value ?value }
+  OPTIONAL { ?req strata:valueText ?valueText }
+  OPTIONAL { ?req strata:unit ?unit }
+  OPTIONAL { ?req strata:note ?note }
+  {
+    SELECT ?jur (COUNT(?anc) AS ?depth)
+    WHERE { ?jur a strata:Jurisdiction ; strata:within* ?anc }
+    GROUP BY ?jur
+  }
+}
+ORDER BY ?elementKey ?quantityKey ?comparator DESC(?depth)

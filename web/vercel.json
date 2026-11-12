@@ -3,6 +3,10 @@
     "api/brief.py": {
       "maxDuration": 60,
       "excludeFiles": "{node_modules,.next,app,components,public,scripts}/**"
+    },
+    "api/layout.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{node_modules,.next,app,components,public,scripts}/**"
     }
   }
 }

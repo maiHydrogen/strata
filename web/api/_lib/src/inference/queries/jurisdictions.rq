@@ -1,0 +1,15 @@
+# The jurisdictions whose requirements apply at a place, most specific first (bind ?siteKey).
+PREFIX strata: <https://strata.iitg.ac.in/kg#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?jurKey ?label (COUNT(?anc) AS ?depth)
+WHERE {
+  ?site strata:key ?siteKey ;
+        strata:within* ?jur .
+  ?jur a strata:Jurisdiction ;
+       strata:key ?jurKey ;
+       rdfs:label ?label ;
+       strata:within* ?anc .
+}
+GROUP BY ?jurKey ?label
+ORDER BY DESC(?depth)

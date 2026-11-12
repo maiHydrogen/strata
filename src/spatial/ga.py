@@ -13,7 +13,7 @@ stair lines up by construction.
 Genome: floats in [0, 1] (random keys), decoded deterministically:
   [0] footprint width share   [1] band count (3 to 5)   [2..6] band depth shares
   [7] spine position          [8] stair cell              [9] upper floors fill from front or rear
-  then for every movable room: floor key, order key
+  then for every room except the living room: floor key (ignored if its floor is fixed), order key
 The decoder completes the plan: attached baths carved from their bedroom's cell, two small
 rooms (bath, store) sharing a cell, doors to the spine, windows sized to the opening ratio,
 columns, walls. Fitness is computed here from the geometry (hard terms first, weighted
@@ -122,8 +122,13 @@ def problem(brief, spec):
                  req=req, principal=principal, far=far, opening=opening)
 
 
+def placed(p):
+    """Rooms the genome places (all but the living room, which is the ground front cell)."""
+    return [u for u in p.units if u.type != "living"]
+
+
 def genome_length(p):
-    return HEAD + 2 * sum(1 for u in p.units if u.floor is None)
+    return HEAD + 2 * len(placed(p))
 
 
 # ---- decoding ----
@@ -178,14 +183,10 @@ def decode(g, p):
     stair_slots = [(b, s) for b in range(1, n) for s in ("L" if single else "LR")]
     stair = stair_slots[min(int(g[8] * len(stair_slots)), len(stair_slots) - 1)] if p.floors > 1 else None
 
-    # floors for movable units, then order within each floor
-    movable = [u for u in p.units if u.floor is None]
+    # each room's floor (fixed, or from its gene), then its place in the fill order
     per_floor = {f: [] for f in range(p.floors)}
-    for u in p.units:
-        if u.floor is not None and u.type != "living":  # the living room is the ground front cell
-            per_floor[u.floor].append((-1.0, u))
-    for i, u in enumerate(movable):
-        f = min(int(g[HEAD + 2 * i] * p.floors), p.floors - 1)
+    for i, u in enumerate(placed(p)):
+        f = u.floor if u.floor is not None else min(int(g[HEAD + 2 * i] * p.floors), p.floors - 1)
         per_floor[f].append((g[HEAD + 2 * i + 1], u))
 
     plan = Plan(width=round(W, 3), bands=edges, spine=sx, stair=stair, floors=[], extent=[], single=single, spine_w=sw)
@@ -418,14 +419,14 @@ def run(brief, spec, pop_size=150, generations=150, seed=0, seeds=(), restarts=1
     return best
 
 
-def alternatives(brief, spec, count=3, restarts=8, seed=0, **kw):
+def alternatives(brief, spec, count=3, restarts=8, seed=0, seeds=(), **kw):
     """Up to `count` distinct layouts, best first: the winner of each independent run, duplicates removed.
 
     Independent runs settle on different arrangements, which gives the client real choices."""
     found, seen = [], set()
     p = None
     for k in range(restarts):
-        hof, p, _ = _run(brief, spec, kw.get("pop_size", 150), kw.get("generations", 150), seed + 1000 * k, ())
+        hof, p, _ = _run(brief, spec, kw.get("pop_size", 150), kw.get("generations", 150), seed + 1000 * k, seeds)
         for g in hof:
             plan = decode(g, p)
             key = tuple((r[0], round(r[2], 1), round(r[3], 1)) for cells in plan.floors for c in cells for r in c.rooms)
@@ -610,6 +611,7 @@ def suggest(brief, build_spec, restarts=3, generations=100, seed=0):
         spec = build_spec(b)
         hof, p, _ = run(b, spec, generations=generations, seed=seed, restarts=restarts)
         hard, soft, why, _ = evaluate(hof[0], p, detail=True)
-        results.append({"change": label, "fits": hard == 0, "score": round(hard + soft, 3), "problems": why})
+        results.append({"change": label, "fits": hard == 0, "score": round(hard + soft, 3), "problems": why,
+                        "brief": b})
     results.sort(key=lambda r: (not r["fits"], r["change"].count(" and "), r["score"]))
     return results

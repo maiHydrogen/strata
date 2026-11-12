@@ -1,0 +1,92 @@
+{
+ "brief": "g2_30x50",
+ "runs": 10,
+ "population": 40,
+ "examples_from_library": 3,
+ "llm_proposals": [
+  {
+   "focus": "bedrooms upstairs with a front terrace on the upper floor",
+   "feasible": false,
+   "score": 4956.799,
+   "problems": [
+    "Living room 2.01 m wide < 2.4",
+    "Bedroom 2 6.3 m2 < 7.5",
+    "Bedroom 1 5.3 m2 < 7.5"
+   ]
+  },
+  {
+   "focus": "one bedroom on the ground floor for elders, kitchen next to dining",
+   "feasible": false,
+   "score": 2811.695,
+   "problems": [
+    "Bedroom 1 6.1 m2 < 7.5",
+    "Bedroom 2 6.1 m2 < 7.5"
+   ]
+  },
+  {
+   "focus": "a deep rear band for the bedrooms with attached baths, stair near the entrance",
+   "feasible": false,
+   "score": 5345.105,
+   "problems": [
+    "Living room 2.06 m wide < 2.4",
+    "Bedroom 2 6.6 m2 < 7.5",
+    "Bedroom 2 cannot get enough window"
+   ]
+  },
+  {
+   "focus": "a compact plan with as little unused space as possible",
+   "feasible": false,
+   "score": 1497.633,
+   "problems": [
+    "Common bathroom 1 1.11 m wide < 1.2",
+    "Bedroom 2 6.1 m2 < 7.5"
+   ]
+  }
+ ],
+ "ga": {
+  "random start": {
+   "gen 0": {
+    "mean best": 267.955,
+    "feasible runs": 8
+   },
+   "gen 5": {
+    "mean best": 4.495,
+    "feasible runs": 10
+   },
+   "gen 10": {
+    "mean best": 3.65,
+    "feasible runs": 10
+   },
+   "gen 20": {
+    "mean best": 3.073,
+    "feasible runs": 10
+   },
+   "gen 40": {
+    "mean best": 2.814,
+    "feasible runs": 10
+   }
+  },
+  "seeded with LLM proposals": {
+   "gen 0": {
+    "mean best": 101.473,
+    "feasible runs": 10
+   },
+   "gen 5": {
+    "mean best": 4.521,
+    "feasible runs": 10
+   },
+   "gen 10": {
+    "mean best": 4.145,
+    "feasible runs": 10
+   },
+   "gen 20": {
+    "mean best": 3.611,
+    "feasible runs": 10
+   },
+   "gen 40": {
+    "mean best": 3.168,
+    "feasible runs": 10
+   }
+  }
+ }
+}

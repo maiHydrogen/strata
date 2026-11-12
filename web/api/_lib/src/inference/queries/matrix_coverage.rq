@@ -1,0 +1,14 @@
+# Which items of the pre-BIM information requirements matrix the graph answers, and how far
+# their values are checked.
+PREFIX strata: <https://strata.iitg.ac.in/kg#>
+
+SELECT ?item (COUNT(?req) AS ?requirements)
+       (SUM(IF(?status = "verified", 1, 0)) AS ?verified)
+       (SUM(IF(?status = "assumed", 1, 0)) AS ?assumed)
+WHERE {
+  ?req a strata:Requirement ;
+       strata:matrixItem ?item ;
+       strata:status ?status .
+}
+GROUP BY ?item
+ORDER BY ?item

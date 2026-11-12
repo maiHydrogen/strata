@@ -18,7 +18,8 @@ NAME = {"living": "Living", "dining": "Dining", "bedroom": "Bedroom", "study": "
         "balcony": "Balcony"}
 
 
-def render_svg(layout, check=None, scale=42, gap=60):
+def render_svg(layout, check=None, scale=42, gap=60, margin=1.5):
+    """`margin` (m) around the building; the view is cropped to the building so the plan stays legible."""
     failed = set()
     if check:
         for r in check["results"]:
@@ -30,9 +31,13 @@ def render_svg(layout, check=None, scale=42, gap=60):
             for rid, a in f["rooms"].items():
                 carpets[(f["floor"], rid)] = a
     plot = layout.plot or {}
-    pw = plot.get("width") or max(x for f in layout.floors for r in f.rooms for x, _ in r.polygon)
-    pd = plot.get("depth") or max(y for f in layout.floors for r in f.rooms for _, y in r.polygon)
-    fw, fh = pw * scale, pd * scale
+    xs = [x for f in layout.floors for r in f.rooms for x, _ in r.polygon]
+    ys = [y for f in layout.floors for r in f.rooms for _, y in r.polygon]
+    pw = plot.get("width") or max(xs)
+    pd = plot.get("depth") or max(ys)
+    vx0, vx1 = max(0.0, min(xs) - margin), min(pw, max(xs) + margin)
+    vy0, vy1 = max(0.0, min(ys) - margin), min(pd, max(ys) + margin)
+    fw, fh = (vx1 - vx0) * scale, (vy1 - vy0) * scale
     W = len(layout.floors) * (fw + gap) + gap
     H = fh + 2 * gap + 30
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W:.0f} {H:.0f}" width="{W:.0f}" height="{H:.0f}" '
@@ -43,18 +48,20 @@ def render_svg(layout, check=None, scale=42, gap=60):
         oy = gap + 10
 
         def X(x):
-            return ox + x * scale
+            return ox + (x - vx0) * scale
 
         def Y(y):  # y grows into the plot: draw the road side at the bottom
-            return oy + (pd - y) * scale
+            return oy + (vy1 - y) * scale
 
         tag = floor.name or f"L{floor.level}"
         out.append(f'<text x="{ox:.1f}" y="{oy - 22:.1f}" fill="#fff" font-size="16" font-weight="700" '
                    f'font-family="Unbounded, system-ui, sans-serif">{escape(tag)}</text>')
-        out.append(f'<rect x="{X(0):.1f}" y="{Y(pd):.1f}" width="{fw:.1f}" height="{fh:.1f}" fill="none" '
-                   f'stroke="rgba(255,255,255,0.25)" stroke-dasharray="6 5"/>')
-        out.append(f'<text x="{X(pw / 2):.1f}" y="{Y(0) + 22:.1f}" fill="rgba(255,255,255,0.55)" font-size="12" '
-                   f'text-anchor="middle">road</text>')
+        out.append(f'<clipPath id="v{i}"><rect x="{ox:.1f}" y="{oy:.1f}" width="{fw:.1f}" height="{fh:.1f}"/></clipPath>')
+        out.append(f'<rect x="{X(0):.1f}" y="{Y(pd):.1f}" width="{pw * scale:.1f}" height="{pd * scale:.1f}" fill="none" '
+                   f'stroke="rgba(255,255,255,0.25)" stroke-dasharray="6 5" clip-path="url(#v{i})"/>')
+        road = "road" if vy0 <= 0.01 else "road side"
+        out.append(f'<text x="{ox + fw / 2:.1f}" y="{oy + fh + 20:.1f}" fill="rgba(255,255,255,0.55)" font-size="12" '
+                   f'text-anchor="middle">{road}</text>')
         for r in floor.rooms:
             pts = " ".join(f"{X(x):.1f},{Y(y):.1f}" for x, y in r.polygon)
             bad = f"{tag} {r.id}" in failed

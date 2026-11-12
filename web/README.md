@@ -39,3 +39,13 @@ if it is out of date.
 Request: `POST /api/brief` with `{"state": ..., "message": "..."}` (both omitted to start).
 Response: `reply`, `state`, `panel` (the live brief card), `summarised`, `done`, and the
 confirmed `brief` JSON at the end.
+
+`POST /api/layout` with `{"brief": ..., "seed": 1}` runs the layout stage on the confirmed
+brief: spec from the knowledge graph, the genetic algorithm, the independent rule checker
+and the SVG preview. It returns up to three options (plan, checks passed, areas, rooms, the
+layout JSON) and, when none fits, the brief changes that would. It calls no LLM; a run takes
+about 10 to 30 seconds. `api/_lib` also carries `src/inference`, `src/spatial` and
+`data/knowledge_graph` for it.
+
+In development, `http://localhost:3000/?demo=layout` opens the layout screen with the
+40 x 60 ft example brief (ignored in production builds).

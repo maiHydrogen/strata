@@ -1,4 +1,8 @@
-# Python runtime for the Vercel functions in api/ (the brief chatbot only; no OCR, torch or KG here)
+# Python runtime for the Vercel functions in api/ (brief chat, spec, layout GA; no OCR or torch here)
 pydantic==2.13.5
 google-genai==2.25.0
 httpx==0.28.1
+rdflib==7.6.0
+pyshacl==0.40.2
+shapely==2.1.2
+deap==1.4.4

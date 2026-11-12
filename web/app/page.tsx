@@ -4,6 +4,8 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import {
   Beam, Book, Braces, Chat, Check, Cube, Download, Lock, Logo, Pipe, Plan, Restart, Send, Spark,
 } from "@/components/Icons";
+import LayoutView from "@/components/LayoutView";
+import { demoBrief } from "@/lib/demoBrief";
 
 type Status = "given" | "assumed" | "missing";
 type Item = { path: string; label: string; status: Status; value: string | null; asking: boolean };
@@ -15,9 +17,9 @@ const STORE = "strata-brief-v1";
 const CODE = "strata-access-code";
 
 const STAGES = [
-  { name: "Brief", icon: Chat, live: true },
+  { name: "Brief", icon: Chat, view: "brief" },
   { name: "Standards", icon: Book },
-  { name: "Layout", icon: Plan },
+  { name: "Layout", icon: Plan, view: "layout" },
   { name: "Structure", icon: Beam },
   { name: "Services", icon: Pipe },
   { name: "Building JSON", icon: Braces },
@@ -59,11 +61,18 @@ export default function BriefPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [needCode, setNeedCode] = useState(false);
+  const [view, setView] = useState<"brief" | "layout">("brief");
+  const canOpen = (v?: string) => v === "brief" || (v === "layout" && done && brief !== null);
   const [code, setCode] = useState("");
   const [pending, setPending] = useState<string | null>(null);
   const thread = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (process.env.NODE_ENV === "development" && new URLSearchParams(window.location.search).get("demo") === "layout") {
+      setMessages([{ role: "bot", text: "Demo: the 40 x 60 ft example brief." }]);
+      setDone(true); setBrief(demoBrief); setView("layout");
+      return;
+    }
     const saved = load<Saved>(STORE);
     const stored = (() => { try { return window.localStorage.getItem(CODE) ?? ""; } catch { return ""; } })();
     setCode(stored);
@@ -129,6 +138,8 @@ export default function BriefPage() {
 
   function restart() {
     save(STORE, null);
+    save("strata-layout-v1", null);
+    setView("brief");
     setMessages([]); setState(null); setPanel(null); setSummarised(false); setDone(false); setBrief(null);
     void call(null, null);
   }
@@ -152,8 +163,11 @@ export default function BriefPage() {
           <div className="dots" aria-hidden><i /><i /><i /></div>
           <div className="rail-logo"><Logo /></div>
           <div className="rail-icons">
-            {STAGES.slice(0, 4).map(({ name, icon: Icon, live }) => (
-              <span key={name} className={`rail-btn${live ? " on" : ""}`} title={name}><Icon size={20} /></span>
+            {STAGES.slice(0, 4).map(({ name, icon: Icon, view: v }) => (
+              <button key={name} type="button" className={`rail-btn${v === view ? " on" : ""}`} title={name}
+                      aria-label={name} disabled={!canOpen(v)} onClick={() => v && setView(v as "brief" | "layout")}>
+                <Icon size={20} />
+              </button>
             ))}
           </div>
         </nav>
@@ -161,11 +175,15 @@ export default function BriefPage() {
         <aside className="menu">
           <header className="menu-head"><h2>Pipeline</h2></header>
           <ul>
-            {STAGES.map(({ name, icon: Icon, live }) => (
-              <li key={name} className={live ? "on" : "off"} aria-current={live ? "page" : undefined}>
-                <Icon size={20} />
-                <span>{name}</span>
-                {!live && <em>soon</em>}
+            {STAGES.map(({ name, icon: Icon, view: v }) => (
+              <li key={name} className={v === view ? "on" : v ? (canOpen(v) ? "open" : "wait") : "off"}
+                  aria-current={v === view ? "page" : undefined}>
+                <button type="button" disabled={!canOpen(v)} onClick={() => v && setView(v as "brief" | "layout")}>
+                  <Icon size={20} />
+                  <span>{name}</span>
+                  {!v && <em>soon</em>}
+                  {v === "layout" && !canOpen(v) && <em>after brief</em>}
+                </button>
               </li>
             ))}
           </ul>
@@ -188,8 +206,15 @@ export default function BriefPage() {
 
         <main className="main">
           <div className="topbar">
-            <div className="pill"><Spark size={16} /> Brief chat</div>
+            <div className="pill"><Spark size={16} /> {view === "layout" ? "Layout" : "Brief chat"}</div>
           </div>
+          {view === "layout" && brief !== null ? (
+          <div className="content scroll">
+            <LayoutView brief={brief} code={code}
+                        onNeedCode={() => { setNeedCode(true); setView("brief"); }}
+                        onApproved={() => undefined} />
+          </div>
+          ) : (
           <div className="content">
             <section className="banner">
               <h1>Describe the house<br />you want</h1>
@@ -222,9 +247,12 @@ export default function BriefPage() {
                   <Check size={22} />
                   <div>
                     <h3>Brief confirmed</h3>
-                    <p>Next, STRATA works out every code requirement for it and proposes layouts.</p>
+                    <p>Next, STRATA works out every code requirement and draws layouts that meet them.</p>
                   </div>
-                  <button type="button" className="btn" onClick={downloadBrief}><Download size={18} /> brief.json</button>
+                  <div className="btn-row">
+                    <button type="button" className="btn ghost" onClick={downloadBrief}><Download size={18} /> brief.json</button>
+                    <button type="button" className="btn" onClick={() => setView("layout")}><Plan size={18} /> Design layouts</button>
+                  </div>
                 </div>
               )}
             </div>
@@ -254,6 +282,7 @@ export default function BriefPage() {
               </form>
             )}
           </div>
+          )}
         </main>
 
         <aside className="inspector" aria-label="Your brief">

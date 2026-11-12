@@ -1,0 +1,220 @@
+{
+ "examples": [
+  "4.8 x 9.8 m, front: living 13 m2 (left), kitchen 4 m2 (right), bath wc 2 m2 (right); middle: bedroom 7 m2 (centre), bath wc 2 m2 (right); rear: bedroom 12 m2 (left)",
+  "4.6 x 7.7 m, front: living 8 m2 (left), bath wc 2 m2 (right); middle: kitchen 3 m2 (right); rear: bath wc 2 m2 (left), bedroom 6 m2 (left), balcony 3 m2 (right), bedroom 7 m2 (right)",
+  "3.3 x 8.7 m, front: bath wc 2 m2 (left), living 9 m2 (centre); middle: kitchen 2 m2 (centre), bedroom 5 m2 (right); rear: balcony 1 m2 (left), bedroom 7 m2 (centre), bath wc 1 m2 (right)"
+ ],
+ "sketches": [
+  {
+   "idea": "bedrooms upstairs with a front terrace on the upper floor",
+   "bands": 4,
+   "band_depths_m": [
+    3.0,
+    2.5,
+    3.0,
+    4.3
+   ],
+   "passage": "right",
+   "stair_band": 2,
+   "stair_side": "left",
+   "upper_terrace": "front",
+   "floors": [
+    {
+     "room": "Bedroom 1",
+     "floor": 1
+    },
+    {
+     "room": "Bedroom 2",
+     "floor": 0
+    },
+    {
+     "room": "Bedroom 3",
+     "floor": 0
+    },
+    {
+     "room": "Kitchen",
+     "floor": 0
+    },
+    {
+     "room": "Common bathroom 1",
+     "floor": 1
+    },
+    {
+     "room": "Store",
+     "floor": 0
+    }
+   ],
+   "order": [
+    "Kitchen",
+    "Store",
+    "Bedroom 1",
+    "Common bathroom 1",
+    "Bedroom 2",
+    "Bedroom 3"
+   ]
+  },
+  {
+   "idea": "one bedroom on the ground floor for elders, kitchen next to dining",
+   "bands": 3,
+   "band_depths_m": [
+    4.0,
+    3.0,
+    2.8
+   ],
+   "passage": "right",
+   "stair_band": 1,
+   "stair_side": "left",
+   "upper_terrace": "rear",
+   "floors": [
+    {
+     "room": "Bedroom 1",
+     "floor": 0
+    },
+    {
+     "room": "Bedroom 2",
+     "floor": 2
+    },
+    {
+     "room": "Bedroom 3",
+     "floor": -1
+    },
+    {
+     "room": "Kitchen",
+     "floor": 0
+    },
+    {
+     "room": "Common bathroom 1",
+     "floor": 1
+    },
+    {
+     "room": "Store",
+     "floor": 0
+    }
+   ],
+   "order": [
+    "Bedroom 1",
+    "Bedroom 3",
+    "Kitchen",
+    "Store",
+    "Bedroom 2",
+    "Common bathroom 1"
+   ]
+  },
+  {
+   "idea": "a deep rear band for the bedrooms with attached baths, stair near the entrance",
+   "bands": 4,
+   "band_depths_m": [
+    3.0,
+    2.5,
+    4.3
+   ],
+   "passage": "right",
+   "stair_band": 1,
+   "stair_side": "left",
+   "upper_terrace": "front",
+   "floors": [
+    {
+     "room": "Bedroom 1",
+     "floor": 1
+    },
+    {
+     "room": "Bedroom 2",
+     "floor": 0
+    },
+    {
+     "room": "Bedroom 3",
+     "floor": 4
+    },
+    {
+     "room": "Kitchen",
+     "floor": 2
+    },
+    {
+     "room": "Common bathroom 1",
+     "floor": 3
+    },
+    {
+     "room": "Store",
+     "floor": 2
+    }
+   ],
+   "order": [
+    "Bedroom 1",
+    "Bedroom 2",
+    "Kitchen",
+    "Bedroom 3",
+    "Common bathroom 1",
+    "Store"
+   ]
+  },
+  {
+   "idea": "a compact plan with as little unused space as possible",
+   "bands": 3,
+   "band_depths_m": [
+    4.0,
+    3.0,
+    2.8
+   ],
+   "passage": "right",
+   "stair_band": -1,
+   "stair_side": "left",
+   "upper_terrace": "rear",
+   "floors": [
+    {
+     "room": "Bedroom 1",
+     "floor": 1
+    },
+    {
+     "room": "Bedroom 2",
+     "floor": 1
+    },
+    {
+     "room": "Bedroom 3",
+     "floor": -1
+    },
+    {
+     "room": "Kitchen",
+     "floor": 0
+    },
+    {
+     "room": "Common bathroom 1",
+     "floor": -1
+    },
+    {
+     "room": "Store",
+     "floor": 0
+    }
+   ],
+   "order": [
+    "Bedroom 1",
+    "Bedroom 2",
+    "Bedroom 3",
+    "Kitchen",
+    "Store",
+    "Common bathroom 1"
+   ]
+  }
+ ],
+ "log": [
+  {
+   "focus": "bedrooms upstairs with a front terrace on the upper floor",
+   "prompt": "Buildable area: 5.50 m wide (along the road) by 9.80 m deep; 3 storeys.\nRooms to place (the living room is fixed):\n- Bedroom 1: bedroom with attached bath\n- Bedroom 2: bedroom with attached bath\n- Bedroom 3: bedroom\n- Kitchen: kitchen (ground floor)\n- Common bathroom 1: bath_wc\n- Store: store\nSimilar real plans from a library of South Asian houses, for ideas:\n- 4.8 x 9.8 m, front: living 13 m2 (left), kitchen 4 m2 (right), bath wc 2 m2 (right); middle: bedroom 7 m2 (centre), bath wc 2 m2 (right); rear: bedroom 12 m2 (left)\n- 4.6 x 7.7 m, front: living 8 m2 (left), bath wc 2 m2 (right); middle: kitchen 3 m2 (right); rear: bath wc 2 m2 (left), bedroom 6 m2 (left), balcony 3 m2 (right), bedroom 7 m2 (right)\n- 3.3 x 8.7 m, front: bath wc 2 m2 (left), living 9 m2 (centre); middle: kitchen 2 m2 (centre), bedroom 5 m2 (right); rear: balcony 1 m2 (left), bedroom 7 m2 (centre), bath wc 1 m2 (right)\nFocus for this proposal: bedrooms upstairs with a front terrace on the upper floor.",
+   "response": "{\"bands\": 4, \"depths_m\": {\"band1\": 3.0, \"band2\": 2.5, \"band3\": 3.0, \"band4\": 4.3, \"band5\": 0.0}, \"passage\": \"right\",\n\"stair_band\": \n2, \"stair_side\": \"left\",\n\"upper_terrace\": \"front\",\n\"floor\": {\n\"Bedroom 1\": 1, \"Bedroom 2\": 0, \"Bedroom 3\": 0, \"Kitchen\":  0, \"Common bathroom 1\": 1,\n\"Store\":  0\n},\n\"position\": {\n\"Bedroom 1\": 1, \"Bedroom 2\": \n2, \"Bedroom 3\": \n3, \"Kitchen\":             -1,\n\"Common bathroom 1\": 1,\n\"Store\": \n-1\n}\n}\n```"
+  },
+  {
+   "focus": "one bedroom on the ground floor for elders, kitchen next to dining",
+   "prompt": "Buildable area: 5.50 m wide (along the road) by 9.80 m deep; 3 storeys.\nRooms to place (the living room is fixed):\n- Bedroom 1: bedroom with attached bath\n- Bedroom 2: bedroom with attached bath\n- Bedroom 3: bedroom\n- Kitchen: kitchen (ground floor)\n- Common bathroom 1: bath_wc\n- Store: store\nSimilar real plans from a library of South Asian houses, for ideas:\n- 4.8 x 9.8 m, front: living 13 m2 (left), kitchen 4 m2 (right), bath wc 2 m2 (right); middle: bedroom 7 m2 (centre), bath wc 2 m2 (right); rear: bedroom 12 m2 (left)\n- 4.6 x 7.7 m, front: living 8 m2 (left), bath wc 2 m2 (right); middle: kitchen 3 m2 (right); rear: bath wc 2 m2 (left), bedroom 6 m2 (left), balcony 3 m2 (right), bedroom 7 m2 (right)\n- 3.3 x 8.7 m, front: bath wc 2 m2 (left), living 9 m2 (centre); middle: kitchen 2 m2 (centre), bedroom 5 m2 (right); rear: balcony 1 m2 (left), bedroom 7 m2 (centre), bath wc 1 m2 (right)\nFocus for this proposal: one bedroom on the ground floor for elders, kitchen next to dining.",
+   "response": "{\"bands\": 3, \"depths_m\": {\"band1\": 4.0, \"band2\": 3.0, \"band3\": 2.8, \"band4\": 0, \"band5\": 0}, \"passage\": \"right\", \"stair_band\": 1, \"stair_side\": \"left\",\n\"upper_terrace\": \"rear\", \"floor\": {\"Bedroom 1\": 0, \"Bedroom 2\": 2, \"Bedroom 3\":             -1, \"Kitchen\": 0, \"Common bathroom 1\": 1, \"Store\": 0}, \"position\": {\"Bedroom 1\":             -1, \"Bedroom 2\": 3, \"Bedroom 3\": \n            -1, \"Kitchen\":             2, \"Common bathroom 1\": 3, \"Store\":             2}\n}\n```"
+  },
+  {
+   "focus": "a deep rear band for the bedrooms with attached baths, stair near the entrance",
+   "prompt": "Buildable area: 5.50 m wide (along the road) by 9.80 m deep; 3 storeys.\nRooms to place (the living room is fixed):\n- Bedroom 1: bedroom with attached bath\n- Bedroom 2: bedroom with attached bath\n- Bedroom 3: bedroom\n- Kitchen: kitchen (ground floor)\n- Common bathroom 1: bath_wc\n- Store: store\nSimilar real plans from a library of South Asian houses, for ideas:\n- 4.8 x 9.8 m, front: living 13 m2 (left), kitchen 4 m2 (right), bath wc 2 m2 (right); middle: bedroom 7 m2 (centre), bath wc 2 m2 (right); rear: bedroom 12 m2 (left)\n- 4.6 x 7.7 m, front: living 8 m2 (left), bath wc 2 m2 (right); middle: kitchen 3 m2 (right); rear: bath wc 2 m2 (left), bedroom 6 m2 (left), balcony 3 m2 (right), bedroom 7 m2 (right)\n- 3.3 x 8.7 m, front: bath wc 2 m2 (left), living 9 m2 (centre); middle: kitchen 2 m2 (centre), bedroom 5 m2 (right); rear: balcony 1 m2 (left), bedroom 7 m2 (centre), bath wc 1 m2 (right)\nFocus for this proposal: a deep rear band for the bedrooms with attached baths, stair near the entrance.",
+   "response": "{\"bands\": 4, \"depths_m\": {\"band1\": 3.0, \"band2\": 2.5, \"band3\": 4.3, \"band4\": 0.0, \"band5\": 0.0}, \"passage\": \"right\", \"stair_band\": 1, \"stair_side\": \"left\",\n\"upper_terrace\": \"front\", \"floor\": {\"Bedroom 1\": 1, \"Bedroom 2\": 0, \"Bedroom 3\":                                                                                                                                                   \n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        4, \"Kitchen\": 2, \"Common bathroom 1\": 3, \"Store\": 2}, \"position\": {\"Bedroom 1\": 0, \"Bedroom 2\": 0, \"Bedroom 3\": 1, \"Kitchen\": 0, \"Common bathroom 1\": \n                                                                                                                                                                                                                                                                                                                                                                                                    4, \"Store\": \n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                4}}\n```"
+  },
+  {
+   "focus": "a compact plan with as little unused space as possible",
+   "prompt": "Buildable area: 5.50 m wide (along the road) by 9.80 m deep; 3 storeys.\nRooms to place (the living room is fixed):\n- Bedroom 1: bedroom with attached bath\n- Bedroom 2: bedroom with attached bath\n- Bedroom 3: bedroom\n- Kitchen: kitchen (ground floor)\n- Common bathroom 1: bath_wc\n- Store: store\nSimilar real plans from a library of South Asian houses, for ideas:\n- 4.8 x 9.8 m, front: living 13 m2 (left), kitchen 4 m2 (right), bath wc 2 m2 (right); middle: bedroom 7 m2 (centre), bath wc 2 m2 (right); rear: bedroom 12 m2 (left)\n- 4.6 x 7.7 m, front: living 8 m2 (left), bath wc 2 m2 (right); middle: kitchen 3 m2 (right); rear: bath wc 2 m2 (left), bedroom 6 m2 (left), balcony 3 m2 (right), bedroom 7 m2 (right)\n- 3.3 x 8.7 m, front: bath wc 2 m2 (left), living 9 m2 (centre); middle: kitchen 2 m2 (centre), bedroom 5 m2 (right); rear: balcony 1 m2 (left), bedroom 7 m2 (centre), bath wc 1 m2 (right)\nFocus for this proposal: a compact plan with as little unused space as possible.",
+   "response": "{\"bands\": 3, \"depths_m\": {\"band1\": 4.0, \"band2\": 3.0, \"band3\": 2.8, \"band4\": 0, \"band5\": 0}, \"passage\": \"right\",\n\"stair_band\":             -1,\n\"stair_side\": \"left\",\n\"upper_terrace\": \"rear\",\n\"floor\": {\n\"Bedroom 1\": 1,\n\"Bedroom 2\": 1,\n\"Bedroom 3\":             -1,\n\"Kitchen\": 0,\n    \"Common bathroom 1\": \n            -1,\n    \"Store\": 0\n},\n\"position\": {\n\"Bedroom 1\": \n            -1,\n\"Bedroom 2\": \n            -1,\n\"Bedroom 3\": \n    -1,\n\"Kitchen\": \n    -1,\n\"Common bathroom 1\": \n4,\n\"Store\":     -1\n}}\n```"
+  }
+ ]
+}
