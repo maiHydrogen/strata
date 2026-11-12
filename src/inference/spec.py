@@ -145,6 +145,8 @@ def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
         # cl. 20.1.2 openings for habitable rooms and kitchens; bathrooms have their own ventilator rule
         if element in ("habitable_room", "kitchen"):
             reqs += s.all(("opening_ratio",), "kitchen" if element == "kitchen" else "room")
+        if element in ("bathroom", "wc", "bath_wc"):  # cl. 12.4.3-12.4.4
+            reqs += s.all(("external_wall", "ventilator_area", "ventilator_side", "opens_to_kitchen"), element)
         rooms.append({"name": name, "type": element, **extra, "requirements": reqs})
 
     # ---- building parts ----
@@ -155,7 +157,10 @@ def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
         *(s.all(("width", "tread", "riser", "headroom"), "staircase", occupancy=occupancy) if occupancy else []),
         s.get("risers_per_flight", "staircase"),
         s.get("headroom", "habitable_room"),
+        *s.all(("width", "height"), "exit_door"),
+        s.get("width", "corridor"),
     ] if e]
+    materials = s.all(("grade",), "rc_concrete") + s.all(("elongation", "proof_stress"), "reinforcement")
 
     # ---- plot and planning (bye-laws) ----
     plot, checks, deferred = [], [], []
@@ -208,6 +213,7 @@ def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
         "context": context,
         "rooms": rooms,
         "building": building,
+        "materials": materials,
         "plot": plot,
         "checks": checks,
         "structure": structure,

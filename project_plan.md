@@ -12,7 +12,7 @@
 - Five BIM layers: architectural, civil/structural, plumbing, electrical, finishing.
 - Target: LOD 200 minimum, tested before moving higher.
 - Structural design checked to IS 456, IS 875, IS 1893, IS 13920 using STAAD.Pro (education license).
-- Vastu: optional client constraint.
+- Vastu: future scope (decided 2026-11-11); the brief still records the client's preference.
 - Users: individuals building a house. Tender/SoW documents are no longer the main input.
 
 **Pipeline:**
@@ -54,19 +54,20 @@
 - [ ] Identify the NBC/IS clauses that gate the typology across all 5 layers (room sizes, heights, stairs, ventilation, loads, seismic, water, drainage, electrical) — done for room sizes, heights, stairs, ventilation, parapet, plinth, loads, seismic, wind, water demand; drainage and electrical pending (Phase 6)
 - [x] Encode those clauses as RDF triples in a `.ttl` file using `rdflib`, each value with its clause citation — NBC 2016 per supervisor (not NBCS 2026); every value carries clause, printed page, quote and status, enforced by SHACL (`data/knowledge_graph/`)
 - [x] Write and test 5–10 SPARQL queries against the graph before wiring it into the pipeline — 8 queries in `src/inference/queries/`, API in `src/inference/kg.py`
-- [ ] Collect 50–150 Indian plot-based floor plans (30×40 ft, 30×50 ft, etc.) from Google Images, recording source and plot size
-- [ ] Convert plan images to structured JSON (rooms, sizes, adjacency, doors) with a vision LLM; manually verify a sample
-- [ ] Note copyright limits: plans used as reference/retrieval data only, not redistributed
+- [x] Collect floor plans — ResPlan (17,000 South Asian residential plans, vector, CC BY 4.0) instead of image scraping; 8,500 converted to the layout JSON after scale and geometry checks (`scripts/build_plan_library.py`, `src/spatial/library.py`)
+- [ ] Small set of Indian 30×40 / 30×50 ft plot-house plans as a local reference (ResPlan has no plot sizes or orientation)
+- [x] Convert plans to structured JSON (rooms, sizes, adjacency, doors) — not needed as images: ResPlan is already vector; rooms grown to wall centrelines, entrance rotated to the front, open-plan connections kept as openings; every plan run through the rule checker (2,148 with no validity failure)
+- [x] Note copyright limits — ResPlan is CC BY 4.0 (cited in the index); the download and derived library are git-ignored and not redistributed
 
 ## Phase 2 — Brief Elicitation (replaces Document Ingestion + Intent Extraction) (2 weeks)
 
 - [x] Build PyMuPDF path for native/digital PDFs — kept as an optional upload path (plot documents, existing sketches)
 - [x] Design a structured JSON extraction schema and few-shot prompt; build the Extractor agent — reused as the base for brief extraction
 - [x] Define the brief schema (pydantic) from the matrix's Must and Should items — `src/brief/schema.py`; matrix defaults applied with their source recorded
-- [ ] Build the chatbot: asks only for missing Must items in plain language, offers defaults for the rest, confirms a summary with the user
-- [ ] Enforce schema-valid output with automatic retries; pin model version, temperature 0, log every prompt and response
-- [ ] Build a test set of 20–30 synthetic client briefs, including deliberate omissions
-- [ ] Measure brief-completeness accuracy on the test set
+- [x] Build the chatbot: asks only for missing Must items in plain language, offers defaults for the rest, confirms a summary with the user — `src/brief/chat.py` (LLM only extracts facts; questions, units, merging and summary are code), terminal `scripts/brief_chat.py`, web app `web/` (Next.js + Vercel Python function)
+- [x] Enforce schema-valid output with automatic retries; pin model version, temperature 0, log every prompt and response — Gemma 4 26B (free tier), 3 retries with the error, client-side rate limiter, numeric bounds checked in pydantic (Gemma's constrained decoding stalls on them)
+- [x] Build a test set of 20–30 synthetic client briefs, including deliberate omissions — 25 cases in `evaluation/brief_test_set.json`
+- [x] Measure brief-completeness accuracy on the test set — final run: extraction recall 98.7%, precision 100%, 0 wrong or invented values, exact omission detection 92%, 23/25 briefs complete and correct (baseline before fixes: 96.9%, 97.8%, 5 wrong, 84%, 20/25); `scripts/eval_briefs.py`, results in `output/eval/`
 - [ ] PaddleOCR + LayoutLMv3 path (`src/ingestion/{ocr,layout}.py`): parked unless uploads need it
 
 ## Phase 3 — Standard Inference Engine (1–2 weeks)
@@ -78,13 +79,13 @@
 
 ## Phase 4 — Layout Generation (3 weeks)
 
-- [ ] Retrieve the most similar plans from the plan library for a given plot and programme
+- [x] Retrieve the most similar plans from the plan library for a given plot and programme — `retrieve()` (fits the envelope, ranks by room counts then fill); `floor_compatibility()` pairs floors by stair position, footprint and wall lines so beams and columns continue (only 10 of ~49k stair-plan pairs pass: upper floors will mostly come from the GA)
 - [ ] LLM proposes 3–5 candidate layouts as JSON, seeded by the retrieved plans
-- [ ] Set up DEAP; implement genotype/phenotype structure; seed the population with the LLM candidates
-- [ ] Hard constraints (repair operator or feasibility filter, not penalties alone): room minimums, setbacks, ground coverage, door reachability from the entrance, column grid and maximum spans
-- [ ] Soft objectives: adjacency preferences, light and ventilation, plumbing stacks aligned across floors, optional Vastu
-- [ ] Independent rule checker (separate code path from the GA) that verifies every candidate
-- [ ] 2D plan preview with room areas and checks, for user approval and change requests
+- [x] Set up DEAP; implement genotype/phenotype structure; seed the population with the LLM candidates — `src/spatial/ga.py`: random-key genome decoded into a "bands and spine" plan (side spine on plots under 6.4 m wide, with shallower bands and side-carved attached baths); when a brief cannot fit, `suggest()` tries brief changes (one more storey, kitchen with dining, attached bath to common) and reports which fit (30x50 ft example: G+2 with kitchen and dining); `run(..., seeds=...)` accepts seed genomes, LLM candidates still to be converted into seeds
+- [x] Hard constraints (repair operator or feasibility filter, not penalties alone): room minimums, setbacks, ground coverage, door reachability from the entrance, column grid and maximum spans — setbacks, reachability, the column grid (identical on all floors) and stair alignment hold by construction; band depths repaired to the envelope; room sizes, stair fit, windows, overflow and FAR as heavy penalties
+- [x] Soft objectives: adjacency preferences (weights from the plan library's door-adjacency statistics), light and ventilation, plumbing stacks aligned across floors — comfortable room sizes, proportions, kitchen next to dining, baths over wet rooms, a common bath on every bedroom floor, one bedroom downstairs, little wasted space or stair area
+- [x] Independent rule checker (separate code path from the GA) that verifies every candidate — `src/spatial/checker.py`: room area/width/height, programme, setbacks, overlaps, walls (thickness, coverage, hanging), doors (shared wall, redundancy, widths, main exit door, WC not into kitchen), windows (external wall, opening ratio, bath ventilator), corridor width, stairs, reachability, column and stair continuity, spans, carpet/built-up area and FAR, materials; each result cites its clause or is marked validity/practice; layout schema `src/spatial/layout.py`
+- [ ] 2D plan preview with room areas and checks, for user approval and change requests — SVG preview done (`src/spatial/preview.py`, `scripts/make_layout.py` gives 3 distinct alternatives); approval and change requests not yet wired into the web app
 - [ ] Local dev/debug runs on WSL2; batch runs with larger populations / multiple seeds on HPC CPU nodes once the fitness function is stable
 
 ## Phase 5 — Structural Design with STAAD.Pro (3 weeks)
@@ -151,6 +152,8 @@
 ---
 
 ## Future work (ideas from the v1 plan, kept as later upgrades)
+
+- Vastu as an optional soft objective in the layout GA (moved out of the BTP scope on 2026-11-11). ResPlan has no orientation, so its rules would be hand-written.
 
 These were in the original document-driven plan. They are out of the current scope but are genuine upgrades once the house pipeline works.
 

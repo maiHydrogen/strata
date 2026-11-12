@@ -9,3 +9,8 @@ pydantic
 anthropic
 rdflib==7.6.0
 pyshacl==0.40.2
+google-genai==2.25.0
+python-dotenv==1.2.3
+shapely==2.1.2
+deap==1.4.4
+httpx

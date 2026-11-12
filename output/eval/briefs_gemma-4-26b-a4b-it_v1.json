@@ -1,0 +1,1381 @@
+{
+  "summary": {
+    "model": "gemma-4-26b-a4b-it",
+    "cases": 25,
+    "extraction_recall": 0.969,
+    "extraction_precision": 0.978,
+    "wrong_values": 5,
+    "hallucinated_values": 0,
+    "inferred_building_use": 2,
+    "omission_detection_exact": 0.84,
+    "conversations_completed": 25,
+    "briefs_complete_and_correct": 20,
+    "mean_llm_calls": 1.84,
+    "mean_seconds": 20.1
+  },
+  "results": [
+    {
+      "id": "b01_complete_feet",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 10.4,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "bathrooms_attached",
+          "bathrooms_common",
+          "puja",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "bathrooms_attached",
+          "bathrooms_common",
+          "puja",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b02_omit_plot",
+      "done": true,
+      "turns": 2,
+      "llm_calls": 3,
+      "seconds": 30.4,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "elderly",
+          "bedrooms",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [
+          "north"
+        ],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [
+          "site.plot"
+        ],
+        "actual": [
+          "site.north",
+          "site.plot"
+        ],
+        "exact": false
+      },
+      "asked": [
+        "site.plot",
+        "site.north"
+      ],
+      "unanswered": [
+        "site.north"
+      ],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "elderly",
+          "bedrooms",
+          "roads",
+          "city",
+          "plot_width",
+          "plot_depth"
+        ],
+        "wrong": [],
+        "missed": [
+          "north"
+        ],
+        "hallucinated": [],
+        "complete": false
+      }
+    },
+    {
+      "id": "b03_shop_omit_family",
+      "done": true,
+      "turns": 1,
+      "llm_calls": 2,
+      "seconds": 6.8,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [
+          "family"
+        ],
+        "actual": [
+          "family"
+        ],
+        "exact": true
+      },
+      "asked": [
+        "family"
+      ],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "floors_now",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city",
+          "persons"
+        ],
+        "wrong": [
+          "building_use",
+          "children"
+        ],
+        "missed": [],
+        "hallucinated": [],
+        "complete": false
+      }
+    },
+    {
+      "id": "b04_rental_corner",
+      "done": true,
+      "turns": 1,
+      "llm_calls": 2,
+      "seconds": 7.3,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "bedrooms",
+          "bathrooms_attached",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [
+          "bathrooms_common"
+        ],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {
+          "bathrooms_common": 3
+        }
+      },
+      "omissions": {
+        "expected": [
+          "family"
+        ],
+        "actual": [
+          "family"
+        ],
+        "exact": true
+      },
+      "asked": [
+        "family"
+      ],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "floors_now",
+          "bedrooms",
+          "bathrooms_attached",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city",
+          "persons"
+        ],
+        "wrong": [
+          "building_use",
+          "bathrooms_common"
+        ],
+        "missed": [],
+        "hallucinated": [],
+        "complete": false
+      }
+    },
+    {
+      "id": "b05_minimal",
+      "done": true,
+      "turns": 7,
+      "llm_calls": 8,
+      "seconds": 59.3,
+      "first": {
+        "correct": [],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [
+          "building_use"
+        ],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [
+          "building_use",
+          "family",
+          "floors_now",
+          "programme",
+          "site.city",
+          "site.north",
+          "site.plot",
+          "site.roads"
+        ],
+        "actual": [
+          "family",
+          "floors_now",
+          "programme",
+          "site.city",
+          "site.north",
+          "site.plot",
+          "site.roads"
+        ],
+        "exact": false
+      },
+      "asked": [
+        "floors_now",
+        "family",
+        "programme",
+        "site.plot",
+        "site.north",
+        "site.roads",
+        "site.city"
+      ],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "bathrooms_attached",
+          "bathrooms_common",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b06_unsure_direction_road",
+      "done": true,
+      "turns": 2,
+      "llm_calls": 3,
+      "seconds": 27.3,
+      "first": {
+        "correct": [
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [
+          "building_use"
+        ],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [
+          "building_use",
+          "site.north",
+          "site.roads"
+        ],
+        "actual": [
+          "site.north",
+          "site.roads"
+        ],
+        "exact": false
+      },
+      "asked": [
+        "site.north",
+        "site.roads"
+      ],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "city",
+          "building_use"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b07_wheelchair_metres",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.4,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "disabled",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "disabled",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b08_open_kitchen_study_store",
+      "done": true,
+      "turns": 1,
+      "llm_calls": 2,
+      "seconds": 8.1,
+      "first": {
+        "correct": [
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "kitchen",
+          "store",
+          "study",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [
+          "children"
+        ],
+        "missed": [
+          "building_use"
+        ],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {
+          "children": 0
+        }
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [
+          "building_use"
+        ],
+        "exact": false
+      },
+      "asked": [
+        "building_use"
+      ],
+      "unanswered": [
+        "building_use"
+      ],
+      "final": {
+        "correct": [
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "kitchen",
+          "store",
+          "study",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [
+          "children"
+        ],
+        "missed": [
+          "building_use"
+        ],
+        "hallucinated": [],
+        "complete": false
+      }
+    },
+    {
+      "id": "b09_hinglish",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.3,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b10_parking",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 4.4,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "bathrooms_attached",
+          "bathrooms_common",
+          "cars",
+          "two_wheelers",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "bathrooms_attached",
+          "bathrooms_common",
+          "cars",
+          "two_wheelers",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b11_other_city",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.5,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b12_future_floor",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.5,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "floors_future",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "floors_future",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b13_terse_typos",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.3,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b14_omit_city",
+      "done": true,
+      "turns": 1,
+      "llm_calls": 2,
+      "seconds": 8.6,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [
+          "site.city"
+        ],
+        "actual": [
+          "site.city"
+        ],
+        "exact": true
+      },
+      "asked": [
+        "site.city"
+      ],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b15_vastu",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.4,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "vastu",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "vastu",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b16_indian_wc",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.8,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "bathrooms_attached",
+          "bathrooms_common",
+          "wc_type",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "bathrooms_attached",
+          "bathrooms_common",
+          "wc_type",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b17_corner_right",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.7,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b18_family_listed",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 5.6,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [
+          "persons",
+          "elderly",
+          "children"
+        ],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {
+          "persons": 5,
+          "elderly": 0,
+          "children": 0
+        }
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [
+          "persons",
+          "elderly",
+          "children"
+        ],
+        "missed": [],
+        "hallucinated": [],
+        "complete": false
+      }
+    },
+    {
+      "id": "b19_omit_floors_rooms",
+      "done": true,
+      "turns": 4,
+      "llm_calls": 5,
+      "seconds": 216.8,
+      "first": {
+        "correct": [
+          "building_use",
+          "persons",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [
+          "floors_now",
+          "programme"
+        ],
+        "actual": [
+          "floors_now",
+          "programme"
+        ],
+        "exact": true
+      },
+      "asked": [
+        "floors_now",
+        "programme",
+        "programme",
+        "programme"
+      ],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "persons",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city",
+          "floors_now",
+          "bedrooms",
+          "bathrooms_attached",
+          "bathrooms_common"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b20_self_correction",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.5,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b21_katha_area_only",
+      "done": true,
+      "turns": 1,
+      "llm_calls": 2,
+      "seconds": 22.6,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [
+          "site.plot"
+        ],
+        "actual": [
+          "site.plot"
+        ],
+        "exact": true
+      },
+      "asked": [
+        "site.plot"
+      ],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "north",
+          "roads",
+          "city",
+          "plot_width",
+          "plot_depth"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b22_narrow_lane",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.4,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b23_unsure_family",
+      "done": true,
+      "turns": 1,
+      "llm_calls": 2,
+      "seconds": 31.8,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [
+          "family"
+        ],
+        "actual": [
+          "family"
+        ],
+        "exact": true
+      },
+      "asked": [
+        "family"
+      ],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b24_number_words",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 3.3,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    },
+    {
+      "id": "b25_depth_first",
+      "done": true,
+      "turns": 0,
+      "llm_calls": 1,
+      "seconds": 26.2,
+      "first": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "inferred": [],
+        "got": {}
+      },
+      "omissions": {
+        "expected": [],
+        "actual": [],
+        "exact": true
+      },
+      "asked": [],
+      "unanswered": [],
+      "final": {
+        "correct": [
+          "building_use",
+          "floors_now",
+          "persons",
+          "bedrooms",
+          "plot_width",
+          "plot_depth",
+          "north",
+          "roads",
+          "city"
+        ],
+        "wrong": [],
+        "missed": [],
+        "hallucinated": [],
+        "complete": true
+      }
+    }
+  ]
+}

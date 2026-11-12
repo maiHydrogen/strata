@@ -48,3 +48,9 @@ htmlcov/
 # Source PDFs and their OCR text stay out of git; the knowledge graph (.ttl) is source and is committed.
 data/reference_docs/*
 !data/reference_docs/.gitkeep
+
+# ResPlan download (CC BY 4.0, 250 MB); rebuilt by scripts/build_plan_library.py
+data/plan_library/resplan/
+data/plan_library/library.jsonl
+data/plan_library/index.json
+data/plan_library/report.json

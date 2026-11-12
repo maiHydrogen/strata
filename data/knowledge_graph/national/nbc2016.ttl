@@ -381,3 +381,78 @@ kg:req_water_town a strata:Requirement ;
                        strata:minInclusive 20000.0 ; strata:maxExclusive 100000.0 ] ;
     strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "transcribed" ;
     strata:note "Range 100 to 135 lphd with full flushing; the lower bound is encoded." .
+
+# ---- Part 3, 12.4.3-12.4.4 Bathroom and WC: external wall, ventilator, no opening to kitchen ----
+
+kg:nbc_3_12_4_3 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.4.3 (a), (f)" ; strata:page "44" ;
+    strata:quote "Every bathroom or water-closet shall, a) be so situated that at least one of its walls shall open to external air; ... f) have a window or ventilator, opening to a shaft or open space, of area not less than 0.3 m2 with side not less than 0.3 m." .
+kg:nbc_3_12_4_4 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.4.4" ; strata:page "44" ;
+    strata:quote "No room containing water-closets shall be used for any purpose except as a lavatory and no such room shall open directly into any kitchen or cooking space by a door, window or other opening. Every room containing water-closet shall have a door completely closing the entrance to it." .
+kg:req_bathroom_external_wall a strata:Requirement ;
+    strata:appliesTo strata:Bathroom ; strata:quantity strata:externalWall ; strata:comparator "eq" ;
+    strata:valueText "required" ; strata:citedBy kg:nbc_3_12_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bathroom_ventilator_area a strata:Requirement ;
+    strata:appliesTo strata:Bathroom ; strata:quantity strata:ventilatorArea ; strata:comparator "ge" ;
+    strata:value 0.3 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bathroom_ventilator_side a strata:Requirement ;
+    strata:appliesTo strata:Bathroom ; strata:quantity strata:ventilatorSide ; strata:comparator "ge" ;
+    strata:value 0.3 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_wc_external_wall a strata:Requirement ;
+    strata:appliesTo strata:WaterCloset ; strata:quantity strata:externalWall ; strata:comparator "eq" ;
+    strata:valueText "required" ; strata:citedBy kg:nbc_3_12_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_wc_ventilator_area a strata:Requirement ;
+    strata:appliesTo strata:WaterCloset ; strata:quantity strata:ventilatorArea ; strata:comparator "ge" ;
+    strata:value 0.3 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_wc_ventilator_side a strata:Requirement ;
+    strata:appliesTo strata:WaterCloset ; strata:quantity strata:ventilatorSide ; strata:comparator "ge" ;
+    strata:value 0.3 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bath_wc_external_wall a strata:Requirement ;
+    strata:appliesTo strata:BathWC ; strata:quantity strata:externalWall ; strata:comparator "eq" ;
+    strata:valueText "required" ; strata:citedBy kg:nbc_3_12_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bath_wc_ventilator_area a strata:Requirement ;
+    strata:appliesTo strata:BathWC ; strata:quantity strata:ventilatorArea ; strata:comparator "ge" ;
+    strata:value 0.3 ; strata:unit "m2" ; strata:citedBy kg:nbc_3_12_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bath_wc_ventilator_side a strata:Requirement ;
+    strata:appliesTo strata:BathWC ; strata:quantity strata:ventilatorSide ; strata:comparator "ge" ;
+    strata:value 0.3 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_wc_opens_to_kitchen a strata:Requirement ;
+    strata:appliesTo strata:WaterCloset ; strata:quantity strata:opensToKitchen ; strata:comparator "eq" ;
+    strata:valueText "no" ; strata:citedBy kg:nbc_3_12_4_4 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+kg:req_bath_wc_opens_to_kitchen a strata:Requirement ;
+    strata:appliesTo strata:BathWC ; strata:quantity strata:opensToKitchen ; strata:comparator "eq" ;
+    strata:valueText "no" ; strata:citedBy kg:nbc_3_12_4_4 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
+
+# ---- Part 4, 4.4.2.4.1-4.4.2.4.2 Exit doorway and corridors ----------------------
+
+kg:nbc_4_4_4_2_4_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 4, cl. 4.4.2.4.1 (b)" ; strata:page "32" ;
+    strata:quote "No exit doorway shall be less than 1 000 mm in width except assembly buildings, where door width shall be not less than 2 000 mm. Doorways shall be not less than 2 000 mm in height." .
+kg:nbc_4_4_4_2_4_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 4, cl. 4.4.2.4.2 (a)" ; strata:page "32" ;
+    strata:quote "Corridors and passageways shall be of width not less than the calculated aggregate width of exit doorways leading from them in the direction of travel to the exit." .
+kg:req_exit_door_width a strata:Requirement ;
+    strata:appliesTo strata:ExitDoor ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 1.0 ; strata:unit "m" ; strata:citedBy kg:nbc_4_4_4_2_4_1 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+kg:req_exit_door_height a strata:Requirement ;
+    strata:appliesTo strata:ExitDoor ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 2.0 ; strata:unit "m" ; strata:citedBy kg:nbc_4_4_4_2_4_1 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+kg:req_corridor_width a strata:Requirement ;
+    strata:appliesTo strata:Corridor ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 1.0 ; strata:unit "m" ; strata:citedBy kg:nbc_4_4_4_2_4_2 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D13" ; strata:status "transcribed" ;
+    strata:note "Equal to the 1.0 m exit doorway it leads to (cl. 4.4.2.4.1 (b)); one dwelling, one exit." .

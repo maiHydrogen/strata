@@ -1,0 +1,4 @@
+# Python runtime for the Vercel functions in api/ (the brief chatbot only; no OCR, torch or KG here)
+pydantic==2.13.5
+google-genai==2.25.0
+httpx==0.28.1

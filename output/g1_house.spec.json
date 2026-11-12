@@ -510,22 +510,60 @@
           }
         },
         {
-          "element": "room",
-          "quantity": "opening_ratio",
-          "comparator": "ge",
-          "value": 0.1667,
-          "unit": "fraction of floor area",
+          "element": "bath_wc",
+          "quantity": "external_wall",
+          "comparator": "eq",
+          "value": "required",
+          "unit": null,
           "source": {
             "standard": "National Building Code of India 2016 (SP 7:2016)",
-            "clause": "Vol 1, Part 3, cl. 20.1.2",
-            "page": "57",
+            "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+            "page": "44",
             "jurisdiction": "india",
             "status": "transcribed"
-          },
-          "note": "One-sixth, rounded up to 4 decimals.",
-          "assumptions": [
-            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
-          ]
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "ventilator_area",
+          "comparator": "ge",
+          "value": 0.3,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "ventilator_side",
+          "comparator": "ge",
+          "value": 0.3,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "opens_to_kitchen",
+          "comparator": "eq",
+          "value": "no",
+          "unit": null,
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.4",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
         }
       ]
     },
@@ -576,22 +614,60 @@
           }
         },
         {
-          "element": "room",
-          "quantity": "opening_ratio",
-          "comparator": "ge",
-          "value": 0.1667,
-          "unit": "fraction of floor area",
+          "element": "bath_wc",
+          "quantity": "external_wall",
+          "comparator": "eq",
+          "value": "required",
+          "unit": null,
           "source": {
             "standard": "National Building Code of India 2016 (SP 7:2016)",
-            "clause": "Vol 1, Part 3, cl. 20.1.2",
-            "page": "57",
+            "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+            "page": "44",
             "jurisdiction": "india",
             "status": "transcribed"
-          },
-          "note": "One-sixth, rounded up to 4 decimals.",
-          "assumptions": [
-            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
-          ]
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "ventilator_area",
+          "comparator": "ge",
+          "value": 0.3,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "ventilator_side",
+          "comparator": "ge",
+          "value": 0.3,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "opens_to_kitchen",
+          "comparator": "eq",
+          "value": "no",
+          "unit": null,
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.4",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
         }
       ]
     },
@@ -642,22 +718,60 @@
           }
         },
         {
-          "element": "room",
-          "quantity": "opening_ratio",
-          "comparator": "ge",
-          "value": 0.1667,
-          "unit": "fraction of floor area",
+          "element": "bath_wc",
+          "quantity": "external_wall",
+          "comparator": "eq",
+          "value": "required",
+          "unit": null,
           "source": {
             "standard": "National Building Code of India 2016 (SP 7:2016)",
-            "clause": "Vol 1, Part 3, cl. 20.1.2",
-            "page": "57",
+            "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+            "page": "44",
             "jurisdiction": "india",
             "status": "transcribed"
-          },
-          "note": "One-sixth, rounded up to 4 decimals.",
-          "assumptions": [
-            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
-          ]
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "ventilator_area",
+          "comparator": "ge",
+          "value": 0.3,
+          "unit": "m2",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "ventilator_side",
+          "comparator": "ge",
+          "value": 0.3,
+          "unit": "m",
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
+        },
+        {
+          "element": "bath_wc",
+          "quantity": "opens_to_kitchen",
+          "comparator": "eq",
+          "value": "no",
+          "unit": null,
+          "source": {
+            "standard": "National Building Code of India 2016 (SP 7:2016)",
+            "clause": "Vol 1, Part 3, cl. 12.4.4",
+            "page": "44",
+            "jurisdiction": "india",
+            "status": "transcribed"
+          }
         }
       ]
     },
@@ -692,24 +806,6 @@
             "jurisdiction": "india",
             "status": "transcribed"
           }
-        },
-        {
-          "element": "room",
-          "quantity": "opening_ratio",
-          "comparator": "ge",
-          "value": 0.1667,
-          "unit": "fraction of floor area",
-          "source": {
-            "standard": "National Building Code of India 2016 (SP 7:2016)",
-            "clause": "Vol 1, Part 3, cl. 20.1.2",
-            "page": "57",
-            "jurisdiction": "india",
-            "status": "transcribed"
-          },
-          "note": "One-sixth, rounded up to 4 decimals.",
-          "assumptions": [
-            "climate = warm-humid (National Building Code of India 2016 (SP 7:2016), Vol 2, Part 8 Section 1, cl. 3.2.1, Table 2 and climatic map, p. 8, assumed)"
-          ]
         }
       ]
     }
@@ -842,6 +938,94 @@
         "status": "transcribed"
       },
       "note": "Clear head room under a beam: governs beam soffit level in habitable rooms."
+    },
+    {
+      "element": "exit_door",
+      "quantity": "width",
+      "comparator": "ge",
+      "value": 1.0,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 4, cl. 4.4.2.4.1 (b)",
+        "page": "32",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "exit_door",
+      "quantity": "height",
+      "comparator": "ge",
+      "value": 2.0,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 4, cl. 4.4.2.4.1 (b)",
+        "page": "32",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "corridor",
+      "quantity": "width",
+      "comparator": "ge",
+      "value": 1.0,
+      "unit": "m",
+      "source": {
+        "standard": "National Building Code of India 2016 (SP 7:2016)",
+        "clause": "Vol 1, Part 4, cl. 4.4.2.4.2 (a)",
+        "page": "32",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      },
+      "note": "Equal to the 1.0 m exit doorway it leads to (cl. 4.4.2.4.1 (b)); one dwelling, one exit."
+    }
+  ],
+  "materials": [
+    {
+      "element": "rc_concrete",
+      "quantity": "grade",
+      "comparator": "ge",
+      "value": 25.0,
+      "unit": "MPa",
+      "source": {
+        "standard": "IS 456:2000 Plain and Reinforced Concrete - Code of Practice",
+        "clause": "cl. 6.1.2 (p. 15), Table 5",
+        "page": "20",
+        "jurisdiction": "india",
+        "status": "assumed"
+      },
+      "note": "Moderate exposure assumed: exterior frame in Guwahati exposed to rain and condensation (IS 456 Table 3); mild exposure would allow M 20."
+    },
+    {
+      "element": "reinforcement",
+      "quantity": "elongation",
+      "comparator": "ge",
+      "value": 14.5,
+      "unit": "percent",
+      "source": {
+        "standard": "IS 13920:2016 Ductile Design and Detailing of RC Structures (Amendment 1, 2017)",
+        "clause": "cl. 5.3.1 (as substituted by Amendment 1, 2017)",
+        "page": "3",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
+    },
+    {
+      "element": "reinforcement",
+      "quantity": "proof_stress",
+      "comparator": "eq",
+      "value": "415, 500 or 550",
+      "unit": null,
+      "source": {
+        "standard": "IS 13920:2016 Ductile Design and Detailing of RC Structures (Amendment 1, 2017)",
+        "clause": "cl. 5.3.1 (as substituted by Amendment 1, 2017)",
+        "page": "3",
+        "jurisdiction": "india",
+        "status": "transcribed"
+      }
     }
   ],
   "plot": [

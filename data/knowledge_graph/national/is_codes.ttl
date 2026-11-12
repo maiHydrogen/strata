@@ -1,0 +1,35 @@
+@prefix strata: <https://strata.iitg.ac.in/kg#> .
+@prefix kg:     <https://strata.iitg.ac.in/kg/id/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Indian Standards for materials of the RC frame. Quotes from the BIS PDFs in data/reference_docs.
+
+kg:IS456 a strata:Standard ;
+    rdfs:label "IS 456:2000 Plain and Reinforced Concrete - Code of Practice" ;
+    strata:edition "2000" ; strata:sourceFile "data/reference_docs/is.456.2000.pdf" ; strata:legallyBinding false .
+kg:IS13920 a strata:Standard ;
+    rdfs:label "IS 13920:2016 Ductile Design and Detailing of RC Structures (Amendment 1, 2017)" ;
+    strata:edition "2016" ; strata:sourceFile "data/reference_docs/IS13920_2016.pdf",
+                                             "data/reference_docs/zIS13920Amd.1_2017.pdf" ;
+    strata:legallyBinding false .
+
+kg:is456_6_1_2 a strata:Clause ; strata:inStandard kg:IS456 ;
+    strata:clauseId "cl. 6.1.2 (p. 15), Table 5" ; strata:page "20" ;
+    strata:quote "The minimum grade of concrete for plain and reinforced concrete shall be as per Table 5. ... Reinforced Concrete: Mild M 20, Moderate M 25, Severe M 30, Very severe M 35, Extreme M 40." .
+kg:req_rc_concrete_grade a strata:Requirement ;
+    strata:appliesTo strata:RCConcrete ; strata:quantity strata:concreteGrade ; strata:comparator "ge" ;
+    strata:value 25.0 ; strata:unit "MPa" ; strata:citedBy kg:is456_6_1_2 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "E10" ; strata:status "assumed" ;
+    strata:note "Moderate exposure assumed: exterior frame in Guwahati exposed to rain and condensation (IS 456 Table 3); mild exposure would allow M 20." .
+
+kg:is13920_5_3_1 a strata:Clause ; strata:inStandard kg:IS13920 ;
+    strata:clauseId "cl. 5.3.1 (as substituted by Amendment 1, 2017)" ; strata:page "3" ;
+    strata:quote "Steel reinforcement shall comply with all of the following: a) Elongation shall be at least 14.5 percent, ... d) Steel shall be only of strength grades with minimum 0.2 percent proof stress of 415 MPa, 500 MPa or 550 MPa, in addition to other requirements of IS 1786." .
+kg:req_reinforcement_elongation a strata:Requirement ;
+    strata:appliesTo strata:Reinforcement ; strata:quantity strata:elongation ; strata:comparator "ge" ;
+    strata:value 14.5 ; strata:unit "percent" ; strata:citedBy kg:is13920_5_3_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "E10" ; strata:status "transcribed" .
+kg:req_reinforcement_proof_stress a strata:Requirement ;
+    strata:appliesTo strata:Reinforcement ; strata:quantity strata:proofStress ; strata:comparator "eq" ;
+    strata:valueText "415, 500 or 550" ; strata:citedBy kg:is13920_5_3_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "E10" ; strata:status "transcribed" .
