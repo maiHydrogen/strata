@@ -105,6 +105,7 @@ class StaadResults:
     general_errors: list = field(default_factory=list)  # errors not tied to any member: resizing cannot fix them
     joint_strength_failed: bool = False  # IS 13920 cl. 7.2 strong-column/weak-beam
     joints: list = field(default_factory=list)  # JointCheck rows; empty when STAAD's joint report is missing
+    reactions: dict = field(default_factory=dict)  # joint -> {load case: (FX, FY, FZ, MX, MY, MZ)}, kN and m
 
     @property
     def failed_joints(self) -> list:
@@ -170,6 +171,39 @@ def parse_joint_table(text: str) -> list:
     return rows
 
 
+def _number(token):
+    try:
+        return float(token)
+    except ValueError:
+        return None
+
+
+def parse_reactions(text: str) -> dict:
+    """PRINT SUPPORT REACTION tables: joint -> {case: (FX, FY, FZ, MX, MY, MZ)}.
+
+    A row with 8 numbers starts a joint; a row with 7 is another load case of the same joint.
+    The table can run over a page break, where it repeats its header and carries on."""
+    out, joint = {}, None
+    for block in text.split("SUPPORT REACTIONS -UNIT")[1:]:
+        started = False
+        for line in block.splitlines()[1:]:
+            tokens = line.split()
+            if not tokens:
+                continue
+            nums = [_number(t) for t in tokens]
+            if None in nums or len(tokens) not in (7, 8):
+                if started:
+                    break
+                continue
+            started = True
+            if len(tokens) == 8:
+                joint, nums = int(nums[0]), nums[1:]
+            if joint is None:
+                continue
+            out.setdefault(joint, {})[int(nums[0])] = tuple(nums[1:])
+    return out
+
+
 def parse_anl(text: str) -> StaadResults:
     res = StaadResults()
     if m := _VERSION.search(text):
@@ -229,6 +263,7 @@ def parse_anl(text: str) -> StaadResults:
     attached = {e for t in (res.beams, res.columns) for r in t.values() for e in r.errors}
     res.general_errors = [e for e in res.errors if e not in attached]
     res.joints = parse_joint_table(text)
+    res.reactions = parse_reactions(text)
     res.joint_strength_failed = "Relative strength checks have failed" in text or bool(res.failed_joints)
     return res
 

@@ -6,8 +6,14 @@ metre / kN throughout. STAAD's global Y axis is vertical.
 Codes applied:
 - Loads: IS 875 Part 1 (dead) and Part 2 (imposed)
 - Seismic: IS 1893 (Part 1) equivalent static method
-- Combinations: IS 456 Table 18 / IS 1893 clause 6.3
+- Wind: IS 875 Part 3, as storey forces on the windward joints (src/structure/wind.py)
+- Combinations: IS 456 Table 18 / IS 1893 clause 6.3, optionally the 100% + 30%
+  orthogonal rule (IS 1893 cl. 6.3.4.1) and unfactored service combinations for footings
 - Concrete design: IS 456, optionally IS 13920 ductile design
+
+Two ways to describe loads: the regular test frames (make_rc_frame) put the same wall on
+every beam and a full slab on every level; frames built from a layout
+(src/structure/from_layout.py) give each beam its own walls and each slab panel its own loads.
 """
 
 from dataclasses import dataclass, field
@@ -56,6 +62,27 @@ class Loads:
 
 
 @dataclass
+class Panel:
+    """One slab panel (a grid cell) at a floor or roof level, loaded through STAAD FLOOR LOAD.
+
+    A stair cell is a panel too: there is no slab, but the flights and landing load the same
+    beams, so its own weight on plan goes in as `dead`.
+    """
+    y: float  # level, m
+    x0: float
+    x1: float
+    z0: float
+    z1: float
+    dead: float  # kN/m2: slab and finish, partitions standing on it, or the stair on plan
+    live: float  # kN/m2
+    kind: str = "floor"  # floor, roof (no storey above it), stair
+
+    @property
+    def roof(self) -> bool:
+        return self.kind == "roof"
+
+
+@dataclass
 class Frame:
     nodes: dict = field(default_factory=dict)  # id -> (x, y, z)
     members: dict = field(default_factory=dict)  # id -> Member
@@ -68,6 +95,15 @@ class Frame:
     fck: float = 25.0  # MPa
     fy: float = 500.0  # MPa
     ductile: bool = True  # IS 13920 design
+    base_y: float = 0.0  # level of the fixed supports (top of footings)
+    # Frames from a layout: walls per beam as [(kN/m2 of wall face net of openings, "storey" | "parapet")];
+    # a storey wall rises to the soffit of the beam above, a parapet is loads.parapet_height tall
+    wall_faces: dict | None = None
+    panels: list | None = None  # Panel list; None = a full slab on every level (test frames)
+    wind: dict | None = None  # {"X": {node: kN}, "Z": {...}}: IS 875 Part 3 storey forces
+    orthogonal: bool = False  # IS 1893 cl. 6.3.4.1: 100% in one direction + 30% in the other
+    service: bool = False  # unfactored combinations and support reactions (footing design)
+    cabin: bool = False  # the top storey is a stair cabin (mumty) over the stair, not a full storey
 
     def group_of(self, member_id: int) -> str:
         """Members are sized in groups: columns per storey, beams per floor level."""
@@ -83,9 +119,8 @@ class Frame:
     def beam_bar_cap(self, level: int) -> int:
         """Largest beam bar at floor `level`: IS 13920 cl. 7.1.1(a) needs every column
         meeting there (the storeys below and above) at least 20 x the beam bar diameter."""
-        below = self.sections[f"column-{level - 1}"]
-        above = self.sections.get(f"column-{level}", below)
-        least_mm = min(below.depth, below.width, above.depth, above.width) * 1000
+        meeting = [self.sections[g] for g in (f"column-{level - 1}", f"column-{level}") if g in self.sections]
+        least_mm = min(min(c.depth, c.width) for c in meeting) * 1000
         fitting = [d for d in BAR_SIZES if 20 * d <= least_mm + 1e-6]
         return fitting[-1] if fitting else BAR_SIZES[0]
 
@@ -167,6 +202,17 @@ def wall_line_loads(frame: Frame) -> dict:
     """
     L = frame.loads
     loads = {}
+    if frame.wall_faces is not None:
+        for i, faces in sorted(frame.wall_faces.items()):
+            m = frame.members[i]
+            total = 0.0
+            for face, kind in faces:
+                height = L.parapet_height if kind == "parapet" else (
+                    frame.storey_height - frame.sections[f"beam-{m.level + 1}"].depth)
+                total += face * height
+            if total > 0:
+                loads[i] = round(total, 3)
+        return loads
     for i, m in frame.members.items():
         if m.kind != "beam":
             continue
@@ -190,9 +236,38 @@ def _slab_share(span, across):
     return lx / 2.0 * (1 - lx ** 2 / (3 * ly ** 2))
 
 
+def _panel_slab_udl(frame, m):
+    """kN/m of (DL + LL) on beam `m` from the panels on either side of it."""
+    (x0, y, z0), (x1, _, z1) = frame.nodes[m.start], frame.nodes[m.end]
+    total = 0.0
+    for p in frame.panels:
+        if abs(p.y - y) > 1e-6:
+            continue
+        if abs(z0 - z1) < 1e-9:  # beam along X: a panel above or below it in Z, spanning the beam
+            on_edge = min(abs(p.z0 - z0), abs(p.z1 - z0)) < 1e-6
+            covers = p.x0 <= min(x0, x1) + 1e-6 and p.x1 >= max(x0, x1) - 1e-6
+            span, across = p.x1 - p.x0, p.z1 - p.z0
+        else:
+            on_edge = min(abs(p.x0 - x0), abs(p.x1 - x0)) < 1e-6
+            covers = p.z0 <= min(z0, z1) + 1e-6 and p.z1 >= max(z0, z1) - 1e-6
+            span, across = p.z1 - p.z0, p.x1 - p.x0
+        if on_edge and covers:
+            total += (p.dead + p.live) * _slab_share(span, across)
+    return total
+
+
 def beam_gravity_udl(frame: Frame) -> dict:
     """1.2(DL + LL) equivalent UDL per beam in kN/m, for IS 13920 cl. 6.3.3 shear design."""
     L = frame.loads
+    if frame.panels is not None:
+        walls = wall_line_loads(frame)
+        udl = {}
+        for i, m in frame.members.items():
+            if m.kind == "beam":
+                sec = frame.section(i)
+                udl[i] = 1.2 * (sec.depth * sec.width * L.concrete_density + walls.get(i, 0.0)
+                                + _panel_slab_udl(frame, m))
+        return udl
     xs = sorted({x for x, _, _ in frame.nodes.values()})
     zs = sorted({z for _, _, z in frame.nodes.values()})
     walls = wall_line_loads(frame)
@@ -217,11 +292,82 @@ def beam_gravity_udl(frame: Frame) -> dict:
     return udl
 
 
+def _wrap(line, width=79):
+    """Split a long command at spaces; STAAD continues a line that ends with a hyphen."""
+    if len(line) <= width:
+        return [line]
+    out, cur = [], ""
+    for tok in line.split():
+        if cur and len(cur) + 1 + len(tok) + 2 > width:
+            out.append(cur + " -")
+            cur = tok
+        else:
+            cur = f"{cur} {tok}" if cur else tok
+    return out + [cur]
+
+
+def _panel_load(p, w, gy=False):
+    """A FLOOR LOAD / FLOOR WEIGHT line for one panel: the X and Z ranges enclose only its own beams."""
+    return (f"{_yrange(p.y)} FLOAD {_num(round(w, 3))} XRANGE {_num(round(p.x0 - 0.01, 3))} "
+            f"{_num(round(p.x1 + 0.01, 3))} ZRANGE {_num(round(p.z0 - 0.01, 3))} {_num(round(p.z1 + 0.01, 3))}"
+            + (" GY" if gy else ""))
+
+
+def lateral_sets(frame: Frame) -> list:
+    """(label, {case: factor}) for every lateral load direction and sign.
+
+    Earthquake: +-EQX and +-EQZ, or with `orthogonal` +-(EQX +- 0.3 EQZ) and +-(EQZ +- 0.3 EQX)
+    (IS 1893 Part 1 cl. 6.3.4.1). Wind: +-WLX and +-WLZ when the frame has wind loads.
+    """
+    sets = []
+    if frame.orthogonal:
+        for (main, mc), (other, oc) in ((("EQX", 1), ("EQZ", 2)), (("EQZ", 2), ("EQX", 1))):
+            for sm, a in ((1, "+"), (-1, "-")):
+                for so in (1, -1):
+                    inner = "+" if so > 0 else "-"
+                    sets.append((f"{a}({main}{inner}0.3{other})", {mc: sm, oc: round(0.3 * so * sm, 2)}))
+    else:
+        for name, case in (("EQX", 1), ("EQZ", 2)):
+            for sign, sym in ((1, "+"), (-1, "-")):
+                sets.append((f"{sym}{name}", {case: sign}))
+    if frame.wind:
+        for name, case in (("WLX", 5), ("WLZ", 6)):
+            for sign, sym in ((1, "+"), (-1, "-")):
+                sets.append((f"{sym}{name}", {case: sign}))
+    return sets
+
+
+def combinations(frame: Frame) -> list:
+    """Factored combinations (IS 456 Table 18, IS 1893 cl. 6.3.2.2, IS 875 Part 5): (name, {case: factor})."""
+    combos = [("1.5(DL+LL)", {3: 1.5, 4: 1.5})]
+    for label, lat in lateral_sets(frame):
+        sign, body = label[0], label[1:]
+        combos += [
+            (f"1.2(DL+LL{label})", {3: 1.2, 4: 1.2, **{c: round(1.2 * f, 3) for c, f in lat.items()}}),
+            (f"1.5(DL{label})", {3: 1.5, **{c: round(1.5 * f, 3) for c, f in lat.items()}}),
+            (f"0.9DL{sign}1.5{body}", {3: 0.9, **{c: round(1.5 * f, 3) for c, f in lat.items()}}),
+        ]
+    return combos
+
+
+SERVICE_START = 201
+
+
+def service_combinations(frame: Frame) -> list:
+    """Unfactored combinations for footing sizes (IS 875 Part 5): DL + LL, and DL + 0.8 LL + 0.8 EL
+    in each direction, for which bearing pressure may be 50% higher (IS 1893 Part 1 cl. 6.3.5.2)."""
+    combos = [("DL+LL", {3: 1.0, 4: 1.0})]
+    for name, case in (("EQX", 1), ("EQZ", 2)):
+        for sign, sym in ((1, "+"), (-1, "-")):
+            combos.append((f"DL+0.8LL{sym}0.8{name}", {3: 1.0, 4: 0.8, case: 0.8 * sign}))
+    return combos
+
+
 def write_std(frame: Frame, title="STRATA frame") -> str:
     L = frame.loads
     columns = [i for i, m in frame.members.items() if m.kind == "column"]
     beams = [i for i, m in frame.members.items() if m.kind == "beam"]
-    base_nodes = [i for i, (_, y, _) in frame.nodes.items() if y == 0.0]
+    base_nodes = [i for i, (_, y, _) in frame.nodes.items() if abs(y - frame.base_y) < 1e-6]
     floor_levels = [lvl * frame.storey_height for lvl in range(1, frame.storeys + 1)]
     roof_y = floor_levels[-1]
     walls = _grouped(wall_line_loads(frame))
@@ -275,9 +421,13 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
     out += [
         "FLOOR WEIGHT",
     ]
-    for y in floor_levels:
-        live = 0.0 if y == roof_y else L.floor_live  # roof imposed load excluded (IS 1893 cl. 7.3.2)
-        out.append(f"{_yrange(y)} FLOAD {_num(round(L.floor_dead() + 0.25 * live, 3))}")
+    if frame.panels is not None:
+        # roof imposed load excluded (IS 1893 cl. 7.3.2)
+        out += [_panel_load(p, p.dead + (0 if p.roof else 0.25 * p.live)) for p in frame.panels]
+    else:
+        for y in floor_levels:
+            live = 0.0 if y == roof_y else L.floor_live  # roof imposed load excluded (IS 1893 cl. 7.3.2)
+            out.append(f"{_yrange(y)} FLOAD {_num(round(L.floor_dead() + 0.25 * live, 3))}")
 
     out += [
         "LOAD 1 LOADTYPE SEISMIC TITLE EQ X",
@@ -292,28 +442,38 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
     out += [
         "FLOOR LOAD",
     ]
-    out += [f"{_yrange(y)} FLOAD {_num(-round(L.floor_dead(), 3))} GY" for y in floor_levels]
-    out += ["LOAD 4 LOADTYPE LIVE TITLE LL", "FLOOR LOAD"]
-    out += [
-        f"{_yrange(y)} FLOAD {_num(-(L.roof_live if y == roof_y else L.floor_live))} GY"
-        for y in floor_levels
-    ]
 
-    # IS 456 Table 18 / IS 1893 cl. 6.3.1.2
-    combos = [("1.5(DL+LL)", {3: 1.5, 4: 1.5})]
-    for name, eq in (("EQX", 1), ("EQZ", 2)):
-        for sign, sym in ((1, "+"), (-1, "-")):
-            combos += [
-                (f"1.2(DL+LL{sym}{name})", {3: 1.2, 4: 1.2, eq: 1.2 * sign}),
-                (f"1.5(DL{sym}{name})", {3: 1.5, eq: 1.5 * sign}),
-                (f"0.9DL{sym}1.5{name}", {3: 0.9, eq: 1.5 * sign}),
-            ]
+    if frame.panels is not None:
+        out += [_panel_load(p, -p.dead, gy=True) for p in frame.panels]
+        out += ["LOAD 4 LOADTYPE LIVE TITLE LL", "FLOOR LOAD"]
+        out += [_panel_load(p, -p.live, gy=True) for p in frame.panels if p.live > 0]
+    else:
+        out += [f"{_yrange(y)} FLOAD {_num(-round(L.floor_dead(), 3))} GY" for y in floor_levels]
+        out += ["LOAD 4 LOADTYPE LIVE TITLE LL", "FLOOR LOAD"]
+        out += [
+            f"{_yrange(y)} FLOAD {_num(-(L.roof_live if y == roof_y else L.floor_live))} GY"
+            for y in floor_levels
+        ]
+    if frame.wind:
+        for case, d in ((5, "X"), (6, "Z")):
+            out += [f"LOAD {case} LOADTYPE WIND TITLE WL {d}", "JOINT LOAD"]
+            out += [f"{_id_list(ids)} F{d} {_num(f)}" for f, ids in _grouped(
+                {n: round(f, 3) for n, f in frame.wind[d].items()})]
+
+    combos = combinations(frame)
     for n, (name, factors) in enumerate(combos, start=101):
         out.append(f"LOAD COMB {n} {name}")
         out.append(" ".join(f"{case} {_num(f)}" for case, f in sorted(factors.items())))
+    service = service_combinations(frame) if frame.service else []
+    for n, (name, factors) in enumerate(service, start=SERVICE_START):
+        out.append(f"LOAD COMB {n} {name}")
+        out.append(" ".join(f"{case} {_num(f)}" for case, f in sorted(factors.items())))
 
+    out.append("PERFORM ANALYSIS PRINT STATICS CHECK")
+    if service:
+        out += [f"LOAD LIST {_id_list(range(SERVICE_START, SERVICE_START + len(service)))}",
+                "PRINT SUPPORT REACTION"]
     out += [
-        "PERFORM ANALYSIS PRINT STATICS CHECK",
         f"LOAD LIST {_id_list(range(101, 101 + len(combos)))}",
         "START CONCRETE DESIGN",
         "CODE IS13920" if frame.ductile else "CODE INDIAN",
@@ -327,7 +487,7 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
     for group, bar in sorted(frame.column_bars.items()):
         out.append(f"MINMAIN {bar} MEMB {_id_list(i for i in columns if frame.group_of(i) == group)}")
     if frame.ductile:  # cap beam bars so the columns at each joint satisfy IS 13920 cl. 7.1.1(a)
-        for level in range(1, frame.storeys + 1):
+        for level in sorted({frame.members[i].level for i in beams}):
             ids = [i for i in beams if frame.members[i].level == level]
             out.append(f"MAXMAIN {frame.beam_bar_cap(level)} MEMB {_id_list(ids)}")
     # IS 13920 shear design needs the gravity UDL on each beam; STAAD's EUDL is in current units (N/mm = kN/m)
@@ -339,4 +499,7 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
         "END CONCRETE DESIGN",
         "FINISH",
     ]
-    return "\n".join(out) + "\n"
+    lines = []
+    for line in out:
+        lines += [line] if line.startswith("JOB NAME") else _wrap(line)
+    return "\n".join(lines) + "\n"

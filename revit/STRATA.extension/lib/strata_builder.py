@@ -3,23 +3,30 @@
 
 Runs inside Revit (Dynamo Python node or pyRevit). Uses only the Revit API,
 no Dynamo/pyRevit calls, so both launchers share it. The caller owns the
-transaction (Dynamo manages its own). Written for IronPython 2.7 and
-CPython 3 alike: no f-strings, no type hints.
+transaction for build() (Dynamo manages its own); make_stairs() runs after the
+caller has committed it, because a StairsEditScope cannot start inside an open
+transaction. Written for IronPython 2.7 and CPython 3 alike: no f-strings, no
+type hints.
 
 The JSON is validated in WSL (src/execution/building_schema.py) before it
 gets here; this module only translates it. No LLM is involved.
 """
 
 import json
+import uuid
 
 import clr
 
 clr.AddReference("RevitAPI")
 from Autodesk.Revit.DB import (  # noqa: E402
     BuiltInCategory, BuiltInParameter, Color, CompoundStructure, CompoundStructureLayer,
-    CurveLoop, Element, ElementLevelFilter, ElementTypeGroup, FamilySymbol, FilteredElementCollector, Floor,
-    FloorType, Level, Line, Material, MaterialFunctionAssignment, ShellLayerType, UnitTypeId,
-    UnitUtils, UV, View, Wall, WallKind, WallType, XYZ,
+    CurveLoop, Element, ElementLevelFilter, ElementTransformUtils, ElementTypeGroup, FailureProcessingResult,
+    FailureSeverity, FamilySymbol, FilteredElementCollector, Floor, FloorType, IFailuresPreprocessor, Level, Line,
+    Material, MaterialFunctionAssignment, ShellLayerType, StairsEditScope, Transaction, UnitTypeId, UnitUtils, UV, View, Wall,
+    WallKind, WallType, XYZ,
+)
+from Autodesk.Revit.DB.Architecture import (  # noqa: E402
+    StairsLanding, StairsRun, StairsRunJustification, StairsType,
 )
 from Autodesk.Revit.DB.Structure import StructuralType  # noqa: E402
 from System.Collections.Generic import List  # noqa: E402
@@ -46,6 +53,7 @@ STRUCTURAL_FAMILIES = {
     "beam": (BuiltInCategory.OST_StructuralFraming,
              ("M_Concrete-Rectangular Beam", "Concrete-Rectangular Beam", "M_Concrete-Rectangular-Beam")),
 }
+FOOTING_FAMILIES = ("M_Footing-Rectangular", "Footing-Rectangular")
 
 
 def ft(metres):
@@ -80,9 +88,11 @@ class Builder(object):
         self.walls = {}
         self.materials = {}
         self.placed = []  # (opening spec, instance, host wall) for the diagnostics
+        self._stubs = []  # columns standing on the footings
         self.cut_info = {}  # opening id -> (placement method, wall volume removed m3, expected m3)
         self.report = {"levels": 0, "levels_renamed": [], "levels_removed": [], "wall_types": 0, "walls": 0, "doors": 0, "windows": 0,
-                       "floors": 0, "columns": 0, "beams": 0, "rooms": [], "openings": [], "warnings": []}
+                       "floors": 0, "columns": 0, "beams": 0, "rooms": [], "openings": [], "warnings": [],
+                       "footing_moves": [], "footing_tops": [], "column_bases": [], "stairs": []}
 
     def warn(self, msg):
         self.report["warnings"].append(msg)
@@ -302,17 +312,21 @@ class Builder(object):
             self.report["doors" if spec["kind"] == "door" else "windows"] += 1
             self.placed.append((spec, inst, wall))
 
+    @staticmethod
+    def _loop(pts, z):
+        loop = CurveLoop()
+        for i in range(len(pts)):
+            a, b = pts[i], pts[(i + 1) % len(pts)]
+            loop.Append(Line.CreateBound(XYZ(ft(a[0]), ft(a[1]), z), XYZ(ft(b[0]), ft(b[1]), z)))
+        return loop
+
     def make_floors(self):
         for spec in self.data.get("floors", []):
             level = self.levels[spec["level"]]
-            loop = CurveLoop()
-            pts = spec["boundary"]
-            for i in range(len(pts)):
-                a, b = pts[i], pts[(i + 1) % len(pts)]
-                loop.Append(Line.CreateBound(XYZ(ft(a[0]), ft(a[1]), level.Elevation),
-                                             XYZ(ft(b[0]), ft(b[1]), level.Elevation)))
             loops = List[CurveLoop]()
-            loops.Add(loop)
+            loops.Add(self._loop(spec["boundary"], level.Elevation))
+            for hole in spec.get("openings", []):  # inner loops cut holes (the stair well)
+                loops.Add(self._loop(hole, level.Elevation))
             ftype = self.floor_type(spec["thickness"], spec.get("material", "Concrete"))
             Floor.Create(self.doc, loops, ftype.Id, level.Id)
             self.report["floors"] += 1
@@ -362,20 +376,41 @@ class Builder(object):
                 return "{0:.0f}".format(UnitUtils.ConvertFromInternalUnits(p.AsDouble(), UnitTypeId.Millimeters))
         return "?"
 
-    def structural_type(self, kind, width, depth):
-        """A concrete column/beam type of width x depth, duplicated from the loaded family."""
+    def _structural_family(self, kind):
+        """(family name or None, its symbols, names of all loaded families in the category)."""
         category, preferred = STRUCTURAL_FAMILIES[kind]
         symbols = list(FilteredElementCollector(self.doc).OfCategory(category).OfClass(FamilySymbol))
         families = sorted(set(_name(s.Family) for s in symbols))
         family = next((f for f in preferred if f in families), None)
         if family is None:
             family = next((f for f in families if "concrete" in f.lower() and "rect" in f.lower()), None)
+        return family, [s for s in symbols if _name(s.Family) == family], families
+
+    def check_families(self):
+        """Stop before anything is created if a family the model needs is not loaded (Dynamo commits a
+        half-built model otherwise)."""
+        missing = []
+        for kind in ("column", "beam"):
+            if self.data.get(kind + "s") and self._structural_family(kind)[0] is None:
+                found = self._structural_family(kind)[2]
+                missing.append("concrete rectangular {0}: load '{1}' (Structural > {2}; loaded now: {3})".format(
+                    kind, STRUCTURAL_FAMILIES[kind][1][0], "Columns > Concrete" if kind == "column"
+                    else "Framing > Concrete", ", ".join(found) or "none"))
+        if self.data.get("footings"):
+            names = set(_name(s.Family) for s in FilteredElementCollector(self.doc)
+                        .OfCategory(BuiltInCategory.OST_StructuralFoundation).OfClass(FamilySymbol))
+            if not any(f in FOOTING_FAMILIES or ("footing" in f.lower() and "rect" in f.lower()) for f in names):
+                missing.append("rectangular footing: load '{0}' (Structural > Foundations)".format(FOOTING_FAMILIES[0]))
+        if missing:
+            raise RuntimeError("Nothing was built. Load these families with Insert > Load Autodesk Family, then run "
+                               "again:\n  " + "\n  ".join(missing))
+
+    def structural_type(self, kind, width, depth):
+        """A concrete column/beam type of width x depth, duplicated from the loaded family."""
+        family, symbols, families = self._structural_family(kind)
         if family is None:
-            raise RuntimeError(
-                "No concrete rectangular {0} family loaded (found: {1}). Load '{2}' via "
-                "Insert > Load Autodesk Family, or start from the Default-Multi-Discipline_Metric "
-                "template.".format(kind, ", ".join(families) or "none", preferred[0]))
-        symbols = [s for s in symbols if _name(s.Family) == family]
+            raise RuntimeError("No concrete rectangular {0} family loaded (found: {1}).".format(
+                kind, ", ".join(families) or "none"))
         name = "STRATA {0} {1:.0f}x{2:.0f}".format("C" if kind == "column" else "B", width * 1000, depth * 1000)
         sym = next((s for s in symbols if _name(s) == name), None)
         if sym is None:
@@ -396,7 +431,12 @@ class Builder(object):
         """Write the STAAD result summary into the element's Comments."""
         if not design:
             return
-        parts = ["STAAD {0}".format(design.get("status", "?"))]
+        if "bearing_kn_m2" in design:  # footing: sized from STAAD reactions
+            parts = ["Footing: {0} kN DL+LL, bearing {1}/{2} kN/m2 under {3}".format(
+                design.get("service_kn"), design["bearing_kn_m2"], design.get("allowed_kn_m2"),
+                design.get("governing"))]
+        else:
+            parts = ["STAAD {0}".format(design.get("status", "?"))]
         if "bars" in design:
             parts.append("{0}, {1}% steel, IR {2}".format(design["bars"], design.get("steel_ratio_pct"),
                                                           design.get("interaction_ratio")))
@@ -422,7 +462,13 @@ class Builder(object):
             col.get_Parameter(BuiltInParameter.FAMILY_TOP_LEVEL_OFFSET_PARAM).Set(0.0)
             self._comment(col, spec.get("design"))
             self.report["columns"] += 1
+            if spec["base_level"] == "LF":
+                self._stubs.append(col)
         self.doc.Regenerate()
+        for col in self._stubs:
+            bb = col.get_BoundingBox(None)
+            if bb is not None:
+                self.report["column_bases"].append(UnitUtils.ConvertFromInternalUnits(bb.Min.Z, UnitTypeId.Meters))
 
     def make_beams(self):
         for spec in self.data.get("beams", []):
@@ -435,9 +481,64 @@ class Builder(object):
             self.report["beams"] += 1
         self.doc.Regenerate()
 
+    def footing_type(self, width, length, thickness):
+        """A rectangular pad footing type of the given size, duplicated from the loaded family."""
+        symbols = list(FilteredElementCollector(self.doc).OfCategory(BuiltInCategory.OST_StructuralFoundation)
+                       .OfClass(FamilySymbol))
+        families = sorted(set(_name(s.Family) for s in symbols))
+        family = next((f for f in FOOTING_FAMILIES if f in families), None)
+        if family is None:
+            family = next((f for f in families if "footing" in f.lower() and "rect" in f.lower()), None)
+        if family is None:
+            return None
+        symbols = [s for s in symbols if _name(s.Family) == family]
+        name = "STRATA F {0:.0f}x{1:.0f}x{2:.0f}".format(width * 1000, length * 1000, thickness * 1000)
+        sym = next((s for s in symbols if _name(s) == name), None)
+        if sym is None:
+            sym = self.doc.GetElement(symbols[0].Duplicate(name).Id)
+            for label, value in (("Width", width), ("Length", length), ("Foundation Thickness", thickness)):
+                p = sym.LookupParameter(label)
+                if p is None or p.IsReadOnly:
+                    self.warn("footing type '{0}': no settable '{1}' parameter".format(name, label))
+                else:
+                    p.Set(ft(value))
+        if not sym.IsActive:
+            sym.Activate()
+            self.doc.Regenerate()
+        return sym
+
+    def make_footings(self):
+        for spec in self.data.get("footings", []):
+            level = self.levels[spec["level"]]
+            sym = self.footing_type(spec["width"], spec["length"], spec["thickness"])
+            if sym is None:
+                self.warn("No rectangular footing family loaded; load 'M_Footing-Rectangular' "
+                          "(Insert > Load Autodesk Family > Structural Foundations) to build the footings")
+                return
+            point = XYZ(ft(spec["at"][0]), ft(spec["at"][1]), level.Elevation)  # top of the pad at the level
+            pad = self.doc.Create.NewFamilyInstance(point, sym, level, StructuralType.Footing)
+            self._comment(pad, spec.get("design"))
+            self.doc.Regenerate()
+            # Where Revit puts the pad depends on the family and the overload (the point's z can be read as an
+            # offset from the level): measure it and move it so its top is at the level, centred on `at`
+            bb = pad.get_BoundingBox(None)
+            if bb is not None:
+                move = XYZ(point.X - (bb.Min.X + bb.Max.X) / 2.0, point.Y - (bb.Min.Y + bb.Max.Y) / 2.0,
+                           level.Elevation - bb.Max.Z)
+                if move.GetLength() > ft(0.001):
+                    ElementTransformUtils.MoveElement(self.doc, pad.Id, move)
+                    self.report["footing_moves"].append(UnitUtils.ConvertFromInternalUnits(move.Z, UnitTypeId.Meters))
+                    self.doc.Regenerate()
+                bb = pad.get_BoundingBox(None)
+                self.report["footing_tops"].append(UnitUtils.ConvertFromInternalUnits(bb.Max.Z, UnitTypeId.Meters))
+            self.report["footings"] = self.report.get("footings", 0) + 1
+        self.doc.Regenerate()
+
     def build(self):
+        self.check_families()
         self.make_levels()
         self.make_wall_types()
+        self.make_footings()
         self.make_columns()
         self.make_beams()
         self.make_walls()
@@ -448,10 +549,136 @@ class Builder(object):
         return self.report
 
 
-def build_from_file(doc, path):
+def _warning_swallower():
+    """An IFailuresPreprocessor that accepts warnings (e.g. a riser above the stair type's maximum), so a
+    warning does not roll the stair back. Defined per call with a fresh .NET namespace: Python.NET cannot
+    define the same .NET type twice, and Dynamo reloads this module on every run."""
+    class WarningSwallower(IFailuresPreprocessor):
+        __namespace__ = "STRATA_" + uuid.uuid4().hex[:12]
+
+        def PreprocessFailures(self, accessor):
+            for f in accessor.GetFailureMessages():
+                if f.GetSeverity() == FailureSeverity.Warning:
+                    accessor.DeleteWarning(f)
+            return FailureProcessingResult.Continue
+
+    return WarningSwallower()
+
+
+def _make_stair(builder, spec, preprocessor):
+    doc = builder.doc
+    base, top = builder.levels[spec["base_level"]], builder.levels[spec["top_level"]]
+    scope = StairsEditScope(doc, "STRATA stair " + spec["id"])
+    try:
+        stairs_id = scope.Start(base.Id, top.Id)
+        t = Transaction(doc, "STRATA stair " + spec["id"] + " runs")
+        t.Start()
+        try:
+            stairs = doc.GetElement(stairs_id)
+            stairs.DesiredRisersNumber = sum(r["risers"] for r in spec["runs"])
+            stairs.ActualTreadDepth = ft(spec["tread"])
+            # A run's path z is its base in model coordinates (>= the stair's base); a landing's
+            # elevation is relative to the stair's base level. Both from the JSON, not Revit's rounding.
+            z0, climbed = base.ProjectElevation, 0
+            for r in spec["runs"]:
+                (x0, y0), (x1, y1) = r["start"], r["end"]
+                z = z0 + ft(climbed * spec["riser"])
+                line = Line.CreateBound(XYZ(ft(x0), ft(y0), z), XYZ(ft(x1), ft(y1), z))
+                run = StairsRun.CreateStraightRun(doc, stairs_id, line, StairsRunJustification.Center)
+                run.ActualRunWidth = ft(spec["width"])
+                climbed += r["risers"]
+            for ld in spec.get("landings", []):
+                StairsLanding.CreateSketchedLanding(
+                    doc, stairs_id, Builder._loop(ld["boundary"], z0 + ft(ld["height"])), ft(ld["height"]))
+            t.Commit()
+        except Exception:
+            if t.HasStarted() and not t.HasEnded():
+                t.RollBack()
+            raise
+        scope.Commit(preprocessor)
+    except Exception:
+        if scope.IsActive:
+            scope.Cancel()
+        raise
+    stairs = doc.GetElement(stairs_id)
+    builder.report["stairs"].append("{0}: {1} -> {2}, {3} risers of {4:.0f} mm, tread {5:.0f} mm".format(
+        spec["id"], spec["base_level"], spec["top_level"], stairs.ActualRisersNumber,
+        UnitUtils.ConvertFromInternalUnits(stairs.ActualRiserHeight, UnitTypeId.Millimeters),
+        UnitUtils.ConvertFromInternalUnits(stairs.ActualTreadDepth, UnitTypeId.Millimeters)))
+
+
+STAIR_TYPE = "STRATA Stair"
+
+
+def _stair_type(builder, specs):
+    """A stair type whose riser/tread/width limits are the code limits in the JSON (NBC 2016 for a
+    house), made the default so new stairs use it. Revit's stock type (max riser 180, min tread 280 mm)
+    would flag every code-compliant stair."""
+    doc = builder.doc
+    max_riser = max(s.get("max_riser") or s["riser"] for s in specs)
+    min_tread = min(s.get("min_tread") or s["tread"] for s in specs)
+    min_width = min(s["width"] for s in specs)
+    t = Transaction(doc, "STRATA stair type")
+    t.Start()
+    try:
+        st = next((x for x in FilteredElementCollector(doc).OfClass(StairsType)
+                   if _name(x) == STAIR_TYPE), None)
+        if st is None:
+            base = doc.GetElement(doc.GetDefaultElementTypeId(ElementTypeGroup.StairsType))
+            st = doc.GetElement(base.Duplicate(STAIR_TYPE).Id)
+        st.MaxRiserHeight = ft(max_riser)
+        st.MinTreadDepth = ft(min_tread)
+        st.MinRunWidth = ft(min_width)
+        doc.SetDefaultElementTypeId(ElementTypeGroup.StairsType, st.Id)
+        t.Commit()
+    except Exception:
+        if t.HasStarted() and not t.HasEnded():
+            t.RollBack()
+        raise
+    builder.report["stairs"].append("type {0}: max riser {1:.0f} mm, min tread {2:.0f} mm, min width {3:.0f} mm"
+                                    .format(STAIR_TYPE, max_riser * 1000, min_tread * 1000, min_width * 1000))
+
+
+def make_stairs(builder):
+    """Build the stairs after the caller has committed build()'s transaction. A failed stair is a
+    warning in the report; the rest of the model stays."""
+    specs = builder.data.get("stairs", [])
+    if not specs:
+        return builder.report
+    try:
+        _stair_type(builder, specs)
+    except Exception as e:  # noqa: BLE001 - the stock type still builds, with Revit's warnings
+        builder.warn("stair type not set: {0}".format(e))
+    try:
+        preprocessor = _warning_swallower()
+    except Exception as e:  # noqa: BLE001 - no preprocessor: Revit's own failure handling
+        builder.warn("stairs: warnings cannot be accepted automatically ({0})".format(e))
+        preprocessor = None
+    for spec in specs:
+        try:
+            _make_stair(builder, spec, preprocessor)
+        except Exception as e:  # noqa: BLE001
+            builder.warn("stair {0} not built: {1}".format(spec["id"], e))
+    return builder.report
+
+
+def load(path):
     with open(path) as f:
-        data = json.load(f)
-    return Builder(doc, data).build()
+        return json.load(f)
+
+
+def build_from_file(doc, path):
+    """Everything but the stairs, inside the caller's transaction; then call make_stairs(builder)."""
+    builder = Builder(doc, load(path))
+    builder.build()
+    return builder
+
+
+def _range(values):
+    if not values:
+        return "none"
+    lo, hi = min(values), max(values)
+    return "{0:.3f}".format(lo) if abs(hi - lo) < 0.0005 else "{0:.3f} to {1:.3f}".format(lo, hi)
 
 
 def format_report(report):
@@ -460,10 +687,16 @@ def format_report(report):
              "Levels renamed: {0}".format(", ".join(report.get("levels_renamed", [])) or "none"),
              "Template levels removed: {0}".format(", ".join(report.get("levels_removed", [])) or "none"),
              "Wall types created: {0}".format(report["wall_types"]),
-             "Columns: {0}  Beams: {1}".format(report.get("columns", 0), report.get("beams", 0)),
+             "Footings: {0}  Columns: {1}  Beams: {2}".format(report.get("footings", 0), report.get("columns", 0),
+                                                              report.get("beams", 0)),
              "Walls: {0}  Doors: {1}  Windows: {2}  Floors: {3}".format(
                  report["walls"], report["doors"], report["windows"], report["floors"]),
              "Rooms: " + ", ".join(report["rooms"]),
+             "Stairs: " + ("; ".join(report.get("stairs", [])) or "none"),
+             "Footing tops (m): " + _range(report.get("footing_tops", []))
+             + ("  (moved by " + _range(report["footing_moves"]) + " m to meet the columns)"
+                if report.get("footing_moves") else ""),
+             "Column bases on footings (m): " + _range(report.get("column_bases", [])),
              "Openings:"] + ["  " + o for o in report.get("openings", [])]
     if report["warnings"]:
         lines.append("Warnings:")

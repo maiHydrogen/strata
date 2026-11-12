@@ -1,0 +1,312 @@
+{
+ "passed": true,
+ "reason": "",
+ "rounds": [
+  {
+   "round": 1,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "300x300",
+    "column-1": "300x300"
+   },
+   "column_bars": {
+    "column-0": 12,
+    "column-1": 12
+   },
+   "passed": false,
+   "changes": [
+    "column-0: bars 12d -> 16d min (IS 456 cl. 26.5.3.1(a): column 1 steel 0.50% < 0.8% of gross area)",
+    "column-1: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 34 X, 35 X, 36 XZ, 37 Z, 38 XZ, 39 XZ, 40 Z, 41 Z, 42 XZ, 43 XZ, 44 Z, 49 XZ, 50 X, 51 XZ, 52 XZ, 53 Z, 54 XZ, 55 XZ, 56 Z, 57 XZ, 58 XZ, 59 X, 60 X)"
+   ]
+  },
+  {
+   "round": 2,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "300x300",
+    "column-1": "300x300"
+   },
+   "column_bars": {
+    "column-0": 16,
+    "column-1": 25
+   },
+   "passed": false,
+   "changes": [
+    "column-0: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 18 X, 19 X, 21 Z, 22 XZ, 23 XZ, 24 Z, 25 Z, 26 XZ, 27 XZ, 28 Z, 30 X, 31 X, 34 X, 35 X, 37 Z, 38 XZ, 39 X, 40 Z, 41 Z, 42 XZ, 43 XZ, 44 Z, 45 XZ, 46 XZ, 47 XZ, 48 XZ)",
+    "column-1: 300x300 -> 350x350 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 34 X, 35 X, 37 Z, 38 XZ, 39 X, 40 Z, 41 Z, 42 XZ, 43 XZ, 44 Z)",
+    "column-0: 300x300 -> 350x350 (practice: not smaller than column-1 above it)"
+   ]
+  },
+  {
+   "round": 3,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "350x350",
+    "column-1": "350x350"
+   },
+   "column_bars": {
+    "column-0": 25,
+    "column-1": 25
+   },
+   "passed": false,
+   "changes": [
+    "column-0: 350x350 -> 400x400 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 46 X, 47 X)"
+   ]
+  },
+  {
+   "round": 4,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "400x400",
+    "column-1": "350x350"
+   },
+   "column_bars": {
+    "column-0": 25,
+    "column-1": 25
+   },
+   "passed": false,
+   "changes": [
+    "column-0: 400x400 -> 450x450 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 46 X, 47 X)"
+   ]
+  },
+  {
+   "round": 5,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "450x450",
+    "column-1": "350x350"
+   },
+   "column_bars": {
+    "column-0": 25,
+    "column-1": 25
+   },
+   "passed": true,
+   "changes": []
+  }
+ ],
+ "sections": {
+  "beam-0": "230x450",
+  "beam-1": "230x450",
+  "beam-2": "230x300",
+  "column-0": "450x450",
+  "column-1": "350x350"
+ },
+ "slab_mm": 125,
+ "base_shear": {
+  "X": {
+   "period": 0.3399,
+   "coeff": 0.09,
+   "weight": 2861.97,
+   "vb": 257.58
+  },
+  "Z": {
+   "period": 0.3399,
+   "coeff": 0.09,
+   "weight": 2861.97,
+   "vb": 257.58
+  }
+ },
+ "members": {
+  "columns": 44,
+  "beams": 65,
+  "failed": []
+ },
+ "warnings": [
+  "DEPTH OF BEAM # 46 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 49 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 52 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 55 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 70 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 73 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 76 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 79 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER."
+ ],
+ "footings": [
+  {
+   "joint": 1,
+   "at": [
+    1.915,
+    3.715
+   ],
+   "size_m": 1.45,
+   "thickness_m": 0.3,
+   "service_kn": 186.7,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 97.7,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 2,
+   "at": [
+    5.4417,
+    3.715
+   ],
+   "size_m": 2.65,
+   "thickness_m": 0.3,
+   "service_kn": 357.4,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 98.9,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 4,
+   "at": [
+    8.988,
+    3.715
+   ],
+   "size_m": 1.4,
+   "thickness_m": 0.3,
+   "service_kn": 173.2,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 97.2,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 5,
+   "at": [
+    1.915,
+    7.229
+   ],
+   "size_m": 1.7,
+   "thickness_m": 0.3,
+   "service_kn": 262.2,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 99.8,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 6,
+   "at": [
+    5.4194,
+    7.229
+   ],
+   "size_m": 2.8,
+   "thickness_m": 0.3,
+   "service_kn": 428.7,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 99.0,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 8,
+   "at": [
+    8.988,
+    7.229
+   ],
+   "size_m": 1.6,
+   "thickness_m": 0.3,
+   "service_kn": 225.9,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 97.1,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 9,
+   "at": [
+    1.915,
+    9.829
+   ],
+   "size_m": 1.7,
+   "thickness_m": 0.3,
+   "service_kn": 249.5,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 95.0,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 10,
+   "at": [
+    5.4172,
+    9.829
+   ],
+   "size_m": 2.8,
+   "thickness_m": 0.3,
+   "service_kn": 445.0,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 99.9,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 12,
+   "at": [
+    8.988,
+    9.829
+   ],
+   "size_m": 1.6,
+   "thickness_m": 0.3,
+   "service_kn": 224.4,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.4,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 13,
+   "at": [
+    1.915,
+    14.714
+   ],
+   "size_m": 1.25,
+   "thickness_m": 0.3,
+   "service_kn": 131.1,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 92.3,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 14,
+   "at": [
+    5.4389,
+    14.714
+   ],
+   "size_m": 2.45,
+   "thickness_m": 0.3,
+   "service_kn": 256.0,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 95.8,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 16,
+   "at": [
+    8.988,
+    14.714
+   ],
+   "size_m": 1.2,
+   "thickness_m": 0.3,
+   "service_kn": 128.1,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 97.9,
+   "allowed_kn_m2": 100.0
+  }
+ ],
+ "notes": [
+  "Grid 4 x 4 lines; 60 joints, 44 columns, 65 beams.",
+  "Fixed supports at the top of the footings, 1.5 m below ground-floor level (assumed); plinth beams at ground-floor level carry the ground-floor walls.",
+  "Walls: burnt clay brick 20 kN/m3 plus 0.5 kN/m2 plaster (IS 875 Part 1), less door and window areas; parapets 1 m on roof and terrace edges.",
+  "Partitions between grid lines: slab load of at least one third of their weight per metre, minimum 1 kN/m2 (IS 875 Part 2 cl. 3.1.2).",
+  "Imposed loads 2 (rooms), 3 (corridors, stairs, stores), 1.5 kN/m2 (roofs): National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, cl. 3.3.1, Table 1 (i)(a), National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, cl. 3.4.1, Table 2 (i).",
+  "Stair: 8.031 kN/m2 on plan (0.15 m waist, steps, finish) over the stair cell.",
+  "Finishes 1 kN/m2 on floors, 1.5 kN/m2 on roofs (practice).",
+  "Slab 125 mm: shortest-side span up to 2.95 m, span/depth 28 (IS 456 cl. 24.1 Note 2, x 0.8 for Fe 500).",
+  "Seismic: IS 1893 (Part 1):2016, Z = 0.36 (National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, Annex K (cl. 5.3.4.2)), R = 5 (SMRF, IS 13920 detailing), I = 1.0, medium soil (assumed); 100% + 30% orthogonal combinations (cl. 6.3.4.1).",
+  "IS 875 (Part 3):2015 wind: Vb 50 m/s, k1 1.0, k2 terrain category 3 (Table 2, assumed), k3 1.0, k4 1.0; pd = Kd Ka Kc pz with Kd 0.9, Ka 1.0, Kc 0.9; net Cp 1 (Table 5: windward +0.7, leeward -0.3); Vb source: National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, Annex C (cl. 4.4.2).",
+  "beam-0: 230x450 for spans up to 4.88 m (D >= span/12, >= 300 mm)",
+  "beam-1: 230x450 for spans up to 4.88 m (D >= span/12, >= 300 mm)",
+  "beam-2: 230x300 for spans up to 3.51 m (D >= span/12, >= 300 mm)",
+  "column-0: 300x300, largest Pu 450 kN incl. 30% for seismic moments, needs 33972 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+  "column-1: 300x300, largest Pu 117 kN incl. 30% for seismic moments, needs 8841 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+  "2 ground-floor partition(s) between grid lines stand on the slab on grade.",
+  "Isolated footings, combined where pads would overlap, on 100 kN/m2 safe bearing capacity (brief), +50% under earthquake combinations (IS 1893 Part 1 cl. 6.3.5.2); thickness from punching and one-way shear (IS 456 cl. 31.6.3.1, 34.2.4.1); reinforcement not designed at LOD 200."
+ ],
+ "layout": "g1_40x60_3"
+}

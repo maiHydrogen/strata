@@ -93,9 +93,19 @@ def test_beam_end_off_column_is_reported():
 def test_upper_wall_without_beam_is_reported():
     _, b = _house()
     b = copy.deepcopy(b)
+    b["walls"].append({"id": "L1-Z", "level": "L1", "type": "EXT230", "start": (2, 0), "end": (2, 3.5),
+                       "height": 2.55, "external": True})
+    assert any("L1-Z" in p and "not supported by a beam" in p for p in validate_building(Building.model_validate(b)))
+
+
+def test_internal_partition_may_stand_on_the_slab():
+    _, b = _house()
+    b = copy.deepcopy(b)
     b["walls"].append({"id": "L1-Z", "level": "L1", "type": "INT115", "start": (2, 0), "end": (2, 3.5),
                        "height": 2.55})
-    assert any("L1-Z" in p and "not supported by a beam" in p for p in validate_building(Building.model_validate(b)))
+    assert not any("L1-Z" in p for p in validate_building(Building.model_validate(b)))
+    b["walls"][-1].update(start=(2, 8), end=(2, 9))  # off the building: on no slab
+    assert any("L1-Z" in p and "not supported" in p for p in validate_building(Building.model_validate(b)))
 
 
 def test_column_levels_must_rise():

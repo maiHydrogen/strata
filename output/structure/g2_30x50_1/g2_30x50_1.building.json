@@ -1,0 +1,3909 @@
+{
+ "schema_version": "0.3",
+ "name": "STRATA g2_30x50_1",
+ "levels": [
+  {
+   "id": "LF",
+   "name": "STRATA Foundation",
+   "elevation": -1.5
+  },
+  {
+   "id": "L0",
+   "name": "STRATA Ground Floor",
+   "elevation": 0.0
+  },
+  {
+   "id": "L1",
+   "name": "STRATA First Floor",
+   "elevation": 3.0
+  },
+  {
+   "id": "L2",
+   "name": "STRATA Second Floor",
+   "elevation": 6.0
+  },
+  {
+   "id": "L3",
+   "name": "STRATA Roof",
+   "elevation": 9.0
+  }
+ ],
+ "columns": [
+  {
+   "id": "C1",
+   "at": [
+    1.915,
+    3.715
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.08,
+    "axial_kn": 55.48,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C2",
+   "at": [
+    5.125,
+    3.715
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.08,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C3",
+   "at": [
+    6.36,
+    3.715
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.07,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C4",
+   "at": [
+    1.915,
+    6.765
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.1,
+    "axial_kn": 238.58,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C5",
+   "at": [
+    5.125,
+    6.765
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.1,
+    "axial_kn": 69.15,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C6",
+   "at": [
+    6.36,
+    6.765
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.09,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C7",
+   "at": [
+    1.915,
+    11.1
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.1,
+    "axial_kn": 154.69,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C8",
+   "at": [
+    5.125,
+    11.1
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.1,
+    "axial_kn": 49.94,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C9",
+   "at": [
+    6.36,
+    11.1
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.1,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C10",
+   "at": [
+    1.915,
+    13.285
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.08,
+    "axial_kn": 44.92,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C11",
+   "at": [
+    5.125,
+    13.285
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.08,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C12",
+   "at": [
+    6.36,
+    13.285
+   ],
+   "base_level": "LF",
+   "top_level": "L0",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.05,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C13",
+   "at": [
+    1.915,
+    3.715
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.13,
+    "axial_kn": 97.23,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C14",
+   "at": [
+    5.125,
+    3.715
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.1,
+    "axial_kn": 15.65,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C15",
+   "at": [
+    6.36,
+    3.715
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.09,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C16",
+   "at": [
+    1.915,
+    6.765
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.15,
+    "axial_kn": 234.96,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C17",
+   "at": [
+    5.125,
+    6.765
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.13,
+    "axial_kn": 85.97,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C18",
+   "at": [
+    6.36,
+    6.765
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.09,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C19",
+   "at": [
+    1.915,
+    11.1
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.18,
+    "axial_kn": 172.87,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C20",
+   "at": [
+    5.125,
+    11.1
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.16,
+    "axial_kn": 67.77,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C21",
+   "at": [
+    6.36,
+    11.1
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.12,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C22",
+   "at": [
+    1.915,
+    13.285
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.13,
+    "axial_kn": 40.83,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C23",
+   "at": [
+    5.125,
+    13.285
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.1,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C24",
+   "at": [
+    6.36,
+    13.285
+   ],
+   "base_level": "L0",
+   "top_level": "L1",
+   "width": 0.4,
+   "depth": 0.4,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.23,
+    "interaction_ratio": 0.06,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C25",
+   "at": [
+    1.915,
+    3.715
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.19,
+    "axial_kn": 210.57,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C26",
+   "at": [
+    5.125,
+    3.715
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.15,
+    "axial_kn": 118.89,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C27",
+   "at": [
+    6.36,
+    3.715
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.1,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C28",
+   "at": [
+    1.915,
+    6.765
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.17,
+    "axial_kn": 152.86,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C29",
+   "at": [
+    5.125,
+    6.765
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.15,
+    "axial_kn": 83.98,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C30",
+   "at": [
+    6.36,
+    6.765
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.1,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C31",
+   "at": [
+    1.915,
+    11.1
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.21,
+    "axial_kn": 221.06,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C32",
+   "at": [
+    5.125,
+    11.1
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.19,
+    "axial_kn": 162.88,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C33",
+   "at": [
+    6.36,
+    11.1
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.13,
+    "axial_kn": 36.13,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C34",
+   "at": [
+    1.915,
+    13.285
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.16,
+    "axial_kn": 42.4,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C35",
+   "at": [
+    5.125,
+    13.285
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.12,
+    "axial_kn": 63.45,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C36",
+   "at": [
+    6.36,
+    13.285
+   ],
+   "base_level": "L1",
+   "top_level": "L2",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.07,
+    "axial_kn": 0.0,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C37",
+   "at": [
+    1.915,
+    3.715
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.24,
+    "axial_kn": 68.74,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C38",
+   "at": [
+    5.125,
+    3.715
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.18,
+    "axial_kn": 46.73,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C39",
+   "at": [
+    6.36,
+    3.715
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.12,
+    "axial_kn": 49.13,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C40",
+   "at": [
+    1.915,
+    6.765
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.23,
+    "axial_kn": 87.77,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C41",
+   "at": [
+    5.125,
+    6.765
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.19,
+    "axial_kn": 71.92,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C42",
+   "at": [
+    6.36,
+    6.765
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.11,
+    "axial_kn": 61.26,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C43",
+   "at": [
+    1.915,
+    11.1
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.29,
+    "axial_kn": 80.75,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C44",
+   "at": [
+    5.125,
+    11.1
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.24,
+    "axial_kn": 70.68,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C45",
+   "at": [
+    6.36,
+    11.1
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.16,
+    "axial_kn": 48.95,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C46",
+   "at": [
+    1.915,
+    13.285
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.22,
+    "axial_kn": 70.12,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C47",
+   "at": [
+    5.125,
+    13.285
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.16,
+    "axial_kn": 48.14,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "C48",
+   "at": [
+    6.36,
+    13.285
+   ],
+   "base_level": "L2",
+   "top_level": "L3",
+   "width": 0.35,
+   "depth": 0.35,
+   "design": {
+    "bars": "4-25d",
+    "min_main_bar_mm": 25,
+    "steel_ratio_pct": 1.6,
+    "interaction_ratio": 0.1,
+    "axial_kn": 47.99,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  }
+ ],
+ "beams": [
+  {
+   "id": "B49",
+   "level": "L0",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    5.125,
+    3.715
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 355.02,
+    "top_steel_provided_mm2": 402.12,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B50",
+   "level": "L0",
+   "start": [
+    5.125,
+    3.715
+   ],
+   "end": [
+    6.36,
+    3.715
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 422.14,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 384.33,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B51",
+   "level": "L0",
+   "start": [
+    1.915,
+    6.765
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 354.2,
+    "top_steel_provided_mm2": 402.12,
+    "bottom_steel_required_mm2": 210.97,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B52",
+   "level": "L0",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    6.36,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 428.69,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 410.19,
+    "bottom_steel_provided_mm2": 452.39,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B53",
+   "level": "L0",
+   "start": [
+    1.915,
+    11.1
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 347.64,
+    "top_steel_provided_mm2": 402.12,
+    "bottom_steel_required_mm2": 199.81,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B54",
+   "level": "L0",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    6.36,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 417.58,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 398.28,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B55",
+   "level": "L0",
+   "start": [
+    1.915,
+    13.285
+   ],
+   "end": [
+    5.125,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 394.13,
+    "top_steel_provided_mm2": 402.12,
+    "bottom_steel_required_mm2": 197.06,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B56",
+   "level": "L0",
+   "start": [
+    5.125,
+    13.285
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 421.45,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 369.57,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B57",
+   "level": "L0",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    1.915,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 423.12,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 218.66,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B58",
+   "level": "L0",
+   "start": [
+    1.915,
+    6.765
+   ],
+   "end": [
+    1.915,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 461.38,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 230.69,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B59",
+   "level": "L0",
+   "start": [
+    1.915,
+    11.1
+   ],
+   "end": [
+    1.915,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 432.22,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 323.61,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B60",
+   "level": "L0",
+   "start": [
+    5.125,
+    3.715
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 282.79,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 251.03,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B61",
+   "level": "L0",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 316.69,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B62",
+   "level": "L0",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    5.125,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 364.44,
+    "top_steel_provided_mm2": 402.12,
+    "bottom_steel_required_mm2": 310.03,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B63",
+   "level": "L0",
+   "start": [
+    6.36,
+    3.715
+   ],
+   "end": [
+    6.36,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 401.9,
+    "top_steel_provided_mm2": 402.12,
+    "bottom_steel_required_mm2": 200.95,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B64",
+   "level": "L0",
+   "start": [
+    6.36,
+    6.765
+   ],
+   "end": [
+    6.36,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 449.66,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 224.83,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B65",
+   "level": "L0",
+   "start": [
+    6.36,
+    11.1
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 399.17,
+    "top_steel_provided_mm2": 402.12,
+    "bottom_steel_required_mm2": 280.42,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B66",
+   "level": "L1",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    5.125,
+    3.715
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 586.21,
+    "top_steel_provided_mm2": 603.19,
+    "bottom_steel_required_mm2": 362.75,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 90,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B67",
+   "level": "L1",
+   "start": [
+    5.125,
+    3.715
+   ],
+   "end": [
+    6.36,
+    3.715
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 558.49,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 490.39,
+    "bottom_steel_provided_mm2": 565.49,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B68",
+   "level": "L1",
+   "start": [
+    1.915,
+    6.765
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 634.78,
+    "top_steel_provided_mm2": 678.58,
+    "bottom_steel_required_mm2": 381.89,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B69",
+   "level": "L1",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    6.36,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 575.09,
+    "top_steel_provided_mm2": 603.19,
+    "bottom_steel_required_mm2": 539.13,
+    "bottom_steel_provided_mm2": 565.49,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B70",
+   "level": "L1",
+   "start": [
+    1.915,
+    11.1
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 639.36,
+    "top_steel_provided_mm2": 678.58,
+    "bottom_steel_required_mm2": 351.42,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B71",
+   "level": "L1",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    6.36,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 556.75,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 511.73,
+    "bottom_steel_provided_mm2": 565.49,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B72",
+   "level": "L1",
+   "start": [
+    1.915,
+    13.285
+   ],
+   "end": [
+    5.125,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 626.58,
+    "top_steel_provided_mm2": 678.58,
+    "bottom_steel_required_mm2": 331.48,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B73",
+   "level": "L1",
+   "start": [
+    5.125,
+    13.285
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 557.25,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 475.84,
+    "bottom_steel_provided_mm2": 565.49,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B74",
+   "level": "L1",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    1.915,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 624.87,
+    "top_steel_provided_mm2": 678.58,
+    "bottom_steel_required_mm2": 406.07,
+    "bottom_steel_provided_mm2": 452.39,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B75",
+   "level": "L1",
+   "start": [
+    1.915,
+    6.765
+   ],
+   "end": [
+    1.915,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 647.98,
+    "top_steel_provided_mm2": 678.58,
+    "bottom_steel_required_mm2": 323.99,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B76",
+   "level": "L1",
+   "start": [
+    1.915,
+    11.1
+   ],
+   "end": [
+    1.915,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 631.33,
+    "top_steel_provided_mm2": 678.58,
+    "bottom_steel_required_mm2": 504.42,
+    "bottom_steel_provided_mm2": 565.49,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B77",
+   "level": "L1",
+   "start": [
+    5.125,
+    3.715
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 536.49,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 382.76,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B78",
+   "level": "L1",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 557.19,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 278.6,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B79",
+   "level": "L1",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    5.125,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 542.33,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 464.61,
+    "bottom_steel_provided_mm2": 565.49,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B80",
+   "level": "L1",
+   "start": [
+    6.36,
+    3.715
+   ],
+   "end": [
+    6.36,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 540.01,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 349.16,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B81",
+   "level": "L1",
+   "start": [
+    6.36,
+    6.765
+   ],
+   "end": [
+    6.36,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 528.67,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 264.33,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B82",
+   "level": "L1",
+   "start": [
+    6.36,
+    11.1
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.45,
+   "design": {
+    "top_steel_required_mm2": 538.78,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 435.72,
+    "bottom_steel_provided_mm2": 452.39,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B83",
+   "level": "L2",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    5.125,
+    3.715
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 586.94,
+    "top_steel_provided_mm2": 603.19,
+    "bottom_steel_required_mm2": 293.47,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B84",
+   "level": "L2",
+   "start": [
+    5.125,
+    3.715
+   ],
+   "end": [
+    6.36,
+    3.715
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 429.71,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 352.37,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B85",
+   "level": "L2",
+   "start": [
+    1.915,
+    6.765
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 587.99,
+    "top_steel_provided_mm2": 603.19,
+    "bottom_steel_required_mm2": 293.99,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B86",
+   "level": "L2",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    6.36,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 433.36,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 389.96,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B87",
+   "level": "L2",
+   "start": [
+    1.915,
+    11.1
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 586.36,
+    "top_steel_provided_mm2": 603.19,
+    "bottom_steel_required_mm2": 293.18,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B88",
+   "level": "L2",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    6.36,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 430.81,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 373.91,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B89",
+   "level": "L2",
+   "start": [
+    1.915,
+    13.285
+   ],
+   "end": [
+    5.125,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 606.7,
+    "top_steel_provided_mm2": 678.58,
+    "bottom_steel_required_mm2": 303.35,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B90",
+   "level": "L2",
+   "start": [
+    5.125,
+    13.285
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 437.45,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 344.38,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B91",
+   "level": "L2",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    1.915,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 562.66,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 281.33,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B92",
+   "level": "L2",
+   "start": [
+    1.915,
+    6.765
+   ],
+   "end": [
+    1.915,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 637.49,
+    "top_steel_provided_mm2": 678.58,
+    "bottom_steel_required_mm2": 318.75,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B93",
+   "level": "L2",
+   "start": [
+    1.915,
+    11.1
+   ],
+   "end": [
+    1.915,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 516.74,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 357.65,
+    "bottom_steel_provided_mm2": 402.12,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B94",
+   "level": "L2",
+   "start": [
+    5.125,
+    3.715
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 470.06,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 256.11,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B95",
+   "level": "L2",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 515.05,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 257.52,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B96",
+   "level": "L2",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    5.125,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 439.02,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 333.03,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B97",
+   "level": "L2",
+   "start": [
+    6.36,
+    3.715
+   ],
+   "end": [
+    6.36,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 487.12,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 243.56,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B98",
+   "level": "L2",
+   "start": [
+    6.36,
+    6.765
+   ],
+   "end": [
+    6.36,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 548.16,
+    "top_steel_provided_mm2": 565.49,
+    "bottom_steel_required_mm2": 274.08,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B99",
+   "level": "L2",
+   "start": [
+    6.36,
+    11.1
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 440.56,
+    "top_steel_provided_mm2": 452.39,
+    "bottom_steel_required_mm2": 309.87,
+    "bottom_steel_provided_mm2": 339.29,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B100",
+   "level": "L3",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    5.125,
+    3.715
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 281.73,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B101",
+   "level": "L3",
+   "start": [
+    5.125,
+    3.715
+   ],
+   "end": [
+    6.36,
+    3.715
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 189.89,
+    "top_steel_provided_mm2": 226.19,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B102",
+   "level": "L3",
+   "start": [
+    1.915,
+    6.765
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 286.3,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B103",
+   "level": "L3",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    6.36,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 189.89,
+    "top_steel_provided_mm2": 226.19,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B104",
+   "level": "L3",
+   "start": [
+    1.915,
+    11.1
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 302.16,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B105",
+   "level": "L3",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    6.36,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 189.89,
+    "top_steel_provided_mm2": 226.19,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B106",
+   "level": "L3",
+   "start": [
+    1.915,
+    13.285
+   ],
+   "end": [
+    5.125,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 303.53,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B107",
+   "level": "L3",
+   "start": [
+    5.125,
+    13.285
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 189.89,
+    "top_steel_provided_mm2": 226.19,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B108",
+   "level": "L3",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    1.915,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 264.16,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B109",
+   "level": "L3",
+   "start": [
+    1.915,
+    6.765
+   ],
+   "end": [
+    1.915,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 333.78,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B110",
+   "level": "L3",
+   "start": [
+    1.915,
+    11.1
+   ],
+   "end": [
+    1.915,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 222.15,
+    "top_steel_provided_mm2": 226.19,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B111",
+   "level": "L3",
+   "start": [
+    5.125,
+    3.715
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 228.46,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B112",
+   "level": "L3",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 280.23,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B113",
+   "level": "L3",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    5.125,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 197.93,
+    "top_steel_provided_mm2": 226.19,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B114",
+   "level": "L3",
+   "start": [
+    6.36,
+    3.715
+   ],
+   "end": [
+    6.36,
+    6.765
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 221.13,
+    "top_steel_provided_mm2": 226.19,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B115",
+   "level": "L3",
+   "start": [
+    6.36,
+    6.765
+   ],
+   "end": [
+    6.36,
+    11.1
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 266.02,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  },
+  {
+   "id": "B116",
+   "level": "L3",
+   "start": [
+    6.36,
+    11.1
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "width": 0.23,
+   "depth": 0.38,
+   "design": {
+    "top_steel_required_mm2": 189.89,
+    "top_steel_provided_mm2": 226.19,
+    "bottom_steel_required_mm2": 189.89,
+    "bottom_steel_provided_mm2": 226.19,
+    "min_stirrup_spacing_mm": 70,
+    "status": "pass",
+    "errors": [],
+    "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
+   }
+  }
+ ],
+ "floors": [
+  {
+   "id": "F0",
+   "level": "L0",
+   "boundary": [
+    [
+     6.475,
+     3.6
+    ],
+    [
+     1.8,
+     3.6
+    ],
+    [
+     1.8,
+     13.4
+    ],
+    [
+     6.475,
+     13.4
+    ]
+   ],
+   "thickness": 0.15
+  },
+  {
+   "id": "F1",
+   "level": "L1",
+   "boundary": [
+    [
+     6.475,
+     3.6
+    ],
+    [
+     1.8,
+     3.6
+    ],
+    [
+     1.8,
+     13.4
+    ],
+    [
+     6.475,
+     13.4
+    ]
+   ],
+   "thickness": 0.125,
+   "openings": [
+    [
+     [
+      1.8,
+      11.1
+     ],
+     [
+      5.125,
+      11.1
+     ],
+     [
+      5.125,
+      13.4
+     ],
+     [
+      1.8,
+      13.4
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "F2",
+   "level": "L2",
+   "boundary": [
+    [
+     1.8,
+     3.6
+    ],
+    [
+     1.8,
+     13.4
+    ],
+    [
+     6.475,
+     13.4
+    ],
+    [
+     6.475,
+     3.6
+    ]
+   ],
+   "thickness": 0.125,
+   "openings": [
+    [
+     [
+      1.8,
+      11.1
+     ],
+     [
+      5.125,
+      11.1
+     ],
+     [
+      5.125,
+      13.4
+     ],
+     [
+      1.8,
+      13.4
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "F3",
+   "level": "L3",
+   "boundary": [
+    [
+     1.8,
+     3.6
+    ],
+    [
+     1.8,
+     13.4
+    ],
+    [
+     6.475,
+     13.4
+    ],
+    [
+     6.475,
+     3.6
+    ]
+   ],
+   "thickness": 0.125,
+   "openings": [
+    [
+     [
+      1.8,
+      11.1
+     ],
+     [
+      5.125,
+      11.1
+     ],
+     [
+      5.125,
+      13.4
+     ],
+     [
+      1.8,
+      13.4
+     ]
+    ]
+   ]
+  }
+ ],
+ "wall_types": [
+  {
+   "id": "EXT230",
+   "name": "STRATA External 230 Brick + Plaster",
+   "layers": [
+    {
+     "material": "Plaster",
+     "thickness": 0.015,
+     "function": "Finish1"
+    },
+    {
+     "material": "Brick",
+     "thickness": 0.23,
+     "function": "Structure"
+    },
+    {
+     "material": "Plaster",
+     "thickness": 0.012,
+     "function": "Finish2"
+    }
+   ]
+  },
+  {
+   "id": "INT115",
+   "name": "STRATA Internal 115 Brick + Plaster",
+   "layers": [
+    {
+     "material": "Plaster",
+     "thickness": 0.012,
+     "function": "Finish2"
+    },
+    {
+     "material": "Brick",
+     "thickness": 0.115,
+     "function": "Structure"
+    },
+    {
+     "material": "Plaster",
+     "thickness": 0.012,
+     "function": "Finish2"
+    }
+   ]
+  }
+ ],
+ "walls": [
+  {
+   "id": "L0-W1",
+   "level": "L0",
+   "type": "EXT230",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    6.36,
+    3.715
+   ],
+   "height": 2.55,
+   "external": true
+  },
+  {
+   "id": "L0-W2",
+   "level": "L0",
+   "type": "EXT230",
+   "start": [
+    6.36,
+    3.715
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "height": 2.55,
+   "external": true
+  },
+  {
+   "id": "L0-W3",
+   "level": "L0",
+   "type": "EXT230",
+   "start": [
+    6.36,
+    13.285
+   ],
+   "end": [
+    1.915,
+    13.285
+   ],
+   "height": 2.55,
+   "external": true
+  },
+  {
+   "id": "L0-W4",
+   "level": "L0",
+   "type": "EXT230",
+   "start": [
+    1.915,
+    13.285
+   ],
+   "end": [
+    1.915,
+    3.715
+   ],
+   "height": 2.55,
+   "external": true
+  },
+  {
+   "id": "L0-W5",
+   "level": "L0",
+   "type": "INT115",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    1.915,
+    6.765
+   ],
+   "height": 2.55,
+   "external": false
+  },
+  {
+   "id": "L0-W6",
+   "level": "L0",
+   "type": "INT115",
+   "start": [
+    5.125,
+    9.35
+   ],
+   "end": [
+    1.915,
+    9.35
+   ],
+   "height": 2.875,
+   "external": false
+  },
+  {
+   "id": "L0-W7",
+   "level": "L0",
+   "type": "INT115",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    1.915,
+    11.1
+   ],
+   "height": 2.55,
+   "external": false
+  },
+  {
+   "id": "L0-W8",
+   "level": "L0",
+   "type": "INT115",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    6.36,
+    6.765
+   ],
+   "height": 2.55,
+   "external": false
+  },
+  {
+   "id": "L0-W9",
+   "level": "L0",
+   "type": "INT115",
+   "start": [
+    5.125,
+    9.35
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "height": 2.55,
+   "external": false
+  },
+  {
+   "id": "L0-W10",
+   "level": "L0",
+   "type": "INT115",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    5.125,
+    9.35
+   ],
+   "height": 2.55,
+   "external": false
+  },
+  {
+   "id": "L0-W11",
+   "level": "L0",
+   "type": "INT115",
+   "start": [
+    5.125,
+    13.285
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "height": 2.55,
+   "external": false
+  },
+  {
+   "id": "L1-W12",
+   "level": "L1",
+   "type": "EXT230",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    6.36,
+    3.715
+   ],
+   "height": 2.62,
+   "external": true
+  },
+  {
+   "id": "L1-W13",
+   "level": "L1",
+   "type": "EXT230",
+   "start": [
+    6.36,
+    3.715
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "height": 2.62,
+   "external": true
+  },
+  {
+   "id": "L1-W14",
+   "level": "L1",
+   "type": "EXT230",
+   "start": [
+    6.36,
+    13.285
+   ],
+   "end": [
+    1.915,
+    13.285
+   ],
+   "height": 2.62,
+   "external": true
+  },
+  {
+   "id": "L1-W15",
+   "level": "L1",
+   "type": "EXT230",
+   "start": [
+    1.915,
+    13.285
+   ],
+   "end": [
+    1.915,
+    3.715
+   ],
+   "height": 2.62,
+   "external": true
+  },
+  {
+   "id": "L1-W16",
+   "level": "L1",
+   "type": "INT115",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    1.915,
+    6.765
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L1-W17",
+   "level": "L1",
+   "type": "INT115",
+   "start": [
+    5.125,
+    9.35
+   ],
+   "end": [
+    1.915,
+    9.35
+   ],
+   "height": 2.875,
+   "external": false
+  },
+  {
+   "id": "L1-W18",
+   "level": "L1",
+   "type": "INT115",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    1.915,
+    11.1
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L1-W19",
+   "level": "L1",
+   "type": "INT115",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    5.125,
+    3.715
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L1-W20",
+   "level": "L1",
+   "type": "INT115",
+   "start": [
+    5.125,
+    9.35
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L1-W21",
+   "level": "L1",
+   "type": "INT115",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    5.125,
+    9.35
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L1-W22",
+   "level": "L1",
+   "type": "INT115",
+   "start": [
+    5.125,
+    13.285
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L2-W23",
+   "level": "L2",
+   "type": "EXT230",
+   "start": [
+    1.915,
+    3.715
+   ],
+   "end": [
+    6.36,
+    3.715
+   ],
+   "height": 2.62,
+   "external": true
+  },
+  {
+   "id": "L2-W24",
+   "level": "L2",
+   "type": "EXT230",
+   "start": [
+    6.36,
+    3.715
+   ],
+   "end": [
+    6.36,
+    13.285
+   ],
+   "height": 2.62,
+   "external": true
+  },
+  {
+   "id": "L2-W25",
+   "level": "L2",
+   "type": "EXT230",
+   "start": [
+    6.36,
+    13.285
+   ],
+   "end": [
+    1.915,
+    13.285
+   ],
+   "height": 2.62,
+   "external": true
+  },
+  {
+   "id": "L2-W26",
+   "level": "L2",
+   "type": "EXT230",
+   "start": [
+    1.915,
+    13.285
+   ],
+   "end": [
+    1.915,
+    3.715
+   ],
+   "height": 2.62,
+   "external": true
+  },
+  {
+   "id": "L2-W27",
+   "level": "L2",
+   "type": "INT115",
+   "start": [
+    5.125,
+    5.183
+   ],
+   "end": [
+    1.915,
+    5.183
+   ],
+   "height": 2.875,
+   "external": false
+  },
+  {
+   "id": "L2-W28",
+   "level": "L2",
+   "type": "INT115",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    1.915,
+    6.765
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L2-W29",
+   "level": "L2",
+   "type": "INT115",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    1.915,
+    11.1
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L2-W30",
+   "level": "L2",
+   "type": "INT115",
+   "start": [
+    5.125,
+    5.183
+   ],
+   "end": [
+    5.125,
+    3.715
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L2-W31",
+   "level": "L2",
+   "type": "INT115",
+   "start": [
+    5.125,
+    6.765
+   ],
+   "end": [
+    5.125,
+    5.183
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L2-W32",
+   "level": "L2",
+   "type": "INT115",
+   "start": [
+    5.125,
+    11.1
+   ],
+   "end": [
+    5.125,
+    6.765
+   ],
+   "height": 2.62,
+   "external": false
+  },
+  {
+   "id": "L2-W33",
+   "level": "L2",
+   "type": "INT115",
+   "start": [
+    5.125,
+    13.285
+   ],
+   "end": [
+    5.125,
+    11.1
+   ],
+   "height": 2.62,
+   "external": false
+  }
+ ],
+ "openings": [
+  {
+   "id": "L0-D1",
+   "kind": "door",
+   "wall": "L0-W1",
+   "offset": 3.385,
+   "width": 1.0,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L0-D2",
+   "kind": "door",
+   "wall": "L0-W8",
+   "offset": 0.175,
+   "width": 1.0,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L0-D3",
+   "kind": "door",
+   "wall": "L0-W9",
+   "offset": 0.8425,
+   "width": 0.9,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L0-D4",
+   "kind": "door",
+   "wall": "L0-W6",
+   "offset": 1.2875,
+   "width": 0.75,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L0-D5",
+   "kind": "door",
+   "wall": "L0-W11",
+   "offset": 0.585,
+   "width": 0.9,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L0-WIN6",
+   "kind": "window",
+   "wall": "L0-W1",
+   "offset": 0.65,
+   "width": 1.77,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "L0-WIN7",
+   "kind": "window",
+   "wall": "L0-W4",
+   "offset": 4.6825,
+   "width": 1.09,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "L0-WIN8",
+   "kind": "window",
+   "wall": "L0-W4",
+   "offset": 2.76,
+   "width": 0.6,
+   "height": 0.6,
+   "sill": 1.8
+  },
+  {
+   "id": "L1-D9",
+   "kind": "door",
+   "wall": "L1-W19",
+   "offset": 1.1325,
+   "width": 0.9,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L1-D10",
+   "kind": "door",
+   "wall": "L1-W20",
+   "offset": 0.8425,
+   "width": 0.9,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L1-D11",
+   "kind": "door",
+   "wall": "L1-W17",
+   "offset": 1.2875,
+   "width": 0.75,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L1-D12",
+   "kind": "door",
+   "wall": "L1-W22",
+   "offset": 0.585,
+   "width": 0.9,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L1-WIN13",
+   "kind": "window",
+   "wall": "L1-W12",
+   "offset": 0.7525,
+   "width": 1.59,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "L1-WIN14",
+   "kind": "window",
+   "wall": "L1-W15",
+   "offset": 7.6525,
+   "width": 0.9,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "L1-WIN15",
+   "kind": "window",
+   "wall": "L1-W15",
+   "offset": 4.6825,
+   "width": 1.09,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "L1-WIN16",
+   "kind": "window",
+   "wall": "L1-W15",
+   "offset": 2.76,
+   "width": 0.6,
+   "height": 0.6,
+   "sill": 1.8
+  },
+  {
+   "id": "L2-D17",
+   "kind": "door",
+   "wall": "L2-W30",
+   "offset": 0.4165,
+   "width": 0.75,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L2-D18",
+   "kind": "door",
+   "wall": "L2-W31",
+   "offset": 0.416,
+   "width": 0.75,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L2-D19",
+   "kind": "door",
+   "wall": "L2-W32",
+   "offset": 1.7175,
+   "width": 0.9,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L2-D20",
+   "kind": "door",
+   "wall": "L2-W33",
+   "offset": 0.585,
+   "width": 0.9,
+   "height": 2.1,
+   "sill": 0.0
+  },
+  {
+   "id": "L2-WIN21",
+   "kind": "window",
+   "wall": "L2-W23",
+   "offset": 1.2475,
+   "width": 0.6,
+   "height": 0.6,
+   "sill": 1.8
+  },
+  {
+   "id": "L2-WIN22",
+   "kind": "window",
+   "wall": "L2-W26",
+   "offset": 3.4175,
+   "width": 1.87,
+   "height": 1.2,
+   "sill": 0.9
+  }
+ ],
+ "rooms": [
+  {
+   "id": "L0-R1",
+   "level": "L0",
+   "name": "Passage",
+   "point": [
+    5.8,
+    10.0825
+   ]
+  },
+  {
+   "id": "L0-R2",
+   "level": "L0",
+   "name": "Living room",
+   "point": [
+    4.1375,
+    5.1825
+   ]
+  },
+  {
+   "id": "L0-R3",
+   "level": "L0",
+   "name": "Bedroom 2",
+   "point": [
+    3.4625,
+    8.0575
+   ]
+  },
+  {
+   "id": "L0-R4",
+   "level": "L0",
+   "name": "Bath of Bedroom 2",
+   "point": [
+    3.4625,
+    10.225
+   ]
+  },
+  {
+   "id": "L0-R5",
+   "level": "L0",
+   "name": "Stair",
+   "point": [
+    3.4625,
+    12.25
+   ]
+  },
+  {
+   "id": "L1-R6",
+   "level": "L1",
+   "name": "Passage",
+   "point": [
+    5.8,
+    8.5
+   ]
+  },
+  {
+   "id": "L1-R7",
+   "level": "L1",
+   "name": "Kitchen",
+   "point": [
+    3.4625,
+    5.1825
+   ]
+  },
+  {
+   "id": "L1-R8",
+   "level": "L1",
+   "name": "Bedroom 1",
+   "point": [
+    3.4625,
+    8.0575
+   ]
+  },
+  {
+   "id": "L1-R9",
+   "level": "L1",
+   "name": "Bath of Bedroom 1",
+   "point": [
+    3.4625,
+    10.225
+   ]
+  },
+  {
+   "id": "L1-R10",
+   "level": "L1",
+   "name": "Stair",
+   "point": [
+    3.4625,
+    12.25
+   ]
+  },
+  {
+   "id": "L2-R11",
+   "level": "L2",
+   "name": "Passage",
+   "point": [
+    5.8,
+    8.5
+   ]
+  },
+  {
+   "id": "L2-R12",
+   "level": "L2",
+   "name": "Common bathroom 1",
+   "point": [
+    3.4625,
+    4.3915
+   ]
+  },
+  {
+   "id": "L2-R13",
+   "level": "L2",
+   "name": "Store",
+   "point": [
+    3.4625,
+    5.974
+   ]
+  },
+  {
+   "id": "L2-R14",
+   "level": "L2",
+   "name": "Bedroom 3",
+   "point": [
+    3.4625,
+    8.9325
+   ]
+  },
+  {
+   "id": "L2-R15",
+   "level": "L2",
+   "name": "Stair",
+   "point": [
+    3.4625,
+    12.25
+   ]
+  }
+ ],
+ "footings": [
+  {
+   "id": "FT1",
+   "at": [
+    1.915,
+    3.715
+   ],
+   "level": "LF",
+   "width": 1.65,
+   "length": 1.65,
+   "thickness": 0.3,
+   "design": {
+    "columns": [
+     [
+      1.915,
+      3.715
+     ]
+    ],
+    "service_kn": 237.1,
+    "governing": "DL+LL",
+    "bearing_kn_m2": 95.8,
+    "allowed_kn_m2": 100.0
+   }
+  },
+  {
+   "id": "FT2",
+   "at": [
+    5.6309,
+    3.715
+   ],
+   "level": "LF",
+   "width": 3.05,
+   "length": 1.65,
+   "thickness": 0.3,
+   "design": {
+    "columns": [
+     [
+      5.125,
+      3.715
+     ],
+     [
+      6.36,
+      3.715
+     ]
+    ],
+    "service_kn": 397.4,
+    "governing": "DL+0.8LL+0.8EQX",
+    "bearing_kn_m2": 120.4,
+    "allowed_kn_m2": 150.0
+   }
+  },
+  {
+   "id": "FT4",
+   "at": [
+    1.915,
+    6.765
+   ],
+   "level": "LF",
+   "width": 2.15,
+   "length": 2.15,
+   "thickness": 0.35,
+   "design": {
+    "columns": [
+     [
+      1.915,
+      6.765
+     ]
+    ],
+    "service_kn": 406.7,
+    "governing": "DL+LL",
+    "bearing_kn_m2": 96.8,
+    "allowed_kn_m2": 100.0
+   }
+  },
+  {
+   "id": "FT5",
+   "at": [
+    5.6807,
+    6.765
+   ],
+   "level": "LF",
+   "width": 3.25,
+   "length": 2.3,
+   "thickness": 0.3,
+   "design": {
+    "columns": [
+     [
+      5.125,
+      6.765
+     ],
+     [
+      6.36,
+      6.765
+     ]
+    ],
+    "service_kn": 658.7,
+    "governing": "DL+LL",
+    "bearing_kn_m2": 120.6,
+    "allowed_kn_m2": 100.0
+   }
+  },
+  {
+   "id": "FT7",
+   "at": [
+    1.915,
+    11.1
+   ],
+   "level": "LF",
+   "width": 2.1,
+   "length": 2.1,
+   "thickness": 0.35,
+   "design": {
+    "columns": [
+     [
+      1.915,
+      11.1
+     ]
+    ],
+    "service_kn": 387.2,
+    "governing": "DL+LL",
+    "bearing_kn_m2": 96.6,
+    "allowed_kn_m2": 100.0
+   }
+  },
+  {
+   "id": "FT8",
+   "at": [
+    5.6567,
+    11.1
+   ],
+   "level": "LF",
+   "width": 3.25,
+   "length": 2.15,
+   "thickness": 0.3,
+   "design": {
+    "columns": [
+     [
+      5.125,
+      11.1
+     ],
+     [
+      6.36,
+      11.1
+     ]
+    ],
+    "service_kn": 619.3,
+    "governing": "DL+LL",
+    "bearing_kn_m2": 122.1,
+    "allowed_kn_m2": 100.0
+   }
+  },
+  {
+   "id": "FT10",
+   "at": [
+    1.915,
+    13.285
+   ],
+   "level": "LF",
+   "width": 1.6,
+   "length": 1.6,
+   "thickness": 0.3,
+   "design": {
+    "columns": [
+     [
+      1.915,
+      13.285
+     ]
+    ],
+    "service_kn": 230.9,
+    "governing": "DL+LL",
+    "bearing_kn_m2": 99.2,
+    "allowed_kn_m2": 100.0
+   }
+  },
+  {
+   "id": "FT11",
+   "at": [
+    5.5751,
+    13.285
+   ],
+   "level": "LF",
+   "width": 3.1,
+   "length": 1.65,
+   "thickness": 0.3,
+   "design": {
+    "columns": [
+     [
+      5.125,
+      13.285
+     ],
+     [
+      6.36,
+      13.285
+     ]
+    ],
+    "service_kn": 382.5,
+    "governing": "DL+LL",
+    "bearing_kn_m2": 115.1,
+    "allowed_kn_m2": 100.0
+   }
+  }
+ ]
+}

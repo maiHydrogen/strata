@@ -162,19 +162,50 @@ def test_report_without_joint_file_is_the_anl(tmp_path):
     assert read_report(str(tmp_path), "x") == "ANL TEXT\nJOINTS"
 
 
+class _FakeEngine:
+    """Stands in for SProStaad.exe: writes the report when started; `linger` keeps it 'running' after."""
+
+    def __init__(self, folder, calls, linger=False):
+        self.folder, self.calls, self.linger = folder, calls, linger
+        self.returncode = None
+        self.killed = False
+
+    def __call__(self, cmd, **kwargs):
+        self.calls.append(cmd)
+        (self.folder / "x.anl").write_text("ANL TEXT\n END OF ANALYSIS \n", encoding="latin-1")
+        return self
+
+    def poll(self):
+        if self.linger and not self.killed:
+            return None
+        self.returncode = 0
+        return 0
+
+    def kill(self):
+        self.killed = True
+        self.returncode = -9
+
+
 def test_runner_starts_staad_hidden_so_no_done_click(tmp_path, monkeypatch):
     from src.structure import staad_runner
     engine = tmp_path / "SProStaad.exe"
     engine.write_text("")
     calls = []
-
-    def fake_run(cmd, **kwargs):
-        calls.append(cmd)
-        (tmp_path / "x.anl").write_text("ANL TEXT", encoding="latin-1")
-        return staad_runner.subprocess.CompletedProcess(cmd, 0, "", "")
-
     monkeypatch.setattr(staad_runner, "_windows_path", lambda p: "C:\\STRATA\\x.std")
-    monkeypatch.setattr(staad_runner.subprocess, "run", fake_run)
+    monkeypatch.setattr(staad_runner.subprocess, "Popen", _FakeEngine(tmp_path, calls))
     out = staad_runner.StaadRunner(engine=str(engine), workdir=str(tmp_path))("STAAD SPACE\n", "x")
     assert calls == [[str(engine), "STAAD", "C:\\STRATA\\x.std", "/h"]]
-    assert out == "ANL TEXT"
+    assert out.startswith("ANL TEXT")
+
+
+def test_runner_stops_an_engine_that_stays_open_after_its_report(tmp_path, monkeypatch):
+    from src.structure import staad_runner
+    engine = tmp_path / "SProStaad.exe"
+    engine.write_text("")
+    fake = _FakeEngine(tmp_path, [], linger=True)
+    monkeypatch.setattr(staad_runner, "_windows_path", lambda p: "C:\\STRATA\\x.std")
+    monkeypatch.setattr(staad_runner.subprocess, "Popen", fake)
+    monkeypatch.setattr(staad_runner, "LINGER", 0)
+    monkeypatch.setattr(staad_runner.time, "sleep", lambda s: None)
+    out = staad_runner.StaadRunner(engine=str(engine), workdir=str(tmp_path))("STAAD SPACE\n", "x")
+    assert fake.killed and out.startswith("ANL TEXT")

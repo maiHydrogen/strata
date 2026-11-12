@@ -9,6 +9,7 @@ from src.structure.staad_results import MIN_COLUMN_STEEL_PCT, StaadResults
 from src.structure.std_writer import Frame
 
 LEVEL_NAMES = {0: "STRATA Ground Floor", 1: "STRATA First Floor", 2: "STRATA Second Floor"}
+FOUNDATION = "LF"  # level at the top of the footings, when the frame starts below ground-floor level
 GROUND_SLAB = 0.15  # m, slab on grade
 
 
@@ -50,16 +51,27 @@ def outline(frame: Frame):
 
 def structure_from_frame(frame: Frame, results: StaadResults, code_note: str = "") -> dict:
     """Levels, columns, beams and slabs for the building JSON."""
-    roof = frame.storeys
-    levels = [{"id": level_id(i), "name": LEVEL_NAMES.get(i, "STRATA Roof") if i < roof else "STRATA Roof",
-               "elevation": round(i * frame.storey_height, 6)} for i in range(roof + 1)]
+    roof = frame.storeys - (1 if frame.cabin else 0)
+
+    def name(i):
+        if i > roof:
+            return "STRATA Stair Cabin Roof"
+        return LEVEL_NAMES.get(i, "STRATA Roof") if i < roof else "STRATA Roof"
+
+    levels = [{"id": level_id(i), "name": name(i), "elevation": round(i * frame.storey_height, 6)}
+              for i in range(frame.storeys + 1)]
+    below = frame.base_y < -1e-6
+    if below:
+        levels.insert(0, {"id": FOUNDATION, "name": "STRATA Foundation", "elevation": round(frame.base_y, 6)})
     columns, beams = [], []
     for mid, m in sorted(frame.members.items()):
         sec = frame.section(mid)
         if m.kind == "column":
+            from_base = below and abs(frame.nodes[m.start][1] - frame.base_y) < 1e-6
             columns.append({
                 "id": f"C{mid}", "at": _plan(frame, m.start),
-                "base_level": level_id(m.level), "top_level": level_id(m.level + 1),
+                "base_level": FOUNDATION if from_base else level_id(m.level),
+                "top_level": level_id(0) if from_base else level_id(m.level + 1),
                 "width": sec.width, "depth": sec.depth,
                 "design": _column_design(results.columns.get(mid), frame.min_bar(frame.group_of(mid))),
             })

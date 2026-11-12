@@ -1,0 +1,2741 @@
+{
+ "layout": "g2_30x50_1",
+ "pass": true,
+ "summary": {
+  "checks": 259,
+  "failures": 0,
+  "practice_warnings": 0,
+  "skipped": 0
+ },
+ "areas": {
+  "floors": [
+   {
+    "floor": "Ground floor",
+    "built_up": 45.815,
+    "carpet": 37.455,
+    "rooms": {
+     "spine": 6.744,
+     "living": 12.129,
+     "bedroom1": 7.503,
+     "bath_wc1": 4.966,
+     "stair1": 6.113
+    },
+    "carpet_basis": "inside walls"
+   },
+   {
+    "floor": "First floor",
+    "built_up": 45.815,
+    "carpet": 37.246,
+    "rooms": {
+     "spine": 9.924,
+     "kitchen1": 8.74,
+     "bedroom1": 7.503,
+     "bath_wc1": 4.966,
+     "stair1": 6.113
+    },
+    "carpet_basis": "inside walls"
+   },
+   {
+    "floor": "Second floor",
+    "built_up": 45.815,
+    "carpet": 37.246,
+    "rooms": {
+     "spine": 9.924,
+     "bath_wc1": 3.935,
+     "store1": 4.456,
+     "bedroom1": 12.818,
+     "stair1": 6.113
+    },
+    "carpet_basis": "inside walls"
+   }
+  ],
+  "plot_area": 138.32,
+  "built_up_total": 137.445,
+  "carpet_total": 111.947,
+  "far": 0.994
+ },
+ "results": [
+  {
+   "category": "geometry",
+   "subject": "Ground floor",
+   "check": "rooms do not overlap",
+   "actual": "none",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "setbacks",
+   "subject": "Ground floor",
+   "check": "footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+    "clause": "Bye-law 24(a)(i), front setback table",
+    "page": "9723-9724",
+    "jurisdiction": "guwahati",
+    "status": "transcribed"
+   },
+   "note": "area outside the envelope, m2"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_1",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_1",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_2",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_2",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_3",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_3",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_4",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_4",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_5",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_5",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_6",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_6",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_7",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_7",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_8",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_8",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_9",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_9",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_10",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_10",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_11",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W0_11",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor spine",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor living",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor bedroom1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor bath_wc1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor stair1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W_living_0",
+   "check": "opening fits on wall W0_1",
+   "actual": "0.77..2.54 of 4.67",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor D_main",
+   "check": "opening fits on wall W0_1",
+   "actual": "3.50..4.50 of 4.67",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W_living_0/D_main",
+   "check": "openings do not overlap on wall W0_1",
+   "actual": -0.965,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor D_spine",
+   "check": "opening fits on wall W0_8",
+   "actual": "0.17..1.17 of 1.35",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor D_bedroom1",
+   "check": "opening fits on wall W0_9",
+   "actual": "0.84..1.74 of 2.58",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor D_bath_wc1",
+   "check": "opening fits on wall W0_6",
+   "actual": "1.29..2.04 of 3.33",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor D_stair1",
+   "check": "opening fits on wall W0_11",
+   "actual": "0.70..1.60 of 2.30",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor V_bath_wc1",
+   "check": "opening fits on wall W0_4",
+   "actual": "2.88..3.48 of 9.80",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor W_bedroom1_0",
+   "check": "opening fits on wall W0_4",
+   "actual": "4.80..5.89 of 9.80",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Ground floor V_bath_wc1/W_bedroom1_0",
+   "check": "openings do not overlap on wall W0_4",
+   "actual": -1.323,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "rooms",
+   "subject": "Ground floor spine (corridor)",
+   "check": "width >= 1.0 m (clear)",
+   "actual": 1.062,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 4, cl. 4.4.2.4.2 (a)",
+    "page": "32",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Ground floor living (living)",
+   "check": "area >= 7.5 m2",
+   "actual": 12.129,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Ground floor living (living)",
+   "check": "width >= 2.1 m (clear)",
+   "actual": 2.877,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "ceiling",
+   "subject": "Ground floor living (living)",
+   "check": "height >= 2.75 m",
+   "actual": 2.85,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.1",
+    "page": "43",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Ground floor bedroom1 (bedroom)",
+   "check": "area >= 7.5 m2",
+   "actual": 7.503,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Ground floor bedroom1 (bedroom)",
+   "check": "width >= 2.1 m (clear)",
+   "actual": 2.47,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "ceiling",
+   "subject": "Ground floor bedroom1 (bedroom)",
+   "check": "height >= 2.75 m",
+   "actual": 2.85,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.1",
+    "page": "43",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Ground floor bath_wc1 (bath_wc)",
+   "check": "area >= 2.8 m2",
+   "actual": 4.966,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Ground floor bath_wc1 (bath_wc)",
+   "check": "width >= 1.2 m (clear)",
+   "actual": 1.635,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "ceiling",
+   "subject": "Ground floor bath_wc1 (bath_wc)",
+   "check": "height >= 2.1 m",
+   "actual": 2.85,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.1",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Ground floor stair1 (stair)",
+   "check": "width >= 1.0 m",
+   "actual": 1.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.1(a)",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Ground floor stair1 (stair)",
+   "check": "tread >= 0.25 m",
+   "actual": 0.25,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.2",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Ground floor stair1 (stair)",
+   "check": "riser <= 0.19 m",
+   "actual": 0.188,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.3",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Ground floor stair1 (stair)",
+   "check": "headroom >= 2.2 m",
+   "actual": 2.2,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.2",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Ground floor stair1 (stair)",
+   "check": "risers_per_flight <= 12.0 count",
+   "actual": 8.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.3",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Ground floor stair1 (stair)",
+   "check": "flights rise one storey (3.0 m)",
+   "actual": 3.0,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "stairs",
+   "subject": "Ground floor stair1 (stair)",
+   "check": "two flights side by side fit the stair room",
+   "actual": "2.00 in 2.01",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "stairs",
+   "subject": "Ground floor stair1 (stair)",
+   "check": "flight plus landing fits the stair room",
+   "actual": "2.75 in 3.04",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "rooms",
+   "subject": "Ground floor living (largest habitable room)",
+   "check": "principal room area >= 9.5 m2",
+   "actual": 12.129,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Ground floor living (largest habitable room)",
+   "check": "principal room width >= 2.4 m (clear)",
+   "actual": 2.877,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_main (living-outside)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "1.35 m for 1.0 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_main (living-outside) main entrance",
+   "check": "width >= 1.0 m",
+   "actual": 1.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 4, cl. 4.4.2.4.1 (b)",
+    "page": "32",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_main (living-outside) main entrance",
+   "check": "height >= 2.0 m",
+   "actual": 2.1,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 4, cl. 4.4.2.4.1 (b)",
+    "page": "32",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_spine (living-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "1.35 m for 1.0 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_spine (living-spine)",
+   "check": "door width >= 0.9 m",
+   "actual": 1.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_bedroom1 (bedroom1-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "2.58 m for 0.9 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_bedroom1 (bedroom1-spine)",
+   "check": "door width >= 0.9 m",
+   "actual": 0.9,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_bath_wc1 (bath_wc1-bedroom1)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "3.32 m for 0.75 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_bath_wc1 (bath_wc1-bedroom1)",
+   "check": "door width >= 0.75 m",
+   "actual": 0.75,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_stair1 (stair1-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "2.30 m for 0.9 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor D_stair1 (stair1-spine)",
+   "check": "door width >= 0.9 m",
+   "actual": 0.9,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor",
+   "check": "one main entrance from outside",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor spine (corridor)",
+   "check": "room has a door",
+   "actual": 3,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor living (living)",
+   "check": "room has a door",
+   "actual": 2,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor bedroom1 (bedroom)",
+   "check": "room has a door",
+   "actual": 2,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor bath_wc1 (bath_wc)",
+   "check": "room has a door",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Ground floor stair1 (stair)",
+   "check": "room has a door",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "windows",
+   "subject": "Ground floor W_living_0 (living)",
+   "check": "window is on an external wall of its room, with room for its width",
+   "actual": "3.30 m for 1.77 m",
+   "pass": true,
+   "basis": "validity",
+   "note": "a window on an internal wall opens into another room"
+  },
+  {
+   "category": "windows",
+   "subject": "Ground floor W_bedroom1_0 (bedroom1)",
+   "check": "window is on an external wall of its room, with room for its width",
+   "actual": "2.58 m for 1.09 m",
+   "pass": true,
+   "basis": "validity",
+   "note": "a window on an internal wall opens into another room"
+  },
+  {
+   "category": "windows",
+   "subject": "Ground floor V_bath_wc1 (bath_wc1)",
+   "check": "window is on an external wall of its room, with room for its width",
+   "actual": "1.75 m for 0.6 m",
+   "pass": true,
+   "basis": "validity",
+   "note": "a window on an internal wall opens into another room"
+  },
+  {
+   "category": "windows",
+   "subject": "Ground floor living (living)",
+   "check": "opening_ratio >= 0.1667 fraction of floor area",
+   "actual": 0.175,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 20.1.2",
+    "page": "57",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   },
+   "note": "2.12 m2 of windows on 12.13 m2"
+  },
+  {
+   "category": "windows",
+   "subject": "Ground floor bedroom1 (bedroom)",
+   "check": "opening_ratio >= 0.1667 fraction of floor area",
+   "actual": 0.174,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 20.1.2",
+    "page": "57",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   },
+   "note": "1.31 m2 of windows on 7.50 m2"
+  },
+  {
+   "category": "windows",
+   "subject": "Ground floor bath_wc1 (bath_wc)",
+   "check": "at least one wall opens to external air",
+   "actual": 1.75,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "windows",
+   "subject": "Ground floor bath_wc1 (bath_wc)",
+   "check": "ventilator_area >= 0.3 m2",
+   "actual": 0.36,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "windows",
+   "subject": "Ground floor bath_wc1 (bath_wc)",
+   "check": "ventilator_side >= 0.3 m",
+   "actual": 0.6,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "structure",
+   "subject": "Ground floor",
+   "check": "a column at every corner of the footprint",
+   "actual": "all",
+   "pass": true,
+   "basis": "practice"
+  },
+  {
+   "category": "structure",
+   "subject": "Ground floor",
+   "check": "column spacing on each grid line <= 5.0 m",
+   "actual": "all within",
+   "pass": true,
+   "basis": "practice"
+  },
+  {
+   "category": "structure",
+   "subject": "Ground floor",
+   "check": "columns inside the footprint",
+   "actual": "all",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "geometry",
+   "subject": "First floor",
+   "check": "rooms do not overlap",
+   "actual": "none",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "setbacks",
+   "subject": "First floor",
+   "check": "footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+    "clause": "Bye-law 24(a)(i), front setback table",
+    "page": "9723-9724",
+    "jurisdiction": "guwahati",
+    "status": "transcribed"
+   },
+   "note": "area outside the envelope, m2"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_1",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_1",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_2",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_2",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_3",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_3",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_4",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_4",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_5",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_5",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_6",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_6",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_7",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_7",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_8",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_8",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_9",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_9",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_10",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_10",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_11",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W1_11",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor spine",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor kitchen1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor bedroom1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor bath_wc1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor stair1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor D_kitchen1",
+   "check": "opening fits on wall W1_8",
+   "actual": "1.13..2.03 of 3.16",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor D_bedroom1",
+   "check": "opening fits on wall W1_9",
+   "actual": "0.84..1.74 of 2.58",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor D_bath_wc1",
+   "check": "opening fits on wall W1_6",
+   "actual": "1.29..2.04 of 3.33",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor D_stair1",
+   "check": "opening fits on wall W1_11",
+   "actual": "0.70..1.60 of 2.30",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W_kitchen1_0",
+   "check": "opening fits on wall W1_1",
+   "actual": "0.87..2.46 of 4.67",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor V_bath_wc1",
+   "check": "opening fits on wall W1_4",
+   "actual": "2.88..3.48 of 9.80",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W_bedroom1_0",
+   "check": "opening fits on wall W1_4",
+   "actual": "4.80..5.89 of 9.80",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W_kitchen1_1",
+   "check": "opening fits on wall W1_4",
+   "actual": "7.77..8.67 of 9.80",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor V_bath_wc1/W_bedroom1_0",
+   "check": "openings do not overlap on wall W1_4",
+   "actual": -1.323,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "First floor W_bedroom1_0/W_kitchen1_1",
+   "check": "openings do not overlap on wall W1_4",
+   "actual": -1.88,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "rooms",
+   "subject": "First floor spine (corridor)",
+   "check": "width >= 1.0 m (clear)",
+   "actual": 1.062,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 4, cl. 4.4.2.4.2 (a)",
+    "page": "32",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "First floor kitchen1 (kitchen)",
+   "check": "area >= 7.5 m2",
+   "actual": 8.74,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.3.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "First floor kitchen1 (kitchen)",
+   "check": "width >= 2.1 m (clear)",
+   "actual": 2.877,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.3.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "ceiling",
+   "subject": "First floor kitchen1 (kitchen)",
+   "check": "height >= 2.75 m",
+   "actual": 2.85,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.3.1",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "First floor bedroom1 (bedroom)",
+   "check": "area >= 7.5 m2",
+   "actual": 7.503,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "First floor bedroom1 (bedroom)",
+   "check": "width >= 2.1 m (clear)",
+   "actual": 2.47,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "ceiling",
+   "subject": "First floor bedroom1 (bedroom)",
+   "check": "height >= 2.75 m",
+   "actual": 2.85,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.1",
+    "page": "43",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "First floor bath_wc1 (bath_wc)",
+   "check": "area >= 2.8 m2",
+   "actual": 4.966,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "First floor bath_wc1 (bath_wc)",
+   "check": "width >= 1.2 m (clear)",
+   "actual": 1.635,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "ceiling",
+   "subject": "First floor bath_wc1 (bath_wc)",
+   "check": "height >= 2.1 m",
+   "actual": 2.85,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.1",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "First floor stair1 (stair)",
+   "check": "width >= 1.0 m",
+   "actual": 1.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.1(a)",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "First floor stair1 (stair)",
+   "check": "tread >= 0.25 m",
+   "actual": 0.25,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.2",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "First floor stair1 (stair)",
+   "check": "riser <= 0.19 m",
+   "actual": 0.188,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.3",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "First floor stair1 (stair)",
+   "check": "headroom >= 2.2 m",
+   "actual": 2.2,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.2",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "First floor stair1 (stair)",
+   "check": "risers_per_flight <= 12.0 count",
+   "actual": 8.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.3",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "First floor stair1 (stair)",
+   "check": "flights rise one storey (3.0 m)",
+   "actual": 3.0,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "stairs",
+   "subject": "First floor stair1 (stair)",
+   "check": "two flights side by side fit the stair room",
+   "actual": "2.00 in 2.01",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "stairs",
+   "subject": "First floor stair1 (stair)",
+   "check": "flight plus landing fits the stair room",
+   "actual": "2.75 in 3.04",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor D_kitchen1 (kitchen1-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "3.16 m for 0.9 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor D_kitchen1 (kitchen1-spine)",
+   "check": "door width >= 0.9 m",
+   "actual": 0.9,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor D_bedroom1 (bedroom1-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "2.58 m for 0.9 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor D_bedroom1 (bedroom1-spine)",
+   "check": "door width >= 0.9 m",
+   "actual": 0.9,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor D_bath_wc1 (bath_wc1-bedroom1)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "3.32 m for 0.75 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor D_bath_wc1 (bath_wc1-bedroom1)",
+   "check": "door width >= 0.75 m",
+   "actual": 0.75,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor D_stair1 (stair1-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "2.30 m for 0.9 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor D_stair1 (stair1-spine)",
+   "check": "door width >= 0.9 m",
+   "actual": 0.9,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor spine (corridor)",
+   "check": "room has a door",
+   "actual": 3,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor kitchen1 (kitchen)",
+   "check": "room has a door",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor bedroom1 (bedroom)",
+   "check": "room has a door",
+   "actual": 2,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor bath_wc1 (bath_wc)",
+   "check": "room has a door",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "First floor stair1 (stair)",
+   "check": "room has a door",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "windows",
+   "subject": "First floor W_kitchen1_0 (kitchen1)",
+   "check": "window is on an external wall of its room, with room for its width",
+   "actual": "3.32 m for 1.59 m",
+   "pass": true,
+   "basis": "validity",
+   "note": "a window on an internal wall opens into another room"
+  },
+  {
+   "category": "windows",
+   "subject": "First floor W_kitchen1_1 (kitchen1)",
+   "check": "window is on an external wall of its room, with room for its width",
+   "actual": "3.16 m for 0.9 m",
+   "pass": true,
+   "basis": "validity",
+   "note": "a window on an internal wall opens into another room"
+  },
+  {
+   "category": "windows",
+   "subject": "First floor W_bedroom1_0 (bedroom1)",
+   "check": "window is on an external wall of its room, with room for its width",
+   "actual": "2.58 m for 1.09 m",
+   "pass": true,
+   "basis": "validity",
+   "note": "a window on an internal wall opens into another room"
+  },
+  {
+   "category": "windows",
+   "subject": "First floor V_bath_wc1 (bath_wc1)",
+   "check": "window is on an external wall of its room, with room for its width",
+   "actual": "1.75 m for 0.6 m",
+   "pass": true,
+   "basis": "validity",
+   "note": "a window on an internal wall opens into another room"
+  },
+  {
+   "category": "windows",
+   "subject": "First floor kitchen1 (kitchen)",
+   "check": "opening_ratio >= 0.2084 fraction of floor area",
+   "actual": 0.342,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 20.1.2",
+    "page": "57",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   },
+   "note": "2.99 m2 of windows on 8.74 m2"
+  },
+  {
+   "category": "windows",
+   "subject": "First floor bedroom1 (bedroom)",
+   "check": "opening_ratio >= 0.1667 fraction of floor area",
+   "actual": 0.174,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 20.1.2",
+    "page": "57",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   },
+   "note": "1.31 m2 of windows on 7.50 m2"
+  },
+  {
+   "category": "windows",
+   "subject": "First floor bath_wc1 (bath_wc)",
+   "check": "at least one wall opens to external air",
+   "actual": 1.75,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "windows",
+   "subject": "First floor bath_wc1 (bath_wc)",
+   "check": "ventilator_area >= 0.3 m2",
+   "actual": 0.36,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "windows",
+   "subject": "First floor bath_wc1 (bath_wc)",
+   "check": "ventilator_side >= 0.3 m",
+   "actual": 0.6,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "structure",
+   "subject": "First floor",
+   "check": "a column at every corner of the footprint",
+   "actual": "all",
+   "pass": true,
+   "basis": "practice"
+  },
+  {
+   "category": "structure",
+   "subject": "First floor",
+   "check": "column spacing on each grid line <= 5.0 m",
+   "actual": "all within",
+   "pass": true,
+   "basis": "practice"
+  },
+  {
+   "category": "structure",
+   "subject": "First floor",
+   "check": "columns inside the footprint",
+   "actual": "all",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "structure",
+   "subject": "First floor",
+   "check": "every column stands on a column of Ground floor",
+   "actual": "all",
+   "pass": true,
+   "basis": "validity",
+   "note": "columns of the upper floor must continue down to the foundation"
+  },
+  {
+   "category": "structure",
+   "subject": "First floor",
+   "check": "stair is in the same place as on Ground floor",
+   "actual": true,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "geometry",
+   "subject": "Second floor",
+   "check": "rooms do not overlap",
+   "actual": "none",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "setbacks",
+   "subject": "Second floor",
+   "check": "footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "Assam Unified Building Construction (Regulation) Byelaws, 2022 (amended 2024, 2025, 2026)",
+    "clause": "Bye-law 24(a)(i), front setback table",
+    "page": "9723-9724",
+    "jurisdiction": "guwahati",
+    "status": "transcribed"
+   },
+   "note": "area outside the envelope, m2"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_1",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_1",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_2",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_2",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_3",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_3",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_4",
+   "check": "external wall thickness >= 0.23 m",
+   "actual": 0.23,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_4",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_5",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_5",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_6",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_6",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_7",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_7",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_8",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_8",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_9",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_9",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_10",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_10",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_11",
+   "check": "internal wall thickness >= 0.115 m",
+   "actual": 0.115,
+   "pass": true,
+   "basis": "practice",
+   "note": "one brick outside, half brick inside"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W2_11",
+   "check": "wall lies on a room edge (not hanging)",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "length off any room edge, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor spine",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor bath_wc1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor store1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor bedroom1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor stair1",
+   "check": "every room edge has a wall",
+   "actual": 0.0,
+   "pass": true,
+   "basis": "practice",
+   "note": "room edge length with no wall, m"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor D_bath_wc1",
+   "check": "opening fits on wall W2_8",
+   "actual": "0.42..1.17 of 1.58",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor D_store1",
+   "check": "opening fits on wall W2_9",
+   "actual": "0.42..1.17 of 1.58",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor D_bedroom1",
+   "check": "opening fits on wall W2_10",
+   "actual": "1.72..2.62 of 4.33",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor D_stair1",
+   "check": "opening fits on wall W2_11",
+   "actual": "0.70..1.60 of 2.30",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor V_bath_wc1",
+   "check": "opening fits on wall W2_1",
+   "actual": "1.36..1.96 of 4.67",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "walls",
+   "subject": "Second floor W_bedroom1_0",
+   "check": "opening fits on wall W2_4",
+   "actual": "3.53..5.40 of 9.80",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "rooms",
+   "subject": "Second floor spine (corridor)",
+   "check": "width >= 1.0 m (clear)",
+   "actual": 1.062,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 4, cl. 4.4.2.4.2 (a)",
+    "page": "32",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Second floor bath_wc1 (bath_wc)",
+   "check": "area >= 2.8 m2",
+   "actual": 3.935,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Second floor bath_wc1 (bath_wc)",
+   "check": "width >= 1.2 m (clear)",
+   "actual": 1.295,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "ceiling",
+   "subject": "Second floor bath_wc1 (bath_wc)",
+   "check": "height >= 2.1 m",
+   "actual": 2.85,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.1",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Second floor store1 (store)",
+   "check": "area >= 3.0 m2",
+   "actual": 4.456,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.7",
+    "page": "45",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "ceiling",
+   "subject": "Second floor store1 (store)",
+   "check": "height >= 2.2 m",
+   "actual": 2.85,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.7",
+    "page": "45",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Second floor bedroom1 (bedroom)",
+   "check": "area >= 7.5 m2",
+   "actual": 12.818,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "rooms",
+   "subject": "Second floor bedroom1 (bedroom)",
+   "check": "width >= 2.1 m (clear)",
+   "actual": 3.037,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.2",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "ceiling",
+   "subject": "Second floor bedroom1 (bedroom)",
+   "check": "height >= 2.75 m",
+   "actual": 2.85,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.2.1",
+    "page": "43",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Second floor stair1 (stair)",
+   "check": "width >= 1.0 m",
+   "actual": 1.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.1(a)",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Second floor stair1 (stair)",
+   "check": "tread >= 0.25 m",
+   "actual": 0.25,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.2",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Second floor stair1 (stair)",
+   "check": "riser <= 0.19 m",
+   "actual": 0.188,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.3",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Second floor stair1 (stair)",
+   "check": "headroom >= 2.2 m",
+   "actual": 2.2,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.2",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Second floor stair1 (stair)",
+   "check": "risers_per_flight <= 12.0 count",
+   "actual": 8.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.18.1.3",
+    "page": "49",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "stairs",
+   "subject": "Second floor stair1 (stair)",
+   "check": "flights rise one storey (3.0 m)",
+   "actual": 3.0,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "stairs",
+   "subject": "Second floor stair1 (stair)",
+   "check": "two flights side by side fit the stair room",
+   "actual": "2.00 in 2.01",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "stairs",
+   "subject": "Second floor stair1 (stair)",
+   "check": "flight plus landing fits the stair room",
+   "actual": "2.75 in 3.04",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor D_bath_wc1 (bath_wc1-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "1.58 m for 0.75 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor D_bath_wc1 (bath_wc1-spine)",
+   "check": "door width >= 0.75 m",
+   "actual": 0.75,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor D_store1 (store1-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "1.58 m for 0.75 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor D_store1 (store1-spine)",
+   "check": "door width >= 0.75 m",
+   "actual": 0.75,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor D_bedroom1 (bedroom1-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "4.33 m for 0.9 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor D_bedroom1 (bedroom1-spine)",
+   "check": "door width >= 0.9 m",
+   "actual": 0.9,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor D_stair1 (stair1-spine)",
+   "check": "door is on the wall the two spaces share, with room for its width",
+   "actual": "2.30 m for 0.9 m",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor D_stair1 (stair1-spine)",
+   "check": "door width >= 0.9 m",
+   "actual": 0.9,
+   "pass": true,
+   "basis": "practice",
+   "note": "internal door widths are practice; NBC fixes only the exit doorway"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor spine (corridor)",
+   "check": "room has a door",
+   "actual": 4,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor bath_wc1 (bath_wc)",
+   "check": "room has a door",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor store1 (store)",
+   "check": "room has a door",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor bedroom1 (bedroom)",
+   "check": "room has a door",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "doors",
+   "subject": "Second floor stair1 (stair)",
+   "check": "room has a door",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "windows",
+   "subject": "Second floor V_bath_wc1 (bath_wc1)",
+   "check": "window is on an external wall of its room, with room for its width",
+   "actual": "3.32 m for 0.6 m",
+   "pass": true,
+   "basis": "validity",
+   "note": "a window on an internal wall opens into another room"
+  },
+  {
+   "category": "windows",
+   "subject": "Second floor W_bedroom1_0 (bedroom1)",
+   "check": "window is on an external wall of its room, with room for its width",
+   "actual": "4.33 m for 1.87 m",
+   "pass": true,
+   "basis": "validity",
+   "note": "a window on an internal wall opens into another room"
+  },
+  {
+   "category": "windows",
+   "subject": "Second floor bath_wc1 (bath_wc)",
+   "check": "at least one wall opens to external air",
+   "actual": 4.908,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "windows",
+   "subject": "Second floor bath_wc1 (bath_wc)",
+   "check": "ventilator_area >= 0.3 m2",
+   "actual": 0.36,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "windows",
+   "subject": "Second floor bath_wc1 (bath_wc)",
+   "check": "ventilator_side >= 0.3 m",
+   "actual": 0.6,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.4.3 (a), (f)",
+    "page": "44",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "windows",
+   "subject": "Second floor bedroom1 (bedroom)",
+   "check": "opening_ratio >= 0.1667 fraction of floor area",
+   "actual": 0.175,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 20.1.2",
+    "page": "57",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   },
+   "note": "2.24 m2 of windows on 12.82 m2"
+  },
+  {
+   "category": "structure",
+   "subject": "Second floor",
+   "check": "a column at every corner of the footprint",
+   "actual": "all",
+   "pass": true,
+   "basis": "practice"
+  },
+  {
+   "category": "structure",
+   "subject": "Second floor",
+   "check": "column spacing on each grid line <= 5.0 m",
+   "actual": "all within",
+   "pass": true,
+   "basis": "practice"
+  },
+  {
+   "category": "structure",
+   "subject": "Second floor",
+   "check": "columns inside the footprint",
+   "actual": "all",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "structure",
+   "subject": "Second floor",
+   "check": "every column stands on a column of First floor",
+   "actual": "all",
+   "pass": true,
+   "basis": "validity",
+   "note": "columns of the upper floor must continue down to the foundation"
+  },
+  {
+   "category": "structure",
+   "subject": "Second floor",
+   "check": "stair is in the same place as on First floor",
+   "actual": true,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "circulation",
+   "subject": "all floors",
+   "check": "every room reachable from the entrance through doors and stairs",
+   "actual": "all reachable",
+   "pass": true,
+   "basis": "validity",
+   "note": "fire and life safety: one continuous way out (NBC Part 4 intent)"
+  },
+  {
+   "category": "programme",
+   "subject": "bath_wc",
+   "check": "at least 3 as in the brief",
+   "actual": 3,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "programme",
+   "subject": "habitable_room",
+   "check": "at least 4 as in the brief",
+   "actual": 4,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "programme",
+   "subject": "kitchen",
+   "check": "at least 1 as in the brief",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "programme",
+   "subject": "store",
+   "check": "at least 1 as in the brief",
+   "actual": 1,
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "programme",
+   "subject": "staircase",
+   "check": "a stair on every floor",
+   "actual": "3 of 3",
+   "pass": true,
+   "basis": "validity"
+  },
+  {
+   "category": "building",
+   "subject": "plinth",
+   "check": "height >= 0.45 m",
+   "actual": 0.45,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.1.1",
+    "page": "43",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "building",
+   "subject": "parapet",
+   "check": "height >= 1.0 m",
+   "actual": 1.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.11",
+    "page": "46",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "building",
+   "subject": "parapet",
+   "check": "height <= 1.2 m",
+   "actual": 1.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 1, Part 3, cl. 12.11",
+    "page": "46",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "materials",
+   "subject": "concrete",
+   "check": "grade >= 25.0 MPa",
+   "actual": 25.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "IS 456:2000 Plain and Reinforced Concrete - Code of Practice",
+    "clause": "cl. 6.1.2 (p. 15), Table 5",
+    "page": "20",
+    "jurisdiction": "india",
+    "status": "assumed"
+   }
+  },
+  {
+   "category": "materials",
+   "subject": "reinforcement",
+   "check": "elongation >= 14.5 percent",
+   "actual": 14.5,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "IS 13920:2016 Ductile Design and Detailing of RC Structures (Amendment 1, 2017)",
+    "clause": "cl. 5.3.1 (as substituted by Amendment 1, 2017)",
+    "page": "3",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  },
+  {
+   "category": "materials",
+   "subject": "reinforcement",
+   "check": "proof stress one of 415, 500 or 550 MPa",
+   "actual": 500.0,
+   "pass": true,
+   "basis": "code",
+   "source": {
+    "standard": "IS 13920:2016 Ductile Design and Detailing of RC Structures (Amendment 1, 2017)",
+    "clause": "cl. 5.3.1 (as substituted by Amendment 1, 2017)",
+    "page": "3",
+    "jurisdiction": "india",
+    "status": "transcribed"
+   }
+  }
+ ]
+}

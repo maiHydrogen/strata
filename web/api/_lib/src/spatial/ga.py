@@ -67,6 +67,7 @@ class Brief:
     far: float | None
     opening: dict  # layout type -> opening ratio
     ground_bedrooms: int = 1  # practice: one bedroom downstairs (guests, parents); more if elderly live there
+    max_span: float = MAX_SPAN  # lowered when the structural design sends a layout back (see src/structure)
 
 
 def programme(brief, spec):
@@ -92,7 +93,7 @@ def programme(brief, spec):
     return units
 
 
-def problem(brief, spec):
+def problem(brief, spec, max_span=MAX_SPAN):
     env = next(c["actual"] for c in spec["checks"] if c["check"].startswith("buildable envelope"))
     s = env["setbacks"]
     plot = brief.site.plot
@@ -119,7 +120,7 @@ def problem(brief, spec):
     ground = min(beds, max(1, math.ceil(elderly / 2))) if brief.floors_now > 1 else beds
     return Brief(floors=brief.floors_now, units=programme(brief, spec), ground_bedrooms=ground,
                  envelope=(s["left"], s["front"], env["width"], env["depth"]), plot=(plot.width, plot.depth),
-                 req=req, principal=principal, far=far, opening=opening)
+                 req=req, principal=principal, far=far, opening=opening, max_span=max_span)
 
 
 def placed(p):
@@ -165,8 +166,8 @@ def decode(g, p):
     n_max = max(3, min(5 if single else 4, int(p.envelope[3] / least)))
     n = 3 + min(int(g[1] * (n_max - 2)), n_max - 3)
     shares = [0.2 + g[2 + k] for k in range(n)]
-    D = min(p.envelope[3], MAX_SPAN * n)
-    depths = [max(least, min(MAX_SPAN, D * s / sum(shares))) for s in shares]
+    D = min(p.envelope[3], p.max_span * n)
+    depths = [max(least, min(p.max_span, D * s / sum(shares))) for s in shares]
     if sum(depths) > p.envelope[3]:  # repair: shrink to the envelope, keeping the minimum band
         excess = sum(depths) - p.envelope[3]
         room = [d - least for d in depths]
@@ -337,8 +338,8 @@ def evaluate(g, p, detail=False):
     W = plan.width
     for span, label in ((plan.spine, "left bay"), (W - plan.spine - plan.spine_w, "right bay")) if not plan.single else (
             (plan.spine, "bay"),):
-        if span > MAX_SPAN + 1e-6:
-            bad(HARD * (span - MAX_SPAN), f"{label} span {span:.2f} m")
+        if span > p.max_span + 1e-6:
+            bad(HARD * (span - p.max_span), f"{label} span {span:.2f} m")
     st = stair_design()
     wet_below, wet_above = set(), set()
     built = 0.0
@@ -409,11 +410,11 @@ def evaluate(g, p, detail=False):
 
 # ---- the GA ----
 
-def run(brief, spec, pop_size=150, generations=150, seed=0, seeds=(), restarts=1):
+def run(brief, spec, pop_size=150, generations=150, seed=0, seeds=(), restarts=1, max_span=MAX_SPAN):
     """Best of `restarts` independent runs (each cheap); see `_run`."""
     best = None
     for k in range(restarts):
-        hof, p, history = _run(brief, spec, pop_size, generations, seed + 1000 * k, seeds)
+        hof, p, history = _run(brief, spec, pop_size, generations, seed + 1000 * k, seeds, max_span)
         if best is None or hof[0].fitness.values[0] < best[0][0].fitness.values[0]:
             best = (hof, p, history)
     return best
@@ -426,7 +427,8 @@ def alternatives(brief, spec, count=3, restarts=8, seed=0, seeds=(), **kw):
     found, seen = [], set()
     p = None
     for k in range(restarts):
-        hof, p, _ = _run(brief, spec, kw.get("pop_size", 150), kw.get("generations", 150), seed + 1000 * k, seeds)
+        hof, p, _ = _run(brief, spec, kw.get("pop_size", 150), kw.get("generations", 150), seed + 1000 * k, seeds,
+                         kw.get("max_span", MAX_SPAN))
         for g in hof:
             plan = decode(g, p)
             key = tuple((r[0], round(r[2], 1), round(r[3], 1)) for cells in plan.floors for c in cells for r in c.rooms)
@@ -437,10 +439,10 @@ def alternatives(brief, spec, count=3, restarts=8, seed=0, seeds=(), **kw):
     return [g for _, g in found[:count]], p
 
 
-def _run(brief, spec, pop_size, generations, seed, seeds):
+def _run(brief, spec, pop_size, generations, seed, seeds, max_span=MAX_SPAN):
     """Evolve layouts; returns (best genomes, problem). `seeds` are genomes to start from
     (e.g. from library plans or LLM proposals)."""
-    p = problem(brief, spec)
+    p = problem(brief, spec, max_span)
     n = genome_length(p)
     if not hasattr(creator, "LayoutFitness"):
         creator.create("LayoutFitness", base.Fitness, weights=(-1.0,))

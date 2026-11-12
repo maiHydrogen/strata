@@ -92,12 +92,14 @@
 
 - [x] Spike: generate a `.std` file for a single-bay G+1 RCC frame (Zone V, IS 875 loads, IS 456 + IS 13920 design), run it in STAAD, parse the results
 - [x] Automate STAAD runs via OpenSTAAD or command line from the pipeline (SProStaad.exe called from WSL, headless)
-- [ ] Initial member sizing from IS 456 / IS 13920 rules (columns at wall junctions, beam and slab depths, footings from soil bearing capacity)
+- [x] Initial member sizing from IS 456 / IS 13920 rules (columns at wall junctions, beam and slab depths, footings from soil bearing capacity): beams span/12, slab IS 456 cl. 24.1, columns from tributary load (cl. 39.3), footings from STAAD service reactions on the brief's SBC (+50% for EQ, IS 1893 cl. 6.3.5.2), punching and one-way shear; overlapping pads combined
 - [x] Load combinations (IS 456 / IS 1893) and seismic (IS 1893) load generation in the `.std` file
-- [ ] Wind load (IS 875 Part 3) and the IS 1893 100% + 30% orthogonal combination
+- [x] Wind load (IS 875 Part 3) and the IS 1893 100% + 30% orthogonal combination (storey forces on the windward joints, Vb 50 m/s from the KG, terrain category 3 assumed; 37 factored and 5 service combinations)
 - [x] Result parser: utilisation, steel required, pass/fail per member, member-level errors
 - [x] Resize-and-rerun loop until all members pass (steel-first for IS 13920 cl. 7.2; G+1 test house passes in 8 rounds, uniform 400x400 columns)
-- [ ] Send infeasible layouts back to Phase 4 with the constraint that failed
+- [x] Layout to frame (`src/structure/from_layout.py`): grid on wall centrelines, plinth beams, columns only under each storey's own cells (terraces become roofs with parapets), walls per beam net of openings, partitions off the grid as IS 875 Part 2 cl. 3.1.2 slab loads, stair cell loads, a stair cabin (mumty) storey over the stair well; all three 40x60 G+1 GA layouts and the 30x50 G+2 layout pass in STAAD in 5 rounds
+- [x] Send infeasible layouts back to Phase 4 with the constraint that failed (`layout_feedback`: a shorter maximum span for the GA, rerun up to 3 times; `scripts/design_structure.py`)
+- [ ] Size columns that stop under a terrace separately: two terrace-edge joints set the whole ground storey's column size (450 against 350) through IS 13920 cl. 7.2.1
 - [x] Per-joint strong-column/weak-beam resizing from STAAD's `<name>_13920.txt` joint report (roof joints checked: IS 13920 cl. 7.2.1.3 waives them only above 4 storeys); bigger column bars (MINMAIN) before bigger sections
 - [x] IS 456 cl. 26.5.3.1(a) minimum column steel on the gross area (STAAD applies the 0.8% to the concrete area required)
 - [x] Sizing order and practice rules: at failing joints column bars, then shallower lightly reinforced beams, then bigger columns; lower-storey columns never smaller than the ones above; beam bars capped at column size / 20 (IS 13920 cl. 7.1.1(a), STAAD MAXMAIN)
@@ -112,7 +114,7 @@
 
 ## Phase 7 — Building JSON & Revit Execution (3 weeks)
 
-- [ ] Define the building JSON schema: levels, grids, wall types with layers, walls, hosted doors/windows, floors, roofs, stairs, rooms, columns, beams, footings, fixtures, finishes (v0.2 has levels, wall types, walls, openings, floors, rooms, columns, beams)
+- [ ] Define the building JSON schema: levels, grids, wall types with layers, walls, hosted doors/windows, floors, roofs, stairs, rooms, columns, beams, footings, fixtures, finishes (v0.4 has levels incl. foundation and stair-cabin roof, wall types, walls incl. parapets and the stair cabin, openings, floors with stair openings, rooms, dog-leg stairs (runs + landing), columns, beams, footings; built from the layout and the designed frame by `src/execution/layout_to_building.py`; the stair cabin is in the STAAD frame)
 - [x] Spike: script on Revit 2027 builds walls, doors, windows, floor and rooms for a 2-room flat from JSON (run via Dynamo; pyRevit button also written)
 - [ ] Revit listener: pyRevit Routes, or a folder-watch add-in as fallback
 - [ ] Full deterministic builder for all 5 layers with native families and types (no LLM in this step)

@@ -216,3 +216,92 @@ def _clause(error):
 
 def _fmt(sec):
     return f"{sec.width * 1000:.0f}x{sec.depth * 1000:.0f}"
+
+
+# ---- initial sizes, before the first STAAD run ----
+
+MIN_SLAB = 0.125  # m (practice for residential floors)
+SLAB_SPAN_DEPTH = 35 * 0.8  # IS 456 cl. 24.1 Note 2: two-way slab, simply supported 35, x 0.8 for HYSD bars
+COLUMN_STEEL = 0.01  # assumed steel ratio for the first column size
+SEISMIC_MOMENT_ALLOWANCE = 1.3  # axial load is raised by 30% for the seismic moments (practice)
+
+
+def slab_thickness(spans, fy=500.0):
+    """One slab thickness for the building from the panels' short spans: (thickness m, note).
+
+    IS 456 cl. 24.1 Note 2 gives span / overall depth 35 for simply supported two-way slabs
+    (short span up to 3.5 m, imposed load up to 3 kN/m2), times 0.8 for Fe 415 and stronger bars.
+    The same ratio is kept for longer spans, which is on the safe side of cl. 23.2.1."""
+    short = max((min(a, b) for a, b in spans), default=3.0)
+    t = max(MIN_SLAB, math.ceil(short / SLAB_SPAN_DEPTH / 0.005 - 1e-9) * 0.005)
+    return round(t, 3), (f"Slab {t * 1000:.0f} mm: shortest-side span up to {short:.2f} m, span/depth "
+                         f"{SLAB_SPAN_DEPTH:g} (IS 456 cl. 24.1 Note 2, x 0.8 for Fe {fy:g}).")
+
+
+def initial_sizes(frame: Frame) -> list:
+    """Set beam and column groups from spans and tributary loads; returns the reasons.
+
+    Beams: depth >= span / 12 (practice for seismic frames) and >= 300 mm, width 230 mm.
+    Columns: factored axial load from tributary slab panels, beams and walls (needs frame.panels),
+    raised by 30% for seismic moments, against IS 456 cl. 39.3 (0.4 fck Ac + 0.67 fy Asc) at 1% steel;
+    at least 300 mm (IS 13920 cl. 7.1.2); a storey is never smaller than the one above."""
+    from src.structure.std_writer import wall_line_loads
+
+    notes = []
+    levels = sorted({m.level for m in frame.members.values() if m.kind == "beam"})
+    for lvl in levels:
+        g = f"beam-{lvl}"
+        need = max(MIN_BEAM_DEPTH, _group_span(frame, g) / MIN_DEPTH_SPAN_RATIO)
+        frame.sections[g] = Section(next((d for d in BEAM_DEPTHS if d >= need - 1e-9), BEAM_DEPTHS[-1]), BEAM_WIDTH)
+    for k in range(frame.storeys):
+        frame.sections.setdefault(f"column-{k}", COLUMN_SIZES[0])
+    for lvl in levels:
+        g = f"beam-{lvl}"
+        span = _group_span(frame, g)
+        notes.append(f"{g}: {_fmt(frame.sections[g])} for spans up to {span:.2f} m (D >= span/{MIN_DEPTH_SPAN_RATIO}, "
+                     f">= {MIN_BEAM_DEPTH * 1000:.0f} mm)")
+
+    walls = wall_line_loads(frame)
+    rho = frame.loads.concrete_density
+    at = {}  # (x, z) -> {level y: kN}
+    for i, m in frame.members.items():
+        if m.kind != "beam":
+            continue
+        a, b = frame.nodes[m.start], frame.nodes[m.end]
+        sec = frame.section(i)
+        w = (sec.depth * sec.width * rho + walls.get(i, 0.0)) * math.dist(a, b) / 2
+        for p in (a, b):
+            d = at.setdefault((p[0], p[2]), {})
+            d[p[1]] = d.get(p[1], 0.0) + w
+    for p in frame.panels or []:
+        q = (p.dead + p.live) * (p.x1 - p.x0) * (p.z1 - p.z0) / 4
+        for c in ((p.x0, p.z0), (p.x1, p.z0), (p.x0, p.z1), (p.x1, p.z1)):
+            d = at.setdefault(c, {})
+            d[p.y] = d.get(p.y, 0.0) + q
+    fck, fy = frame.fck, frame.fy
+    stress = 0.4 * fck * (1 - COLUMN_STEEL) + 0.67 * fy * COLUMN_STEEL  # MPa = MN/m2
+    need = {}
+    for i, m in frame.members.items():
+        if m.kind != "column":
+            continue
+        x, y0, z = frame.nodes[m.start]
+        p_kn = sum(v for y, v in at.get((x, z), {}).items() if y >= frame.nodes[m.end][1] - 1e-6)
+        pu = 1.5 * p_kn * SEISMIC_MOMENT_ALLOWANCE
+        area = pu / 1000 / stress
+        g = frame.group_of(i)
+        if area > need.get(g, (0, 0))[0]:
+            need[g] = (area, pu)
+    for g in sorted(need):
+        area, pu = need[g]
+        size = next((s for s in COLUMN_SIZES if s.depth * s.width >= area - 1e-12), COLUMN_SIZES[-1])
+        frame.sections[g] = size
+    grown = set()
+    changes = []
+    _stack_columns(frame, changes, grown)
+    for g in sorted(need):
+        area, pu = need[g]
+        notes.append(f"{g}: {_fmt(frame.sections[g])}, largest Pu {pu:.0f} kN incl. 30% for seismic moments, "
+                     f"needs {area * 1e6:.0f} mm2 at {COLUMN_STEEL * 100:g}% steel (IS 456 cl. 39.3; IS 13920 "
+                     f"cl. 7.1.2 minimum 300 mm)")
+    notes += changes
+    return notes

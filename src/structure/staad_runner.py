@@ -30,6 +30,19 @@ def read_report(workdir, name):
     return text
 
 
+LINGER = 15  # s the engine may stay open after its report is complete
+
+
+def _analysis_finished(anl_path):
+    """True once STAAD has written the closing banner of the .anl."""
+    try:
+        with open(anl_path, "rb") as f:
+            f.seek(max(0, os.path.getsize(anl_path) - 2000))
+            return b"END OF ANALYSIS" in f.read().upper()
+    except OSError:
+        return False
+
+
 def _windows_path(path):
     return subprocess.run(["wslpath", "-w", path], capture_output=True, text=True, check=True).stdout.strip()
 
@@ -52,12 +65,25 @@ class StaadRunner:
         with open(std_path, "w", encoding="ascii", newline="\r\n") as f:
             f.write(std_text)
         # STAAD command line syntax: SProStaad.exe STAAD <input> [/s | /h]. /h runs hidden and
-        # closes at the end; without it the engine waits for someone to click Done.
-        proc = subprocess.run([self.engine, "STAAD", _windows_path(std_path), "/h"], capture_output=True,
-                              text=True, timeout=self.timeout)
+        # closes at the end; without it the engine waits for someone to click Done. Now and then
+        # the engine stays open after writing a complete .anl, so the run also ends once the
+        # report is finished and the engine has had LINGER seconds to close by itself.
+        proc = subprocess.Popen([self.engine, "STAAD", _windows_path(std_path), "/h"],
+                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        deadline = time.time() + self.timeout
+        finished_at = None
+        while proc.poll() is None:
+            if time.time() > deadline:
+                proc.kill()
+                raise TimeoutError(f"STAAD did not finish {name} in {self.timeout} s")
+            if finished_at is None and _analysis_finished(anl_path):
+                finished_at = time.time()
+            if finished_at is not None and time.time() - finished_at > LINGER:
+                proc.kill()
+                break
+            time.sleep(0.5)
         if not os.path.exists(anl_path):
-            raise RuntimeError(f"STAAD produced no {name}.anl (exit {proc.returncode}): "
-                               f"{proc.stdout[-500:]} {proc.stderr[-500:]}")
+            raise RuntimeError(f"STAAD produced no {name}.anl (exit {proc.returncode})")
         return read_report(self.workdir, name)
 
 

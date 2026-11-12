@@ -11,5 +11,6 @@ __title__ = "Build From\nJSON"
 path = forms.pick_file(file_ext="json", title="Pick a STRATA building JSON")
 if path:
     with revit.Transaction("STRATA build from JSON"):
-        report = strata_builder.build_from_file(revit.doc, path)
-    forms.alert(strata_builder.format_report(report), title="STRATA")
+        builder = strata_builder.build_from_file(revit.doc, path)
+    strata_builder.make_stairs(builder)  # own edit scope, after the transaction above is committed
+    forms.alert(strata_builder.format_report(builder.report), title="STRATA")
