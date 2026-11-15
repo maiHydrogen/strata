@@ -42,11 +42,10 @@ button { cursor: pointer; }
 button:disabled { cursor: default; opacity: 0.5; }
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
 
-.stage { min-height: 100vh; padding: 48px 40px; display: flex; justify-content: center; }
-.window {
-  width: 100%; max-width: 1360px; height: calc(100vh - 96px); min-height: 640px;
-  display: grid; grid-template-columns: 76px 244px minmax(0, 1fr) 300px;
-  border-radius: 16px; overflow: hidden; box-shadow: 0 30px 80px rgba(40, 20, 90, 0.45);
+/* the app fills the browser tab; the browser is the window */
+.app {
+  width: 100%; height: 100vh; height: 100dvh; min-height: 560px;
+  display: grid; grid-template-columns: 76px 244px minmax(0, 1fr) 300px; overflow: hidden;
 }
 
 /* ---- icon rail (glass) ---- */
@@ -55,11 +54,7 @@ button:disabled { cursor: default; opacity: 0.5; }
   display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 20px;
   border-right: 1px solid var(--line);
 }
-.dots { display: flex; gap: 8px; align-self: flex-start; padding-left: 12px; }
-.dots i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
-.dots i:nth-child(2) { background: #febc2e; }
-.dots i:nth-child(3) { background: #28c840; }
-.rail-logo { margin-top: 4px; }
+.rail-logo { margin-top: 8px; display: grid; }
 .rail-icons { display: flex; flex-direction: column; gap: 24px; margin-top: 36px; }
 .rail-btn {
   width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
@@ -194,14 +189,12 @@ button:disabled { cursor: default; opacity: 0.5; }
 
 /* ---- smaller screens ---- */
 @media (max-width: 1180px) {
-  .window { grid-template-columns: 76px minmax(0, 1fr) 280px; }
+  .app { grid-template-columns: 76px minmax(0, 1fr) 280px; }
   .menu { display: none; }
 }
 @media (max-width: 860px) {
-  .stage { padding: 0; }
-  .window { height: auto; min-height: 100vh; border-radius: 0; grid-template-columns: minmax(0, 1fr); }
+  .app { height: auto; min-height: 100vh; overflow: visible; grid-template-columns: minmax(0, 1fr); }
   .rail { flex-direction: row; padding: 10px 16px; gap: 12px; border-right: 0; border-bottom: 1px solid var(--line); }
-  .dots { display: none; }
   .rail-logo { margin: 0; }
   .rail-icons { flex-direction: row; margin: 0 0 0 auto; gap: 10px; }
   .rail-btn.on::before { display: none; }
@@ -222,14 +215,14 @@ button:disabled { cursor: default; opacity: 0.5; }
 .rail-btn { border: 0; cursor: pointer; }
 .rail-btn:disabled { opacity: 0.35; cursor: default; }
 .menu li { padding: 0; }
-.menu li button { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 10px; width: 100%; height: 40px;
+.menu li a, .menu li .disabled { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 10px; width: 100%; height: 40px;
   padding: 0 10px; border-radius: 6px; cursor: pointer; }
-.menu li button:disabled { cursor: default; }
-.menu li button:focus-visible { outline: 2px solid var(--cyan); }
+.menu li .disabled { cursor: default; opacity: 0.5; }
+.menu li a:focus-visible { outline: 2px solid var(--cyan); }
 .menu li.open { color: var(--text); }
-.menu li.open button:hover { background: var(--tile); }
+.menu li.open a:hover { background: var(--tile); }
 .menu li.wait { color: var(--text-3); }
-.menu li button em { margin-left: auto; font-style: normal; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+.menu li a em, .menu li .disabled em { margin-left: auto; font-style: normal; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
   padding: 3px 7px; border-radius: 10px; background: var(--tile); }
 .btn-row { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
 .btn-row .btn { margin-left: 0; }
@@ -280,3 +273,7 @@ button:disabled { cursor: default; opacity: 0.5; }
 .rooms ul { list-style: none; padding: 0 !important; }
 .rooms li { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); }
 .rooms li b { font-weight: 600; color: var(--text); }
+
+/* links styled as the controls they replace */
+a.rail-btn, a.btn, .rail-logo { text-decoration: none; color: inherit; }
+.rail-btn.off { opacity: 0.4; cursor: default; }

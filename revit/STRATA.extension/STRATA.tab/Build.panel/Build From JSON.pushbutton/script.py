@@ -13,4 +13,5 @@ if path:
     with revit.Transaction("STRATA build from JSON"):
         builder = strata_builder.build_from_file(revit.doc, path)
     strata_builder.make_stairs(builder)  # own edit scope, after the transaction above is committed
+    strata_builder.export_ifc(builder, path)
     forms.alert(strata_builder.format_report(builder.report), title="STRATA")

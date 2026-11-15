@@ -88,7 +88,9 @@ def test_rainwater_parking_and_gaps_are_reported(kg):
     assert _find(spec["plot"], "percolation_pits")[0]["required_count"] == 2  # 138.3 m2 plot
     assert _find(spec["plot"], "rainwater_storage")[0]["value"] == "required"
     assert spec["deferred"][0]["quantity"] == "parking" and spec["deferred"][0]["needs"] == ["carpet_area"]
-    assert [u["quantity"] for u in spec["unresolved"]] == ["water_demand"]
+    assert spec["unresolved"] == []
+    water = spec["services"][0]  # the city population fact (Census 2011) meets NBC Part 9 cl. 4.1.1(c)
+    assert (water["quantity"], water["value"]) == ("water_demand", 150.0) and "population" in water["assumptions"][0]
 
 
 def test_city_without_byelaws_falls_back_to_nbc(kg):

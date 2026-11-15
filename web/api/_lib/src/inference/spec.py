@@ -204,7 +204,7 @@ def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
     structure += s.all(("imposed_load",), "floor", room_use="balcony")
     structure += s.all(("imposed_load",), "roof", roof_access="access")
     facts = [_entry(v) for v in kg.site_facts(jurisdiction).values()]
-    services = s.all(("water_demand",), "building")  # needs the city population, not in the graph yet
+    services = s.all(("water_demand",), "building")  # city population from the site facts (census)
 
     return {
         "schema_version": SCHEMA_VERSION,

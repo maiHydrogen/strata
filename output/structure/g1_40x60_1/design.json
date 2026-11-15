@@ -21,8 +21,8 @@
    "passed": false,
    "changes": [
     "column-0: bars 12d -> 16d min (IS 456 cl. 26.5.3.1(a): column 1 steel 0.50% < 0.8% of gross area)",
-    "column-1: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 33 XZ, 34 X, 35 X, 36 Z, 37 Z, 38 XZ, 39 XZ, 40 Z, 41 XZ, 42 XZ, 43 XZ, 44 Z, 49 XZ, 50 X, 51 X, 53 Z, 54 XZ, 55 XZ, 56 Z, 57 X, 58 X, 59 X)",
-    "column-2: bars 16d -> 20d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 55 XZ, 56 Z, 59 X, 61 XZ, 63 X)"
+    "column-1: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 33 XZ, 34 X, 35 X, 36 Z, 37 Z, 38 XZ, 39 XZ, 40 Z, 41 XZ, 42 XZ, 43 XZ, 44 Z, 49 XZ, 50 X, 51 XZ, 53 Z, 54 XZ, 55 XZ, 56 Z, 57 XZ, 58 X, 59 X)",
+    "column-2: bars 16d -> 20d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 55 XZ, 56 Z, 59 X, 61 XZ, 62 Z, 63 X, 64 X)"
    ]
   },
   {
@@ -124,14 +124,14 @@
   "X": {
    "period": 0.43748,
    "coeff": 0.09,
-   "weight": 3062.28,
-   "vb": 275.61
+   "weight": 3067.69,
+   "vb": 276.09
   },
   "Z": {
    "period": 0.43748,
    "coeff": 0.09,
-   "weight": 3062.28,
-   "vb": 275.61
+   "weight": 3067.69,
+   "vb": 276.09
   }
  },
  "members": {
@@ -197,7 +197,7 @@
    ],
    "size_m": 1.6,
    "thickness_m": 0.3,
-   "service_kn": 225.5,
+   "service_kn": 225.4,
    "governing": "DL+LL",
    "bearing_kn_m2": 96.9,
    "allowed_kn_m2": 100.0
@@ -205,14 +205,14 @@
   {
    "joint": 6,
    "at": [
-    5.5538,
+    5.5547,
     7.232
    ],
    "size_m": 2.95,
    "thickness_m": 0.3,
-   "service_kn": 487.6,
+   "service_kn": 488.9,
    "governing": "DL+LL",
-   "bearing_kn_m2": 98.3,
+   "bearing_kn_m2": 98.5,
    "allowed_kn_m2": 100.0
   },
   {
@@ -223,9 +223,9 @@
    ],
    "size_m": 1.9,
    "thickness_m": 0.3,
-   "service_kn": 313.7,
+   "service_kn": 315.0,
    "governing": "DL+LL",
-   "bearing_kn_m2": 95.6,
+   "bearing_kn_m2": 96.0,
    "allowed_kn_m2": 100.0
   },
   {
@@ -236,7 +236,7 @@
    ],
    "size_m": 1.6,
    "thickness_m": 0.3,
-   "service_kn": 224.4,
+   "service_kn": 224.3,
    "governing": "DL+LL",
    "bearing_kn_m2": 96.4,
    "allowed_kn_m2": 100.0
@@ -244,14 +244,14 @@
   {
    "joint": 10,
    "at": [
-    5.5267,
+    5.5276,
     9.832
    ],
    "size_m": 2.95,
    "thickness_m": 0.3,
-   "service_kn": 497.1,
+   "service_kn": 498.4,
    "governing": "DL+LL",
-   "bearing_kn_m2": 97.5,
+   "bearing_kn_m2": 97.8,
    "allowed_kn_m2": 100.0
   },
   {
@@ -260,11 +260,11 @@
     8.988,
     9.832
    ],
-   "size_m": 1.8,
+   "size_m": 1.85,
    "thickness_m": 0.3,
-   "service_kn": 293.6,
+   "service_kn": 295.0,
    "governing": "DL+LL",
-   "bearing_kn_m2": 99.7,
+   "bearing_kn_m2": 94.8,
    "allowed_kn_m2": 100.0
   },
   {
@@ -308,6 +308,7 @@
   }
  ],
  "notes": [
+  "Overhead tank 500 l, 5.41 kN full, on the stair cabin roof: +0.71 kN/m2 dead load over 7.6 m2 (NBC 2016 Part 9 Section 1 cl. 4.4.10: half a day's demand).",
   "Grid 4 x 4 lines; 64 joints, 48 columns, 69 beams.",
   "Fixed supports at the top of the footings, 1.5 m below ground-floor level (assumed); plinth beams at ground-floor level carry the ground-floor walls.",
   "Walls: burnt clay brick 20 kN/m3 plus 0.5 kN/m2 plaster (IS 875 Part 1), less door and window areas; parapets 1 m on roof and terrace edges.",
@@ -322,9 +323,9 @@
   "beam-1: 230x450 for spans up to 4.88 m (D >= span/12, >= 300 mm)",
   "beam-2: 230x300 for spans up to 3.52 m (D >= span/12, >= 300 mm)",
   "beam-3: 230x300 for spans up to 2.92 m (D >= span/12, >= 300 mm)",
-  "column-0: 300x300, largest Pu 536 kN incl. 30% for seismic moments, needs 40481 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
-  "column-1: 300x300, largest Pu 214 kN incl. 30% for seismic moments, needs 16155 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
-  "column-2: 300x300, largest Pu 29 kN incl. 30% for seismic moments, needs 2204 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+  "column-0: 300x300, largest Pu 539 kN incl. 30% for seismic moments, needs 40680 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+  "column-1: 300x300, largest Pu 217 kN incl. 30% for seismic moments, needs 16354 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+  "column-2: 300x300, largest Pu 32 kN incl. 30% for seismic moments, needs 2403 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
   "2 ground-floor partition(s) between grid lines stand on the slab on grade.",
   "Stair cabin over the stair well: 4 columns rise one storey (3 m) above the roof; 230 mm brick walls on the roof beams, door area not deducted; cabin roof imposed load 0.75 kN/m2 (IS 875 Part 2 Table 2, no access except for maintenance).",
   "Isolated footings, combined where pads would overlap, on 100 kN/m2 safe bearing capacity (brief), +50% under earthquake combinations (IS 1893 Part 1 cl. 6.3.5.2); thickness from punching and one-way shear (IS 456 cl. 31.6.3.1, 34.2.4.1); reinforcement not designed at LOD 200."

@@ -1,0 +1,23 @@
+@prefix strata: <https://strata.iitg.ac.in/kg#> .
+@prefix kg:     <https://strata.iitg.ac.in/kg/id/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+
+# City population, the condition NBC 2016 Part 9 Section 1 cl. 4.1.1 puts on per-capita water
+# demand. Not a code: a census figure, so the fact is marked assumed until checked against the
+# census table.
+
+kg:Census2011 a strata:Standard ;
+    rdfs:label "Census of India 2011, Primary Census Abstract (Assam)" ;
+    strata:edition "2011" ;
+    strata:sourceFile "censusindia.gov.in, PCA Assam (not downloaded; figure to be checked)" ;
+    strata:legallyBinding false ;
+    strata:note "Statistical source, not a building code." .
+
+kg:census_guwahati_mc a strata:Clause ; strata:inStandard kg:Census2011 ;
+    strata:clauseId "Guwahati (M Corp.), total population" ; strata:page "-" ;
+    strata:quote "Guwahati (M Corp.) ... Persons 957,352" .
+kg:fact_guwahati_population a strata:Requirement ;
+    strata:appliesTo strata:Site ; strata:quantity strata:cityPopulation ; strata:comparator "eq" ;
+    strata:value 957352.0 ; strata:unit "persons" ; strata:citedBy kg:census_guwahati_mc ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "assumed" ;
+    strata:note "From memory of the 2011 census; verify against the PCA table. Only the > 100 000 threshold matters." .

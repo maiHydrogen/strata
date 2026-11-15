@@ -14,3 +14,4 @@ python-dotenv==1.2.3
 shapely==2.1.2
 deap==1.4.4
 httpx
+ifcopenshell==0.8.5

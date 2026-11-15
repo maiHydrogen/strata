@@ -1,0 +1,107 @@
+"""Phase 6 services and finishes on the small G+1 test house of test_from_layout."""
+
+import math
+
+import pytest
+from shapely.geometry import Point, Polygon
+
+from src.execution.building_schema import Building, validate_building
+from src.services import templates as T
+from src.services.generate import add_services, tank_size
+from src.structure.from_layout import build_frame
+from test_from_layout import _building, _layout
+
+
+@pytest.fixture(scope="module")
+def house():
+    _, b = _building()
+    return add_services(b, tank_size(4, 3))
+
+
+def test_tank_follows_nbc_population_and_half_day_storage():
+    t = tank_size(4, 3)  # 3 bedrooms: NBC population 6 > the brief's 4
+    assert (t["persons"], t["nbc_population"], t["required_l"], t["capacity_l"]) == (6, 6, 450, 500)
+    assert tank_size(9, 5)["persons"] == 9 and tank_size(9, 5)["required_l"] == 675
+    assert tank_size(9, 5)["capacity_l"] == 750
+    assert t["weight_kn"] == pytest.approx(500 * 9.81 / 1000 + T.TANK_SELF_WEIGHT, abs=0.01)
+
+
+def test_services_validate_and_every_check_passes(house):
+    assert validate_building(Building.model_validate(house)) == []
+    failed = [c for c in house["services"]["checks"] if not c["pass"]]
+    assert failed == []
+    assert all(c["source"]["clause"] for c in house["services"]["checks"])
+
+
+def test_wet_rooms_get_their_fitments_inside_the_room(house):
+    rooms = {r["id"]: r for r in house["rooms"]}
+    for f in house["fixtures"]:
+        if f["system"] == "plumbing":
+            assert Polygon(rooms[f["room"]]["polygon"]).contains(Point(f["at"])), f["id"]
+    bath = next(r for r in house["rooms"] if r["type"] == "bath_wc")
+    kinds = sorted(f["kind"] for f in house["fixtures"] if f["room"] == bath["id"] and f["system"] == "plumbing")
+    assert kinds == ["shower", "washbasin", "wc"]
+
+
+def test_wall_fixtures_sit_on_a_wall_face_not_in_a_doorway(house):
+    rooms = {r["id"]: r for r in house["rooms"]}
+    for f in house["fixtures"]:
+        if f["kind"] in ("socket_6a", "socket_16a", "switchboard"):
+            edge = Polygon(rooms[f["room"]]["polygon"]).exterior
+            assert edge.distance(Point(f["at"])) < 0.2, f["id"]  # against the face, within half a wall + box
+
+
+def test_ceiling_fixtures_hang_below_the_slab(house):
+    elev = {lv["id"]: lv["elevation"] for lv in house["levels"]}
+    for f in house["fixtures"]:
+        if f["kind"] in ("light", "fan") and f["z"] > 2.0:
+            assert f["z"] + f["size"][2] <= 3.0 - 0.125 + 1e-6
+
+
+def test_circuits_respect_nbc_limits_and_every_point_is_on_one(house):
+    on = [p for c in house["circuits"] for p in c["points"]]
+    assert len(on) == len(set(on))
+    wired = {f["id"] for f in house["fixtures"] if f["kind"] in ("light", "fan", "socket_6a", "socket_16a")}
+    assert set(on) == wired
+    for c in house["circuits"]:
+        if c["kind"] == "lighting":
+            assert len(c["points"]) <= 10 and c["load_w"] <= 800
+        else:
+            assert len(c["points"]) <= 2
+    roof = [c for c in house["circuits"] if c["level"] == "L2"]
+    assert roof and all(c["board"].startswith("L1-") for c in roof)  # cabin light fed from the floor below
+
+
+def test_stacks_outside_the_building_and_vent_above_the_roof(house):
+    foot = Polygon(next(f for f in house["floors"] if f["level"] == "L0")["boundary"])
+    for p in house["pipes"]:
+        assert p["outside"] and not foot.contains(Point(p["at"]))
+        assert p["z0"] == 0.0 and p["z1"] >= 3.0 + 1.5
+    soil = next(p for p in house["pipes"] if p["kind"] == "soil")
+    assert soil["z1"] == pytest.approx(6.0 + 1.5)
+
+
+def test_tank_on_the_cabin_roof_and_its_load_in_the_frame(house):
+    t = house["tanks"][0]
+    assert t["level"] == "L3" and t["capacity_l"] == 500
+    plain, loaded = build_frame(_layout()), build_frame(_layout(), tank=tank_size(4, 3))
+    roof = lambda m: [p for p in m.frame.panels if p.y == 9.0]  # noqa: E731
+    area = sum((p.x1 - p.x0) * (p.z1 - p.z0) for p in roof(plain))
+    added = sum((q.dead - p.dead) * (p.x1 - p.x0) * (p.z1 - p.z0) for p, q in zip(roof(plain), roof(loaded)))
+    assert added == pytest.approx(tank_size(4, 3)["weight_kn"], rel=0.01) and area > 0
+    assert any("Overhead tank" in n for n in loaded.notes)
+
+
+def test_finishes_for_every_typed_room(house):
+    typed = {r["id"] for r in house["rooms"] if r.get("type") in T.FINISHES}
+    assert {f["room"] for f in house["finishes"]} == typed
+    bath = next(f for f in house["finishes"] if f["dado_height"] == 2.1)
+    assert "Anti-skid" in bath["floor"]
+    assert not any(f["finish_floor"] for f in house["finishes"] if "Kota" in f["floor"])
+
+
+def test_layout_rooms_carry_type_and_polygon_in_building_coordinates(house):
+    for r in house["rooms"]:
+        assert r["type"] and len(r["polygon"]) >= 4
+        assert Polygon(r["polygon"]).area > 1.0
+        assert math.isfinite(r["polygon"][0][0])

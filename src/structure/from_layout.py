@@ -122,7 +122,9 @@ def opening_area(floor, wall, height):
     return area
 
 
-def build_frame(layout: Layout, spec=None) -> FrameModel:
+def build_frame(layout: Layout, spec=None, tank=None) -> FrameModel:
+    """`tank`: the overhead tank (src.services.generate.tank_size); its full weight goes on the stair
+    cabin roof, or on the top roof without a cabin, as dead load spread over those panels."""
     floors = sorted(layout.floors, key=lambda f: f.level)
     n = len(floors)
     h = floors[0].floor_to_floor
@@ -327,6 +329,16 @@ def build_frame(layout: Layout, spec=None) -> FrameModel:
     for (i, j) in sorted(cabin, key=lambda c: (c[1], c[0])):
         panels.append(Panel(elevation[n + 1], xs[i], xs[i + 1], zs[j], zs[j + 1], round(slab * 25 + ROOF_FINISH, 3),
                             CABIN_ROOF_LIVE, "roof"))
+    if tank:
+        highest = max(p.y for p in panels)
+        under = [p for p in panels if abs(p.y - highest) < TOL and p.roof]
+        area = sum((p.x1 - p.x0) * (p.z1 - p.z0) for p in under)
+        extra = tank["weight_kn"] / area
+        for p in under:
+            p.dead = round(p.dead + extra, 3)
+        notes.append(f"Overhead tank {tank['capacity_l']} l, {tank['weight_kn']} kN full, on the "
+                     f"{'stair cabin roof' if cabin else 'roof'}: +{extra:.2f} kN/m2 dead load over {area:.1f} m2 "
+                     f"(NBC 2016 Part 9 Section 1 cl. 4.4.10: half a day's demand).")
     frame.panels = panels
 
     # Wind: storey forces on the exposed faces, IS 875 Part 3

@@ -148,6 +148,7 @@ strata:seismicZone a strata:Quantity ; strata:key "seismic_zone" .
 strata:zoneFactor a strata:Quantity ; strata:key "zone_factor" .
 strata:basicWindSpeed a strata:Quantity ; strata:key "wind_speed" .
 strata:climate a strata:Quantity ; strata:key "climate" .
+strata:cityPopulation a strata:Quantity ; strata:key "population" .
 strata:waterDemand a strata:Quantity ; strata:key "water_demand" .
 strata:frontSetback a strata:Quantity ; strata:key "front_setback" .
 strata:rearSetback a strata:Quantity ; strata:key "rear_setback" .

@@ -13,6 +13,7 @@ from dataclasses import dataclass, field
 from src.structure.design_loop import DesignOutcome, design
 from src.structure.footings import basis as footing_basis
 from src.structure.footings import design_footings
+from src.services.generate import tank_from_brief
 from src.structure.from_layout import FrameModel, build_frame
 
 MIN_LAYOUT_SPAN = 3.0  # m: below this the layout GA cannot fit rooms (MIN_CELL 2.6 plus walls)
@@ -37,7 +38,8 @@ def soil_bearing(brief):
 
 
 def design_structure(layout, spec, runner, name, brief=None, max_rounds=10) -> StructureResult:
-    model = build_frame(layout, spec)
+    tank = tank_from_brief(brief, spec) if brief is not None else None
+    model = build_frame(layout, spec, tank)
     outcome = design(model.frame, runner, name=name, max_rounds=max_rounds)
     notes = list(model.notes)
     footings = []

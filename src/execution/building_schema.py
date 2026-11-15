@@ -10,7 +10,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-SCHEMA_VERSION = "0.4"
+SCHEMA_VERSION = "0.5"
 
 Point = tuple[float, float]
 
@@ -111,6 +111,8 @@ class Room(BaseModel):
     name: str
     point: Point  # any point inside the room
     stair: bool = False  # a stair room: over the stair well, so not over a slab on upper levels
+    type: str | None = None  # layout room type (bedroom, kitchen, bath_wc, ...), for the services templates
+    polygon: list[Point] | None = None  # centreline outline, building coordinates
 
 
 class StairRun(BaseModel):
@@ -139,6 +141,71 @@ class Stair(BaseModel):
     notes: list[str] = []
 
 
+class Fixture(BaseModel):
+    """A plumbing, electrical or lighting fixture as an LOD 200 box: plan centre, base height above its
+    level, size (dx, dy, dz) already turned to its wall."""
+    id: str
+    kind: str
+    system: Literal["plumbing", "electrical", "lighting"]
+    room: str
+    level: str
+    at: Point
+    z: float
+    size: tuple[float, float, float]
+    ifc_class: str
+    predefined: str = "NOTDEFINED"
+    load_w: float = 0.0
+    circuit: str | None = None
+    use: str = ""
+
+
+class Pipe(BaseModel):
+    """A vertical stack from z0 to z1 (absolute, m)."""
+    id: str
+    kind: Literal["soil", "waste"]
+    at: Point
+    z0: float
+    z1: float
+    diameter: float = Field(gt=0)
+    outside: bool = True
+    serves: list[str] = []
+
+
+class Tank(BaseModel):
+    id: str
+    level: str  # stands on this level's slab
+    at: Point
+    capacity_l: float = Field(gt=0)
+    diameter: float = Field(gt=0)
+    height: float = Field(gt=0)
+    weight_kn: float = Field(gt=0)
+    persons: int = 0
+    required_l: float = 0.0
+
+
+class Circuit(BaseModel):
+    id: str
+    level: str
+    kind: Literal["lighting", "power"]
+    board: str | None
+    points: list[str]
+    load_w: float
+
+
+class RoomFinish(BaseModel):
+    room: str
+    level: str
+    floor: str
+    floor_thickness: float = Field(gt=0)
+    wall: str
+    dado: str | None = None
+    dado_height: float = 0.0
+    skirting: str | None = None
+    ceiling: str
+    finish_floor: bool = True  # model a finish floor on the slab (not over a stair well)
+    polygon: list[Point]
+
+
 class Building(BaseModel):
     schema_version: str = SCHEMA_VERSION
     name: str
@@ -152,6 +219,12 @@ class Building(BaseModel):
     beams: list[Beam] = []
     footings: list[Footing] = []
     stairs: list[Stair] = []
+    fixtures: list[Fixture] = []
+    pipes: list[Pipe] = []
+    tanks: list[Tank] = []
+    circuits: list[Circuit] = []
+    finishes: list[RoomFinish] = []
+    services: dict = {}  # checks, notes, tank sizing, sources
 
 
 def _polygon_area(points):
@@ -211,7 +284,8 @@ def validate_building(b: Building) -> list[str]:
     for kind, items in (("level", b.levels), ("wall_type", b.wall_types), ("wall", b.walls),
                         ("opening", b.openings), ("floor", b.floors), ("room", b.rooms),
                         ("column", b.columns), ("beam", b.beams), ("footing", b.footings),
-                        ("stair", b.stairs)):
+                        ("stair", b.stairs), ("fixture", b.fixtures), ("pipe", b.pipes), ("tank", b.tanks),
+                        ("circuit", b.circuits)):
         ids = [i.id for i in items]
         problems += [f"duplicate {kind} id '{i}'" for i in sorted({i for i in ids if ids.count(i) > 1})]
 
@@ -311,5 +385,28 @@ def validate_building(b: Building) -> list[str]:
             if abs(math.dist(r.start, r.end) - (r.risers - 1) * st.tread) > 0.005:
                 problems.append(f"stair {st.id}: run length {math.dist(r.start, r.end):.3f} m != "
                                 f"{r.risers - 1} treads x {st.tread} m")
+
+    rooms = {r.id for r in b.rooms}
+    fixture_ids = {f.id for f in b.fixtures}
+    for f in b.fixtures:
+        if f.level not in levels or f.room not in rooms:
+            problems.append(f"fixture {f.id}: unknown level or room")
+        if f.circuit and f.circuit not in {c.id for c in b.circuits}:
+            problems.append(f"fixture {f.id}: unknown circuit {f.circuit}")
+    for c in b.circuits:
+        missing = [p for p in c.points if p not in fixture_ids]
+        if missing:
+            problems.append(f"circuit {c.id}: unknown points {missing[:3]}")
+        if c.board and c.board not in fixture_ids:
+            problems.append(f"circuit {c.id}: unknown board {c.board}")
+    for t in b.tanks:
+        if t.level not in levels or not any(fl.level == t.level and _inside(t.at, fl.boundary) for fl in b.floors):
+            problems.append(f"tank {t.id}: not on a slab at {t.level}")
+    for p in b.pipes:
+        if p.z1 <= p.z0:
+            problems.append(f"pipe {p.id}: top below bottom")
+    for fin in b.finishes:
+        if fin.room not in rooms:
+            problems.append(f"finish for unknown room {fin.room}")
 
     return problems

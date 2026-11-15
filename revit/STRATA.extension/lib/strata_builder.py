@@ -13,12 +13,14 @@ gets here; this module only translates it. No LLM is involved.
 """
 
 import json
+import math
 import uuid
 
 import clr
 
 clr.AddReference("RevitAPI")
 from Autodesk.Revit.DB import (  # noqa: E402
+    Arc, Category, DirectShape, GeometryCreationUtilities, GeometryObject,
     BuiltInCategory, BuiltInParameter, Color, CompoundStructure, CompoundStructureLayer,
     CurveLoop, Element, ElementLevelFilter, ElementTransformUtils, ElementTypeGroup, FailureProcessingResult,
     FailureSeverity, FamilySymbol, FilteredElementCollector, Floor, FloorType, IFailuresPreprocessor, Level, Line,
@@ -29,6 +31,7 @@ from Autodesk.Revit.DB.Architecture import (  # noqa: E402
     StairsLanding, StairsRun, StairsRunJustification, StairsType,
 )
 from Autodesk.Revit.DB.Structure import StructuralType  # noqa: E402
+from Autodesk.Revit.DB.Plumbing import Pipe, PipeType, PipingSystemType  # noqa: E402
 from System.Collections.Generic import List  # noqa: E402
 
 FUNCTIONS = {
@@ -90,9 +93,12 @@ class Builder(object):
         self.placed = []  # (opening spec, instance, host wall) for the diagnostics
         self._stubs = []  # columns standing on the footings
         self.cut_info = {}  # opening id -> (placement method, wall volume removed m3, expected m3)
+        self.rooms = {}  # room id -> Revit room
         self.report = {"levels": 0, "levels_renamed": [], "levels_removed": [], "wall_types": 0, "walls": 0, "doors": 0, "windows": 0,
                        "floors": 0, "columns": 0, "beams": 0, "rooms": [], "openings": [], "warnings": [],
-                       "footing_moves": [], "footing_tops": [], "column_bases": [], "stairs": []}
+                       "footing_moves": [], "footing_tops": [], "column_bases": [], "stairs": [],
+                       "fixtures": {}, "pipes": 0, "pipes_as_shapes": 0, "tanks": [], "finish_floors": 0,
+                       "room_finishes": 0}
 
     def warn(self, msg):
         self.report["warnings"].append(msg)
@@ -337,6 +343,7 @@ class Builder(object):
             level = self.levels[spec["level"]]
             room = self.doc.Create.NewRoom(level, UV(ft(spec["point"][0]), ft(spec["point"][1])))
             room.get_Parameter(BuiltInParameter.ROOM_NAME).Set(spec["name"])
+            self.rooms[spec["id"]] = room
             self.doc.Regenerate()
             area = m2(room.Area)
             if area <= 0:
@@ -517,6 +524,7 @@ class Builder(object):
                 return
             point = XYZ(ft(spec["at"][0]), ft(spec["at"][1]), level.Elevation)  # top of the pad at the level
             pad = self.doc.Create.NewFamilyInstance(point, sym, level, StructuralType.Footing)
+            self._ifc_as(pad, "IfcFooting", "PAD_FOOTING")  # Revit's IFC2x3 export makes it IfcSlab otherwise
             self._comment(pad, spec.get("design"))
             self.doc.Regenerate()
             # Where Revit puts the pad depends on the family and the overload (the point's z can be read as an
@@ -534,7 +542,191 @@ class Builder(object):
             self.report["footings"] = self.report.get("footings", 0) + 1
         self.doc.Regenerate()
 
+    def check_empty(self):
+        """Refuse to build into a project that already has a STRATA model: a second build duplicates
+        every element on top of the first, and on this machine that has crashed Revit."""
+        built = (FilteredElementCollector(self.doc).OfCategory(BuiltInCategory.OST_StructuralColumns)
+                 .WhereElementIsNotElementType().GetElementCount())
+        if built:
+            raise RuntimeError("Nothing was built: this project already has {0} structural columns from an "
+                               "earlier build. Start a new project (Default-Multi-Discipline_Metric), load the "
+                               "families, and run again.".format(built))
+
+    def _ifc_as(self, element, ifc_class, predefined):
+        """Set 'Export to IFC As' and its predefined type on an instance; a parameter this Revit lacks is
+        a warning, not a failure."""
+        for bip, value in (("IFC_EXPORT_ELEMENT_AS", ifc_class), ("IFC_EXPORT_PREDEFINEDTYPE", predefined)):
+            try:
+                p = element.get_Parameter(getattr(BuiltInParameter, bip))
+                if p is not None and not p.IsReadOnly:
+                    p.Set(value)
+                elif bip not in self.report.setdefault("ifc_missing", []):
+                    self.report["ifc_missing"].append(bip)
+                    self.warn("IFC mapping: {0} not settable on {1}".format(bip, element.Category.Name))
+            except Exception as e:  # noqa: BLE001
+                if bip not in self.report.setdefault("ifc_missing", []):
+                    self.report["ifc_missing"].append(bip)
+                    self.warn("IFC mapping: {0}: {1}".format(bip, e))
+
+    # ---- services and finishes (Phase 6) -------------------------------------
+    def _category(self, bic):
+        cat = Category.GetCategory(self.doc, bic)
+        if cat is not None and DirectShape.IsValidCategoryId(cat.Id, self.doc):
+            return cat.Id
+        return Category.GetCategory(self.doc, BuiltInCategory.OST_GenericModel).Id
+
+    def _shape(self, bic, solid, ident, name, comment, ifc_class, predefined):
+        ds = DirectShape.CreateElement(self.doc, self._category(bic))
+        ds.ApplicationId = "STRATA"
+        ds.ApplicationDataId = ident
+        shapes = List[GeometryObject]()
+        shapes.Add(solid)
+        ds.SetShape(shapes)
+        try:
+            ds.SetName(name)
+        except Exception:  # noqa: BLE001 - older API: the name stays the category's
+            pass
+        for bip, value in ((BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS, comment),
+                           (BuiltInParameter.ALL_MODEL_MARK, ident)):
+            p = ds.get_Parameter(bip)
+            if p is not None and not p.IsReadOnly:
+                p.Set(value)
+        self._ifc_as(ds, ifc_class, predefined)
+        return ds
+
+    def _box(self, x0, y0, x1, y1, z0, height):
+        loops = List[CurveLoop]()
+        loops.Add(self._loop([(x0, y0), (x1, y0), (x1, y1), (x0, y1)], z0))
+        return GeometryCreationUtilities.CreateExtrusionGeometry(loops, XYZ.BasisZ, ft(height))
+
+    def _cylinder(self, x, y, z0, diameter, height):
+        c, r = XYZ(ft(x), ft(y), z0), ft(diameter / 2.0)
+        loop = CurveLoop()
+        loop.Append(Arc.Create(c, r, 0.0, math.pi, XYZ.BasisX, XYZ.BasisY))
+        loop.Append(Arc.Create(c, r, math.pi, 2 * math.pi, XYZ.BasisX, XYZ.BasisY))
+        loops = List[CurveLoop]()
+        loops.Add(loop)
+        return GeometryCreationUtilities.CreateExtrusionGeometry(loops, XYZ.BasisZ, ft(height))
+
+    def make_fixtures(self):
+        cats = {"plumbing": BuiltInCategory.OST_PlumbingFixtures, "lighting": BuiltInCategory.OST_LightingFixtures,
+                "electrical": BuiltInCategory.OST_ElectricalFixtures}
+        for f in self.data.get("fixtures", []):
+            try:
+                level = self.levels[f["level"]]
+                (x, y), (dx, dy, dz) = f["at"], f["size"]
+                solid = self._box(x - dx / 2, y - dy / 2, x + dx / 2, y + dy / 2, level.Elevation + ft(f["z"]), dz)
+                bic = BuiltInCategory.OST_ElectricalEquipment if f["kind"] == "distribution_board" else cats[f["system"]]
+                comment = "STRATA {0} {1}{2}{3}".format(f["kind"], f["id"],
+                                                        ", " + f["use"] if f.get("use") else "",
+                                                        ", circuit " + f["circuit"] if f.get("circuit") else "")
+                self._shape(bic, solid, f["id"], "STRATA {0} {1}".format(f["kind"], f["id"]), comment, f["ifc_class"],
+                            f.get("predefined", "NOTDEFINED"))
+                self.report["fixtures"][f["system"]] = self.report["fixtures"].get(f["system"], 0) + 1
+            except Exception as e:  # noqa: BLE001 - one bad fixture is a warning, the model stays
+                self.warn("fixture {0} not placed: {1}".format(f["id"], e))
+
+    def make_pipes(self):
+        pipes = self.data.get("pipes", [])
+        if not pipes:
+            return
+        systems = list(FilteredElementCollector(self.doc).OfClass(PipingSystemType))
+        system = next((x for x in systems if "sanitary" in _name(x).lower()), systems[0] if systems else None)
+        ptype = next(iter(FilteredElementCollector(self.doc).OfClass(PipeType)), None)
+        base = min(self.levels.values(), key=lambda lv: abs(lv.Elevation))  # the ground level
+        for p in pipes:
+            (x, y) = p["at"]
+            a, b = XYZ(ft(x), ft(y), ft(p["z0"])), XYZ(ft(x), ft(y), ft(p["z1"]))
+            comment = "STRATA {0} stack {1}, serves {2}".format(p["kind"], p["id"], ", ".join(p.get("serves", [])))
+            done = False
+            if system is not None and ptype is not None:
+                try:
+                    pipe = Pipe.Create(self.doc, system.Id, ptype.Id, base.Id, a, b)
+                    d = pipe.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM)
+                    if d is not None and not d.IsReadOnly:
+                        d.Set(ft(p["diameter"]))
+                    for bip, value in ((BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS, comment),
+                                       (BuiltInParameter.ALL_MODEL_MARK, p["id"])):
+                        q = pipe.get_Parameter(bip)
+                        if q is not None and not q.IsReadOnly:
+                            q.Set(value)
+                    self.report["pipes"] += 1
+                    done = True
+                except Exception as e:  # noqa: BLE001
+                    self.warn("stack {0}: native pipe failed ({1}); modelled as a shape".format(p["id"], e))
+            if not done:
+                try:
+                    solid = self._cylinder(x, y, ft(p["z0"]), p["diameter"], p["z1"] - p["z0"])
+                    self._shape(BuiltInCategory.OST_PipeCurves, solid, p["id"], "STRATA " + p["kind"] + " stack",
+                                comment, "IfcPipeSegment", "RIGIDSEGMENT")
+                    self.report["pipes_as_shapes"] += 1
+                except Exception as e:  # noqa: BLE001
+                    self.warn("stack {0} not placed: {1}".format(p["id"], e))
+
+    def make_tanks(self):
+        for t in self.data.get("tanks", []):
+            try:
+                level = self.levels[t["level"]]
+                solid = self._cylinder(t["at"][0], t["at"][1], level.Elevation, t["diameter"], t["height"])
+                comment = "STRATA overhead tank {0}: {1:.0f} l for {2} persons, {3} kN full".format(
+                    t["id"], t["capacity_l"], t.get("persons"), t["weight_kn"])
+                self._shape(BuiltInCategory.OST_MechanicalEquipment, solid, t["id"], "STRATA overhead tank " + t["id"],
+                            comment, "IfcTank", "STORAGE")
+                self.report["tanks"].append("{0:.0f} l on {1}".format(t["capacity_l"], t["level"]))
+            except Exception as e:  # noqa: BLE001
+                self.warn("tank {0} not placed: {1}".format(t["id"], e))
+
+    def finish_type(self, thickness, text):
+        short = text.split(" on ")[0].split(",")[0][:40]
+        name = "STRATA Finish {0:.0f} {1}".format(thickness * 1000, short)
+        ftype = _by_name(self.doc, FloorType, name)
+        if ftype is None:
+            base = self.doc.GetElement(self.doc.GetDefaultElementTypeId(ElementTypeGroup.FloorType))
+            ftype = self.doc.GetElement(base.Duplicate(name).Id)
+        ftype.SetCompoundStructure(self.compound(
+            [{"material": short, "thickness": thickness, "function": "Finish1"}], base_type=ftype))
+        return ftype
+
+    @staticmethod
+    def _inset(pts, d):
+        """A rectangle moved in by d on every side (finish floors stop short of the wall centrelines)."""
+        if len(pts) != 4:
+            return pts
+        xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+        x0, x1, y0, y1 = min(xs) + d, max(xs) - d, min(ys) + d, max(ys) - d
+        return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)] if x1 > x0 and y1 > y0 else pts
+
+    def make_finishes(self):
+        params = (("floor", BuiltInParameter.ROOM_FINISH_FLOOR), ("wall", BuiltInParameter.ROOM_FINISH_WALL),
+                  ("skirting", BuiltInParameter.ROOM_FINISH_BASE), ("ceiling", BuiltInParameter.ROOM_FINISH_CEILING))
+        for fin in self.data.get("finishes", []):
+            room = self.rooms.get(fin["room"])
+            if room is not None:
+                for key, bip in params:
+                    value = fin.get(key) or ""
+                    if key == "wall" and fin.get("dado"):
+                        value += "; dado: {0} to {1:.1f} m".format(fin["dado"], fin["dado_height"])
+                    p = room.get_Parameter(bip)
+                    if p is not None and not p.IsReadOnly:
+                        p.Set(value)
+                self.report["room_finishes"] += 1
+            if not fin.get("finish_floor"):
+                continue
+            try:
+                level = self.levels[fin["level"]]
+                loops = List[CurveLoop]()
+                loops.Add(self._loop(self._inset(fin["polygon"], 0.06), level.Elevation))
+                floor = Floor.Create(self.doc, loops, self.finish_type(fin["floor_thickness"], fin["floor"]).Id,
+                                     level.Id)
+                off = floor.get_Parameter(BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM)
+                if off is not None and not off.IsReadOnly:
+                    off.Set(ft(fin["floor_thickness"]))  # on top of the structural slab
+                self.report["finish_floors"] += 1
+            except Exception as e:  # noqa: BLE001
+                self.warn("finish floor for {0} not made: {1}".format(fin["room"], e))
+
     def build(self):
+        self.check_empty()
         self.check_families()
         self.make_levels()
         self.make_wall_types()
@@ -546,6 +738,10 @@ class Builder(object):
         self.check_openings()
         self.make_floors()
         self.make_rooms()
+        self.make_finishes()
+        self.make_fixtures()
+        self.make_pipes()
+        self.make_tanks()
         return self.report
 
 
@@ -662,6 +858,41 @@ def make_stairs(builder):
     return builder.report
 
 
+def export_ifc(builder, json_path, own_transaction=True):
+    """Revit's own IFC exporter, IFC4 with base quantities, to <name>.ifc beside the building JSON.
+    Export needs an open transaction: with own_transaction it opens one and rolls it back (pyRevit);
+    otherwise the caller holds one (Dynamo's TransactionManager). Never raises: a failed export is a
+    report warning and the model stays."""
+    import os
+    doc = builder.doc
+    folder = os.path.dirname(json_path)
+    name = os.path.basename(json_path).replace(".building.json", "")
+    path = os.path.join(folder, name + ".ifc")
+    t = None
+    try:
+        from Autodesk.Revit.DB import IFCExportOptions, IFCVersion
+        options = IFCExportOptions()
+        options.FileVersion = IFCVersion.IFC4
+        options.AddOption("ExportBaseQuantities", "true")
+        if own_transaction:
+            t = Transaction(doc, "STRATA IFC export")
+            t.Start()
+        ok = doc.Export(folder, name, options)
+        if ok and os.path.exists(path):
+            builder.report["ifc"] = path
+        else:
+            builder.warn("IFC export did not write {0} (Export returned {1})".format(path, ok))
+    except BaseException as e:  # noqa: BLE001 - .NET exceptions too; the build must still report
+        builder.warn("IFC export failed: {0}: {1}".format(type(e).__name__, e))
+    finally:
+        try:
+            if t is not None and t.HasStarted() and not t.HasEnded():
+                t.RollBack()
+        except BaseException:  # noqa: BLE001
+            pass
+    return builder.report
+
+
 def load(path):
     with open(path) as f:
         return json.load(f)
@@ -693,6 +924,13 @@ def format_report(report):
                  report["walls"], report["doors"], report["windows"], report["floors"]),
              "Rooms: " + ", ".join(report["rooms"]),
              "Stairs: " + ("; ".join(report.get("stairs", [])) or "none"),
+             "Services: {0} fixtures ({1}); stacks {2} pipes + {3} shapes; tank {4}; {5} finish floors, "
+             "{6} rooms with finishes".format(
+                 sum(report.get("fixtures", {}).values()),
+                 ", ".join("{0} {1}".format(v, k) for k, v in sorted(report.get("fixtures", {}).items())) or "none",
+                 report.get("pipes", 0), report.get("pipes_as_shapes", 0), ", ".join(report.get("tanks", [])) or "none",
+                 report.get("finish_floors", 0), report.get("room_finishes", 0)),
+             "IFC: " + (report.get("ifc") or "export from Revit: File > Export > IFC"),
              "Footing tops (m): " + _range(report.get("footing_tops", []))
              + ("  (moved by " + _range(report["footing_moves"]) + " m to meet the columns)"
                 if report.get("footing_moves") else ""),

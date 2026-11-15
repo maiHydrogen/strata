@@ -46,6 +46,12 @@ def _snap(v, lines):
     return v, False
 
 
+def _map(v, lines, raw_map):
+    """A room corner moves like a wall end: with its raw grid line, else onto a grid line within ON_LINE."""
+    a = _along(v, raw_map)
+    return a if a != v else _snap(v, lines)[0]
+
+
 def _along(v, raw_map):
     """A wall end at a raw grid coordinate moves with that grid line (outer face -> centreline)."""
     for raw, new in raw_map.items():
@@ -187,8 +193,11 @@ def building_from_layout(layout, model, outcome, footings=(), code_note="", name
                              "width": round(width, 4), "height": round(height, 4), "sill": round(sill, 4)})
         for r in f.rooms:
             pt = r.shape.representative_point()
+            poly = [(round(_map(x, xs, model.shift["x"]), 4), round(_map(y, zs, model.shift["y"]), 4))
+                    for x, y in list(r.shape.exterior.coords)[:-1]]
             rooms.append({"id": f"{lvl}-R{len(rooms) + 1}", "level": lvl, "name": r.name or r.type.replace("_", " "),
-                          "point": (round(pt.x, 4), round(pt.y, 4)), "stair": r.type == "stair"})
+                          "point": (round(pt.x, 4), round(pt.y, 4)), "stair": r.type == "stair",
+                          "type": r.type, "polygon": poly})
 
     slabs = []
     ground = unary_union([r.shape for r in floors[0].rooms])
@@ -277,7 +286,8 @@ def building_from_layout(layout, model, outcome, footings=(), code_note="", name
                       "boundary": [(round(cx0 - e, 4), round(cy0 - e, 4)), (round(cx1 + e, 4), round(cy0 - e, 4)),
                                    (round(cx1 + e, 4), round(cy1 + e, 4)), (round(cx0 - e, 4), round(cy1 + e, 4))]})
         rooms.append({"id": f"{lvl}-R{len(rooms) + 1}", "level": lvl, "name": "Stair cabin",
-                      "point": (round((cx0 + cx1) / 2, 4), round((cy0 + cy1) / 2, 4)), "stair": True})
+                      "point": (round((cx0 + cx1) / 2, 4), round((cy0 + cy1) / 2, 4)), "stair": True,
+                      "type": "stair", "polygon": [(cx0, cy0), (cx1, cy0), (cx1, cy1), (cx0, cy1)]})
 
     b["walls"], b["openings"], b["rooms"], b["floors"] = walls, openings, rooms, slabs
     b["stairs"] = stairs

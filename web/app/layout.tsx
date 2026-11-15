@@ -6,7 +6,7 @@ const display = Unbounded({ subsets: ["latin"], weight: ["400", "500", "600", "7
 const body = Comfortaa({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-body" });
 
 export const metadata: Metadata = {
-  title: "STRATA Brief",
+  title: "STRATA",
   description: "Describe the house you want in plain words. STRATA turns it into a design brief, then a code compliant BIM model.",
 };
 

@@ -1,5 +1,5 @@
 {
- "schema_version": "0.4",
+ "schema_version": "0.5",
  "name": "STRATA g1_40x60_1",
  "levels": [
   {
@@ -44,7 +44,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.04,
-    "axial_kn": 78.99,
+    "axial_kn": 78.91,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -65,7 +65,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.03,
-    "axial_kn": 23.53,
+    "axial_kn": 23.39,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -86,7 +86,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.04,
-    "axial_kn": 67.91,
+    "axial_kn": 68.05,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -107,7 +107,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.04,
-    "axial_kn": 115.92,
+    "axial_kn": 115.36,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -128,7 +128,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.04,
-    "axial_kn": 107.58,
+    "axial_kn": 107.02,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -149,7 +149,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.04,
-    "axial_kn": 12.64,
+    "axial_kn": 11.38,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -170,7 +170,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.05,
-    "axial_kn": 83.58,
+    "axial_kn": 83.83,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -191,7 +191,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.06,
-    "axial_kn": 537.8,
+    "axial_kn": 541.71,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -212,7 +212,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.05,
-    "axial_kn": 104.11,
+    "axial_kn": 103.49,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -233,7 +233,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.04,
-    "axial_kn": 21.79,
+    "axial_kn": 20.18,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -254,7 +254,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.05,
-    "axial_kn": 79.12,
+    "axial_kn": 79.1,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -275,7 +275,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.06,
-    "axial_kn": 138.6,
+    "axial_kn": 137.67,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -296,7 +296,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.08,
-    "axial_kn": 132.08,
+    "axial_kn": 132.06,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -317,7 +317,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.05,
-    "axial_kn": 80.12,
+    "axial_kn": 80.02,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -338,7 +338,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.05,
-    "axial_kn": 121.2,
+    "axial_kn": 121.26,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -359,7 +359,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.08,
-    "axial_kn": 91.9,
+    "axial_kn": 91.73,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -380,7 +380,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.1,
-    "axial_kn": 75.36,
+    "axial_kn": 75.32,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -401,7 +401,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.08,
-    "axial_kn": 60.37,
+    "axial_kn": 60.47,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -422,7 +422,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.1,
-    "axial_kn": 63.74,
+    "axial_kn": 63.84,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -443,7 +443,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.13,
-    "axial_kn": 81.72,
+    "axial_kn": 81.22,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -464,7 +464,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.06,
-    "axial_kn": 76.91,
+    "axial_kn": 76.44,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -485,7 +485,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.04,
-    "axial_kn": 30.69,
+    "axial_kn": 29.57,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -506,7 +506,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.07,
-    "axial_kn": 97.21,
+    "axial_kn": 97.65,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -527,7 +527,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.08,
-    "axial_kn": 185.08,
+    "axial_kn": 185.46,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -548,7 +548,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.12,
-    "axial_kn": 64.96,
+    "axial_kn": 64.44,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -569,7 +569,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.1,
-    "axial_kn": 28.07,
+    "axial_kn": 26.7,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -590,7 +590,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.1,
-    "axial_kn": 87.26,
+    "axial_kn": 87.49,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -611,7 +611,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.12,
-    "axial_kn": 132.99,
+    "axial_kn": 132.98,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -632,7 +632,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.16,
-    "axial_kn": 79.58,
+    "axial_kn": 79.57,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -653,7 +653,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.14,
-    "axial_kn": 77.53,
+    "axial_kn": 77.6,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -674,7 +674,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.14,
-    "axial_kn": 77.02,
+    "axial_kn": 77.07,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -695,7 +695,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.94,
     "interaction_ratio": 0.16,
-    "axial_kn": 83.54,
+    "axial_kn": 83.64,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -716,7 +716,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.23,
-    "axial_kn": 60.36,
+    "axial_kn": 61.69,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -737,7 +737,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.18,
-    "axial_kn": 36.94,
+    "axial_kn": 36.96,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -758,7 +758,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.19,
-    "axial_kn": 36.06,
+    "axial_kn": 36.13,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -779,7 +779,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.24,
-    "axial_kn": 79.99,
+    "axial_kn": 80.31,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -800,7 +800,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.17,
-    "axial_kn": 67.75,
+    "axial_kn": 67.79,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -821,7 +821,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.12,
-    "axial_kn": 41.54,
+    "axial_kn": 40.81,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -842,7 +842,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.15,
-    "axial_kn": 76.46,
+    "axial_kn": 77.38,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -863,7 +863,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.18,
-    "axial_kn": 153.8,
+    "axial_kn": 154.97,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -884,7 +884,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.15,
-    "axial_kn": 62.45,
+    "axial_kn": 62.6,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -926,7 +926,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.2,
-    "axial_kn": 76.13,
+    "axial_kn": 77.72,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -947,7 +947,7 @@
     "min_main_bar_mm": 25,
     "steel_ratio_pct": 1.6,
     "interaction_ratio": 0.23,
-    "axial_kn": 47.12,
+    "axial_kn": 47.21,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -968,7 +968,7 @@
     "min_main_bar_mm": 20,
     "steel_ratio_pct": 1.4,
     "interaction_ratio": 0.23,
-    "axial_kn": 39.45,
+    "axial_kn": 42.58,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -989,7 +989,7 @@
     "min_main_bar_mm": 20,
     "steel_ratio_pct": 1.4,
     "interaction_ratio": 0.22,
-    "axial_kn": 37.69,
+    "axial_kn": 40.77,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -1010,7 +1010,7 @@
     "min_main_bar_mm": 20,
     "steel_ratio_pct": 1.4,
     "interaction_ratio": 0.22,
-    "axial_kn": 39.03,
+    "axial_kn": 42.16,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -1031,7 +1031,7 @@
     "min_main_bar_mm": 20,
     "steel_ratio_pct": 1.4,
     "interaction_ratio": 0.21,
-    "axial_kn": 36.37,
+    "axial_kn": 39.38,
     "status": "pass",
     "errors": [],
     "code": "IS 456:2000 + IS 13920:2016; loads IS 875 Parts 1-3, seismic IS 1893 (Part 1):2016"
@@ -1053,7 +1053,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 238.28,
+    "top_steel_required_mm2": 238.17,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1077,7 +1077,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 238.6,
+    "top_steel_required_mm2": 238.45,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1101,7 +1101,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 241.24,
+    "top_steel_required_mm2": 241.18,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1125,7 +1125,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 267.42,
+    "top_steel_required_mm2": 268.24,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1149,9 +1149,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 301.37,
+    "top_steel_required_mm2": 302.54,
     "top_steel_provided_mm2": 339.29,
-    "bottom_steel_required_mm2": 276.41,
+    "bottom_steel_required_mm2": 277.63,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -1173,7 +1173,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 274.22,
+    "top_steel_required_mm2": 275.13,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1197,7 +1197,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 270.95,
+    "top_steel_required_mm2": 272.17,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1221,9 +1221,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 291.5,
+    "top_steel_required_mm2": 293.27,
     "top_steel_provided_mm2": 339.29,
-    "bottom_steel_required_mm2": 273.14,
+    "bottom_steel_required_mm2": 274.94,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -1245,7 +1245,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 277.54,
+    "top_steel_required_mm2": 278.86,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1341,7 +1341,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 256.85,
+    "top_steel_required_mm2": 256.54,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1365,7 +1365,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 239.67,
+    "top_steel_required_mm2": 239.38,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1389,7 +1389,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 348.34,
+    "top_steel_required_mm2": 348.05,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1437,7 +1437,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 228.81,
+    "top_steel_required_mm2": 229.21,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1461,7 +1461,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 276.91,
+    "top_steel_required_mm2": 277.29,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1485,7 +1485,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 246.8,
+    "top_steel_required_mm2": 247.46,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1509,7 +1509,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 237.52,
+    "top_steel_required_mm2": 238.09,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1533,7 +1533,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 285.64,
+    "top_steel_required_mm2": 286.22,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1557,7 +1557,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 330.08,
+    "top_steel_required_mm2": 331.53,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1581,7 +1581,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 313.8,
+    "top_steel_required_mm2": 315.26,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1605,7 +1605,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 409.48,
+    "top_steel_required_mm2": 410.66,
     "top_steel_provided_mm2": 452.39,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1629,7 +1629,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 362.97,
+    "top_steel_required_mm2": 362.99,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1653,7 +1653,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 297.71,
+    "top_steel_required_mm2": 297.83,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1677,7 +1677,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 382.2,
+    "top_steel_required_mm2": 382.29,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1701,9 +1701,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 440.1,
+    "top_steel_required_mm2": 442.79,
     "top_steel_provided_mm2": 452.39,
-    "bottom_steel_required_mm2": 287.66,
+    "bottom_steel_required_mm2": 290.4,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -1725,9 +1725,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 411.73,
+    "top_steel_required_mm2": 414.91,
     "top_steel_provided_mm2": 452.39,
-    "bottom_steel_required_mm2": 328.95,
+    "bottom_steel_required_mm2": 331.39,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -1749,9 +1749,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 487.15,
+    "top_steel_required_mm2": 489.09,
     "top_steel_provided_mm2": 565.49,
-    "bottom_steel_required_mm2": 251.64,
+    "bottom_steel_required_mm2": 253.28,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -1773,9 +1773,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 485.99,
+    "top_steel_required_mm2": 489.8,
     "top_steel_provided_mm2": 565.49,
-    "bottom_steel_required_mm2": 267.98,
+    "bottom_steel_required_mm2": 271.66,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -1797,9 +1797,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 433.59,
+    "top_steel_required_mm2": 437.88,
     "top_steel_provided_mm2": 452.39,
-    "bottom_steel_required_mm2": 315.67,
+    "bottom_steel_required_mm2": 319.12,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -1821,9 +1821,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 515.91,
+    "top_steel_required_mm2": 519.01,
     "top_steel_provided_mm2": 565.49,
-    "bottom_steel_required_mm2": 257.95,
+    "bottom_steel_required_mm2": 259.5,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -1917,7 +1917,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 375.89,
+    "top_steel_required_mm2": 375.54,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1941,7 +1941,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 348.61,
+    "top_steel_required_mm2": 348.32,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1965,7 +1965,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 385.37,
+    "top_steel_required_mm2": 385.09,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -1989,7 +1989,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 393.48,
+    "top_steel_required_mm2": 395.01,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -2013,7 +2013,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 372.35,
+    "top_steel_required_mm2": 373.75,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -2037,7 +2037,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 367.99,
+    "top_steel_required_mm2": 368.83,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -2061,7 +2061,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 446.38,
+    "top_steel_required_mm2": 449.01,
     "top_steel_provided_mm2": 452.39,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -2085,7 +2085,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 407.08,
+    "top_steel_required_mm2": 408.51,
     "top_steel_provided_mm2": 452.39,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -2109,7 +2109,7 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 376.43,
+    "top_steel_required_mm2": 377.46,
     "top_steel_provided_mm2": 402.12,
     "bottom_steel_required_mm2": 228.53,
     "bottom_steel_provided_mm2": 339.29,
@@ -2133,9 +2133,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 573.44,
+    "top_steel_required_mm2": 578.39,
     "top_steel_provided_mm2": 603.19,
-    "bottom_steel_required_mm2": 286.72,
+    "bottom_steel_required_mm2": 289.2,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -2157,9 +2157,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 510.03,
+    "top_steel_required_mm2": 513.56,
     "top_steel_provided_mm2": 565.49,
-    "bottom_steel_required_mm2": 255.12,
+    "bottom_steel_required_mm2": 258.27,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -2181,9 +2181,9 @@
    "width": 0.23,
    "depth": 0.45,
    "design": {
-    "top_steel_required_mm2": 459.84,
+    "top_steel_required_mm2": 462.0,
     "top_steel_provided_mm2": 565.49,
-    "bottom_steel_required_mm2": 229.92,
+    "bottom_steel_required_mm2": 231.0,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 70,
     "status": "pass",
@@ -2205,7 +2205,7 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 247.12,
+    "top_steel_required_mm2": 247.37,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 145.73,
     "bottom_steel_provided_mm2": 226.19,
@@ -2229,7 +2229,7 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 197.4,
+    "top_steel_required_mm2": 197.57,
     "top_steel_provided_mm2": 226.19,
     "bottom_steel_required_mm2": 145.73,
     "bottom_steel_provided_mm2": 226.19,
@@ -2253,7 +2253,7 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 249.73,
+    "top_steel_required_mm2": 250.24,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 145.73,
     "bottom_steel_provided_mm2": 226.19,
@@ -2277,9 +2277,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 309.13,
+    "top_steel_required_mm2": 311.96,
     "top_steel_provided_mm2": 339.29,
-    "bottom_steel_required_mm2": 173.22,
+    "bottom_steel_required_mm2": 176.08,
     "bottom_steel_provided_mm2": 226.19,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2301,9 +2301,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 365.94,
+    "top_steel_required_mm2": 373.93,
     "top_steel_provided_mm2": 452.39,
-    "bottom_steel_required_mm2": 285.72,
+    "bottom_steel_required_mm2": 295.18,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2325,9 +2325,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 582.22,
+    "top_steel_required_mm2": 590.18,
     "top_steel_provided_mm2": 678.58,
-    "bottom_steel_required_mm2": 291.11,
+    "bottom_steel_required_mm2": 295.09,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2349,9 +2349,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 330.09,
+    "top_steel_required_mm2": 334.0,
     "top_steel_provided_mm2": 339.29,
-    "bottom_steel_required_mm2": 174.96,
+    "bottom_steel_required_mm2": 178.76,
     "bottom_steel_provided_mm2": 226.19,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2373,9 +2373,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 379.42,
+    "top_steel_required_mm2": 388.65,
     "top_steel_provided_mm2": 452.39,
-    "bottom_steel_required_mm2": 292.27,
+    "bottom_steel_required_mm2": 303.46,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2397,9 +2397,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 537.96,
+    "top_steel_required_mm2": 564.25,
     "top_steel_provided_mm2": 565.49,
-    "bottom_steel_required_mm2": 268.98,
+    "bottom_steel_required_mm2": 282.12,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2421,9 +2421,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 308.58,
+    "top_steel_required_mm2": 308.61,
     "top_steel_provided_mm2": 339.29,
-    "bottom_steel_required_mm2": 154.29,
+    "bottom_steel_required_mm2": 154.3,
     "bottom_steel_provided_mm2": 226.19,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2445,7 +2445,7 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 260.04,
+    "top_steel_required_mm2": 260.0,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 145.73,
     "bottom_steel_provided_mm2": 226.19,
@@ -2469,9 +2469,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 317.77,
+    "top_steel_required_mm2": 319.64,
     "top_steel_provided_mm2": 339.29,
-    "bottom_steel_required_mm2": 158.89,
+    "bottom_steel_required_mm2": 159.82,
     "bottom_steel_provided_mm2": 226.19,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2493,9 +2493,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 290.34,
+    "top_steel_required_mm2": 292.61,
     "top_steel_provided_mm2": 339.29,
-    "bottom_steel_required_mm2": 207.25,
+    "bottom_steel_required_mm2": 209.72,
     "bottom_steel_provided_mm2": 226.19,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2517,9 +2517,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 391.38,
+    "top_steel_required_mm2": 396.43,
     "top_steel_provided_mm2": 452.39,
-    "bottom_steel_required_mm2": 195.69,
+    "bottom_steel_required_mm2": 198.22,
     "bottom_steel_provided_mm2": 226.19,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2541,9 +2541,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 534.12,
+    "top_steel_required_mm2": 544.05,
     "top_steel_provided_mm2": 565.49,
-    "bottom_steel_required_mm2": 267.06,
+    "bottom_steel_required_mm2": 272.02,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2565,9 +2565,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 480.5,
+    "top_steel_required_mm2": 488.03,
     "top_steel_provided_mm2": 565.49,
-    "bottom_steel_required_mm2": 240.25,
+    "bottom_steel_required_mm2": 244.01,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2589,9 +2589,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 584.43,
+    "top_steel_required_mm2": 594.04,
     "top_steel_provided_mm2": 678.58,
-    "bottom_steel_required_mm2": 292.22,
+    "bottom_steel_required_mm2": 297.02,
     "bottom_steel_provided_mm2": 339.29,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2613,7 +2613,7 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 227.03,
+    "top_steel_required_mm2": 243.38,
     "top_steel_provided_mm2": 339.29,
     "bottom_steel_required_mm2": 145.73,
     "bottom_steel_provided_mm2": 226.19,
@@ -2637,9 +2637,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 229.53,
+    "top_steel_required_mm2": 245.8,
     "top_steel_provided_mm2": 339.29,
-    "bottom_steel_required_mm2": 145.73,
+    "bottom_steel_required_mm2": 151.6,
     "bottom_steel_provided_mm2": 226.19,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2661,9 +2661,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 227.15,
+    "top_steel_required_mm2": 242.31,
     "top_steel_provided_mm2": 339.29,
-    "bottom_steel_required_mm2": 160.24,
+    "bottom_steel_required_mm2": 169.5,
     "bottom_steel_provided_mm2": 226.19,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -2685,9 +2685,9 @@
    "width": 0.23,
    "depth": 0.3,
    "design": {
-    "top_steel_required_mm2": 215.35,
-    "top_steel_provided_mm2": 226.19,
-    "bottom_steel_required_mm2": 153.95,
+    "top_steel_required_mm2": 230.14,
+    "top_steel_provided_mm2": 339.29,
+    "bottom_steel_required_mm2": 162.94,
     "bottom_steel_provided_mm2": 226.19,
     "min_stirrup_spacing_mm": 60,
     "status": "pass",
@@ -3739,7 +3739,26 @@
     5.465,
     11.032
    ],
-   "stair": false
+   "stair": false,
+   "type": "corridor",
+   "polygon": [
+    [
+     4.865,
+     7.232
+    ],
+    [
+     6.065,
+     7.232
+    ],
+    [
+     6.065,
+     14.717
+    ],
+    [
+     4.865,
+     14.717
+    ]
+   ]
   },
   {
    "id": "L0-R2",
@@ -3749,7 +3768,26 @@
     3.9325,
     5.416
    ],
-   "stair": false
+   "stair": false,
+   "type": "living",
+   "polygon": [
+    [
+     1.915,
+     3.715
+    ],
+    [
+     6.065,
+     3.715
+    ],
+    [
+     6.065,
+     7.232
+    ],
+    [
+     1.915,
+     7.232
+    ]
+   ]
   },
   {
    "id": "L0-R3",
@@ -3759,7 +3797,26 @@
     7.584,
     5.416
    ],
-   "stair": false
+   "stair": false,
+   "type": "dining",
+   "polygon": [
+    [
+     6.065,
+     3.715
+    ],
+    [
+     8.988,
+     3.715
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     6.065,
+     7.232
+    ]
+   ]
   },
   {
    "id": "L0-R4",
@@ -3769,7 +3826,26 @@
     3.3325,
     8.532
    ],
-   "stair": false
+   "stair": false,
+   "type": "kitchen",
+   "polygon": [
+    [
+     1.915,
+     7.232
+    ],
+    [
+     4.865,
+     7.232
+    ],
+    [
+     4.865,
+     9.832
+    ],
+    [
+     1.915,
+     9.832
+    ]
+   ]
   },
   {
    "id": "L0-R5",
@@ -3779,7 +3855,26 @@
     3.3325,
     11.457
    ],
-   "stair": false
+   "stair": false,
+   "type": "bedroom",
+   "polygon": [
+    [
+     1.915,
+     9.832
+    ],
+    [
+     4.865,
+     9.832
+    ],
+    [
+     4.865,
+     13.082
+    ],
+    [
+     1.915,
+     13.082
+    ]
+   ]
   },
   {
    "id": "L0-R6",
@@ -3789,7 +3884,26 @@
     3.3325,
     13.957
    ],
-   "stair": false
+   "stair": false,
+   "type": "bath_wc",
+   "polygon": [
+    [
+     1.915,
+     13.082
+    ],
+    [
+     4.865,
+     13.082
+    ],
+    [
+     4.865,
+     14.717
+    ],
+    [
+     1.915,
+     14.717
+    ]
+   ]
   },
   {
    "id": "L0-R7",
@@ -3799,7 +3913,26 @@
     7.584,
     11.457
    ],
-   "stair": false
+   "stair": false,
+   "type": "bedroom",
+   "polygon": [
+    [
+     6.065,
+     9.832
+    ],
+    [
+     8.988,
+     9.832
+    ],
+    [
+     8.988,
+     13.082
+    ],
+    [
+     6.065,
+     13.082
+    ]
+   ]
   },
   {
    "id": "L0-R8",
@@ -3809,7 +3942,26 @@
     7.584,
     13.957
    ],
-   "stair": false
+   "stair": false,
+   "type": "bath_wc",
+   "polygon": [
+    [
+     6.065,
+     13.082
+    ],
+    [
+     8.988,
+     13.082
+    ],
+    [
+     8.988,
+     14.717
+    ],
+    [
+     6.065,
+     14.717
+    ]
+   ]
   },
   {
    "id": "L0-R9",
@@ -3819,7 +3971,26 @@
     7.584,
     8.532
    ],
-   "stair": true
+   "stair": true,
+   "type": "stair",
+   "polygon": [
+    [
+     6.065,
+     7.232
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     8.988,
+     9.832
+    ],
+    [
+     6.065,
+     9.832
+    ]
+   ]
   },
   {
    "id": "L1-R10",
@@ -3829,7 +4000,26 @@
     5.465,
     6.716
    ],
-   "stair": false
+   "stair": false,
+   "type": "corridor",
+   "polygon": [
+    [
+     4.865,
+     3.715
+    ],
+    [
+     6.065,
+     3.715
+    ],
+    [
+     6.065,
+     9.832
+    ],
+    [
+     4.865,
+     9.832
+    ]
+   ]
   },
   {
    "id": "L1-R11",
@@ -3839,7 +4029,26 @@
     3.3325,
     5.416
    ],
-   "stair": false
+   "stair": false,
+   "type": "bedroom",
+   "polygon": [
+    [
+     1.915,
+     3.715
+    ],
+    [
+     4.865,
+     3.715
+    ],
+    [
+     4.865,
+     7.232
+    ],
+    [
+     1.915,
+     7.232
+    ]
+   ]
   },
   {
    "id": "L1-R12",
@@ -3849,7 +4058,26 @@
     7.584,
     4.508
    ],
-   "stair": false
+   "stair": false,
+   "type": "bath_wc",
+   "polygon": [
+    [
+     6.065,
+     3.715
+    ],
+    [
+     8.988,
+     3.715
+    ],
+    [
+     8.988,
+     5.416
+    ],
+    [
+     6.065,
+     5.416
+    ]
+   ]
   },
   {
    "id": "L1-R13",
@@ -3859,7 +4087,26 @@
     7.584,
     6.324
    ],
-   "stair": false
+   "stair": false,
+   "type": "store",
+   "polygon": [
+    [
+     6.065,
+     5.416
+    ],
+    [
+     8.988,
+     5.416
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     6.065,
+     7.232
+    ]
+   ]
   },
   {
    "id": "L1-R14",
@@ -3869,7 +4116,26 @@
     7.584,
     8.532
    ],
-   "stair": true
+   "stair": true,
+   "type": "stair",
+   "polygon": [
+    [
+     6.065,
+     7.232
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     8.988,
+     9.832
+    ],
+    [
+     6.065,
+     9.832
+    ]
+   ]
   },
   {
    "id": "L1-R15",
@@ -3879,7 +4145,26 @@
     3.3325,
     8.532
    ],
-   "stair": false
+   "stair": false,
+   "type": "utility",
+   "polygon": [
+    [
+     1.915,
+     7.232
+    ],
+    [
+     4.865,
+     7.232
+    ],
+    [
+     4.865,
+     9.832
+    ],
+    [
+     1.915,
+     9.832
+    ]
+   ]
   },
   {
    "id": "L2-R16",
@@ -3889,7 +4174,26 @@
     7.5265,
     8.532
    ],
-   "stair": true
+   "stair": true,
+   "type": "stair",
+   "polygon": [
+    [
+     6.065,
+     7.232
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     8.988,
+     9.832
+    ],
+    [
+     6.065,
+     9.832
+    ]
+   ]
   }
  ],
  "stairs": [
@@ -4105,7 +4409,7 @@
       7.232
      ]
     ],
-    "service_kn": 225.5,
+    "service_kn": 225.4,
     "governing": "DL+LL",
     "bearing_kn_m2": 96.9,
     "allowed_kn_m2": 100.0
@@ -4114,7 +4418,7 @@
   {
    "id": "FT6",
    "at": [
-    5.5538,
+    5.5547,
     7.232
    ],
    "level": "LF",
@@ -4132,9 +4436,9 @@
       7.232
      ]
     ],
-    "service_kn": 487.6,
+    "service_kn": 488.9,
     "governing": "DL+LL",
-    "bearing_kn_m2": 98.3,
+    "bearing_kn_m2": 98.5,
     "allowed_kn_m2": 100.0
    }
   },
@@ -4155,9 +4459,9 @@
       7.232
      ]
     ],
-    "service_kn": 313.7,
+    "service_kn": 315.0,
     "governing": "DL+LL",
-    "bearing_kn_m2": 95.6,
+    "bearing_kn_m2": 96.0,
     "allowed_kn_m2": 100.0
    }
   },
@@ -4178,7 +4482,7 @@
       9.832
      ]
     ],
-    "service_kn": 224.4,
+    "service_kn": 224.3,
     "governing": "DL+LL",
     "bearing_kn_m2": 96.4,
     "allowed_kn_m2": 100.0
@@ -4187,7 +4491,7 @@
   {
    "id": "FT10",
    "at": [
-    5.5267,
+    5.5276,
     9.832
    ],
    "level": "LF",
@@ -4205,9 +4509,9 @@
       9.832
      ]
     ],
-    "service_kn": 497.1,
+    "service_kn": 498.4,
     "governing": "DL+LL",
-    "bearing_kn_m2": 97.5,
+    "bearing_kn_m2": 97.8,
     "allowed_kn_m2": 100.0
    }
   },
@@ -4218,8 +4522,8 @@
     9.832
    ],
    "level": "LF",
-   "width": 1.8,
-   "length": 1.8,
+   "width": 1.85,
+   "length": 1.85,
    "thickness": 0.3,
    "design": {
     "columns": [
@@ -4228,9 +4532,9 @@
       9.832
      ]
     ],
-    "service_kn": 293.6,
+    "service_kn": 295.0,
     "governing": "DL+LL",
-    "bearing_kn_m2": 99.7,
+    "bearing_kn_m2": 94.8,
     "allowed_kn_m2": 100.0
    }
   },
@@ -4307,5 +4611,2748 @@
     "allowed_kn_m2": 100.0
    }
   }
- ]
+ ],
+ "fixtures": [
+  {
+   "at": [
+    5.465,
+    7.3165
+   ],
+   "z": 1.2,
+   "size": [
+    0.2,
+    0.03,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L0-SWITCHBOARD1",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L0-R1",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    4.95,
+    13.202
+   ],
+   "z": 0.3,
+   "size": [
+    0.03,
+    0.08,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A2",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R1",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    5.465,
+    10.9745
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT3",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R1",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    4.695,
+    3.8585
+   ],
+   "z": 1.2,
+   "size": [
+    0.2,
+    0.03,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L0-SWITCHBOARD4",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L0-R2",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    3.5497,
+    7.1475
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A5",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R2",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    5.9805,
+    6.4392
+   ],
+   "z": 0.3,
+   "size": [
+    0.03,
+    0.08,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A6",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R2",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    2.0585,
+    6.4098
+   ],
+   "z": 0.3,
+   "size": [
+    0.03,
+    0.08,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A7",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R2",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    5.9805,
+    4.4502
+   ],
+   "z": 0.3,
+   "size": [
+    0.03,
+    0.08,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A8",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R2",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    3.99,
+    5.4735
+   ],
+   "z": 2.325,
+   "size": [
+    1.2,
+    1.2,
+    0.1
+   ],
+   "ifc_class": "IfcFlowTerminal",
+   "predefined": "USERDEFINED",
+   "id": "L0-FAN9",
+   "kind": "fan",
+   "system": "electrical",
+   "room": "L0-R2",
+   "level": "L0",
+   "load_w": 60,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    3.0125,
+    5.4735
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT10",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R2",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    4.9675,
+    5.4735
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT11",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R2",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    6.1495,
+    4.696
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L0-SWITCHBOARD12",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L0-R3",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    8.0725,
+    7.1475
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A13",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R3",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C1"
+  },
+  {
+   "at": [
+    6.9805,
+    7.1475
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A14",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R3",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    7.5265,
+    5.4735
+   ],
+   "z": 2.325,
+   "size": [
+    1.2,
+    1.2,
+    0.1
+   ],
+   "ifc_class": "IfcFlowTerminal",
+   "predefined": "USERDEFINED",
+   "id": "L0-FAN15",
+   "kind": "fan",
+   "system": "electrical",
+   "room": "L0-R3",
+   "level": "L0",
+   "load_w": 60,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    7.5265,
+    4.6543
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT16",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R3",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    7.5265,
+    6.2927
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT17",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R3",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    2.2685,
+    8.532
+   ],
+   "z": 0.65,
+   "size": [
+    0.45,
+    0.6,
+    0.2
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "SINK",
+   "id": "L0-KITCHEN_SINK18",
+   "kind": "kitchen_sink",
+   "system": "plumbing",
+   "room": "L0-R4",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    4.7805,
+    9.252
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L0-SWITCHBOARD19",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L0-R4",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    3.39,
+    7.3165
+   ],
+   "z": 1.1,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A20",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R4",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    3.39,
+    9.7475
+   ],
+   "z": 1.1,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A21",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R4",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    2.7923,
+    7.3165
+   ],
+   "z": 1.1,
+   "size": [
+    0.1,
+    0.03,
+    0.1
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "use": "appliance",
+   "id": "L0-SOCKET_16A22",
+   "kind": "socket_16a",
+   "system": "electrical",
+   "room": "L0-R4",
+   "level": "L0",
+   "load_w": 1000,
+   "circuit": "L0-C5"
+  },
+  {
+   "at": [
+    3.9878,
+    9.7475
+   ],
+   "z": 1.1,
+   "size": [
+    0.1,
+    0.03,
+    0.1
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "use": "appliance",
+   "id": "L0-SOCKET_16A23",
+   "kind": "socket_16a",
+   "system": "electrical",
+   "room": "L0-R4",
+   "level": "L0",
+   "load_w": 1000,
+   "circuit": "L0-C5"
+  },
+  {
+   "at": [
+    3.39,
+    8.532
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT24",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R4",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    4.7805,
+    12.177
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L0-SWITCHBOARD25",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L0-R5",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    2.8373,
+    9.9165
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A26",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R5",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    3.9428,
+    9.9165
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A27",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R5",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    4.7805,
+    10.5293
+   ],
+   "z": 0.3,
+   "size": [
+    0.03,
+    0.08,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A28",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R5",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C2"
+  },
+  {
+   "at": [
+    3.39,
+    9.9165
+   ],
+   "z": 2.1,
+   "size": [
+    0.1,
+    0.03,
+    0.1
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "use": "ac",
+   "id": "L0-SOCKET_16A29",
+   "kind": "socket_16a",
+   "system": "electrical",
+   "room": "L0-R5",
+   "level": "L0",
+   "load_w": 1000,
+   "circuit": "L0-C6"
+  },
+  {
+   "at": [
+    3.39,
+    11.457
+   ],
+   "z": 2.325,
+   "size": [
+    1.2,
+    1.2,
+    0.1
+   ],
+   "ifc_class": "IfcFlowTerminal",
+   "predefined": "USERDEFINED",
+   "id": "L0-FAN30",
+   "kind": "fan",
+   "system": "electrical",
+   "room": "L0-R5",
+   "level": "L0",
+   "load_w": 60,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    3.39,
+    10.7045
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT31",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R5",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    3.39,
+    12.2095
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT32",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R5",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    4.2865,
+    14.2485
+   ],
+   "z": 0.0,
+   "size": [
+    0.38,
+    0.68,
+    0.4
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "WCSEAT",
+   "id": "L0-WC33",
+   "kind": "wc",
+   "system": "plumbing",
+   "room": "L0-R6",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    2.4935,
+    14.1385
+   ],
+   "z": 0.0,
+   "size": [
+    0.9,
+    0.9,
+    0.05
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "SHOWER",
+   "id": "L0-SHOWER34",
+   "kind": "shower",
+   "system": "plumbing",
+   "room": "L0-R6",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    4.5955,
+    13.8995
+   ],
+   "z": 0.68,
+   "size": [
+    0.4,
+    0.5,
+    0.18
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "WASHHANDBASIN",
+   "id": "L0-WASHBASIN35",
+   "kind": "washbasin",
+   "system": "plumbing",
+   "room": "L0-R6",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    3.9775,
+    13.1665
+   ],
+   "z": 1.2,
+   "size": [
+    0.2,
+    0.03,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L0-SWITCHBOARD36",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L0-R6",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    2.0585,
+    13.8995
+   ],
+   "z": 1.8,
+   "size": [
+    0.03,
+    0.1,
+    0.1
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "use": "geyser",
+   "id": "L0-SOCKET_16A37",
+   "kind": "socket_16a",
+   "system": "electrical",
+   "room": "L0-R6",
+   "level": "L0",
+   "load_w": 1000,
+   "circuit": "L0-C7"
+  },
+  {
+   "at": [
+    3.39,
+    13.8995
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT38",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R6",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    6.9391,
+    12.9975
+   ],
+   "z": 1.2,
+   "size": [
+    0.2,
+    0.03,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L0-SWITCHBOARD39",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L0-R7",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    6.9805,
+    9.9165
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A40",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R7",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    8.0725,
+    9.9165
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A41",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R7",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    6.1495,
+    12.3848
+   ],
+   "z": 0.3,
+   "size": [
+    0.03,
+    0.08,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L0-SOCKET_6A42",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L0-R7",
+   "level": "L0",
+   "load_w": 100,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    7.5265,
+    9.9165
+   ],
+   "z": 2.1,
+   "size": [
+    0.1,
+    0.03,
+    0.1
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "use": "ac",
+   "id": "L0-SOCKET_16A43",
+   "kind": "socket_16a",
+   "system": "electrical",
+   "room": "L0-R7",
+   "level": "L0",
+   "load_w": 1000,
+   "circuit": "L0-C8"
+  },
+  {
+   "at": [
+    7.5265,
+    11.457
+   ],
+   "z": 2.325,
+   "size": [
+    1.2,
+    1.2,
+    0.1
+   ],
+   "ifc_class": "IfcFlowTerminal",
+   "predefined": "USERDEFINED",
+   "id": "L0-FAN44",
+   "kind": "fan",
+   "system": "electrical",
+   "room": "L0-R7",
+   "level": "L0",
+   "load_w": 60,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    7.5265,
+    10.7045
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT45",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R7",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    7.5265,
+    12.2095
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT46",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R7",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C3"
+  },
+  {
+   "at": [
+    6.6435,
+    14.2485
+   ],
+   "z": 0.0,
+   "size": [
+    0.38,
+    0.68,
+    0.4
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "WCSEAT",
+   "id": "L0-WC47",
+   "kind": "wc",
+   "system": "plumbing",
+   "room": "L0-R8",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    8.4095,
+    14.1385
+   ],
+   "z": 0.0,
+   "size": [
+    0.9,
+    0.9,
+    0.05
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "SHOWER",
+   "id": "L0-SHOWER48",
+   "kind": "shower",
+   "system": "plumbing",
+   "room": "L0-R8",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    6.3345,
+    13.8995
+   ],
+   "z": 0.68,
+   "size": [
+    0.4,
+    0.5,
+    0.18
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "WASHHANDBASIN",
+   "id": "L0-WASHBASIN49",
+   "kind": "washbasin",
+   "system": "plumbing",
+   "room": "L0-R8",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    8.2291,
+    13.1665
+   ],
+   "z": 1.2,
+   "size": [
+    0.2,
+    0.03,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L0-SWITCHBOARD50",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L0-R8",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    8.8445,
+    13.8995
+   ],
+   "z": 1.8,
+   "size": [
+    0.03,
+    0.1,
+    0.1
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "use": "geyser",
+   "id": "L0-SOCKET_16A51",
+   "kind": "socket_16a",
+   "system": "electrical",
+   "room": "L0-R8",
+   "level": "L0",
+   "load_w": 1000,
+   "circuit": "L0-C9"
+  },
+  {
+   "at": [
+    7.5265,
+    13.8995
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT52",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R8",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C4"
+  },
+  {
+   "at": [
+    6.1495,
+    7.812
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L0-SWITCHBOARD53",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L0-R9",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    7.5265,
+    7.4515
+   ],
+   "z": 2.2,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L0-LIGHT54",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L0-R9",
+   "level": "L0",
+   "load_w": 20,
+   "circuit": "L0-C4"
+  },
+  {
+   "at": [
+    5.98,
+    5.153
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L1-SWITCHBOARD55",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L1-R10",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    4.9495,
+    6.974
+   ],
+   "z": 0.3,
+   "size": [
+    0.03,
+    0.08,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L1-SOCKET_6A56",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L1-R10",
+   "level": "L1",
+   "load_w": 100,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    5.465,
+    6.7735
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L1-LIGHT57",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L1-R10",
+   "level": "L1",
+   "load_w": 20,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    4.7805,
+    6.136
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L1-SWITCHBOARD58",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L1-R11",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    3.9428,
+    7.1475
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L1-SOCKET_6A59",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L1-R11",
+   "level": "L1",
+   "load_w": 100,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    2.8373,
+    7.1475
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L1-SOCKET_6A60",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L1-R11",
+   "level": "L1",
+   "load_w": 100,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    4.7805,
+    4.4503
+   ],
+   "z": 0.3,
+   "size": [
+    0.03,
+    0.08,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L1-SOCKET_6A61",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L1-R11",
+   "level": "L1",
+   "load_w": 100,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    3.39,
+    7.1475
+   ],
+   "z": 2.1,
+   "size": [
+    0.1,
+    0.03,
+    0.1
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "use": "ac",
+   "id": "L1-SOCKET_16A62",
+   "kind": "socket_16a",
+   "system": "electrical",
+   "room": "L1-R11",
+   "level": "L1",
+   "load_w": 1000,
+   "circuit": "L1-C3"
+  },
+  {
+   "at": [
+    3.39,
+    5.4735
+   ],
+   "z": 2.325,
+   "size": [
+    1.2,
+    1.2,
+    0.1
+   ],
+   "ifc_class": "IfcFlowTerminal",
+   "predefined": "USERDEFINED",
+   "id": "L1-FAN63",
+   "kind": "fan",
+   "system": "electrical",
+   "room": "L1-R11",
+   "level": "L1",
+   "load_w": 60,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    3.39,
+    4.6543
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L1-LIGHT64",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L1-R11",
+   "level": "L1",
+   "load_w": 20,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    3.39,
+    6.2927
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L1-LIGHT65",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L1-R11",
+   "level": "L1",
+   "load_w": 20,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    8.5195,
+    4.8375
+   ],
+   "z": 0.0,
+   "size": [
+    0.68,
+    0.38,
+    0.4
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "WCSEAT",
+   "id": "L1-WC66",
+   "kind": "wc",
+   "system": "plumbing",
+   "room": "L1-R12",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    8.4095,
+    4.2935
+   ],
+   "z": 0.0,
+   "size": [
+    0.9,
+    0.9,
+    0.05
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "SHOWER",
+   "id": "L1-SHOWER67",
+   "kind": "shower",
+   "system": "plumbing",
+   "room": "L1-R12",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    7.5265,
+    5.1465
+   ],
+   "z": 0.68,
+   "size": [
+    0.5,
+    0.4,
+    0.18
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "WASHHANDBASIN",
+   "id": "L1-WASHBASIN68",
+   "kind": "washbasin",
+   "system": "plumbing",
+   "room": "L1-R12",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    6.1495,
+    5.153
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L1-SWITCHBOARD69",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L1-R12",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    8.2225,
+    5.3315
+   ],
+   "z": 1.8,
+   "size": [
+    0.1,
+    0.03,
+    0.1
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "use": "geyser",
+   "id": "L1-SOCKET_16A70",
+   "kind": "socket_16a",
+   "system": "electrical",
+   "room": "L1-R12",
+   "level": "L1",
+   "load_w": 1000,
+   "circuit": "L1-C4"
+  },
+  {
+   "at": [
+    7.5265,
+    4.5655
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L1-LIGHT71",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L1-R12",
+   "level": "L1",
+   "load_w": 20,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    6.1495,
+    5.679
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L1-SWITCHBOARD72",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L1-R13",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    7.5265,
+    6.324
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L1-LIGHT73",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L1-R13",
+   "level": "L1",
+   "load_w": 20,
+   "circuit": "L1-C1"
+  },
+  {
+   "at": [
+    6.1495,
+    7.812
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L1-SWITCHBOARD74",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L1-R14",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    7.5265,
+    7.4515
+   ],
+   "z": 2.2,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L1-LIGHT75",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L1-R14",
+   "level": "L1",
+   "load_w": 20,
+   "circuit": "L1-C2"
+  },
+  {
+   "at": [
+    2.3435,
+    9.3035
+   ],
+   "z": 0.0,
+   "size": [
+    0.6,
+    0.6,
+    0.85
+   ],
+   "ifc_class": "IfcSanitaryTerminal",
+   "predefined": "USERDEFINED",
+   "id": "L1-WASHING_MACHINE76",
+   "kind": "washing_machine",
+   "system": "plumbing",
+   "room": "L1-R15",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    4.7805,
+    9.252
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L1-SWITCHBOARD77",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L1-R15",
+   "level": "L1",
+   "load_w": 0
+  },
+  {
+   "at": [
+    3.39,
+    7.3165
+   ],
+   "z": 0.3,
+   "size": [
+    0.08,
+    0.03,
+    0.08
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "id": "L1-SOCKET_6A78",
+   "kind": "socket_6a",
+   "system": "electrical",
+   "room": "L1-R15",
+   "level": "L1",
+   "load_w": 100,
+   "circuit": "L1-C2"
+  },
+  {
+   "at": [
+    3.39,
+    9.6885
+   ],
+   "z": 1.0,
+   "size": [
+    0.1,
+    0.03,
+    0.1
+   ],
+   "ifc_class": "IfcOutlet",
+   "predefined": "POWEROUTLET",
+   "use": "washing machine",
+   "id": "L1-SOCKET_16A79",
+   "kind": "socket_16a",
+   "system": "electrical",
+   "room": "L1-R15",
+   "level": "L1",
+   "load_w": 1000,
+   "circuit": "L1-C5"
+  },
+  {
+   "at": [
+    3.39,
+    8.532
+   ],
+   "z": 2.775,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L1-LIGHT80",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L1-R15",
+   "level": "L1",
+   "load_w": 20,
+   "circuit": "L1-C2"
+  },
+  {
+   "at": [
+    6.2085,
+    8.4835
+   ],
+   "z": 1.2,
+   "size": [
+    0.03,
+    0.2,
+    0.12
+   ],
+   "ifc_class": "IfcSwitchingDevice",
+   "predefined": "TOGGLESWITCH",
+   "id": "L2-SWITCHBOARD81",
+   "kind": "switchboard",
+   "system": "electrical",
+   "room": "L2-R16",
+   "level": "L2",
+   "load_w": 0
+  },
+  {
+   "at": [
+    7.5265,
+    7.5105
+   ],
+   "z": 2.2,
+   "size": [
+    0.3,
+    0.3,
+    0.05
+   ],
+   "ifc_class": "IfcLightFixture",
+   "predefined": "POINTSOURCE",
+   "id": "L2-LIGHT82",
+   "kind": "light",
+   "system": "lighting",
+   "room": "L2-R16",
+   "level": "L2",
+   "load_w": 20,
+   "circuit": "L2-C1"
+  },
+  {
+   "at": [
+    5.935,
+    13.202
+   ],
+   "z": 1.5,
+   "size": [
+    0.12,
+    0.4,
+    0.5
+   ],
+   "ifc_class": "IfcElectricDistributionBoard",
+   "predefined": "DISTRIBUTIONBOARD",
+   "id": "L0-DISTRIBUTION_BOARD83",
+   "kind": "distribution_board",
+   "system": "electrical",
+   "room": "L0-R1",
+   "level": "L0",
+   "load_w": 0
+  },
+  {
+   "at": [
+    5.935,
+    7.3905
+   ],
+   "z": 1.5,
+   "size": [
+    0.12,
+    0.4,
+    0.5
+   ],
+   "ifc_class": "IfcElectricDistributionBoard",
+   "predefined": "DISTRIBUTIONBOARD",
+   "id": "L1-DISTRIBUTION_BOARD84",
+   "kind": "distribution_board",
+   "system": "electrical",
+   "room": "L1-R10",
+   "level": "L1",
+   "load_w": 0
+  }
+ ],
+ "pipes": [
+  {
+   "id": "P1",
+   "kind": "waste",
+   "at": [
+    1.699,
+    8.532
+   ],
+   "z0": 0.0,
+   "z1": 7.5,
+   "diameter": 0.075,
+   "outside": true,
+   "serves": [
+    "L0-R4",
+    "L1-R15"
+   ]
+  },
+  {
+   "id": "P2",
+   "kind": "soil",
+   "at": [
+    4.2865,
+    14.9505
+   ],
+   "z0": 0.0,
+   "z1": 4.5,
+   "diameter": 0.11,
+   "outside": true,
+   "serves": [
+    "L0-R6"
+   ]
+  },
+  {
+   "id": "P3",
+   "kind": "soil",
+   "at": [
+    6.6435,
+    14.9505
+   ],
+   "z0": 0.0,
+   "z1": 4.5,
+   "diameter": 0.11,
+   "outside": true,
+   "serves": [
+    "L0-R8"
+   ]
+  },
+  {
+   "id": "P4",
+   "kind": "soil",
+   "at": [
+    9.2215,
+    4.8375
+   ],
+   "z0": 0.0,
+   "z1": 7.5,
+   "diameter": 0.11,
+   "outside": true,
+   "serves": [
+    "L1-R12"
+   ]
+  }
+ ],
+ "tanks": [
+  {
+   "id": "T1",
+   "level": "L3",
+   "at": [
+    7.5265,
+    8.532
+   ],
+   "capacity_l": 500,
+   "diameter": 0.86,
+   "height": 1.0,
+   "weight_kn": 5.41,
+   "persons": 6,
+   "required_l": 450
+  }
+ ],
+ "circuits": [
+  {
+   "id": "L0-C1",
+   "level": "L0",
+   "kind": "lighting",
+   "board": "L0-DISTRIBUTION_BOARD83",
+   "points": [
+    "L0-SOCKET_6A2",
+    "L0-LIGHT3",
+    "L0-SOCKET_6A5",
+    "L0-SOCKET_6A6",
+    "L0-SOCKET_6A7",
+    "L0-SOCKET_6A8",
+    "L0-FAN9",
+    "L0-LIGHT10",
+    "L0-LIGHT11",
+    "L0-SOCKET_6A13"
+   ],
+   "load_w": 720
+  },
+  {
+   "id": "L0-C2",
+   "level": "L0",
+   "kind": "lighting",
+   "board": "L0-DISTRIBUTION_BOARD83",
+   "points": [
+    "L0-SOCKET_6A14",
+    "L0-FAN15",
+    "L0-LIGHT16",
+    "L0-LIGHT17",
+    "L0-SOCKET_6A20",
+    "L0-SOCKET_6A21",
+    "L0-LIGHT24",
+    "L0-SOCKET_6A26",
+    "L0-SOCKET_6A27",
+    "L0-SOCKET_6A28"
+   ],
+   "load_w": 720
+  },
+  {
+   "id": "L0-C3",
+   "level": "L0",
+   "kind": "lighting",
+   "board": "L0-DISTRIBUTION_BOARD83",
+   "points": [
+    "L0-FAN30",
+    "L0-LIGHT31",
+    "L0-LIGHT32",
+    "L0-LIGHT38",
+    "L0-SOCKET_6A40",
+    "L0-SOCKET_6A41",
+    "L0-SOCKET_6A42",
+    "L0-FAN44",
+    "L0-LIGHT45",
+    "L0-LIGHT46"
+   ],
+   "load_w": 520
+  },
+  {
+   "id": "L0-C4",
+   "level": "L0",
+   "kind": "lighting",
+   "board": "L0-DISTRIBUTION_BOARD83",
+   "points": [
+    "L0-LIGHT52",
+    "L0-LIGHT54"
+   ],
+   "load_w": 40
+  },
+  {
+   "id": "L0-C5",
+   "level": "L0",
+   "kind": "power",
+   "board": "L0-DISTRIBUTION_BOARD83",
+   "points": [
+    "L0-SOCKET_16A22",
+    "L0-SOCKET_16A23"
+   ],
+   "load_w": 2000
+  },
+  {
+   "id": "L0-C6",
+   "level": "L0",
+   "kind": "power",
+   "board": "L0-DISTRIBUTION_BOARD83",
+   "points": [
+    "L0-SOCKET_16A29"
+   ],
+   "load_w": 1000
+  },
+  {
+   "id": "L0-C7",
+   "level": "L0",
+   "kind": "power",
+   "board": "L0-DISTRIBUTION_BOARD83",
+   "points": [
+    "L0-SOCKET_16A37"
+   ],
+   "load_w": 1000
+  },
+  {
+   "id": "L0-C8",
+   "level": "L0",
+   "kind": "power",
+   "board": "L0-DISTRIBUTION_BOARD83",
+   "points": [
+    "L0-SOCKET_16A43"
+   ],
+   "load_w": 1000
+  },
+  {
+   "id": "L0-C9",
+   "level": "L0",
+   "kind": "power",
+   "board": "L0-DISTRIBUTION_BOARD83",
+   "points": [
+    "L0-SOCKET_16A51"
+   ],
+   "load_w": 1000
+  },
+  {
+   "id": "L1-C1",
+   "level": "L1",
+   "kind": "lighting",
+   "board": "L1-DISTRIBUTION_BOARD84",
+   "points": [
+    "L1-SOCKET_6A56",
+    "L1-LIGHT57",
+    "L1-SOCKET_6A59",
+    "L1-SOCKET_6A60",
+    "L1-SOCKET_6A61",
+    "L1-FAN63",
+    "L1-LIGHT64",
+    "L1-LIGHT65",
+    "L1-LIGHT71",
+    "L1-LIGHT73"
+   ],
+   "load_w": 560
+  },
+  {
+   "id": "L1-C2",
+   "level": "L1",
+   "kind": "lighting",
+   "board": "L1-DISTRIBUTION_BOARD84",
+   "points": [
+    "L1-LIGHT75",
+    "L1-SOCKET_6A78",
+    "L1-LIGHT80"
+   ],
+   "load_w": 140
+  },
+  {
+   "id": "L1-C3",
+   "level": "L1",
+   "kind": "power",
+   "board": "L1-DISTRIBUTION_BOARD84",
+   "points": [
+    "L1-SOCKET_16A62"
+   ],
+   "load_w": 1000
+  },
+  {
+   "id": "L1-C4",
+   "level": "L1",
+   "kind": "power",
+   "board": "L1-DISTRIBUTION_BOARD84",
+   "points": [
+    "L1-SOCKET_16A70"
+   ],
+   "load_w": 1000
+  },
+  {
+   "id": "L1-C5",
+   "level": "L1",
+   "kind": "power",
+   "board": "L1-DISTRIBUTION_BOARD84",
+   "points": [
+    "L1-SOCKET_16A79"
+   ],
+   "load_w": 1000
+  },
+  {
+   "id": "L2-C1",
+   "level": "L2",
+   "kind": "lighting",
+   "board": "L1-DISTRIBUTION_BOARD84",
+   "points": [
+    "L2-LIGHT82"
+   ],
+   "load_w": 20
+  }
+ ],
+ "finishes": [
+  {
+   "room": "L0-R1",
+   "level": "L0",
+   "floor": "Vitrified tile 600x600 on 40 mm cement mortar bed",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm vitrified tile skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     4.865,
+     7.232
+    ],
+    [
+     6.065,
+     7.232
+    ],
+    [
+     6.065,
+     14.717
+    ],
+    [
+     4.865,
+     14.717
+    ]
+   ]
+  },
+  {
+   "room": "L0-R2",
+   "level": "L0",
+   "floor": "Vitrified tile 600x600 on 40 mm cement mortar bed",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm vitrified tile skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     1.915,
+     3.715
+    ],
+    [
+     6.065,
+     3.715
+    ],
+    [
+     6.065,
+     7.232
+    ],
+    [
+     1.915,
+     7.232
+    ]
+   ]
+  },
+  {
+   "room": "L0-R3",
+   "level": "L0",
+   "floor": "Vitrified tile 600x600 on 40 mm cement mortar bed",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm vitrified tile skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     6.065,
+     3.715
+    ],
+    [
+     8.988,
+     3.715
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     6.065,
+     7.232
+    ]
+   ]
+  },
+  {
+   "room": "L0-R4",
+   "level": "L0",
+   "floor": "Anti-skid ceramic tile on 40 mm bed over waterproofing",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": "Glazed ceramic tile dado over the counter",
+   "dado_height": 0.6,
+   "skirting": "100 mm ceramic tile skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     1.915,
+     7.232
+    ],
+    [
+     4.865,
+     7.232
+    ],
+    [
+     4.865,
+     9.832
+    ],
+    [
+     1.915,
+     9.832
+    ]
+   ]
+  },
+  {
+   "room": "L0-R5",
+   "level": "L0",
+   "floor": "Vitrified tile 600x600 on 40 mm cement mortar bed",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm vitrified tile skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     1.915,
+     9.832
+    ],
+    [
+     4.865,
+     9.832
+    ],
+    [
+     4.865,
+     13.082
+    ],
+    [
+     1.915,
+     13.082
+    ]
+   ]
+  },
+  {
+   "room": "L0-R6",
+   "level": "L0",
+   "floor": "Anti-skid ceramic tile on 40 mm bed over waterproofing",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": "Glazed ceramic wall tile",
+   "dado_height": 2.1,
+   "skirting": null,
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     1.915,
+     13.082
+    ],
+    [
+     4.865,
+     13.082
+    ],
+    [
+     4.865,
+     14.717
+    ],
+    [
+     1.915,
+     14.717
+    ]
+   ]
+  },
+  {
+   "room": "L0-R7",
+   "level": "L0",
+   "floor": "Vitrified tile 600x600 on 40 mm cement mortar bed",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm vitrified tile skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     6.065,
+     9.832
+    ],
+    [
+     8.988,
+     9.832
+    ],
+    [
+     8.988,
+     13.082
+    ],
+    [
+     6.065,
+     13.082
+    ]
+   ]
+  },
+  {
+   "room": "L0-R8",
+   "level": "L0",
+   "floor": "Anti-skid ceramic tile on 40 mm bed over waterproofing",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": "Glazed ceramic wall tile",
+   "dado_height": 2.1,
+   "skirting": null,
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     6.065,
+     13.082
+    ],
+    [
+     8.988,
+     13.082
+    ],
+    [
+     8.988,
+     14.717
+    ],
+    [
+     6.065,
+     14.717
+    ]
+   ]
+  },
+  {
+   "room": "L0-R9",
+   "level": "L0",
+   "floor": "Kota stone 25 mm on treads, risers and landings",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm Kota stone skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": false,
+   "polygon": [
+    [
+     6.065,
+     7.232
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     8.988,
+     9.832
+    ],
+    [
+     6.065,
+     9.832
+    ]
+   ]
+  },
+  {
+   "room": "L1-R10",
+   "level": "L1",
+   "floor": "Vitrified tile 600x600 on 40 mm cement mortar bed",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm vitrified tile skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     4.865,
+     3.715
+    ],
+    [
+     6.065,
+     3.715
+    ],
+    [
+     6.065,
+     9.832
+    ],
+    [
+     4.865,
+     9.832
+    ]
+   ]
+  },
+  {
+   "room": "L1-R11",
+   "level": "L1",
+   "floor": "Vitrified tile 600x600 on 40 mm cement mortar bed",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm vitrified tile skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     1.915,
+     3.715
+    ],
+    [
+     4.865,
+     3.715
+    ],
+    [
+     4.865,
+     7.232
+    ],
+    [
+     1.915,
+     7.232
+    ]
+   ]
+  },
+  {
+   "room": "L1-R12",
+   "level": "L1",
+   "floor": "Anti-skid ceramic tile on 40 mm bed over waterproofing",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": "Glazed ceramic wall tile",
+   "dado_height": 2.1,
+   "skirting": null,
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     6.065,
+     3.715
+    ],
+    [
+     8.988,
+     3.715
+    ],
+    [
+     8.988,
+     5.416
+    ],
+    [
+     6.065,
+     5.416
+    ]
+   ]
+  },
+  {
+   "room": "L1-R13",
+   "level": "L1",
+   "floor": "Cement concrete IPS flooring with neat cement finish",
+   "floor_thickness": 0.04,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": null,
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     6.065,
+     5.416
+    ],
+    [
+     8.988,
+     5.416
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     6.065,
+     7.232
+    ]
+   ]
+  },
+  {
+   "room": "L1-R14",
+   "level": "L1",
+   "floor": "Kota stone 25 mm on treads, risers and landings",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm Kota stone skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": false,
+   "polygon": [
+    [
+     6.065,
+     7.232
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     8.988,
+     9.832
+    ],
+    [
+     6.065,
+     9.832
+    ]
+   ]
+  },
+  {
+   "room": "L1-R15",
+   "level": "L1",
+   "floor": "Anti-skid ceramic tile on 40 mm bed over waterproofing",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": "Glazed ceramic wall tile",
+   "dado_height": 1.2,
+   "skirting": null,
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": true,
+   "polygon": [
+    [
+     1.915,
+     7.232
+    ],
+    [
+     4.865,
+     7.232
+    ],
+    [
+     4.865,
+     9.832
+    ],
+    [
+     1.915,
+     9.832
+    ]
+   ]
+  },
+  {
+   "room": "L2-R16",
+   "level": "L2",
+   "floor": "Kota stone 25 mm on treads, risers and landings",
+   "floor_thickness": 0.05,
+   "wall": "12 mm cement plaster, acrylic emulsion paint",
+   "dado": null,
+   "dado_height": 0.0,
+   "skirting": "100 mm Kota stone skirting",
+   "ceiling": "Plaster on RCC slab, acrylic emulsion paint",
+   "finish_floor": false,
+   "polygon": [
+    [
+     6.065,
+     7.232
+    ],
+    [
+     8.988,
+     7.232
+    ],
+    [
+     8.988,
+     9.832
+    ],
+    [
+     6.065,
+     9.832
+    ]
+   ]
+  }
+ ],
+ "services": {
+  "checks": [
+   {
+    "check": "dwelling amenities: WC, washbasin, kitchen sink, bathing place",
+    "pass": true,
+    "detail": "WC 3, washbasin 3, sink 1, shower 3",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 9 Section 1, cl. 3.1.5",
+     "page": "8",
+     "status": "transcribed",
+     "note": "At least one water closet, one lavatory, one kitchen sink and one bathing place."
+    }
+   },
+   {
+    "check": "Kitchen (L0-R4) fitments",
+    "pass": true,
+    "detail": "kitchen_sink",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 9 Section 2, cl. 4.2.4.1",
+     "page": "16",
+     "status": "transcribed",
+     "note": "Dwelling with individual convenience: a bath room with a tap and floor trap, a water closet with flushing apparatus and ablution tap, a tap with floor trap or a sink in the kitchen or wash place."
+    }
+   },
+   {
+    "check": "Bath of Bedroom 2 (L0-R6) fitments",
+    "pass": true,
+    "detail": "shower, washbasin, wc",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 9 Section 2, cl. 4.2.4.1",
+     "page": "16",
+     "status": "transcribed",
+     "note": "Dwelling with individual convenience: a bath room with a tap and floor trap, a water closet with flushing apparatus and ablution tap, a tap with floor trap or a sink in the kitchen or wash place."
+    }
+   },
+   {
+    "check": "Bath of Bedroom 1 (L0-R8) fitments",
+    "pass": true,
+    "detail": "shower, washbasin, wc",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 9 Section 2, cl. 4.2.4.1",
+     "page": "16",
+     "status": "transcribed",
+     "note": "Dwelling with individual convenience: a bath room with a tap and floor trap, a water closet with flushing apparatus and ablution tap, a tap with floor trap or a sink in the kitchen or wash place."
+    }
+   },
+   {
+    "check": "Common bathroom 1 (L1-R12) fitments",
+    "pass": true,
+    "detail": "shower, washbasin, wc",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 9 Section 2, cl. 4.2.4.1",
+     "page": "16",
+     "status": "transcribed",
+     "note": "Dwelling with individual convenience: a bath room with a tap and floor trap, a water closet with flushing apparatus and ablution tap, a tap with floor trap or a sink in the kitchen or wash place."
+    }
+   },
+   {
+    "check": "Utility (L1-R15) fitments",
+    "pass": true,
+    "detail": "washing_machine",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 9 Section 2, cl. 4.2.4.1",
+     "page": "16",
+     "status": "transcribed",
+     "note": "Dwelling with individual convenience: a bath room with a tap and floor trap, a water closet with flushing apparatus and ablution tap, a tap with floor trap or a sink in the kitchen or wash place."
+    }
+   },
+   {
+    "check": "L0 lighting load <= 13 W/m2",
+    "pass": true,
+    "detail": "260 W over 70.2 m2 = 3.7 W/m2",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 8 Section 2, cl. 5.9.2",
+     "page": "45",
+     "status": "transcribed",
+     "note": "Lighting demand at most 13 W/m2 of built-up area; power at least 55 W/m2 with diversity not over 50 percent."
+    }
+   },
+   {
+    "check": "L0 power provision >= 55 W/m2",
+    "pass": true,
+    "detail": "7500 W over 70.2 m2 = 106.8 W/m2 connected",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 8 Section 2, cl. 5.9.2",
+     "page": "45",
+     "status": "transcribed",
+     "note": "Lighting demand at most 13 W/m2 of built-up area; power at least 55 W/m2 with diversity not over 50 percent."
+    }
+   },
+   {
+    "check": "L1 lighting load <= 13 W/m2",
+    "pass": true,
+    "detail": "140 W over 35.7 m2 = 3.9 W/m2",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 8 Section 2, cl. 5.9.2",
+     "page": "45",
+     "status": "transcribed",
+     "note": "Lighting demand at most 13 W/m2 of built-up area; power at least 55 W/m2 with diversity not over 50 percent."
+    }
+   },
+   {
+    "check": "L1 power provision >= 55 W/m2",
+    "pass": true,
+    "detail": "3500 W over 35.7 m2 = 98.1 W/m2 connected",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 8 Section 2, cl. 5.9.2",
+     "page": "45",
+     "status": "transcribed",
+     "note": "Lighting demand at most 13 W/m2 of built-up area; power at least 55 W/m2 with diversity not over 50 percent."
+    }
+   },
+   {
+    "check": "sub-circuits within ten points / 800 W, two 16 A outlets",
+    "pass": true,
+    "detail": "15 circuits",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 8 Section 2, cl. 5.4.4.3",
+     "page": "39-40",
+     "status": "transcribed",
+     "note": "Light/fan/6 A socket sub-circuit: at most ten points and 800 W; power sub-circuit: at most two 16 A outlets."
+    }
+   },
+   {
+    "check": "overhead tank >= half a day's demand",
+    "pass": true,
+    "detail": "500 l for 6 persons x 150 l/day x 0.5 = 450 l",
+    "source": {
+     "standard": "National Building Code of India 2016 (SP 7:2016)",
+     "clause": "Vol 2, Part 9 Section 1, cl. 4.4.10, NOTE (a)",
+     "page": "14-15",
+     "status": "transcribed",
+     "note": "Only an OHT provided: 33.33 to 50 percent of one day's requirement; the upper bound is used."
+    }
+   }
+  ],
+  "notes": [
+   "Common bathroom 1 (L1-R12): back wall 1.44 m, shower and WC close",
+   "Overhead tank 500 l (0.86 m dia x 1.0 m) on the L3 slab, 5.41 kN full: designed for 6 persons (brief 5, NBC population 6 for the bedrooms).",
+   "4 stacks (3 soil, 1 waste), two-pipe system; pipe routing not modelled (LOD 300).",
+   "Points per room, mounting heights, loads per point and finishes are STRATA defaults (assumed)."
+  ],
+  "tank": {
+   "persons": 6,
+   "nbc_population": 6,
+   "brief_persons": 5,
+   "demand_lphd": 150.0,
+   "required_l": 450,
+   "capacity_l": 500,
+   "diameter": 0.86,
+   "height": 1.0,
+   "weight_kn": 5.41
+  },
+  "sources": {
+   "fitments": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 2, Part 9 Section 2, cl. 4.2.4.1",
+    "page": "16",
+    "status": "transcribed",
+    "note": "Dwelling with individual convenience: a bath room with a tap and floor trap, a water closet with flushing apparatus and ablution tap, a tap with floor trap or a sink in the kitchen or wash place."
+   },
+   "amenities": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 2, Part 9 Section 1, cl. 3.1.5",
+    "page": "8",
+    "status": "transcribed",
+    "note": "At least one water closet, one lavatory, one kitchen sink and one bathing place."
+   },
+   "population": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 2, Part 9 Section 1, cl. 4.1 (a)",
+    "page": "10",
+    "status": "transcribed",
+    "note": "Residential population: 1 bedroom 4, 2 bedroom 5, 3 bedroom 6, 4 bedroom and above 7."
+   },
+   "overhead_tank": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 2, Part 9 Section 1, cl. 4.4.10, NOTE (a)",
+    "page": "14-15",
+    "status": "transcribed",
+    "note": "Only an OHT provided: 33.33 to 50 percent of one day's requirement; the upper bound is used."
+   },
+   "subcircuit": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 2, Part 8 Section 2, cl. 5.4.4.3",
+    "page": "39-40",
+    "status": "transcribed",
+    "note": "Light/fan/6 A socket sub-circuit: at most ten points and 800 W; power sub-circuit: at most two 16 A outlets."
+   },
+   "lighting_density": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 2, Part 8 Section 2, cl. 5.9.2",
+    "page": "45",
+    "status": "transcribed",
+    "note": "Lighting demand at most 13 W/m2 of built-up area; power at least 55 W/m2 with diversity not over 50 percent."
+   },
+   "two_pipe": {
+    "standard": "National Building Code of India 2016 (SP 7:2016)",
+    "clause": "Vol 2, Part 9 Section 2 (drainage and sanitation)",
+    "page": "-",
+    "status": "assumed",
+    "note": "Two-pipe system: soil stack for water closets, waste stack for sinks and washing; stacks on the external wall face. Pipe routing is LOD 300 and not modelled."
+   },
+   "points": {
+    "standard": "STRATA default",
+    "clause": "-",
+    "page": "-",
+    "status": "assumed",
+    "note": "Points per room: no NBC count; typical Indian residential practice."
+   },
+   "heights": {
+    "standard": "STRATA default",
+    "clause": "-",
+    "page": "-",
+    "status": "assumed",
+    "note": "Mounting heights above finished floor: switch boards 1.2 m, 6 A sockets 0.3 m (kitchen 1.1 m), AC 16 A 2.1 m, geyser 16 A 1.8 m, washing machine 16 A 1.0 m."
+   },
+   "loads": {
+    "standard": "STRATA default",
+    "clause": "-",
+    "page": "-",
+    "status": "assumed",
+    "note": "Connected load per point: LED light 20 W, fan 60 W, 6 A socket 100 W, 16 A outlet 1000 W."
+   },
+   "finishes": {
+    "standard": "STRATA default",
+    "clause": "-",
+    "page": "-",
+    "status": "assumed",
+    "note": "Finish schedule by room type: typical Guwahati residential specification."
+   }
+  }
+ }
 }

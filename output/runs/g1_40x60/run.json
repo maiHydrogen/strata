@@ -1,0 +1,149 @@
+{
+ "name": "g1_40x60",
+ "status": "complete",
+ "stages": [
+  {
+   "stage": "spec",
+   "seconds": 0.4,
+   "unresolved": [],
+   "brief_defaults": [
+    "balcony_per_bedroom_floor",
+    "budget",
+    "electrical_loads",
+    "finish_level",
+    "lift",
+    "parking",
+    "rental_unit",
+    "site.plot_level_below_road",
+    "site.power_phase",
+    "site.sewer",
+    "site.soil_bearing_capacity",
+    "site.storm_drain",
+    "site.water_main",
+    "site.water_table_below_foundation",
+    "vastu",
+    "water_source"
+   ]
+  },
+  {
+   "stage": "layout",
+   "seconds": 19.6,
+   "options": [
+    {
+     "k": 1,
+     "pass": true,
+     "hard": 0.0,
+     "soft": 2.0738
+    },
+    {
+     "k": 2,
+     "pass": true,
+     "hard": 0.0,
+     "soft": 2.2365
+    },
+    {
+     "k": 3,
+     "pass": true,
+     "hard": 0.0,
+     "soft": 2.4914
+    }
+   ]
+  },
+  {
+   "stage": "approval",
+   "option": 1,
+   "layout": "g1_40x60_1",
+   "by": "automatic: best passing option (no approval asked)"
+  },
+  {
+   "stage": "structure",
+   "seconds": 19.3,
+   "attempts": [
+    {
+     "layout": "g1_40x60_1",
+     "passed": true,
+     "rounds": 5,
+     "reason": null
+    }
+   ],
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x450",
+    "beam-3": "230x300",
+    "column-0": "450x450",
+    "column-1": "450x450",
+    "column-2": "300x300"
+   },
+   "slab_mm": 125,
+   "footings": 13,
+   "notes": [
+    "Overhead tank 500 l, 5.41 kN full, on the stair cabin roof: +0.71 kN/m2 dead load over 7.6 m2 (NBC 2016 Part 9 Section 1 cl. 4.4.10: half a day's demand).",
+    "Grid 4 x 4 lines; 64 joints, 48 columns, 69 beams.",
+    "Fixed supports at the top of the footings, 1.5 m below ground-floor level (assumed); plinth beams at ground-floor level carry the ground-floor walls.",
+    "Walls: burnt clay brick 20 kN/m3 plus 0.5 kN/m2 plaster (IS 875 Part 1), less door and window areas; parapets 1 m on roof and terrace edges.",
+    "Partitions between grid lines: slab load of at least one third of their weight per metre, minimum 1 kN/m2 (IS 875 Part 2 cl. 3.1.2).",
+    "Imposed loads 2 (rooms), 3 (corridors, stairs, stores), 1.5 kN/m2 (roofs): National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, cl. 3.3.1, Table 1 (i)(a), National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, cl. 3.4.1, Table 2 (i).",
+    "Stair: 8.031 kN/m2 on plan (0.15 m waist, steps, finish) over the stair cell.",
+    "Finishes 1 kN/m2 on floors, 1.5 kN/m2 on roofs (practice).",
+    "Slab 125 mm: shortest-side span up to 2.96 m, span/depth 28 (IS 456 cl. 24.1 Note 2, x 0.8 for Fe 500).",
+    "Seismic: IS 1893 (Part 1):2016, Z = 0.36 (National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, Annex K (cl. 5.3.4.2)), R = 5 (SMRF, IS 13920 detailing), I = 1.0, medium soil (assumed); 100% + 30% orthogonal combinations (cl. 6.3.4.1).",
+    "IS 875 (Part 3):2015 wind: Vb 50 m/s, k1 1.0, k2 terrain category 3 (Table 2, assumed), k3 1.0, k4 1.0; pd = Kd Ka Kc pz with Kd 0.9, Ka 1.0, Kc 0.9; net Cp 1 (Table 5: windward +0.7, leeward -0.3); Vb source: National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, Annex C (cl. 4.4.2).",
+    "beam-0: 230x450 for spans up to 4.88 m (D >= span/12, >= 300 mm)",
+    "beam-1: 230x450 for spans up to 4.88 m (D >= span/12, >= 300 mm)",
+    "beam-2: 230x450 for spans up to 4.88 m (D >= span/12, >= 300 mm)",
+    "beam-3: 230x300 for spans up to 2.92 m (D >= span/12, >= 300 mm)",
+    "column-0: 300x300, largest Pu 588 kN incl. 30% for seismic moments, needs 44373 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+    "column-1: 300x300, largest Pu 246 kN incl. 30% for seismic moments, needs 18536 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+    "column-2: 300x300, largest Pu 32 kN incl. 30% for seismic moments, needs 2403 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+    "2 ground-floor partition(s) between grid lines stand on the slab on grade.",
+    "Stair cabin over the stair well: 4 columns rise one storey (3 m) above the roof; 230 mm brick walls on the roof beams, door area not deducted; cabin roof imposed load 0.75 kN/m2 (IS 875 Part 2 Table 2, no access except for maintenance).",
+    "Isolated footings, combined where pads would overlap, on 100 kN/m2 safe bearing capacity (brief), +50% under earthquake combinations (IS 1893 Part 1 cl. 6.3.5.2); thickness from punching and one-way shear (IS 456 cl. 31.6.3.1, 34.2.4.1); reinforcement not designed at LOD 200."
+   ]
+  },
+  {
+   "stage": "building",
+   "seconds": 0.1,
+   "counts": {
+    "columns": 48,
+    "beams": 69,
+    "footings": 13,
+    "walls": 41,
+    "openings": 27,
+    "rooms": 16,
+    "stairs": 2,
+    "fixtures": 84,
+    "pipes": 3,
+    "tanks": 1,
+    "circuits": 14,
+    "finishes": 16
+   },
+   "services_checks": "12/12",
+   "services_failed": [],
+   "copied_to": "/mnt/c/Users/Public/Documents/STRATA/g1_40x60_1.building.json"
+  }
+ ],
+ "files": {
+  "brief": "output/runs/g1_40x60/g1_40x60.brief.json",
+  "spec": "output/runs/g1_40x60/g1_40x60.spec.json",
+  "layout_1": "output/runs/g1_40x60/g1_40x60_1.layout.json",
+  "check_1": "output/runs/g1_40x60/g1_40x60_1.check.json",
+  "svg_1": "output/runs/g1_40x60/g1_40x60_1.svg",
+  "layout_2": "output/runs/g1_40x60/g1_40x60_2.layout.json",
+  "check_2": "output/runs/g1_40x60/g1_40x60_2.check.json",
+  "svg_2": "output/runs/g1_40x60/g1_40x60_2.svg",
+  "layout_3": "output/runs/g1_40x60/g1_40x60_3.layout.json",
+  "check_3": "output/runs/g1_40x60/g1_40x60_3.check.json",
+  "svg_3": "output/runs/g1_40x60/g1_40x60_3.svg",
+  "std": "output/runs/g1_40x60/g1_40x60_1.std",
+  "design": "output/runs/g1_40x60/design.json",
+  "building": "output/runs/g1_40x60/g1_40x60_1.building.json"
+ },
+ "layout": "g1_40x60_1",
+ "seconds": 39.4,
+ "next_steps": [
+  "Revit: new project (Default-Multi-Discipline_Metric), load the concrete column, beam and footing families, run the Dynamo node on g1_40x60_1.building.json",
+  "Revit: File > Export > IFC (IFC4) as g1_40x60_1.ifc in the same folder",
+  "WSL: python scripts/check_ifc.py output/runs/g1_40x60/g1_40x60_1.building.json"
+ ]
+}

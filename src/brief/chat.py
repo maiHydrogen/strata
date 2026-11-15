@@ -170,6 +170,7 @@ class BriefSession:
             return "Thank you, the brief is confirmed."
         extraction = self._extract(text)
         if extraction is not None:
+            extraction = _floors_from_text(text, extraction)
             try:
                 self._apply(extraction)
             except ValidationError:  # a value the brief itself rejects; ask again rather than crash
@@ -337,6 +338,28 @@ def first_json_object(raw):
         return json.loads(raw)  # raises the usual error, reported back to the model
     obj, _end = json.JSONDecoder().raw_decode(raw, start)
     return obj
+
+
+_G_PLUS = re.compile(r"\bG\s*\+\s*([0-2])\b", re.I)
+_STOREY = re.compile(r"\b(single|one|two|three|double|[123])[- ]?(?:stor(?:e)?y|stories|storeys|floors?)\b", re.I)
+_WORDS = {"single": 1, "one": 1, "1": 1, "two": 2, "double": 2, "2": 2, "three": 3, "3": 3}
+
+
+def _floors_from_text(text, x):
+    """'G+1' and 'two storey' are unambiguous, so they override the LLM's count (a small model has read
+    'G+1' as one storey). The first mention is what is built now; a larger later mention is the future."""
+    counts = [int(m.group(1)) + 1 for m in _G_PLUS.finditer(text)]
+    if not counts:
+        counts = [_WORDS[m.group(1).lower()] for m in _STOREY.finditer(text)
+                  if not re.match(r"\s*(?:bed|bhk|room)", text[m.end():], re.I)]
+    if not counts:
+        return x
+    update = {"floors_now": counts[0]}
+    if max(counts) > counts[0]:
+        update["floors_future"] = max(counts)
+    elif x.floors_future is not None and x.floors_future < counts[0]:
+        update["floors_future"] = counts[0]
+    return x.model_copy(update=update)
 
 
 def _any(x, *names):

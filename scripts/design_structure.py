@@ -25,6 +25,7 @@ sys.path.insert(0, ROOT)
 from src.brief.schema import Brief  # noqa: E402
 from src.execution.building_schema import Building, validate_building  # noqa: E402
 from src.execution.layout_to_building import building_from_layout  # noqa: E402
+from src.services.generate import add_services, tank_from_brief  # noqa: E402
 from src.inference.spec import build_spec  # noqa: E402
 from src.spatial.checker import check_layout  # noqa: E402
 from src.spatial.ga import alternatives, evaluate, to_layout  # noqa: E402
@@ -69,7 +70,7 @@ def main():
     os.makedirs(out, exist_ok=True)
 
     if args.std_only:
-        model = build_frame(layout, spec)
+        model = build_frame(layout, spec, tank_from_brief(brief, spec))
         path = os.path.join(out, f"{name}.std")
         with open(path, "w") as f:
             f.write(write_std(model.frame, title=name))
@@ -109,6 +110,7 @@ def main():
         json.dump(info, f, indent=1)
     building = building_from_layout(layout, result.model, result.outcome, result.footings, CODE_NOTE,
                                     name=f"STRATA {layout.name}")
+    add_services(building, tank_from_brief(brief, spec), getattr(brief, "electrical_loads", None) or ())
     problems = validate_building(Building.model_validate(building))
     if problems:
         sys.exit("Building JSON failed validation:\n  " + "\n  ".join(problems))
@@ -123,6 +125,13 @@ def main():
     print("Footings (m): " + ", ".join(f"{f.width:g}x{f.length:g}x{f.thickness:g}" for f in result.footings))
     print(f"{len(building['columns'])} columns, {len(building['beams'])} beams, {len(building['footings'])} footings, "
           f"{len(building['walls'])} walls, {len(building['openings'])} openings, {len(building['rooms'])} rooms")
+    sv = building["services"]
+    print(f"Services: {len(building['fixtures'])} fixtures, {len(building['pipes'])} stacks, "
+          f"{len(building['circuits'])} circuits, tank {sv['tank']['capacity_l']} l; checks "
+          f"{sum(c['pass'] for c in sv['checks'])}/{len(sv['checks'])} pass")
+    for c in sv["checks"]:
+        if not c["pass"]:
+            print(f"  FAIL {c['check']}: {c['detail']}")
     print(f"Wrote {out}")
 
 

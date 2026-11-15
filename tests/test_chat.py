@@ -170,3 +170,15 @@ def test_live_gemini_extraction():
     s.reply("We want a G+1 house, 3BHK, on a 30 by 40 feet east facing plot in Guwahati")
     assert s.brief.floors_now == 2 and s.brief.programme.bedrooms == 3
     assert abs(s.brief.site.plot.width - 9.144) < 0.01 and s.brief.site.north == "E"
+
+
+def test_g_plus_text_overrides_a_wrong_llm_storey_count():
+    """Gemma read 'A G+1 house' as floors_now=1; G+N in the client's own words is unambiguous."""
+    from src.brief.chat import Extraction, _floors_from_text
+    wrong = Extraction(floors_now=1)
+    assert _floors_from_text("A G+1 house for 4 of us, 3BHK", wrong).floors_now == 2
+    both = _floors_from_text("G+1 now, maybe G+2 later", wrong)
+    assert (both.floors_now, both.floors_future) == (2, 3)
+    assert _floors_from_text("a two storey house", wrong).floors_now == 2
+    assert _floors_from_text("3 bedroom house on a corner plot", wrong).floors_now == 1  # no storey words
+    assert _floors_from_text("we want 2 bedrooms", Extraction()).floors_now is None
