@@ -43,7 +43,14 @@ SOURCES = {
                           "stacks on the external wall face. Pipe routing is LOD 300 and not modelled."),
     "points": _default("Points per room: no NBC count; typical Indian residential practice."),
     "heights": _default("Mounting heights above finished floor: switch boards 1.2 m, 6 A sockets 0.3 m "
-                        "(kitchen 1.1 m), AC 16 A 2.1 m, geyser 16 A 1.8 m, washing machine 16 A 1.0 m."),
+                        "(kitchen 1.1 m), TV 0.45 m, AC 16 A 2.1 m, geyser 16 A 1.8 m, washing machine 16 A 1.0 m."),
+    "socket_height": _src("Vol 2, Part 8 Section 2, cl. 7.2.3", "56",
+                          note="Ordinary socket-outlet at a height above 200 mm from the floor level."),
+    "accessible": _src("Vol 2, Part 8 Section 2, cl. 7.2.3", "56",
+                       note="For persons with disabilities and the elderly: switches and socket-outlets between 800 "
+                            "and 1 100 mm above floor level, at least 600 mm (preferably 700 mm) from any internal "
+                            "corner. Written for public buildings; applied here because the household includes "
+                            "elderly or wheelchair users."),
     "loads": _default("Connected load per point: LED light 20 W, fan 60 W, 6 A socket 100 W, 16 A outlet 1000 W."),
     "finishes": _default("Finish schedule by room type: typical Guwahati residential specification."),
 }
@@ -141,3 +148,25 @@ FINISHES = {
     "parking": (("Cement concrete IPS flooring, trowelled", 0.04), _PAINT, None, None),
 }
 CEILING = "Plaster on RCC slab, acrylic emulsion paint"
+
+# Client finish choices (brief.finishes) -> specification text; every build-up 50 mm on the slab
+FLOOR_TEXT = {
+    "vitrified": "Vitrified tile 600x600 on 40 mm cement mortar bed",
+    "ceramic": "Ceramic floor tile on 40 mm cement mortar bed",
+    "marble": "Marble 18 mm on 32 mm cement mortar bed",
+    "granite": "Granite 18 mm on 32 mm cement mortar bed",
+    "wooden": "Engineered wood 12 mm on underlay over 38 mm screed",
+    "kota": "Kota stone 25 mm on 25 mm cement mortar bed",
+    "mosaic": "Terrazzo (mosaic) tile on 40 mm cement mortar bed",
+}
+PAINT_TEXT = {
+    "distemper": "12 mm cement plaster, oil-bound distemper",
+    "emulsion": "12 mm cement plaster, acrylic emulsion paint",
+    "premium_emulsion": "12 mm cement plaster, wall putty, premium acrylic emulsion",
+    "texture": "12 mm cement plaster, texture paint",
+}
+LIVING_GROUP = {"living", "dining", "foyer", "corridor", "puja"}
+BED_GROUP = {"bedroom", "study"}
+BATHS = {"bathroom", "bath_wc", "wc"}
+ACCESSIBLE = {"switchboard": 1.0, "socket": 0.8, "corner": 0.6}  # cl. 7.2.3 (800-1100 mm, 600 mm from corners)
+TV_HEIGHT = 0.45

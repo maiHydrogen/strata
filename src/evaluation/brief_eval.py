@@ -106,6 +106,11 @@ def run_case(case, llm, pause=0.0, log_dir=None):
     asked, turns, unanswered = [], 0, []
     while not s.summarised and turns < MAX_TURNS:
         path = s.asked
+        if path == "preferences":  # optional question, outside the Must-item scoring
+            time.sleep(pause)
+            s.reply(case.get("preferences", "No preferences, standard is fine."))
+            calls += 1
+            continue
         asked.append(path)
         answer = case["answers"].get(path)
         if answer is None:

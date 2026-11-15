@@ -26,7 +26,7 @@ from dataclasses import dataclass, field
 from src.execution.building_schema import Building, validate_building
 from src.execution.layout_to_building import building_from_layout
 from src.inference.spec import build_spec
-from src.services.generate import add_services, tank_from_brief
+from src.services.generate import add_services, prefs_from_brief, tank_from_brief
 from src.spatial.checker import check_layout
 from src.spatial.ga import alternatives, evaluate, suggest, to_layout
 from src.spatial.layout import Layout
@@ -136,14 +136,17 @@ def approve(run: Run, options, pick=None, ask=None):
     return chosen["layout"]
 
 
-def stage_structure(run: Run, layout, brief, spec, runner, attempts=3, rounds=10, seed=1):
-    """STAAD design loop; a frame that cannot pass sends a shorter span back to the layout GA."""
+def stage_structure(run: Run, layout, brief, spec, runner, attempts=3, rounds=10, seed=1, on_round=None):
+    """STAAD design loop; a frame that cannot pass sends a shorter span back to the layout GA.
+    `on_round(layout_name, DesignRound)` reports each STAAD round as it finishes."""
     t = time.time()
     tried = []
     for attempt in range(1, attempts + 1):
-        result = design_structure(layout, spec, runner, layout.name, brief=brief, max_rounds=rounds)
-        for r in result.outcome.rounds:
+        def tick(r, name=layout.name):
             run.log(f"  round {r.number}: {r.sections} {'PASS' if r.passed else 'FAIL'}")
+            if on_round:
+                on_round(name, r)
+        result = design_structure(layout, spec, runner, layout.name, brief=brief, max_rounds=rounds, on_round=tick)
         tried.append({"layout": layout.name, "passed": result.passed, "rounds": len(result.outcome.rounds),
                       "reason": None if result.passed else result.outcome.reason})
         if result.passed:
@@ -188,7 +191,7 @@ def stage_building(run: Run, layout, result, brief, spec, copy_to=DEFAULT_WORKDI
     t = time.time()
     building = building_from_layout(layout, result.model, result.outcome, result.footings, CODE_NOTE,
                                     name=f"STRATA {layout.name}")
-    add_services(building, tank_from_brief(brief, spec), getattr(brief, "electrical_loads", None) or ())
+    add_services(building, tank_from_brief(brief, spec), prefs_from_brief(brief))
     problems = validate_building(Building.model_validate(building))
     if problems:
         raise StageError("building", "building JSON failed validation: " + "; ".join(problems[:5]))

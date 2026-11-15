@@ -63,7 +63,7 @@ def test_oracle_scores_perfectly(case):
     assert r["done"] and r["omissions"]["exact"] and not r["unanswered"], r
     assert not r["first"]["wrong"] and not r["first"]["missed"] and not r["first"]["hallucinated"], r["first"]
     assert r["final"]["complete"], r["final"]
-    assert r["llm_calls"] == 1 + len(case["answers"])
+    assert r["llm_calls"] == 1 + len(case["answers"]) + 1  # + the optional preferences question
 
 
 def test_summary_metrics():

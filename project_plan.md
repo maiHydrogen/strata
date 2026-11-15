@@ -108,16 +108,16 @@
 ## Phase 6 — Services & Finishes (2 weeks)
 
 - [x] Plumbing at LOD 200: fixtures per wet-room template (NBC Part 9 Sec 2 cl. 4.2.4.1, Sec 1 cl. 3.1.5), soil and waste stacks on the external wall face open to the ground (two-pipe), overhead tank on the stair cabin roof sized from the household (Sec 1 cl. 4.1, 4.4.10) with its weight in the STAAD frame; `src/services/` — sump and septic tank sizing (IS 1172, IS 2470) still open
-- [x] Electrical at LOD 200: lights, fans, 6 A/16 A points, switch board per room, distribution board per floor, sub-circuits within NBC Part 8 Sec 2 cl. 5.4.4.3, load densities checked against cl. 5.9.2 (points per room and heights are STRATA defaults, marked assumed); meter location open
-- [x] Finishing: floor, wall, dado, skirting and ceiling per room type (STRATA defaults, marked assumed); finish floors on the slab and Revit room finish parameters
+- [x] Electrical at LOD 200: lights, fans, 6 A/16 A points, switch board per room, distribution board per floor, sub-circuits within NBC Part 8 Sec 2 cl. 5.4.4.3, load densities checked against cl. 5.9.2; AC/TV/geyser points and extra sockets from the brief (A12, asked once as an optional question), socket heights per cl. 7.2.3 with accessible heights (800-1100 mm, 600 mm from corners) when the household has elderly or wheelchair users; points per room still STRATA defaults (assumed); meter location open
+- [x] Finishing: floor, wall, dado, skirting and ceiling per room type — client's floor finishes, bathroom tile height and paint from the brief, gaps from the finish level (A11: economy/standard/premium tiers, marked assumed); finish floors on the slab and Revit room finish parameters
 - [ ] Keep stacks, shafts and services clear of beams and columns from Phase 5 (stacks run outside the external walls; not yet checked against the columns)
 
 ## Phase 7 — Building JSON & Revit Execution (3 weeks)
 
-- [ ] Define the building JSON schema: levels, grids, wall types with layers, walls, hosted doors/windows, floors, roofs, stairs, rooms, columns, beams, footings, fixtures, finishes (v0.5 adds rooms with type and outline, fixtures, stacks, tank, circuits and finishes; v0.4 has levels incl. foundation and stair-cabin roof, wall types, walls incl. parapets and the stair cabin, openings, floors with stair openings, rooms, dog-leg stairs (runs + landing), columns, beams, footings; built from the layout and the designed frame by `src/execution/layout_to_building.py`; the stair cabin is in the STAAD frame)
+- [x] Define the building JSON schema: levels, grids, wall types with layers, walls, hosted doors/windows, floors, roofs, stairs, rooms, columns, beams, footings, fixtures, finishes (v0.5 adds rooms with type and outline, fixtures, stacks, tank, circuits and finishes; v0.4 has levels incl. foundation and stair-cabin roof, wall types, walls incl. parapets and the stair cabin, openings, floors with stair openings, rooms, dog-leg stairs (runs + landing), columns, beams, footings; built from the layout and the designed frame by `src/execution/layout_to_building.py`; the stair cabin is in the STAAD frame)
 - [x] Spike: script on Revit 2027 builds walls, doors, windows, floor and rooms for a 2-room flat from JSON (run via Dynamo; pyRevit button also written)
 - [ ] Revit listener: pyRevit Routes, or a folder-watch add-in as fallback
-- [ ] Full deterministic builder for all 5 layers with native families and types (no LLM in this step)
+- [x] Full deterministic builder for all 5 layers with native families and types (no LLM in this step) — structure, walls, openings, slabs, rooms, stairs and pipes native; fixtures and the tank as typed DirectShapes (no MEP families to load), IFC-mapped
 - [ ] Write STAAD results into Revit element parameters (utilisation, steel required, check status)
 - [x] Export IFC from Revit; validate it with IfcOpenShell (`scripts/check_ifc.py`: counts per class, openings in walls, storeys, services found by id and typed; the 40x60 house passes 11/11 before services)
 - [ ] Consistency check: Revit member sizes and positions match the STAAD model
@@ -127,7 +127,7 @@
 - [x] Orchestrator: one folder per job, one file per step, resumable after a failure — `scripts/strata.py` / `src/orchestrator.py` chain brief → spec → layouts → approval → STAAD → services → building JSON with a run.json manifest (40x60 brief: 38 s); `--resume` reuses finished stages (STAAD result kept in structure.pkl), a changed brief or a different `--pick` redoes from that stage
 - [ ] Web app (Python, running locally): chat, plan preview and approval, "Generate BIM" with progress, 3D IFC viewer, downloads (RVT, IFC, PDF plans)
 - [ ] Expose STRATA as an MCP server (`design_house`, `revise_layout`) so any LLM can call it
-- [ ] Full end-to-end test: client brief in → native Revit model + IFC out
+- [x] Full end-to-end test: client brief in → native Revit model + IFC out — 40x60 brief: building JSON in 38 s, Dynamo build, Revit IFC export passes 17/17 checks (Revit and IFC steps manual)
 - [ ] Single machine, single operator for the BTP; no public deployment
 
 ## Phase 9 — Evaluation Protocol (2 weeks)

@@ -25,7 +25,7 @@ sys.path.insert(0, ROOT)
 from src.brief.schema import Brief  # noqa: E402
 from src.execution.building_schema import Building, validate_building  # noqa: E402
 from src.execution.layout_to_building import building_from_layout  # noqa: E402
-from src.services.generate import add_services, tank_from_brief  # noqa: E402
+from src.services.generate import add_services, prefs_from_brief, tank_from_brief  # noqa: E402
 from src.inference.spec import build_spec  # noqa: E402
 from src.spatial.checker import check_layout  # noqa: E402
 from src.spatial.ga import alternatives, evaluate, to_layout  # noqa: E402
@@ -110,7 +110,7 @@ def main():
         json.dump(info, f, indent=1)
     building = building_from_layout(layout, result.model, result.outcome, result.footings, CODE_NOTE,
                                     name=f"STRATA {layout.name}")
-    add_services(building, tank_from_brief(brief, spec), getattr(brief, "electrical_loads", None) or ())
+    add_services(building, tank_from_brief(brief, spec), prefs_from_brief(brief))
     problems = validate_building(Building.model_validate(building))
     if problems:
         sys.exit("Building JSON failed validation:\n  " + "\n  ".join(problems))

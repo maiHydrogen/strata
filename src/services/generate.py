@@ -167,9 +167,9 @@ def _wall_item(kind, face, t, z, use=""):
     return item
 
 
-def _spread(faces, n, width):
+def _spread(faces, n, width, margin=END_MARGIN):
     """n positions (face, t) spread over the free wall length, longest free spans first."""
-    spans = [(f, a, b) for f in faces for a, b in f.free() if b - a >= width]
+    spans = [(f, a, b) for f in faces for a, b in f.free(margin) if b - a >= width]
     spans.sort(key=lambda s: -(s[2] - s[1]))
     if not spans or n <= 0:
         return []
@@ -190,15 +190,41 @@ def _spread(faces, n, width):
 
 # ---------------------------------------------------------------- generator
 
-def add_services(building: dict, tank: dict, electrical_loads=("AC in bedrooms", "geyser in bathrooms")) -> dict:
-    """Add fixtures, pipes, tank, circuits, finishes, checks and notes to `building` (in place) and return it."""
+def prefs_from_brief(brief) -> dict:
+    """The client's finish and electrical choices (defaults filled by Brief.with_defaults) and whether the
+    household needs accessible switch and socket heights."""
+    from src.brief.schema import FINISH_TIERS, ElectricalPrefs, electrical_from
+    fam = getattr(brief, "family", None)
+    fin = getattr(brief, "finishes", None) or FINISH_TIERS.get(getattr(brief, "finish_level", None) or "standard")
+    el = getattr(brief, "electrical", None) or electrical_from(getattr(brief, "electrical_loads", None))
+    if isinstance(el, dict):
+        el = ElectricalPrefs(**el)
+    src = getattr(brief, "sources", {}) or {}
+    return {"finishes": fin.model_dump(), "electrical": el.model_dump(),
+            "accessible": bool(fam and (fam.elderly or fam.disabled)),
+            "from_client": sorted(k for k, v in src.items() if v == "client" and k.split(".")[0] in
+                                  ("finishes", "electrical", "finish_level", "electrical_loads"))}
+
+
+def add_services(building: dict, tank: dict, prefs=None) -> dict:
+    """Add fixtures, pipes, tank, circuits, finishes, checks and notes to `building` (in place) and return it.
+
+    `prefs`: prefs_from_brief(brief); a list of A12 strings ("AC in bedrooms") is still accepted."""
+    from src.brief.schema import FINISH_TIERS, electrical_from
+    if prefs is None or isinstance(prefs, (list, tuple)):
+        prefs = {"finishes": FINISH_TIERS["standard"].model_dump(),
+                 "electrical": electrical_from(prefs if prefs is not None else
+                                               ["AC in bedrooms", "geyser in bathrooms"]).model_dump(),
+                 "accessible": False, "from_client": []}
+    el, fp = prefs["electrical"], prefs["finishes"]
+    accessible = prefs.get("accessible", False)
+    corner = T.ACCESSIBLE["corner"] if accessible else END_MARGIN
+    switch_z = T.ACCESSIBLE["switchboard"] if accessible else T.FIXTURE["switchboard"][1]
     thick = _type_thickness(building)
     openings = _openings_xy(building)
     elev = {lv["id"]: lv["elevation"] for lv in building["levels"]}
     order = sorted(elev, key=elev.get)
     slab_at = {f["level"]: f["thickness"] for f in building["floors"]}
-    wants_ac = any("ac" in str(x).lower() for x in electrical_loads or [])
-    wants_geyser = any("geyser" in str(x).lower() for x in electrical_loads or [])
 
     fixtures, finishes, notes = [], [], []
     stacks_raw = []  # (kind, (x, y), level)
@@ -275,23 +301,33 @@ def add_services(building: dict, tank: dict, electrical_loads=("AC in bedrooms",
                 td = f.t_of(door)
                 w = door_faces[0].doors[0]["width"]
                 cand = [td + w / 2 + DOOR_MARGIN + 0.12, td - w / 2 - DOOR_MARGIN - 0.12]
-                t = next((c for c in cand if END_MARGIN / 2 < c < f.length - END_MARGIN / 2), f.length / 2)
-                add("switchboard", room, _wall_item("switchboard", f, t, T.FIXTURE["switchboard"][1]))
+                t = next((c for c in cand if corner / 2 < c < f.length - corner / 2), f.length / 2)
+                add("switchboard", room, _wall_item("switchboard", f, t, switch_z))
             else:
-                spot = _spread(faces, 1, 0.3)
+                spot = _spread(faces, 1, 0.3, corner)
                 if spot:
-                    add("switchboard", room, _wall_item("switchboard", spot[0][0], spot[0][1], 1.2))
-            for f, t in _spread(faces, e["socket_6a"], 0.2):
-                add("socket_6a", room, _wall_item("socket_6a", f, t, e.get("socket_height", 0.3)))
-            for use, z in e["power"]:
-                if (use == "ac" and not wants_ac) or (use == "geyser" and not wants_geyser):
-                    continue
+                    add("switchboard", room, _wall_item("switchboard", spot[0][0], spot[0][1], switch_z))
+            n6 = e["socket_6a"] + (el["extra_sockets"] if rtype in T.HABITABLE else 0)
+            z6 = e.get("socket_height", T.ACCESSIBLE["socket"] if accessible else 0.3)
+            for f, t in _spread(faces, n6, 0.2, corner):
+                add("socket_6a", room, _wall_item("socket_6a", f, t, z6))
+            if rtype in el["tv_rooms"]:
+                spot = _spread(faces, 1, 0.2, corner)
+                if spot:
+                    add("socket_6a", room, _wall_item("socket_6a", spot[0][0], spot[0][1],
+                                                      T.ACCESSIBLE["socket"] if accessible else T.TV_HEIGHT, use="tv"))
+            power = [(u, z) for u, z in e["power"] if u not in ("ac", "geyser")]
+            if rtype in el["ac_rooms"]:
+                power.append(("ac", 2.1))
+            if rtype in T.BATHS - {"wc"} and el["geyser"]:
+                power.append(("geyser", 1.8))
+            for use, z in power:
                 if use == "ac":
                     for f in faces:
                         for wn in getattr(f, "windows", []):
                             tw = f.t_of(wn["at"])
                             f.blocked.append((tw - wn["width"] / 2 - 0.1, tw + wn["width"] / 2 + 0.1))
-                spot = _spread(faces, 1, 0.2)
+                spot = _spread(faces, 1, 0.2, corner if use not in ("ac", "geyser") else END_MARGIN)
                 if spot:
                     add("socket_16a", room, _wall_item("socket_16a", spot[0][0], spot[0][1], z, use=use))
             fans = e["fans"] + (1 if e["fans"] and area > T.BIG_ROOM_SECOND_FAN else 0)
@@ -325,6 +361,13 @@ def add_services(building: dict, tank: dict, electrical_loads=("AC in bedrooms",
         fin = T.FINISHES.get(rtype)
         if fin:
             (fmat, fth), wall, dado, skirt = fin
+            wall = T.PAINT_TEXT.get(fp.get("paint"), wall) if rtype not in ("balcony",) else wall
+            pick = fp.get("floor_living") if rtype in T.LIVING_GROUP else fp.get("floor_bedrooms") if rtype in T.BED_GROUP else None
+            if pick:
+                fmat, fth = T.FLOOR_TEXT[pick], 0.05
+                skirt = f"100 mm {pick} skirting"
+            if rtype in T.BATHS and fp.get("bath_dado") is not None:
+                dado = (dado[0], fp["bath_dado"]) if fp["bath_dado"] > 0 else None
             finishes.append({"room": room["id"], "level": room["level"], "floor": fmat, "floor_thickness": fth,
                              "wall": wall, "dado": dado[0] if dado else None, "dado_height": dado[1] if dado else 0.0,
                              "skirting": skirt, "ceiling": T.CEILING,
@@ -451,6 +494,18 @@ def add_services(building: dict, tank: dict, electrical_loads=("AC in bedrooms",
               f"{lw} W over {a:.1f} m2 = {lw / a:.1f} W/m2", T.SOURCES["lighting_density"])
         check(f"{lvl} power provision >= {T.POWER_W_PER_M2_MIN:g} W/m2", pw / a >= T.POWER_W_PER_M2_MIN,
               f"{pw} W over {a:.1f} m2 = {pw / a:.1f} W/m2 connected", T.SOURCES["lighting_density"])
+    sockets = [f for f in fixtures if f["kind"] in ("socket_6a", "socket_16a")]
+    low = [f["id"] for f in sockets if f["z"] < 0.2 - 1e-9]
+    check("sockets above 200 mm from the floor", not low, f"{len(sockets) - len(low)} of {len(sockets)}"
+          + (f"; low: {low[:4]}" if low else ""), T.SOURCES["socket_height"])
+    if accessible:
+        reach = [f for f in fixtures if f["kind"] == "switchboard"
+                 or (f["kind"] == "socket_6a" and f.get("use") != "tv" and f["room"] not in
+                     {r["id"] for r in building["rooms"] if r.get("type") == "kitchen"})]
+        out = [f["id"] for f in reach if not 0.8 - 1e-9 <= f["z"] <= 1.1 + 1e-9]
+        check("switches and sockets within 800-1100 mm (elderly or wheelchair users)", not out,
+              f"{len(reach) - len(out)} of {len(reach)}" + (f"; outside: {out[:4]}" if out else ""),
+              T.SOURCES["accessible"])
     bad = [c for c in circuits if (c["kind"] == "lighting" and (len(c["points"]) > T.LIGHT_CIRCUIT_POINTS
                                                                  or c["load_w"] > T.LIGHT_CIRCUIT_W))
            or (c["kind"] == "power" and len(c["points"]) > T.POWER_CIRCUIT_OUTLETS)]
@@ -466,7 +521,12 @@ def add_services(building: dict, tank: dict, electrical_loads=("AC in bedrooms",
         f"(brief {tank['brief_persons']}, NBC population {tank['nbc_population']} for the bedrooms).",
         f"{len(pipes)} stacks ({sum(p['kind'] == 'soil' for p in pipes)} soil, "
         f"{sum(p['kind'] == 'waste' for p in pipes)} waste), two-pipe system; pipe routing not modelled (LOD 300).",
-        "Points per room, mounting heights, loads per point and finishes are STRATA defaults (assumed).",
+        "Points per room and loads per point are STRATA defaults (assumed); finishes and AC/TV/geyser points follow "
+        "the brief" + (f" (client gave: {', '.join(prefs['from_client'])})" if prefs.get("from_client") else
+                       " (finish level and appliance defaults, matrix A11/A12)") + ".",
+        ("Accessible heights for the elderly/wheelchair users in the household: switch boards 1.0 m, sockets 0.8 m, "
+         "0.6 m from internal corners (NBC 2016 Part 8 Sec 2 cl. 7.2.3)." if accessible else
+         "Sockets 0.3 m above the floor (NBC 2016 Part 8 Sec 2 cl. 7.2.3: above 200 mm); switch boards 1.2 m (assumed)."),
     ]
     building["fixtures"], building["pipes"], building["tanks"] = fixtures, pipes, tanks
     building["circuits"], building["finishes"] = circuits, finishes

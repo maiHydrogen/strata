@@ -54,3 +54,7 @@ data/plan_library/resplan/
 data/plan_library/library.jsonl
 data/plan_library/index.json
 data/plan_library/report.json
+
+# Pipeline runs (scripts/strata.py): one folder per run, rebuilt on demand; structure.pkl is binary
+output/runs/
+*.pkl

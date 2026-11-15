@@ -23,7 +23,9 @@ from src.brief.schema import MUST  # noqa: E402
 MAX_MESSAGE = 2000  # characters
 MAX_BODY = 64_000  # bytes
 LABELS = {"building_use": "Use", "floors_now": "Floors", "family": "Household", "programme": "Rooms",
-          "site.plot": "Plot", "site.north": "Front faces", "site.roads": "Roads", "site.city": "City"}
+          "site.plot": "Plot", "site.north": "Front faces", "site.roads": "Roads", "site.city": "City",
+          "finishes": "Finishes", "electrical": "Electrical points"}
+OPTIONAL = ("finishes", "electrical")  # Should items: asked once, defaults from the finish level (A11/A12)
 USE = {"single_family": "Home for one family", "home_with_shop": "Home with a shop", "rental_floors": "Floors to rent"}
 NORTH = {"N": "North", "NE": "North east", "E": "East", "SE": "South east", "S": "South", "SW": "South west",
          "W": "West", "NW": "North west"}
@@ -55,6 +57,16 @@ def _text(path, b):
         return ", ".join(f"{r.side} {r.width:.1f} m" for r in b.site.roads)
     if path == "site.city":
         return b.site.city
+    if path == "finishes" and b.finishes:
+        f = b.finishes
+        return (f"{f.floor_living} in living areas, {f.floor_bedrooms} in bedrooms, bathroom tiles to "
+                f"{f.bath_dado:.1f} m, {f.paint.replace('_', ' ')} paint")
+    if path == "electrical" and b.electrical:
+        e = b.electrical
+        parts = [f"AC in {', '.join(e.ac_rooms)}" if e.ac_rooms else "no AC",
+                 f"TV in {', '.join(e.tv_rooms)}" if e.tv_rooms else "", "geysers" if e.geyser else "no geysers",
+                 f"{e.extra_sockets} extra sockets per room" if e.extra_sockets else ""]
+        return ", ".join(x for x in parts if x)
     return ""
 
 
@@ -74,6 +86,15 @@ def panel(session):
             status, value = "missing", None
         items.append({"path": path, "label": LABELS[path], "status": status, "value": value,
                       "asking": session.asked == path})
+    for path in OPTIONAL:
+        if session.brief.sources.get(path) == "client":
+            status, value = "given", _text(path, final or session.brief)
+        elif session.prefs_asked and final is not None:
+            status, value = "assumed", _text(path, final)
+        else:
+            continue  # not shown until the optional question comes up
+        items.append({"path": path, "label": LABELS[path], "status": status, "value": value,
+                      "asking": session.asked == "preferences"})
     return {"items": items, "given": sum(i["status"] == "given" for i in items), "total": len(items)}
 
 

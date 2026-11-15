@@ -83,6 +83,42 @@ class Site(BaseModel):
         return max(self.roads, key=lambda r: r.width) if self.roads else None
 
 
+FloorFinish = Literal["vitrified", "ceramic", "marble", "granite", "wooden", "kota", "mosaic"]
+AcRoom = Literal["bedroom", "living", "dining", "study"]
+
+
+class FinishPrefs(BaseModel):
+    """What the client wants on floors and walls; any field left out comes from the finish level (A11)."""
+    floor_living: FloorFinish | None = None  # living, dining, foyer, passages, puja
+    floor_bedrooms: FloorFinish | None = None  # bedrooms and study
+    bath_dado: float | None = Field(None, ge=0, le=3.0)  # height of wall tiles in bathrooms, m
+    paint: Literal["distemper", "emulsion", "premium_emulsion", "texture"] | None = None
+
+
+class ElectricalPrefs(BaseModel):
+    """Appliance points the client asks for (A12); the room templates add the rest."""
+    ac_rooms: list[AcRoom] = Field(default_factory=list)
+    tv_rooms: list[Literal["living", "bedroom"]] = Field(default_factory=list)
+    geyser: bool = True  # a geyser point in every bathroom
+    extra_sockets: int = Field(0, ge=0, le=6)  # more 6 A sockets in each habitable room
+
+
+# Finish level (matrix A11) -> default finishes, typical Indian residential specification
+FINISH_TIERS = {
+    "economy": FinishPrefs(floor_living="ceramic", floor_bedrooms="ceramic", bath_dado=1.5, paint="distemper"),
+    "standard": FinishPrefs(floor_living="vitrified", floor_bedrooms="vitrified", bath_dado=2.1, paint="emulsion"),
+    "premium": FinishPrefs(floor_living="marble", floor_bedrooms="wooden", bath_dado=2.1, paint="premium_emulsion"),
+}
+
+
+def electrical_from(loads):
+    """Structured points from the matrix's A12 text ("AC in bedrooms", "geyser in bathrooms")."""
+    text = " ".join(loads or []).lower()
+    ac = [r for r in ("bedroom", "living", "dining", "study") if "ac" in text.split() and r in text]
+    return ElectricalPrefs(ac_rooms=ac or (["bedroom"] if "ac" in text.split() else []), tv_rooms=["living"],
+                           geyser="geyser" in text)
+
+
 class Brief(BaseModel):
     schema_version: str = SCHEMA_VERSION
     building_use: Literal["single_family", "home_with_shop", "rental_floors"] | None = None
@@ -97,6 +133,8 @@ class Brief(BaseModel):
     vastu: bool | None = None
     finish_level: Literal["economy", "standard", "premium"] | None = None
     electrical_loads: list[str] | None = None
+    finishes: FinishPrefs | None = None  # client preferences; gaps filled from finish_level
+    electrical: ElectricalPrefs | None = None  # client preferences; default from electrical_loads
     water_source: Literal["municipal", "borewell", "both"] | None = None
     rental_unit: bool | None = None
     site: Site = Field(default_factory=Site)
@@ -126,6 +164,11 @@ class Brief(BaseModel):
             if _get(b, path) in (None, []):
                 _set(b, path, make(b))
                 b.sources[path] = f"default ({item})"
+        tier = FINISH_TIERS.get(b.finish_level or "standard", FINISH_TIERS["standard"])
+        for name in FinishPrefs.model_fields:  # a client who named one finish gets the level's other finishes
+            if getattr(b.finishes, name) is None:
+                setattr(b.finishes, name, getattr(tier, name))
+                b.sources[f"finishes.{name}"] = "default (A11)"
         return b
 
 
@@ -146,6 +189,8 @@ DEFAULTS = {
     "vastu": ("A9", lambda b: False),
     "finish_level": ("A11", lambda b: "standard"),
     "electrical_loads": ("A12", lambda b: ["AC in bedrooms", "geyser in bathrooms"]),
+    "finishes": ("A11", lambda b: FinishPrefs()),  # fields filled from the finish level below
+    "electrical": ("A12", lambda b: electrical_from(b.electrical_loads)),
     "water_source": ("A13", lambda b: "municipal"),
     "rental_unit": ("A14", lambda b: False),
     "site.roads": ("B4", lambda b: [Road(side="front", width=6.0)]),

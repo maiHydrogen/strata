@@ -37,10 +37,10 @@ def soil_bearing(brief):
     return (sbc, "brief") if sbc else (100.0, "assumed; ask for a soil test")
 
 
-def design_structure(layout, spec, runner, name, brief=None, max_rounds=10) -> StructureResult:
+def design_structure(layout, spec, runner, name, brief=None, max_rounds=10, on_round=None) -> StructureResult:
     tank = tank_from_brief(brief, spec) if brief is not None else None
     model = build_frame(layout, spec, tank)
-    outcome = design(model.frame, runner, name=name, max_rounds=max_rounds)
+    outcome = design(model.frame, runner, name=name, max_rounds=max_rounds, on_round=on_round)
     notes = list(model.notes)
     footings = []
     if outcome.passed:

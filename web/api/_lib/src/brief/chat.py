@@ -15,14 +15,15 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, ValidationError
 
-from src.brief.schema import Brief, Family, Parking, Plot, Programme, Road, Site
+from src.brief.schema import Brief, ElectricalPrefs, electrical_from, Family, FinishPrefs, Parking, Plot, Programme, Road, Site
 from src.brief.llm import LLMError
 
 FT = 0.3048
 RETRIES = 3
 
 Topic = Literal["building_use", "floors_now", "family", "programme", "site.plot", "site.north", "site.roads",
-                "site.city"]
+                "site.city", "preferences"]
+FloorSaid = Literal["vitrified", "ceramic", "marble", "granite", "wooden", "kota", "mosaic"]
 
 
 class Length(BaseModel):
@@ -71,6 +72,15 @@ class Extraction(BaseModel):
     city: str | None = None
     vastu: bool | None = None
     lift: bool | None = None
+    finish_level: Literal["economy", "standard", "premium"] | None = None
+    floor_living: FloorSaid | None = None
+    floor_bedrooms: FloorSaid | None = None
+    bath_dado: Length | None = None
+    paint: Literal["distemper", "emulsion", "premium_emulsion", "texture"] | None = None
+    ac_rooms: list[Literal["bedroom", "living", "dining", "study"]] | None = None
+    tv_rooms: list[Literal["living", "bedroom"]] | None = None
+    geyser: bool | None = None
+    extra_sockets: int | None = Field(None, ge=0, le=6)
     unsure: list[Topic] = []  # questions the client says they cannot answer
 
 
@@ -98,14 +108,27 @@ Rules:
 - building_use: only when the message says who the house is for or mentions a shop or renting:
   single_family when it is for the client's own family or household ("for my family", "for 4 of us",
   "for a couple with one kid"), home_with_shop if a shop is included, rental_floors if floors will be
-  rented out. Never from the word "house" alone."""
+  rented out. Never from the word "house" alone.
+- Finishes, only when said: finish_level "economy" (basic, low cost), "standard", "premium" (luxury, high
+  end). floor_living is the floor of the living/dining/hall, floor_bedrooms of the bedrooms ("marble in the
+  hall" -> floor_living marble; "wooden flooring in bedrooms" -> floor_bedrooms wooden; "tiles" -> vitrified).
+  bath_dado: height of wall tiles in bathrooms ("full height" -> 2.1 m, "7 feet" -> 7 ft). paint: plain or
+  "normal" paint -> emulsion, "texture" -> texture, "luxury/premium paint" -> premium_emulsion.
+- Electrical, only when said: ac_rooms lists the room kinds that need an AC ("AC in all bedrooms and the
+  hall" -> bedroom, living); tv_rooms where TV points go; geyser false only if they say no geyser;
+  extra_sockets: how many more sockets per room ("a couple of extra plugs" -> 2).
+- When the question asked was about preferences and the client says no preference or "standard is fine",
+  add "preferences" to "unsure"."""
 
 # Brief path each Extraction field writes to. While a question is open, only that question's
 # path may overwrite a value the client already gave; other fields only fill empty paths.
 FIELD_PATH = {"building_use": "building_use", "floors_now": "floors_now", "floors_future": "floors_now",
               "persons": "family", "members": "family", "cars": "parking", "two_wheelers": "parking",
               "plot_width": "site.plot", "plot_depth": "site.plot", "north": "site.north",
-              "roads": "site.roads", "city": "site.city", "vastu": "vastu", "lift": "lift"}
+              "roads": "site.roads", "city": "site.city", "vastu": "vastu", "lift": "lift",
+              "finish_level": "finish_level"}
+FIELD_PATH |= {k: "finishes" for k in ("floor_living", "floor_bedrooms", "bath_dado", "paint")}
+FIELD_PATH |= {k: "electrical" for k in ("ac_rooms", "tv_rooms", "geyser", "extra_sockets")}
 FIELD_PATH |= {k: "programme" for k in ("bedrooms", "bathrooms_attached", "bathrooms_common", "kitchen",
                                         "dining", "puja", "study", "store", "wc_type")}
 
@@ -125,10 +148,15 @@ QUESTIONS = {
     "site.roads": ("How wide is the road in front of your plot? Is it a corner plot with a second road?",
                    "one 6 m (about 20 ft) road in front"),
     "site.city": ("Where is the plot, which city or town?", "Guwahati"),
+    "preferences": ("Last one, and optional: any preferences for finishes or electrical points? For example "
+                    "marble or wooden flooring, how high the bathroom tiles go, which rooms need an AC or a TV "
+                    "point.", "a standard finish (vitrified tiles, emulsion paint, bathroom tiles to 2.1 m) with "
+                                 "AC points in the bedrooms, a TV point in the living room and geysers in the "
+                                 "bathrooms"),
 }
 PLAIN = {"building_use": "who the house is for", "floors_now": "number of floors", "family": "household size",
          "programme": "rooms", "site.plot": "plot size", "site.north": "which way the plot faces",
-         "site.roads": "road width", "site.city": "location"}
+         "site.roads": "road width", "site.city": "location", "preferences": "finishes and electrical points"}
 YES = re.compile(r"^\s*(y|yes|yeah|yep|ok|okay|correct|confirm(ed)?|looks good|that'?s right|all good)\b", re.I)
 
 
@@ -140,6 +168,7 @@ class BriefSession:
         self.brief = Brief()
         self.accepted_defaults = set()  # Must items the client could not answer
         self.asked = None
+        self.prefs_asked = False  # the optional finishes/electrical question, asked once
         self.summarised = False
         self.done = False
         self.log_path = Path(log_path) if log_path else None
@@ -147,7 +176,8 @@ class BriefSession:
     def to_state(self):
         """Everything needed to resume the conversation (for stateless servers, e.g. a serverless API)."""
         return {"brief": self.brief.model_dump(mode="json"), "accepted_defaults": sorted(self.accepted_defaults),
-                "asked": self.asked, "summarised": self.summarised, "done": self.done}
+                "asked": self.asked, "summarised": self.summarised, "done": self.done,
+                "prefs_asked": self.prefs_asked}
 
     @classmethod
     def from_state(cls, llm, state, log_path=None):
@@ -158,6 +188,7 @@ class BriefSession:
             s.asked = state.get("asked")
             s.summarised = bool(state.get("summarised"))
             s.done = bool(state.get("done"))
+            s.prefs_asked = bool(state.get("prefs_asked"))
         return s
 
     def start(self):
@@ -284,7 +315,22 @@ class BriefSession:
             if "guwahati" in x.city.lower():  # Guwahati Municipal Corporation area (bye-law 24(b))
                 self.brief.site.in_ulb = True
                 self.brief.sources["site.in_ulb"] = "derived (city)"
+        if x.finish_level:
+            self._set("finish_level", x.finish_level)
+        said = {k: getattr(x, k) for k in ("floor_living", "floor_bedrooms", "paint") if getattr(x, k) is not None}
+        if x.bath_dado is not None:
+            said["bath_dado"] = min(x.bath_dado.metres(), 3.0)
+        if said:
+            old = b.finishes.model_dump() if b.finishes and b.sources.get("finishes") == "client" else {}
+            self._set("finishes", FinishPrefs(**(old | said)))
+        said = {k: getattr(x, k) for k in ("ac_rooms", "tv_rooms", "geyser", "extra_sockets") if getattr(x, k) is not None}
+        if said:
+            old = (b.electrical.model_dump() if b.electrical and b.sources.get("electrical") == "client"
+                   else electrical_from(b.electrical_loads or ["AC in bedrooms", "geyser in bathrooms"]).model_dump())
+            self._set("electrical", ElectricalPrefs(**(old | said)))
         for path in x.unsure:
+            if path == "preferences":
+                continue
             if QUESTIONS[path][1] is not None:  # the plot has no default
                 self.accepted_defaults.add(path)
 
@@ -298,6 +344,11 @@ class BriefSession:
             self.asked = path
             hint = f" (If you are not sure, I will assume {default}.)" if default else ""
             return question + hint
+        if not self.prefs_asked:  # optional, asked once after the Must items
+            self.prefs_asked = True
+            question, default = QUESTIONS["preferences"]
+            self.asked = "preferences"
+            return f"{question} (If you have none, I will use {default}.)"
         self.asked = None
         return None
 
@@ -317,6 +368,14 @@ class BriefSession:
                          f"{s.north or 'unknown'}")
         lines.append("- Roads: " + ", ".join(f"{r.side} {r.width:.1f} m" for r in s.roads))
         lines.append(f"- Location: {s.city}")
+        fin, el = b.finishes, b.electrical
+        lines.append(f"- Finishes: {fin.floor_living} floors in living areas, {fin.floor_bedrooms} in bedrooms, "
+                     f"bathroom tiles to {fin.bath_dado:.1f} m, {fin.paint.replace('_', ' ')} paint")
+        lines.append("- Electrical: " + "; ".join(x for x in (
+            f"AC points in {', '.join(r + 's' if r == 'bedroom' else r for r in el.ac_rooms)}" if el.ac_rooms else "no AC points",
+            f"TV points in {', '.join(el.tv_rooms)}" if el.tv_rooms else "",
+            "geysers in bathrooms" if el.geyser else "no geysers",
+            f"{el.extra_sockets} extra sockets per room" if el.extra_sockets else "") if x))
         defaults = sorted({k for k, v in b.sources.items() if v.startswith("default") and k in QUESTIONS}
                           | self.accepted_defaults)
         if defaults:

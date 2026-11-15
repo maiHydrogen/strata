@@ -1,0 +1,609 @@
+{
+ "cases": 14,
+ "ok": 7,
+ "results": [
+  {
+   "id": "c01",
+   "note": "baseline: G+1, 40x60 ft, 3 bed",
+   "status": "complete",
+   "seconds": 27,
+   "stopped_at": null,
+   "reason": null,
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     true
+    ],
+    [
+     2,
+     true
+    ],
+    [
+     3,
+     true
+    ]
+   ],
+   "structure": {
+    "attempts": [
+     {
+      "layout": "robust_c01_11150320_1",
+      "passed": true,
+      "rounds": 5,
+      "reason": null
+     }
+    ],
+    "sections": {
+     "beam-0": "230x450",
+     "beam-1": "230x450",
+     "beam-2": "230x450",
+     "beam-3": "230x300",
+     "column-0": "450x450",
+     "column-1": "450x450",
+     "column-2": "300x300"
+    },
+    "slab_mm": 125,
+    "footings": 13
+   },
+   "counts": {
+    "columns": 48,
+    "beams": 69,
+    "footings": 13,
+    "walls": 41,
+    "openings": 27,
+    "rooms": 16,
+    "stairs": 2,
+    "fixtures": 85,
+    "pipes": 3,
+    "tanks": 1,
+    "circuits": 14,
+    "finishes": 16
+   },
+   "services_checks": "13/13",
+   "services_failed": [],
+   "ok": true
+  },
+  {
+   "id": "c02",
+   "note": "G+2, 30x50 ft, 4 bed",
+   "status": "stopped",
+   "seconds": 24,
+   "stopped_at": "layout",
+   "reason": "no layout meets the hard rules on this plot",
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     false
+    ],
+    [
+     2,
+     false
+    ],
+    [
+     3,
+     false
+    ]
+   ],
+   "ok": false
+  },
+  {
+   "id": "c03",
+   "note": "small G+1, 30x40 ft, 2 bed",
+   "status": "stopped",
+   "seconds": 32,
+   "stopped_at": "layout",
+   "reason": "no layout meets the hard rules on this plot",
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     false
+    ],
+    [
+     2,
+     false
+    ],
+    [
+     3,
+     false
+    ]
+   ],
+   "ok": false
+  },
+  {
+   "id": "c04",
+   "note": "narrow G+1, 25x50 ft, 2 bed",
+   "status": "stopped",
+   "seconds": 30,
+   "stopped_at": "layout",
+   "reason": "no layout meets the hard rules on this plot",
+   "advice": [
+    "one more storey and one attached bath becomes a common bath"
+   ],
+   "layout_options": [
+    [
+     1,
+     false
+    ],
+    [
+     2,
+     false
+    ],
+    [
+     3,
+     false
+    ]
+   ],
+   "ok": false
+  },
+  {
+   "id": "c05",
+   "note": "corner plot, roads front and left",
+   "status": "stopped",
+   "seconds": 31,
+   "stopped_at": "layout",
+   "reason": "no layout meets the hard rules on this plot",
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     false
+    ],
+    [
+     2,
+     false
+    ],
+    [
+     3,
+     false
+    ]
+   ],
+   "ok": false
+  },
+  {
+   "id": "c06",
+   "note": "north facing, economy finish",
+   "status": "complete",
+   "seconds": 26,
+   "stopped_at": null,
+   "reason": null,
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     true
+    ],
+    [
+     2,
+     true
+    ],
+    [
+     3,
+     true
+    ]
+   ],
+   "structure": {
+    "attempts": [
+     {
+      "layout": "robust_c06_11150322_1",
+      "passed": true,
+      "rounds": 5,
+      "reason": null
+     }
+    ],
+    "sections": {
+     "beam-0": "230x450",
+     "beam-1": "230x450",
+     "beam-2": "230x450",
+     "beam-3": "230x300",
+     "column-0": "450x450",
+     "column-1": "450x450",
+     "column-2": "300x300"
+    },
+    "slab_mm": 125,
+    "footings": 13
+   },
+   "counts": {
+    "columns": 48,
+    "beams": 69,
+    "footings": 13,
+    "walls": 41,
+    "openings": 27,
+    "rooms": 16,
+    "stairs": 2,
+    "fixtures": 85,
+    "pipes": 3,
+    "tanks": 1,
+    "circuits": 14,
+    "finishes": 16
+   },
+   "services_checks": "13/13",
+   "services_failed": [],
+   "ok": true
+  },
+  {
+   "id": "c07",
+   "note": "large G+1, 50x80 ft, 4 bed + puja + study, premium",
+   "status": "complete",
+   "seconds": 31,
+   "stopped_at": null,
+   "reason": null,
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     true
+    ],
+    [
+     2,
+     true
+    ],
+    [
+     3,
+     true
+    ]
+   ],
+   "structure": {
+    "attempts": [
+     {
+      "layout": "robust_c07_11150323_1",
+      "passed": true,
+      "rounds": 6,
+      "reason": null
+     }
+    ],
+    "sections": {
+     "beam-0": "230x450",
+     "beam-1": "230x500",
+     "beam-2": "230x450",
+     "beam-3": "230x350",
+     "column-0": "450x450",
+     "column-1": "450x450",
+     "column-2": "350x350"
+    },
+    "slab_mm": 170,
+    "footings": 12
+   },
+   "counts": {
+    "columns": 52,
+    "beams": 76,
+    "footings": 12,
+    "walls": 44,
+    "openings": 33,
+    "rooms": 19,
+    "stairs": 2,
+    "fixtures": 113,
+    "pipes": 5,
+    "tanks": 1,
+    "circuits": 18,
+    "finishes": 19
+   },
+   "services_checks": "14/14",
+   "services_failed": [],
+   "ok": true
+  },
+  {
+   "id": "c08",
+   "note": "G+2 joint family with elderly and a wheelchair user, 40x60 ft, 5 bed",
+   "status": "complete",
+   "seconds": 29,
+   "stopped_at": null,
+   "reason": null,
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     true
+    ],
+    [
+     2,
+     true
+    ],
+    [
+     3,
+     true
+    ]
+   ],
+   "structure": {
+    "attempts": [
+     {
+      "layout": "robust_c08_11150323_1",
+      "passed": true,
+      "rounds": 5,
+      "reason": null
+     }
+    ],
+    "sections": {
+     "beam-0": "230x450",
+     "beam-1": "230x500",
+     "beam-2": "230x500",
+     "beam-3": "230x450",
+     "beam-4": "230x300",
+     "column-0": "450x450",
+     "column-1": "450x450",
+     "column-2": "450x450",
+     "column-3": "300x300"
+    },
+    "slab_mm": 125,
+    "footings": 13
+   },
+   "counts": {
+    "columns": 60,
+    "beams": 86,
+    "footings": 13,
+    "walls": 55,
+    "openings": 40,
+    "rooms": 23,
+    "stairs": 3,
+    "fixtures": 130,
+    "pipes": 5,
+    "tanks": 1,
+    "circuits": 22,
+    "finishes": 23
+   },
+   "services_checks": "20/20",
+   "services_failed": [],
+   "ok": true
+  },
+  {
+   "id": "c09",
+   "note": "weak soil 60 kN/m2",
+   "status": "complete",
+   "seconds": 25,
+   "stopped_at": null,
+   "reason": null,
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     true
+    ],
+    [
+     2,
+     true
+    ],
+    [
+     3,
+     true
+    ]
+   ],
+   "structure": {
+    "attempts": [
+     {
+      "layout": "robust_c09_11150324_1",
+      "passed": true,
+      "rounds": 5,
+      "reason": null
+     }
+    ],
+    "sections": {
+     "beam-0": "230x450",
+     "beam-1": "230x450",
+     "beam-2": "230x450",
+     "beam-3": "230x300",
+     "column-0": "450x450",
+     "column-1": "450x450",
+     "column-2": "300x300"
+    },
+    "slab_mm": 125,
+    "footings": 11
+   },
+   "counts": {
+    "columns": 48,
+    "beams": 69,
+    "footings": 11,
+    "walls": 41,
+    "openings": 27,
+    "rooms": 16,
+    "stairs": 2,
+    "fixtures": 85,
+    "pipes": 3,
+    "tanks": 1,
+    "circuits": 14,
+    "finishes": 16
+   },
+   "services_checks": "13/13",
+   "services_failed": [],
+   "ok": true
+  },
+  {
+   "id": "c10",
+   "note": "G+1 designed for a future floor (structure for 3 storeys)",
+   "status": "complete",
+   "seconds": 25,
+   "stopped_at": null,
+   "reason": null,
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     true
+    ],
+    [
+     2,
+     true
+    ],
+    [
+     3,
+     true
+    ]
+   ],
+   "structure": {
+    "attempts": [
+     {
+      "layout": "robust_c10_11150324_1",
+      "passed": true,
+      "rounds": 5,
+      "reason": null
+     }
+    ],
+    "sections": {
+     "beam-0": "230x450",
+     "beam-1": "230x450",
+     "beam-2": "230x450",
+     "beam-3": "230x300",
+     "column-0": "450x450",
+     "column-1": "450x450",
+     "column-2": "300x300"
+    },
+    "slab_mm": 125,
+    "footings": 13
+   },
+   "counts": {
+    "columns": 48,
+    "beams": 69,
+    "footings": 13,
+    "walls": 41,
+    "openings": 27,
+    "rooms": 16,
+    "stairs": 2,
+    "fixtures": 85,
+    "pipes": 3,
+    "tanks": 1,
+    "circuits": 14,
+    "finishes": 16
+   },
+   "services_checks": "13/13",
+   "services_failed": [],
+   "ok": true
+  },
+  {
+   "id": "c11",
+   "note": "tight: G+2, 30x40 ft, 6 bed",
+   "status": "stopped",
+   "seconds": 26,
+   "stopped_at": "layout",
+   "reason": "no layout meets the hard rules on this plot",
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     false
+    ],
+    [
+     2,
+     false
+    ],
+    [
+     3,
+     false
+    ]
+   ],
+   "ok": false
+  },
+  {
+   "id": "c12",
+   "note": "impossible: G+1 on 20x30 ft with 4 bed",
+   "status": "stopped",
+   "seconds": 33,
+   "stopped_at": "layout",
+   "reason": "no layout meets the hard rules on this plot",
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     false
+    ],
+    [
+     2,
+     false
+    ],
+    [
+     3,
+     false
+    ]
+   ],
+   "ok": false
+  },
+  {
+   "id": "c13",
+   "note": "home with a shop, 30x50 ft",
+   "status": "stopped",
+   "seconds": 35,
+   "stopped_at": "layout",
+   "reason": "no layout meets the hard rules on this plot",
+   "advice": [
+    "one more storey",
+    "one more storey and kitchen with dining (no separate dining room)",
+    "one more storey and one attached bath becomes a common bath"
+   ],
+   "layout_options": [
+    [
+     1,
+     false
+    ],
+    [
+     2,
+     false
+    ],
+    [
+     3,
+     false
+    ]
+   ],
+   "ok": false
+  },
+  {
+   "id": "c14",
+   "note": "defaults only: plot and city given, everything else assumed",
+   "status": "complete",
+   "seconds": 31,
+   "stopped_at": null,
+   "reason": null,
+   "advice": [],
+   "layout_options": [
+    [
+     1,
+     true
+    ],
+    [
+     2,
+     true
+    ],
+    [
+     3,
+     true
+    ]
+   ],
+   "structure": {
+    "attempts": [
+     {
+      "layout": "robust_c14_11150326_1",
+      "passed": true,
+      "rounds": 6,
+      "reason": null
+     }
+    ],
+    "sections": {
+     "beam-0": "230x450",
+     "beam-1": "230x450",
+     "beam-2": "230x380",
+     "beam-3": "230x300",
+     "column-0": "450x450",
+     "column-1": "400x400",
+     "column-2": "300x300"
+    },
+    "slab_mm": 125,
+    "footings": 12
+   },
+   "counts": {
+    "columns": 48,
+    "beams": 69,
+    "footings": 12,
+    "walls": 41,
+    "openings": 28,
+    "rooms": 16,
+    "stairs": 2,
+    "fixtures": 94,
+    "pipes": 5,
+    "tanks": 1,
+    "circuits": 16,
+    "finishes": 16
+   },
+   "services_checks": "13/13",
+   "services_failed": [],
+   "ok": true
+  }
+ ]
+}

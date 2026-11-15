@@ -14,7 +14,8 @@ FIRST = {"building_use": "single_family", "floors_now": 2, "floors_future": 3, "
 
 
 def test_one_message_with_most_facts_then_questions_for_the_rest(tmp_path):
-    llm = ScriptedClient([FIRST, {"north": "E"}, {"roads": [{"side": "front", "width": {"value": 20, "unit": "ft"}}]}])
+    llm = ScriptedClient([FIRST, {"north": "E"}, {"roads": [{"side": "front", "width": {"value": 20, "unit": "ft"}}]},
+                          {"floor_living": "marble", "ac_rooms": ["bedroom", "living"]}])
     s = BriefSession(llm, log_path=tmp_path / "log.jsonl")
     s.start()
     q = s.reply("G+1 for 5 of us incl. my parents, 3BHK with puja room, plot 30x50 ft in Guwahati, may add a floor")
@@ -22,14 +23,19 @@ def test_one_message_with_most_facts_then_questions_for_the_rest(tmp_path):
     assert s.brief.site.plot.width == 9.144 and s.brief.site.plot.depth == 15.24  # converted in code, not by the LLM
     assert s.brief.programme.bedrooms == 3 and s.brief.programme.bathrooms_attached == 2  # A5 until said
     s.reply("east facing")
-    summary = s.reply("about 20 feet")
+    q = s.reply("about 20 feet")
+    assert s.asked == "preferences" and not s.summarised and "optional" in q  # asked once, after the Must items
+    summary = s.reply("marble in the hall, and AC in the bedrooms and living room")
     assert s.summarised and "Is this correct?" in summary and "9.14 m x 15.24 m" in summary
+    assert "marble floors in living areas, vitrified in bedrooms" in summary and "AC points in bedrooms, living" in summary
     assert s.reply("yes") and s.done
     brief = s.final_brief()
     assert brief.site.roads[0].width == 6.096 and brief.sources["site.roads"] == "client"
     assert brief.missing_must() == []
     log = [json.loads(line) for line in open(tmp_path / "log.jsonl")]
-    assert len(log) == 3 and log[0]["model"] == "scripted" and log[0]["parsed"]["bedrooms"] == 3
+    assert brief.finishes.floor_living == "marble" and brief.sources["finishes.floor_bedrooms"] == "default (A11)"
+    assert brief.electrical.ac_rooms == ["bedroom", "living"] and brief.sources["electrical"] == "client"
+    assert len(log) == 4 and log[0]["model"] == "scripted" and log[0]["parsed"]["bedrooms"] == 3
 
 
 def test_invalid_json_is_retried_with_the_error():
@@ -48,10 +54,12 @@ def test_gives_up_after_three_bad_answers_and_asks_again():
 
 
 def test_unsure_accepts_the_default_but_never_for_the_plot():
-    s = BriefSession(ScriptedClient([FIRST, {"unsure": ["site.north"]}, {"unsure": ["site.roads"]}]))
+    s = BriefSession(ScriptedClient([FIRST, {"unsure": ["site.north"]}, {"unsure": ["site.roads"]},
+                                     {"unsure": ["preferences"]}]))
     s.reply("...")
     s.reply("no idea which way it faces")
-    summary = s.reply("don't know the road width")
+    s.reply("don't know the road width")
+    summary = s.reply("no preferences")
     assert s.summarised and "Assumed" in summary and "which way the plot faces" in summary
     brief = s.final_brief()
     assert brief.sources["site.roads"] == "default (B4), client unsure" and brief.site.roads[0].width == 6.0
@@ -64,8 +72,9 @@ def test_unsure_accepts_the_default_but_never_for_the_plot():
 def test_corrections_after_the_summary_update_the_brief():
     s = BriefSession(ScriptedClient([FIRST | {"north": "E", "roads": [{"side": "front", "width": {"value": 6,
                                                                                                     "unit": "m"}}]},
-                                     {"bedrooms": 4}]))
+                                     {"unsure": ["preferences"]}, {"bedrooms": 4}]))
     s.reply("...")
+    s.reply("standard is fine")
     assert s.summarised
     again = s.reply("actually make it 4 bedrooms")
     assert s.brief.programme.bedrooms == 4 and s.brief.programme.puja and "4 bedrooms" in again and not s.done
@@ -182,3 +191,10 @@ def test_g_plus_text_overrides_a_wrong_llm_storey_count():
     assert _floors_from_text("a two storey house", wrong).floors_now == 2
     assert _floors_from_text("3 bedroom house on a corner plot", wrong).floors_now == 1  # no storey words
     assert _floors_from_text("we want 2 bedrooms", Extraction()).floors_now is None
+
+
+def test_naming_one_point_keeps_the_other_appliance_defaults():
+    s = BriefSession(ScriptedClient([{"tv_rooms": ["living", "bedroom"]}]))
+    s.reply("TV points in the hall and bedrooms")
+    e = s.brief.electrical
+    assert e.tv_rooms == ["living", "bedroom"] and e.ac_rooms == ["bedroom"] and e.geyser  # A12 defaults kept

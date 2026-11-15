@@ -105,3 +105,40 @@ def test_layout_rooms_carry_type_and_polygon_in_building_coordinates(house):
         assert r["type"] and len(r["polygon"]) >= 4
         assert Polygon(r["polygon"]).area > 1.0
         assert math.isfinite(r["polygon"][0][0])
+
+
+def _with(prefs_brief):
+    from src.services.generate import prefs_from_brief
+    _, b = _building()
+    return add_services(b, tank_size(4, 3), prefs_from_brief(prefs_brief.with_defaults()))
+
+
+def test_client_finishes_and_points_from_the_brief():
+    from src.brief.schema import Brief, ElectricalPrefs, FinishPrefs
+    b = _with(Brief(finishes=FinishPrefs(floor_living="marble", bath_dado=1.2, paint="texture"),
+                    electrical=ElectricalPrefs(ac_rooms=["bedroom", "living"], tv_rooms=["living", "bedroom"],
+                                               geyser=False, extra_sockets=1)))
+    rooms = {r["id"]: r["type"] for r in b["rooms"]}
+    fin = {rooms[f["room"]]: f for f in b["finishes"]}
+    assert fin["living"]["floor"].startswith("Marble") and fin["bedroom"]["floor"].startswith("Vitrified")  # A11
+    assert fin["bath_wc"]["dado_height"] == 1.2 and "texture" in fin["living"]["wall"]
+    uses = [(rooms[f["room"]], f.get("use")) for f in b["fixtures"] if f["kind"] in ("socket_6a", "socket_16a")]
+    assert ("living", "ac") in uses and ("bedroom", "ac") in uses and ("living", "tv") in uses
+    assert not any(u == "geyser" for _, u in uses)
+    plain = _with(Brief())
+    n = lambda bb, t: sum(1 for f in bb["fixtures"] if f["kind"] == "socket_6a" and f.get("use") != "tv"  # noqa: E731
+                          and {r["id"]: r["type"] for r in bb["rooms"]}[f["room"]] == t)
+    assert n(b, "bedroom") == n(plain, "bedroom") + sum(1 for r in b["rooms"] if r["type"] == "bedroom")
+    assert any("client gave" in note for note in b["services"]["notes"])
+
+
+def test_elderly_household_gets_accessible_heights_and_the_check_passes():
+    from src.brief.schema import Brief, Family
+    b = _with(Brief(family=Family(persons=5, elderly=2)))
+    boards = [f for f in b["fixtures"] if f["kind"] == "switchboard"]
+    assert boards and all(f["z"] == 1.0 for f in boards)
+    checks = {c["check"]: c for c in b["services"]["checks"]}
+    acc = checks["switches and sockets within 800-1100 mm (elderly or wheelchair users)"]
+    assert acc["pass"] and acc["source"]["clause"].endswith("cl. 7.2.3")
+    assert checks["sockets above 200 mm from the floor"]["pass"]
+    assert any("Accessible heights" in n for n in b["services"]["notes"])
