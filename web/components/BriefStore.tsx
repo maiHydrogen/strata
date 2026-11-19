@@ -5,10 +5,12 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { demoBrief } from "@/lib/demoBrief";
+import { api } from "@/lib/api";
 
 export type Status = "given" | "assumed" | "missing";
-export type Item = { path: string; label: string; status: Status; value: string | null; asking: boolean };
-export type Panel = { items: Item[]; given: number; total: number };
+export type Item = { path: string; label: string; status: Status; value: string | null; asking: boolean;
+  group?: "needed" | "also"; item?: string };
+export type Panel = { items: Item[]; given: number; total: number; also_given?: number };
 export type Msg = { role: "bot" | "you"; text: string };
 type Saved = { messages: Msg[]; state: unknown; panel: Panel | null; summarised: boolean; done: boolean; brief: unknown };
 
@@ -90,7 +92,7 @@ export function BriefProvider({ children }: { children: React.ReactNode }) {
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch("/api/brief", {
+      const res = await api("/api/brief", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(accessCode ? { "X-Strata-Code": accessCode } : {}) },
         body: JSON.stringify(message === null && current === null ? {} : { state: current, message }),
@@ -100,7 +102,15 @@ export function BriefProvider({ children }: { children: React.ReactNode }) {
         setPending(message);
         return;
       }
-      const data = await res.json();
+      const text = await res.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error(res.status >= 500
+          ? "The STRATA server did not answer in time (the language model can be slow). Please send your message again."
+          : `Unexpected reply from the server (${res.status}).`);
+      }
       if (!res.ok) throw new Error(data.error || `Server error ${res.status}`);
       setNeedCode(false);
       setMessages((m) => [...m, { role: "bot", text: data.reply }]);

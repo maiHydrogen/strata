@@ -322,3 +322,24 @@ def test_ga_respects_a_shorter_maximum_span():
     assert p.max_span == 3.5
     plan = decode([0.5] * genome_length(p), p)
     assert max(b - a for a, b in zip(plan.bands, plan.bands[1:])) <= 3.5 + 1e-6 or plan.bands[-1] >= p.envelope[3] - 1e-6
+
+
+def test_future_floor_frame_is_designed_and_carried_to_the_built_frame():
+    from src.structure.pipeline import transfer_design, with_future_floors
+    from src.structure.std_writer import Section
+    lay = _layout()
+    built, future = build_frame(lay), build_frame(with_future_floors(lay, 1))
+    assert future.frame.storeys == built.frame.storeys + 1  # one more storey under the cabin
+    assert len(future.frame.members) > len(built.frame.members)
+    fut = future.frame
+    for g in fut.sections:  # pretend STAAD sized the future frame up
+        fut.sections[g] = Section(fut.sections[g].depth + 0.05, fut.sections[g].width + 0.05)
+    res = StaadResults()
+    res.beams = {m: f"beam {m}" for m, x in fut.members.items() if x.kind == "beam"}
+    res.columns = {m: f"col {m}" for m, x in fut.members.items() if x.kind == "column"}
+    out = transfer_design(DesignOutcome(fut, res, True), built.frame)
+    assert out.frame is not built.frame and len(out.frame.members) == len(built.frame.members)
+    assert out.frame.sections["column-0"] == fut.sections["column-0"]  # ground columns sized for the extra storey
+    assert set(out.results.columns) <= set(built.frame.members) and out.results.columns  # matched by coordinates
+    g0 = [m for m, x in built.frame.members.items() if x.kind == "column" and x.level == 0]
+    assert all(m in out.results.columns for m in g0)

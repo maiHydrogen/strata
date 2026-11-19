@@ -7,6 +7,30 @@
     "api/layout.py": {
       "maxDuration": 60,
       "excludeFiles": "{node_modules,.next,app,components,public,scripts}/**"
+    },
+    "api/spec.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{node_modules,.next,app,components,public,scripts}/**"
+    },
+    "api/structure.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{node_modules,.next,app,components,public,scripts}/**"
+    },
+    "api/ifc.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{node_modules,.next,app,components,public,scripts}/**"
+    },
+    "api/revit.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{node_modules,.next,app,components,public,scripts}/**"
+    },
+    "api/health.py": {
+      "maxDuration": 10,
+      "excludeFiles": "{node_modules,.next,app,components,public,scripts}/**"
+    },
+    "api/files.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{node_modules,.next,app,components,public,scripts}/**"
     }
   }
 }

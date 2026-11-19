@@ -355,3 +355,37 @@ kg:req_rwh_storage a strata:Requirement ;
     strata:condition [ a strata:Condition ; strata:onParameter strata:buildingType ; strata:equals "house" ] ;
     strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ; strata:minInclusive 134.0 ] ;
     strata:jurisdiction strata:Guwahati ; strata:layer "P" ; strata:matrixItem "C7" ; strata:status "transcribed" .
+
+# ---- Bye-law 26(3)(iv) N.B. (c): small plots on narrow existing roads -------------------------
+# Interpretation pending the supervisor's confirmation: the table follows "For road width from
+# minimum 2.40 m, only Ground+1 buildings shall be allowed with FAR 125 with coverage and set backs
+# as mentioned below", inside the note on existing road widths. Read literally it would bar G+2 on
+# every road, contradicting bye-law 24, so STRATA applies it to G+1 houses only and marks it assumed.
+
+kg:ubbl_26_3_iv_c a strata:Clause ; strata:inStandard kg:AssamUBBL2022 ;
+    strata:clauseId "Bye-law 26(3)(iv) N.B. (c), small-plot setback table" ; strata:page "9733" ;
+    strata:quote "For road width from minimum 2.40 m, only Ground+1 buildings shall be allowed with FLOOR AREA RATIO (FAR) 125 with coverage and set backs as mentioned below:- 1 | 53.56 sq m to 93.73 sq m | Front/Rear: 1.80 m Side : 0.90 m on both sides 2 | 93.73 sq m upto 134 sq m | Nil set back at one side is allowed with NOC from the neighbour 3 | Above134 sq m | As per Clause 24" .
+kg:req_small_plot_side a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:smallPlotSideSetback ; strata:comparator "ge" ;
+    strata:value 0.9 ; strata:unit "m" ; strata:citedBy kg:ubbl_26_3_iv_c ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ;
+                       strata:minInclusive 53.56 ; strata:maxExclusive 93.73 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:storeys ; strata:maxInclusive 2.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "B1" ; strata:status "assumed" ;
+    strata:note "Interpretation pending: applied to G+1 houses on plots of 53.56-93.73 m2 in place of bye-law 24(a)(ii)." .
+kg:req_small_plot_front_rear a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:smallPlotFrontRearSetback ; strata:comparator "ge" ;
+    strata:value 1.8 ; strata:unit "m" ; strata:citedBy kg:ubbl_26_3_iv_c ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ;
+                       strata:minInclusive 53.56 ; strata:maxExclusive 93.73 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:storeys ; strata:maxInclusive 2.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "B1" ; strata:status "assumed" ;
+    strata:note "Interpretation pending: applied to G+1 houses on plots of 53.56-93.73 m2 in place of bye-law 24(a)." .
+kg:req_small_plot_nil_side a strata:Requirement ;
+    strata:appliesTo strata:Plot ; strata:quantity strata:nilSideWithNoc ; strata:comparator "eq" ;
+    strata:valueText "allowed" ; strata:citedBy kg:ubbl_26_3_iv_c ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:plotArea ;
+                       strata:minInclusive 93.73 ; strata:maxInclusive 134.0 ] ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:storeys ; strata:maxInclusive 2.0 ] ;
+    strata:jurisdiction strata:Guwahati ; strata:layer "A" ; strata:matrixItem "B1" ; strata:status "assumed" ;
+    strata:note "Interpretation pending; needs the neighbour's NOC (brief: site.neighbour_noc)." .

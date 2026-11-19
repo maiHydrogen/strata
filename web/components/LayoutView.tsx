@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Check, Download, Restart, Spark } from "@/components/Icons";
+import { api } from "@/lib/api";
 
 type Room = { floor: string; name: string; carpet: number };
 type Option = {
@@ -25,7 +27,8 @@ type Result = {
 const STORE = "strata-layout-v1";
 
 export default function LayoutView({ brief, code, onNeedCode, onApproved }: {
-  brief: unknown; code: string; onNeedCode: () => void; onApproved: (layout: unknown) => void;
+  brief: unknown; code: string; onNeedCode: () => void;
+  onApproved: (approved: { name: string; svg: string; layout: unknown }) => void;
 }) {
   const [result, setResult] = useState<Result | null>(null);
   const [current, setCurrent] = useState<unknown>(brief);
@@ -60,7 +63,7 @@ export default function LayoutView({ brief, code, onNeedCode, onApproved }: {
   async function design(b: unknown, s: number) {
     setBusy(true); setError(null); setApproved(null);
     try {
-      const res = await fetch("/api/layout", {
+      const res = await api("/api/layout", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(code ? { "X-Strata-Code": code } : {}) },
         body: JSON.stringify({ brief: b, seed: s }),
@@ -77,14 +80,17 @@ export default function LayoutView({ brief, code, onNeedCode, onApproved }: {
   }
 
   function approve(o: Option) {
+    setApproved(o.name);
+    onApproved({ name: o.name, svg: o.svg, layout: o.layout });
+  }
+
+  function download(o: Option) {
     const blob = new Blob([JSON.stringify(o.layout, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `strata.${o.name.toLowerCase().replace(/\s+/g, "_")}.layout.json`;
     a.click();
     URL.revokeObjectURL(a.href);
-    setApproved(o.name);
-    onApproved(o.layout);
   }
 
   const options = result?.options ?? [];
@@ -187,12 +193,17 @@ export default function LayoutView({ brief, code, onNeedCode, onApproved }: {
                     <div>
                       <h3>{approved === o.name ? `${o.name} approved` : `Approve ${o.name}?`}</h3>
                       <p>{approved === o.name
-                        ? "Saved as layout.json. Next comes the structural design in STAAD.Pro."
+                        ? "Next comes the structural design in STAAD.Pro."
                         : "This plan goes on to structural design. You can still generate others first."}</p>
                     </div>
-                    <button type="button" className="btn" onClick={() => approve(o)}>
-                      <Download size={18} /> {approved === o.name ? "Download again" : "Approve"}
-                    </button>
+                    <div className="btn-row">
+                      <button type="button" className="btn ghost" onClick={() => download(o)}>
+                        <Download size={18} /> layout.json
+                      </button>
+                      {approved === o.name
+                        ? <Link className="btn" href="/structure"><Check size={18} /> Design the structure</Link>
+                        : <button type="button" className="btn" onClick={() => approve(o)}><Check size={18} /> Approve</button>}
+                    </div>
                   </div>
                 )}
               </>

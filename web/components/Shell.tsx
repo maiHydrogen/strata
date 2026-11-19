@@ -1,61 +1,57 @@
 "use client";
 
-/** The full-tab app frame: icon rail, pipeline menu, the page in the middle, the brief panel on the right.
+/** The full-tab app frame: the STRATA pipeline menu, the page in the middle, the brief panel on the right.
  * Navigation is by URL (/brief, /layout), so back, forward, refresh and bookmarks work. */
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Beam, Book, Braces, Chat, Cube, Logo, Pipe, Plan, Restart, Spark } from "@/components/Icons";
-import { useBrief } from "@/components/BriefStore";
+import { type Item, useBrief } from "@/components/BriefStore";
+import { useDesign } from "@/components/DesignStore";
+import StatusLight, { modelName } from "@/components/StatusLight";
+import type { Health } from "@/lib/api";
 
 const STAGES = [
-  { name: "Brief", icon: Chat, href: "/brief" },
-  { name: "Standards", icon: Book },
-  { name: "Layout", icon: Plan, href: "/layout" },
-  { name: "Structure", icon: Beam },
-  { name: "Services", icon: Pipe },
-  { name: "Building JSON", icon: Braces },
-  { name: "Revit model", icon: Cube },
+  { name: "Brief", icon: Chat, href: "/brief", after: "" },
+  { name: "Standards", icon: Book, href: "/standards", after: "after brief" },
+  { name: "Layout", icon: Plan, href: "/layout", after: "after brief" },
+  { name: "Structure", icon: Beam, href: "/structure", after: "approve a layout" },
+  { name: "Services", icon: Pipe, href: "/services", after: "after structure" },
+  { name: "Building JSON", icon: Braces, href: "/building", after: "after structure" },
+  { name: "Revit model", icon: Cube, href: "/revit", after: "after structure" },
 ];
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const router = useRouter();
   const { done, brief, busy, panel, restart } = useBrief();
-  const open = (href?: string) => href === "/brief" || (href === "/layout" && done && brief !== null);
+  const { approved, job } = useDesign();
+  const [h, setH] = useState<Health | null>(null);
+  const briefDone = done && brief !== null;
+  const open = (href?: string) => href === "/brief"
+    || ((href === "/standards" || href === "/layout") && briefDone)
+    || (href === "/structure" && (!!approved || job.state === "complete"))
+    || ((href === "/services" || href === "/building" || href === "/revit") && !!job.result);
   const current = STAGES.find((s) => s.href && path.startsWith(s.href));
-  const pct = panel ? Math.round((100 * panel.items.filter((i) => i.status !== "missing").length) / panel.total) : 0;
+  const needed = (panel?.items ?? []).filter((i) => (i.group ?? "needed") === "needed");
+  const also = (panel?.items ?? []).filter((i) => i.group === "also");
+  const pct = panel && needed.length ? Math.round((100 * needed.filter((i) => i.status !== "missing").length) / needed.length) : 0;
 
   return (
     <div className="app">
-      <nav className="rail" aria-label="STRATA">
-        <Link href="/brief" className="rail-logo" aria-label="STRATA home"><Logo /></Link>
-        <div className="rail-icons">
-          {STAGES.slice(0, 4).map(({ name, icon: Icon, href }) => {
-            const on = href !== undefined && href === current?.href;
-            return open(href) && href ? (
-              <Link key={name} href={href} className={`rail-btn${on ? " on" : ""}`} title={name} aria-label={name}
-                    aria-current={on ? "page" : undefined}>
-                <Icon size={20} />
-              </Link>
-            ) : (
-              <span key={name} className="rail-btn off" title={`${name} (not yet)`} aria-disabled><Icon size={20} /></span>
-            );
-          })}
-        </div>
-      </nav>
-
-      <aside className="menu">
-        <header className="menu-head"><h2>Pipeline</h2></header>
+      <aside className="menu" aria-label="STRATA pipeline">
+        <header className="menu-head">
+          <Link href="/brief" className="menu-brand" aria-label="STRATA home"><Logo size={28} /><h2>Strata</h2></Link>
+        </header>
         <ul>
-          {STAGES.map(({ name, icon: Icon, href }) => {
+          {STAGES.map(({ name, icon: Icon, href, after }) => {
             const on = href !== undefined && href === current?.href;
             const body = (
               <>
                 <Icon size={20} />
                 <span>{name}</span>
-                {!href && <em>soon</em>}
-                {href === "/layout" && !open(href) && <em>after brief</em>}
+                {!open(href) && after && <em>{after}</em>}
               </>
             );
             return (
@@ -74,10 +70,11 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                  className={busy ? "live" : ""} />
             ))}
           </div>
+          <StatusLight onHealth={setH} />
           <div className="model">
             <span className={`led${busy ? " busy" : ""}`} />
             <div>
-              <b>Gemma 4 26B</b>
+              <b>{modelName(h)}</b>
               <small>{busy ? "reading your reply" : "ready"}</small>
             </div>
           </div>
@@ -86,7 +83,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
       <main className="main">
         <div className="topbar">
-          <div className="pill"><Spark size={16} /> {current?.name === "Layout" ? "Layout" : "Brief chat"}</div>
+          <div className="pill"><Spark size={16} /> {current?.name === "Brief" || !current ? "Brief chat" : current.name}</div>
         </div>
         {children}
       </main>
@@ -117,20 +114,31 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           <div className="ring-label"><b>{pct}%</b><small>known</small></div>
         </div>
         <p className="ring-note">
-          {panel ? `${panel.given} of ${panel.total} answered by you` : "Waiting for your first message"}
+          {panel ? `${panel.given} of ${panel.total} needed answers from you` : "Waiting for your first message"}
         </p>
         <div className="items">
-          {(panel?.items ?? []).map((it) => (
-            <div key={it.path} className={`item ${it.status}${it.asking ? " asking" : ""}`}>
-              <div className="item-top">
-                <span>{it.label}</span>
-                <em>{it.asking ? "asking now" : it.status === "given" ? "from you" : it.status === "assumed" ? "assumed" : "missing"}</em>
-              </div>
-              <p>{it.value ?? "Not given yet"}</p>
-            </div>
-          ))}
+          {needed.length > 0 && <h3 className="items-head">Needed</h3>}
+          {needed.map((it) => <BriefItem key={it.path} it={it} />)}
+          {also.length > 0 && (
+            <>
+              <h3 className="items-head">Also used <small>{panel?.also_given ?? 0} from you, the rest assumed; say any of these in the chat to change them</small></h3>
+              {also.map((it) => <BriefItem key={it.path} it={it} />)}
+            </>
+          )}
         </div>
       </aside>
+    </div>
+  );
+}
+
+function BriefItem({ it }: { it: Item }) {
+  return (
+    <div className={`item ${it.status}${it.asking ? " asking" : ""}`}>
+      <div className="item-top">
+        <span>{it.label}{it.item && <small className="item-ref"> {it.item}</small>}</span>
+        <em>{it.asking ? "asking now" : it.status === "given" ? "from you" : it.status === "assumed" ? "assumed" : "missing"}</em>
+      </div>
+      <p>{it.value ?? "Not given yet"}</p>
     </div>
   );
 }

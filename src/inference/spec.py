@@ -55,18 +55,20 @@ class _Spec:
         # (element, quantity) pairs some rule covers here; asking for others is not a gap
         self.covered = {(r["elementKey"], r["quantityKey"]) for r in kg.query("requirements", siteKey=jurisdiction)}
 
-    def get(self, quantity, element, comparator=None, inputs=None, **context):
+    def get(self, quantity, element, comparator=None, inputs=None, optional=False, **context):
+        """`optional`: a rule that applies only in some cases (a small plot); not applying is not a gap."""
         if (element, quantity) not in self.covered:
             return None
         try:
             v = self.kg.lookup(quantity, element, self.jurisdiction, comparator=comparator, **context)
         except LookupError as e:
-            self.unresolved.append({"element": element, "quantity": quantity, "reason": str(e)})
+            if not optional:
+                self.unresolved.append({"element": element, "quantity": quantity, "reason": str(e)})
             return None
         return _entry(v, inputs)
 
-    def all(self, quantities, element, **context):
-        return [e for q in quantities if (e := self.get(q, element, **context))]
+    def all(self, quantities, element, optional=False, **context):
+        return [e for q in quantities if (e := self.get(q, element, optional=optional, **context))]
 
 
 def _rooms(brief):
@@ -92,13 +94,26 @@ def _rooms(brief):
 
 
 def _envelope(site, plot_entries):
-    """Plot minus setbacks: a road side keeps its front setback (bye-law 27(c)), others side/rear."""
+    """Plot minus setbacks: a road side keeps its front setback (bye-law 27(c)), others side/rear.
+
+    Small G+1 plots (bye-law 26(3)(iv) N.B. (c)) replace those: 1.8 m front/rear and 0.9 m sides on
+    53.56-93.73 m2; on 93.73-134 m2 one non-road side may be nil with the neighbour's NOC."""
     front = {e["inputs"]["road"]: e["value"] for e in plot_entries if e["quantity"] == "front_setback"}
     other = {e["quantity"]: e["value"] for e in plot_entries if e["quantity"] in ("side_setback", "rear_setback")}
     if len(other) < 2 or not front:
         return None
     gap = {side: front.get(side, other["rear_setback" if side == "rear" else "side_setback"])
            for side in ("front", "rear", "left", "right")}
+    small = {e["quantity"]: e["value"] for e in plot_entries if e["quantity"].startswith("small_plot_")}
+    if small:
+        fr, sd = small.get("small_plot_front_rear_setback"), small.get("small_plot_side_setback")
+        for side in gap:
+            gap[side] = fr if side in ("front", "rear") and fr is not None else sd if sd is not None else gap[side]
+    if site.neighbour_noc and any(e["quantity"] == "nil_side_with_noc" for e in plot_entries):
+        roads = {r.side for r in site.roads}
+        nil = next((side for side in ("left", "right") if side not in roads), None)
+        if nil:
+            gap[nil] = 0.0
     return {"width": round(site.plot.width - gap["left"] - gap["right"], 3),
             "depth": round(site.plot.depth - gap["front"] - gap["rear"], 3),
             "setbacks": gap, "unit": "m"}
@@ -134,6 +149,7 @@ def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
         "road_width": {"value": road.width if road else None,
                        "from": f"widest abutting road, {brief.sources.get('site.roads')}"},
         "plot_area": {"value": site.plot.area if site.plot else None, "from": brief.sources.get("site.plot")},
+        "storeys": {"value": storeys, "from": "storeys designed for (floors_future)"},
         "in_ulb": {"value": "yes" if site.in_ulb else "no", "from": brief.sources.get("site.in_ulb")},
     }
     ctx = {k: v["value"] for k, v in context.items() if v["value"] is not None}
@@ -179,6 +195,8 @@ def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
             if e:
                 plot.append(e)
         plot += s.all(("side_setback", "rear_setback"), "plot", building_height=height)
+        plot += s.all(("small_plot_side_setback", "small_plot_front_rear_setback", "nil_side_with_noc"), "plot",
+                      optional=True, plot_area=site.plot.area, storeys=storeys)
         envelope = _envelope(site, plot)
         if envelope:
             checks.append({"check": "buildable envelope after setbacks", "actual": envelope,

@@ -4,11 +4,13 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import LayoutView from "@/components/LayoutView";
 import { useBrief } from "@/components/BriefStore";
+import { useDesign } from "@/components/DesignStore";
 
 /** /layout needs a confirmed brief; without one it sends you back to /brief. */
 export default function LayoutPage() {
   const router = useRouter();
   const { ready, done, brief, code, requireCode } = useBrief();
+  const { approve } = useDesign();
   const ok = done && brief !== null;
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export default function LayoutPage() {
     <div className="content scroll">
       <LayoutView brief={brief} code={code}
                   onNeedCode={() => { requireCode(); router.push("/brief"); }}
-                  onApproved={() => undefined} />
+                  onApproved={approve} />
     </div>
   );
 }

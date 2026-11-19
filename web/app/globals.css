@@ -45,7 +45,7 @@ button:disabled { cursor: default; opacity: 0.5; }
 /* the app fills the browser tab; the browser is the window */
 .app {
   width: 100%; height: 100vh; height: 100dvh; min-height: 560px;
-  display: grid; grid-template-columns: 76px 244px minmax(0, 1fr) 300px; overflow: hidden;
+  display: grid; grid-template-columns: 244px minmax(0, 1fr) 300px; overflow: hidden;
 }
 
 /* ---- icon rail (glass) ---- */
@@ -77,6 +77,8 @@ button:disabled { cursor: default; opacity: 0.5; }
   box-shadow: inset 0 -1px 0 var(--line); flex: none;
 }
 .menu-head h2, .inspector-head h2 { font-size: 15px; font-weight: 600; }
+.menu-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+.menu-brand h2 { font-size: 17px; letter-spacing: 0.02em; }
 .menu ul { list-style: none; margin: 0; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
 .menu li { height: 40px; border-radius: 6px; display: flex; align-items: center; gap: 10px; padding: 0 10px; font-size: 14px; }
 .menu li.on { background: rgba(0, 0, 0, 0.28); box-shadow: inset 0 0 0 1px rgba(1, 183, 197, 0.35); }
@@ -189,15 +191,16 @@ button:disabled { cursor: default; opacity: 0.5; }
 
 /* ---- smaller screens ---- */
 @media (max-width: 1180px) {
-  .app { grid-template-columns: 76px minmax(0, 1fr) 280px; }
-  .menu { display: none; }
+  .app { grid-template-columns: 208px minmax(0, 1fr) 280px; }
+  .menu-foot .wave { display: none; }
 }
 @media (max-width: 860px) {
   .app { height: auto; min-height: 100vh; overflow: visible; grid-template-columns: minmax(0, 1fr); }
-  .rail { flex-direction: row; padding: 10px 16px; gap: 12px; border-right: 0; border-bottom: 1px solid var(--line); }
-  .rail-logo { margin: 0; }
-  .rail-icons { flex-direction: row; margin: 0 0 0 auto; gap: 10px; }
-  .rail-btn.on::before { display: none; }
+  .menu { border-bottom: 1px solid var(--line); }
+  .menu ul { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; padding: 8px 12px; gap: 6px; }
+  .menu li { flex: none; }
+  .menu li a em, .menu li .disabled em { display: none; }
+  .menu-foot { display: none; }
   .main { min-height: 78vh; }
   .content { padding: 16px; }
   .banner { padding: 22px 20px; }
@@ -277,3 +280,55 @@ button:disabled { cursor: default; opacity: 0.5; }
 /* links styled as the controls they replace */
 a.rail-btn, a.btn, .rail-logo { text-decoration: none; color: inherit; }
 .rail-btn.off { opacity: 0.4; cursor: default; }
+
+/* ---- later stages: standards, structure, services, building, revit ---- */
+.page { display: flex; flex-direction: column; gap: 16px; }
+.page-head h1 { font-size: 20px; font-weight: 600; }
+.page-head p { margin: 6px 0 0; font-size: 13px; color: var(--text-2); line-height: 1.55; max-width: 760px; }
+.table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--line); background: var(--navy-800); }
+table.data { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.data th { text-align: left; font-weight: 600; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text-3); padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.data td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--text-2); }
+table.data tr:last-child td { border-bottom: 0; }
+table.data td b { color: var(--text); font-weight: 600; }
+.cite { font-size: 11px; color: var(--text-3); }
+.tag { display: inline-block; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px;
+  border-radius: 10px; background: var(--tile); color: var(--text-2); white-space: nowrap; }
+.tag.ok { background: rgba(1, 183, 197, 0.2); color: #7fe9f1; }
+.tag.bad { background: rgba(255, 80, 130, 0.18); color: #ffb4c8; }
+.tag.warn { background: rgba(255, 196, 80, 0.16); color: #ffd98a; }
+details.section { border-radius: 14px; background: var(--navy-800); border: 1px solid var(--line); }
+details.section > summary { cursor: pointer; padding: 12px 16px; font-family: var(--font-display); font-size: 13px;
+  font-weight: 500; display: flex; justify-content: space-between; gap: 12px; }
+details.section > summary small { font-family: var(--font-body); color: var(--text-3); font-weight: 400; }
+details.section > .table-wrap { border: 0; border-top: 1px solid var(--line); border-radius: 0 0 14px 14px; }
+.rounds { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.rounds li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: var(--tile); font-size: 13px; }
+.rounds li b { font-family: var(--font-display); font-weight: 500; flex: none; width: 72px; }
+.rounds li span { color: var(--text-2); line-height: 1.5; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.plan.small svg { min-width: 0; max-height: 360px; }
+pre.json { margin: 0; padding: 12px 16px; font-size: 11.5px; line-height: 1.5; color: var(--text-2); white-space: pre-wrap;
+  word-break: break-all; max-height: 420px; overflow: auto; border-top: 1px solid var(--line); }
+.steps { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; line-height: 1.55; color: var(--text-2); }
+.steps code, .panel-card code { font-size: 12px; background: var(--tile); padding: 1px 6px; border-radius: 6px; color: var(--text); word-break: break-all; }
+.note-banner { padding: 12px 16px; border-radius: 14px; background: rgba(255, 196, 80, 0.1); border: 1px solid rgba(255, 196, 80, 0.35);
+  font-size: 13px; color: #ffe2a8; line-height: 1.5; }
+@media (max-width: 860px) { .split { grid-template-columns: minmax(0, 1fr); } }
+
+.items-head { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3);
+  margin: 10px 2px 2px; font-family: var(--font-body); }
+.items-head small { display: block; text-transform: none; letter-spacing: 0; font-weight: 400; margin-top: 3px; line-height: 1.4; }
+.item-ref { color: var(--text-3); font-size: 10px; }
+
+/* workstation status in the menu */
+.status-light { all: unset; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px; width: calc(100% - 32px);
+  margin: 0 16px 10px; padding: 10px 12px; border-radius: 10px; background: var(--tile); cursor: pointer; font-size: 12px; }
+.status-light:hover { background: var(--tile-hi); }
+.status-light:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.status-light small { color: var(--text-2); line-height: 1.4; }
+.status-row { display: flex; align-items: center; gap: 8px; }
+.status-row.sub { justify-content: space-between; color: var(--text-2); padding-left: 18px; }
+.led.off { background: #ff5082; box-shadow: 0 0 8px rgba(255, 80, 130, 0.6); }
+@media (max-width: 860px) { .status-light { display: none; } }

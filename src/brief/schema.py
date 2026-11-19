@@ -76,6 +76,7 @@ class Site(BaseModel):
     sewer: bool | None = None
     power_phase: Literal[1, 3] | None = None
     storm_drain: bool | None = None
+    neighbour_noc: bool | None = None  # a neighbour agrees to a common wall (small plots: nil setback one side)
 
     @property
     def main_road(self) -> Road | None:

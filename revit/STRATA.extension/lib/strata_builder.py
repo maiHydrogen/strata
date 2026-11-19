@@ -5,8 +5,8 @@ Runs inside Revit (Dynamo Python node or pyRevit). Uses only the Revit API,
 no Dynamo/pyRevit calls, so both launchers share it. The caller owns the
 transaction for build() (Dynamo manages its own); make_stairs() runs after the
 caller has committed it, because a StairsEditScope cannot start inside an open
-transaction. Written for IronPython 2.7 and CPython 3 alike: no f-strings, no
-type hints.
+transaction. Written for IronPython 2.7/3.4 and CPython 3 alike: no f-strings, no
+type hints, and float() around any number formatted with a precision (IronPython refuses "{:.0f}" on an int).
 
 The JSON is validated in WSL (src/execution/building_schema.py) before it
 gets here; this module only translates it. No LLM is involved.
@@ -150,7 +150,7 @@ class Builder(object):
             self.wall_types[spec["id"]] = wt
 
     def floor_type(self, thickness, material):
-        name = "STRATA Slab {0:.0f} {1}".format(thickness * 1000, material)
+        name = "STRATA Slab {0:.0f} {1}".format(float(thickness) * 1000, material)
         ftype = _by_name(self.doc, FloorType, name)
         if ftype is None:
             base = self.doc.GetElement(self.doc.GetDefaultElementTypeId(ElementTypeGroup.FloorType))
@@ -173,7 +173,7 @@ class Builder(object):
                 family = preferred
                 break
         symbols = [s for s in all_symbols if _name(s.Family) == family]
-        name = "STRATA {0:.0f} x {1:.0f}mm".format(width * 1000, height * 1000)
+        name = "STRATA {0:.0f} x {1:.0f}mm".format(float(width) * 1000, float(height) * 1000)
         sym = None
         for s in symbols:
             if _name(s) == name:
@@ -418,7 +418,7 @@ class Builder(object):
         if family is None:
             raise RuntimeError("No concrete rectangular {0} family loaded (found: {1}).".format(
                 kind, ", ".join(families) or "none"))
-        name = "STRATA {0} {1:.0f}x{2:.0f}".format("C" if kind == "column" else "B", width * 1000, depth * 1000)
+        name = "STRATA {0} {1:.0f}x{2:.0f}".format("C" if kind == "column" else "B", float(width) * 1000, float(depth) * 1000)
         sym = next((s for s in symbols if _name(s) == name), None)
         if sym is None:
             sym = self.doc.GetElement(symbols[0].Duplicate(name).Id)
@@ -499,7 +499,7 @@ class Builder(object):
         if family is None:
             return None
         symbols = [s for s in symbols if _name(s.Family) == family]
-        name = "STRATA F {0:.0f}x{1:.0f}x{2:.0f}".format(width * 1000, length * 1000, thickness * 1000)
+        name = "STRATA F {0:.0f}x{1:.0f}x{2:.0f}".format(float(width) * 1000, float(length) * 1000, float(thickness) * 1000)
         sym = next((s for s in symbols if _name(s) == name), None)
         if sym is None:
             sym = self.doc.GetElement(symbols[0].Duplicate(name).Id)
@@ -669,16 +669,16 @@ class Builder(object):
                 level = self.levels[t["level"]]
                 solid = self._cylinder(t["at"][0], t["at"][1], level.Elevation, t["diameter"], t["height"])
                 comment = "STRATA overhead tank {0}: {1:.0f} l for {2} persons, {3} kN full".format(
-                    t["id"], t["capacity_l"], t.get("persons"), t["weight_kn"])
+                    t["id"], float(t["capacity_l"]), t.get("persons"), t["weight_kn"])
                 self._shape(BuiltInCategory.OST_MechanicalEquipment, solid, t["id"], "STRATA overhead tank " + t["id"],
                             comment, "IfcTank", "STORAGE")
-                self.report["tanks"].append("{0:.0f} l on {1}".format(t["capacity_l"], t["level"]))
+                self.report["tanks"].append("{0:.0f} l on {1}".format(float(t["capacity_l"]), t["level"]))
             except Exception as e:  # noqa: BLE001
                 self.warn("tank {0} not placed: {1}".format(t["id"], e))
 
     def finish_type(self, thickness, text):
         short = text.split(" on ")[0].split(",")[0][:40]
-        name = "STRATA Finish {0:.0f} {1}".format(thickness * 1000, short)
+        name = "STRATA Finish {0:.0f} {1}".format(float(thickness) * 1000, short)
         ftype = _by_name(self.doc, FloorType, name)
         if ftype is None:
             base = self.doc.GetElement(self.doc.GetDefaultElementTypeId(ElementTypeGroup.FloorType))
@@ -705,7 +705,7 @@ class Builder(object):
                 for key, bip in params:
                     value = fin.get(key) or ""
                     if key == "wall" and fin.get("dado"):
-                        value += "; dado: {0} to {1:.1f} m".format(fin["dado"], fin["dado_height"])
+                        value += "; dado: {0} to {1:.1f} m".format(fin["dado"], float(fin["dado_height"]))
                     p = room.get_Parameter(bip)
                     if p is not None and not p.IsReadOnly:
                         p.Set(value)
@@ -940,3 +940,78 @@ def format_report(report):
         lines.append("Warnings:")
         lines += ["  - " + w for w in report["warnings"]]
     return "\n".join(lines)
+
+
+def _remove_backups(rvt_path):
+    """Revit keeps <name>.0001.rvt when it overwrites a model; the STRATA folder only wants the latest."""
+    import glob
+    import os
+    for old in glob.glob(rvt_path[:-4] + ".[0-9][0-9][0-9][0-9].rvt"):
+        try:
+            os.remove(old)
+        except Exception:  # noqa: BLE001
+            pass
+
+
+def build_document(app, template_path, json_path, rvt_path):
+    """The whole build with no one at the screen (pyRevit Routes): a new project from the STRATA template
+    (Default-Multi-Discipline_Metric with the three structural families already loaded), everything,
+    the stairs, the IFC beside the JSON, then save as rvt_path and close. Returns the report with "rvt";
+    raises if the project cannot be made or saved (the report so far is in the exception's .report)."""
+    import os
+    import shutil
+    import tempfile
+    from Autodesk.Revit.DB import SaveAsOptions
+    # Revit cannot start a project from a template that is open in this session (e.g. just saved), so
+    # always start from a private copy of it.
+    copy = os.path.join(tempfile.gettempdir(), "strata_template_" + uuid.uuid4().hex[:8] + ".rte")
+    shutil.copyfile(template_path, copy)
+    try:
+        doc = app.NewProjectDocument(copy)
+    except Exception as e:  # noqa: BLE001
+        open_paths = [d.PathName for d in app.Documents if d.PathName]
+        raise RuntimeError("Revit could not start a project from {0} ({1}); documents open: {2}".format(
+            template_path, e, ", ".join(open_paths) or "none"))
+    finally:
+        try:
+            os.remove(copy)
+        except Exception:  # noqa: BLE001
+            pass
+    builder = None
+    try:
+        t = Transaction(doc, "STRATA build from JSON")
+        options = t.GetFailureHandlingOptions()
+        try:
+            options.SetFailuresPreprocessor(_warning_swallower())
+            options.SetClearAfterRollback(True)
+            t.SetFailureHandlingOptions(options)
+        except Exception:  # noqa: BLE001 - Revit's own handling still works, it may just ask
+            pass
+        t.Start()
+        try:
+            builder = build_from_file(doc, json_path)
+            t.Commit()
+        except Exception:
+            if t.HasStarted() and not t.HasEnded():
+                t.RollBack()
+            raise
+        make_stairs(builder)
+        export_ifc(builder, json_path)
+        save = SaveAsOptions()
+        save.OverwriteExistingFile = True
+        doc.SaveAs(rvt_path, save)
+        builder.report["rvt"] = rvt_path
+        _remove_backups(rvt_path)
+        return builder.report
+    except Exception as e:
+        if builder is not None:
+            try:
+                e.report = builder.report
+            except Exception:  # noqa: BLE001 - .NET exceptions take no attributes
+                pass
+        raise
+    finally:
+        try:
+            doc.Close(False)
+        except Exception:  # noqa: BLE001
+            pass

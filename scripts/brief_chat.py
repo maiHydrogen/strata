@@ -1,7 +1,7 @@
 """Chat with STRATA in the terminal to build a client brief, then its cited spec.
 
 Run: python scripts/brief_chat.py [name]
-Needs GEMINI_API_KEY in .env (optional STRATA_LLM_MODEL to pin the model). Writes
+Needs GEMINI_API_KEY (or GROQ_API_KEY with STRATA_LLM_PROVIDER=groq) in .env; optional STRATA_LLM_MODEL pins the model. Writes
 output/<name>.brief.json, output/<name>.spec.json and the prompt log output/logs/<name>.jsonl.
 """
 
@@ -16,14 +16,14 @@ sys.path.insert(0, ROOT)
 from dotenv import load_dotenv  # noqa: E402
 
 from src.brief.chat import BriefSession  # noqa: E402
-from src.brief.llm import GeminiClient  # noqa: E402
+from src.brief.llm import make_client  # noqa: E402
 from src.inference.spec import build_spec  # noqa: E402
 
 
 def main():
     load_dotenv(os.path.join(ROOT, ".env"))
     name = sys.argv[1] if len(sys.argv) > 1 else time.strftime("brief_%Y%m%d_%H%M%S")
-    llm = GeminiClient()
+    llm = make_client()
     print(f"(model: {llm.model})")
     session = BriefSession(llm, log_path=os.path.join(ROOT, "output", "logs", f"{name}.jsonl"))
     print(f"STRATA: {session.start()}")

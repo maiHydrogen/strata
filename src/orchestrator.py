@@ -112,8 +112,14 @@ def stage_layouts(run: Run, brief, spec, top=3, restarts=8, seed=1, max_span=Non
     run.stage("layout", t, options=[{"k": o["k"], "pass": o["check"]["pass"], "hard": round(o["hard"], 2),
                                      "soft": round(o["soft"], 4)} for o in options])
     if not any(o["check"]["pass"] and o["hard"] <= 0 for o in options):
-        advice = [r["change"] for r in suggest(brief, build_spec, seed=seed) if r["fits"]]
-        raise StageError("layout", "no layout meets the hard rules on this plot", advice)
+        tried = suggest(brief, build_spec, seed=seed)
+        advice = [f"{r['change']} (fits)" for r in tried if r["fits"]][:4]
+        if not advice:  # nothing fits: say how close the best attempts came
+            advice = [f"closest: {r['change']}; still short: {', '.join(r['problems'][:2]) or 'layout'}"
+                      for r in tried[:2]]
+        why = sorted({w for o in options for w in (o["why"] or [])})[:3]
+        raise StageError("layout", "no layout meets the hard rules on this plot"
+                         + (f" ({'; '.join(why)})" if why else ""), advice)
     return options
 
 

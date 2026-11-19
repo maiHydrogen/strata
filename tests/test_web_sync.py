@@ -12,12 +12,17 @@ def _files(base, pattern):
 
 
 def test_web_copy_of_the_python_packages_is_current():
-    for pkg in ("brief", "inference", "spatial"):
+    for pkg in ("brief", "inference", "spatial", "structure", "services", "execution"):
         src, copy = ROOT / "src" / pkg, LIB / "src" / pkg
         names = [p for p in _files(src, "*.*") if p.name != "library.py"]  # the plan library stays local
         assert names == _files(copy, "*.*"), f"{pkg}: {FIX}"
         for name in names:
             assert (src / name).read_bytes() == (copy / name).read_bytes(), f"{pkg}/{name} differs: {FIX}"
+
+
+def test_web_copy_of_the_web_modules_is_current():
+    for name in ("webapi.py", "orchestrator.py"):
+        assert (ROOT / "src" / name).read_bytes() == (LIB / "src" / name).read_bytes(), f"{name} differs: {FIX}"
 
 
 def test_web_copy_of_the_knowledge_graph_is_current():

@@ -1,12 +1,12 @@
 {
  "cases": 14,
- "ok": 7,
+ "ok": 8,
  "results": [
   {
    "id": "c01",
    "note": "baseline: G+1, 40x60 ft, 3 bed",
    "status": "complete",
-   "seconds": 27,
+   "seconds": 29,
    "stopped_at": null,
    "reason": null,
    "advice": [],
@@ -27,7 +27,7 @@
    "structure": {
     "attempts": [
      {
-      "layout": "robust_c01_11150320_1",
+      "layout": "robust_c01_11150443_1",
       "passed": true,
       "rounds": 5,
       "reason": null
@@ -67,10 +67,14 @@
    "id": "c02",
    "note": "G+2, 30x50 ft, 4 bed",
    "status": "stopped",
-   "seconds": 24,
+   "seconds": 41,
    "stopped_at": "layout",
-   "reason": "no layout meets the hard rules on this plot",
-   "advice": [],
+   "reason": "no layout meets the hard rules on this plot (2 rooms did not fit)",
+   "advice": [
+    "kitchen with dining (no separate dining room) and one bedroom fewer (fits)",
+    "one bedroom fewer and one bathroom fewer (fits)",
+    "kitchen with dining (no separate dining room) and one bathroom fewer (fits)"
+   ],
    "layout_options": [
     [
      1,
@@ -91,10 +95,13 @@
    "id": "c03",
    "note": "small G+1, 30x40 ft, 2 bed",
    "status": "stopped",
-   "seconds": 32,
+   "seconds": 73,
    "stopped_at": "layout",
-   "reason": "no layout meets the hard rules on this plot",
-   "advice": [],
+   "reason": "no layout meets the hard rules on this plot (2 rooms did not fit; Bedroom 2 2.10 m wide < 2.1; Dining 2.10 m wide < 2.1)",
+   "advice": [
+    "closest: one bathroom fewer; still short: 1 rooms did not fit, Living room 2.01 m wide < 2.4",
+    "closest: the neighbour agrees to a common wall (no setback on one side, with NOC); still short: 2 rooms did not fit, Living room 2.01 m wide < 2.4"
+   ],
    "layout_options": [
     [
      1,
@@ -115,11 +122,11 @@
    "id": "c04",
    "note": "narrow G+1, 25x50 ft, 2 bed",
    "status": "stopped",
-   "seconds": 30,
+   "seconds": 71,
    "stopped_at": "layout",
-   "reason": "no layout meets the hard rules on this plot",
+   "reason": "no layout meets the hard rules on this plot (2 rooms did not fit; stair cell 2.75 m long)",
    "advice": [
-    "one more storey and one attached bath becomes a common bath"
+    "one more storey and one attached bath becomes a common bath (fits)"
    ],
    "layout_options": [
     [
@@ -141,10 +148,13 @@
    "id": "c05",
    "note": "corner plot, roads front and left",
    "status": "stopped",
-   "seconds": 31,
+   "seconds": 51,
    "stopped_at": "layout",
-   "reason": "no layout meets the hard rules on this plot",
-   "advice": [],
+   "reason": "no layout meets the hard rules on this plot (3 rooms did not fit; Living room 9.50 m2 < 9.5 m2; stair cell 2.70 m long)",
+   "advice": [
+    "closest: one bedroom fewer; still short: 2 rooms did not fit, Living room 9.50 m2 < 9.5 m2",
+    "closest: one bathroom fewer; still short: 2 rooms did not fit, Living room 9.50 m2 < 9.5 m2"
+   ],
    "layout_options": [
     [
      1,
@@ -186,7 +196,7 @@
    "structure": {
     "attempts": [
      {
-      "layout": "robust_c06_11150322_1",
+      "layout": "robust_c06_11150448_1",
       "passed": true,
       "rounds": 5,
       "reason": null
@@ -226,7 +236,7 @@
    "id": "c07",
    "note": "large G+1, 50x80 ft, 4 bed + puja + study, premium",
    "status": "complete",
-   "seconds": 31,
+   "seconds": 29,
    "stopped_at": null,
    "reason": null,
    "advice": [],
@@ -247,7 +257,7 @@
    "structure": {
     "attempts": [
      {
-      "layout": "robust_c07_11150323_1",
+      "layout": "robust_c07_11150448_1",
       "passed": true,
       "rounds": 6,
       "reason": null
@@ -308,7 +318,7 @@
    "structure": {
     "attempts": [
      {
-      "layout": "robust_c08_11150323_1",
+      "layout": "robust_c08_11150448_1",
       "passed": true,
       "rounds": 5,
       "reason": null
@@ -350,7 +360,7 @@
    "id": "c09",
    "note": "weak soil 60 kN/m2",
    "status": "complete",
-   "seconds": 25,
+   "seconds": 24,
    "stopped_at": null,
    "reason": null,
    "advice": [],
@@ -371,7 +381,7 @@
    "structure": {
     "attempts": [
      {
-      "layout": "robust_c09_11150324_1",
+      "layout": "robust_c09_11150449_1",
       "passed": true,
       "rounds": 5,
       "reason": null
@@ -411,7 +421,7 @@
    "id": "c10",
    "note": "G+1 designed for a future floor (structure for 3 storeys)",
    "status": "complete",
-   "seconds": 25,
+   "seconds": 29,
    "stopped_at": null,
    "reason": null,
    "advice": [],
@@ -432,28 +442,28 @@
    "structure": {
     "attempts": [
      {
-      "layout": "robust_c10_11150324_1",
+      "layout": "robust_c10_11150449_1",
       "passed": true,
-      "rounds": 5,
+      "rounds": 6,
       "reason": null
      }
     ],
     "sections": {
      "beam-0": "230x450",
-     "beam-1": "230x450",
-     "beam-2": "230x450",
-     "beam-3": "230x300",
+     "beam-1": "230x500",
+     "beam-2": "230x500",
+     "beam-3": "230x450",
      "column-0": "450x450",
      "column-1": "450x450",
-     "column-2": "300x300"
+     "column-2": "450x450"
     },
     "slab_mm": 125,
-    "footings": 13
+    "footings": 12
    },
    "counts": {
     "columns": 48,
     "beams": 69,
-    "footings": 13,
+    "footings": 12,
     "walls": 41,
     "openings": 27,
     "rooms": 16,
@@ -472,10 +482,13 @@
    "id": "c11",
    "note": "tight: G+2, 30x40 ft, 6 bed",
    "status": "stopped",
-   "seconds": 26,
+   "seconds": 43,
    "stopped_at": "layout",
-   "reason": "no layout meets the hard rules on this plot",
-   "advice": [],
+   "reason": "no layout meets the hard rules on this plot (4 rooms did not fit; Bedroom 4 2.01 m wide < 2.1; Bedroom 5 2.01 m wide < 2.1)",
+   "advice": [
+    "closest: one bedroom fewer; still short: 3 rooms did not fit, Living room 2.01 m wide < 2.4",
+    "closest: kitchen with dining (no separate dining room); still short: 3 rooms did not fit, Living room 2.01 m wide < 2.4"
+   ],
    "layout_options": [
     [
      1,
@@ -496,10 +509,13 @@
    "id": "c12",
    "note": "impossible: G+1 on 20x30 ft with 4 bed",
    "status": "stopped",
-   "seconds": 33,
+   "seconds": 53,
    "stopped_at": "layout",
-   "reason": "no layout meets the hard rules on this plot",
-   "advice": [],
+   "reason": "no layout meets the hard rules on this plot (4 rooms did not fit; Bedroom 3 5.81 m2 < 7.5 m2; Bedroom 4 5.81 m2 < 7.5 m2)",
+   "advice": [
+    "closest: one attached bath becomes a common bath; still short: 4 rooms did not fit, Living room 7.72 m2 < 9.5 m2",
+    "closest: one bedroom fewer; still short: 3 rooms did not fit, Living room 7.72 m2 < 9.5 m2"
+   ],
    "layout_options": [
     [
      1,
@@ -514,19 +530,17 @@
      false
     ]
    ],
-   "ok": false
+   "ok": true
   },
   {
    "id": "c13",
    "note": "home with a shop, 30x50 ft",
    "status": "stopped",
-   "seconds": 35,
+   "seconds": 26,
    "stopped_at": "layout",
-   "reason": "no layout meets the hard rules on this plot",
+   "reason": "no layout meets the hard rules on this plot (Bedroom 1 6.58 m2 < 7.5 m2; Common bathroom 1 1.03 m wide < 1.2; Living room 2.01 m wide < 2.4)",
    "advice": [
-    "one more storey",
-    "one more storey and kitchen with dining (no separate dining room)",
-    "one more storey and one attached bath becomes a common bath"
+    "one more storey (fits)"
    ],
    "layout_options": [
     [
@@ -548,7 +562,7 @@
    "id": "c14",
    "note": "defaults only: plot and city given, everything else assumed",
    "status": "complete",
-   "seconds": 31,
+   "seconds": 28,
    "stopped_at": null,
    "reason": null,
    "advice": [],
@@ -569,20 +583,20 @@
    "structure": {
     "attempts": [
      {
-      "layout": "robust_c14_11150326_1",
+      "layout": "robust_c14_11150452_1",
       "passed": true,
-      "rounds": 6,
+      "rounds": 5,
       "reason": null
      }
     ],
     "sections": {
      "beam-0": "230x450",
-     "beam-1": "230x450",
-     "beam-2": "230x380",
-     "beam-3": "230x300",
+     "beam-1": "230x500",
+     "beam-2": "230x450",
+     "beam-3": "230x380",
      "column-0": "450x450",
      "column-1": "400x400",
-     "column-2": "300x300"
+     "column-2": "400x400"
     },
     "slab_mm": 125,
     "footings": 12

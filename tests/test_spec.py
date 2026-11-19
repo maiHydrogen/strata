@@ -107,3 +107,19 @@ def test_structure_values_match_staad_stage(kg):
     rooms = next(e for e in structure if e["element"] == "floor" and e["value"] == 2.0)
     roof = next(e for e in structure if e["element"] == "roof")
     assert (rooms["value"], roof["value"]) == (Loads().floor_live, Loads().roof_live)
+
+
+def test_small_plot_setbacks_and_the_neighbour_noc(kg):
+    """Bye-law 26(3)(iv) N.B. (c), applied to G+1 houses (interpretation marked assumed)."""
+    def env(w, d, floors=2, noc=None):
+        b = _brief()
+        b.floors_now, b.floors_future = 2, floors
+        b.site.plot = Plot(width=w, depth=d)
+        b.site.neighbour_noc = noc
+        s = build_spec(b, kg)
+        assert not [u for u in s["unresolved"] if "small_plot" in u["quantity"] or "nil_side" in u["quantity"]]
+        return next(c for c in s["checks"] if c["check"].startswith("buildable"))["actual"]["setbacks"]
+    assert env(7.62, 10.67) == {"front": 1.8, "rear": 1.8, "left": 0.9, "right": 0.9}  # 81 m2
+    assert env(7.62, 10.67, floors=3)["left"] == 1.8  # a planned G+2 falls back to bye-law 24
+    assert env(9.144, 12.19)["left"] == 1.8  # 111 m2 without the NOC
+    assert env(9.144, 12.19, noc=True)["left"] == 0.0 and env(9.144, 12.19, noc=True)["right"] == 1.8

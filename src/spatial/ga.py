@@ -364,9 +364,9 @@ def evaluate(g, p, detail=False):
                 else:
                     need_a, need_w = p.req.get((t, "area"), 0), p.req.get((t, "width"), 0)
                 if area < need_a:
-                    bad(HARD * (need_a - area), f"{name} {area:.1f} m2 < {need_a}")
+                    bad(HARD * (need_a - area), f"{name} {area:.3f} m2 < {need_a} m2")
                 if width < need_w:
-                    bad(HARD * (need_w - width), f"{name} {width:.2f} m wide < {need_w}")
+                    bad(HARD * (need_w - width), f"{name} {width:.3f} m wide < {need_w} m")
                 ext = external_edge(room, plan, f)
                 if t == "bath_wc" and not ext:
                     bad(HARD, f"{name} has no external wall")
@@ -585,7 +585,7 @@ def _windows(out, rid, room, plan, f, ratio, t, P, avoid=None):
 # ---- when nothing fits: which brief changes would ----
 
 def _variants(brief):
-    """Plain-language brief changes a designer would offer, fewest changes first."""
+    """Plain-language brief changes a designer would offer: (singles, pairs), fewest changes first."""
     p = brief.programme
     out = []
     if brief.floors_now < 3:
@@ -596,24 +596,47 @@ def _variants(brief):
     if p.bathrooms_attached > 0:
         out.append(("one attached bath becomes a common bath", {},
                     {"bathrooms_attached": p.bathrooms_attached - 1, "bathrooms_common": p.bathrooms_common + 1}))
-    singles = list(out)
-    for i, a in enumerate(singles):
-        for b in singles[i + 1:]:
-            out.append((f"{a[0]} and {b[0]}", {**a[1], **b[1]}, {**a[2], **b[2]}))
-    return out
+    extras = [n for n in ("store", "study", "puja") if getattr(p, n)]
+    if extras:
+        out.append((f"no {' or '.join(extras)} room", {}, {n: False for n in extras}))
+    if p.bedrooms > 1:
+        att = min(p.bathrooms_attached, p.bedrooms - 1)
+        out.append(("one bedroom fewer", {}, {"bedrooms": p.bedrooms - 1, "bathrooms_attached": att}))
+    if p.bathrooms_attached + p.bathrooms_common > 1:
+        cut = {"bathrooms_common": p.bathrooms_common - 1} if p.bathrooms_common > 0 else \
+              {"bathrooms_attached": p.bathrooms_attached - 1}
+        out.append(("one bathroom fewer", {}, cut))
+    plot = brief.site.plot
+    if (plot and 93.73 <= plot.area <= 134.0 and max(brief.floors_now, brief.floors_future or 0) <= 2
+            and not brief.site.neighbour_noc and len(brief.site.roads) < 3):
+        # bye-law 26(3)(iv) N.B. (c): nil setback on one side with the neighbour's NOC
+        out.append(("the neighbour agrees to a common wall (no setback on one side, with NOC)",
+                    {"site": brief.site.model_copy(update={"neighbour_noc": True})}, {}))
+    pairs = []
+    for i, x in enumerate(out):
+        for y in out[i + 1:]:
+            if set(x[2]) & set(y[2]) or set(x[1]) & set(y[1]):  # both change the same thing
+                continue
+            pairs.append((f"{x[0]} and {y[0]}", {**x[1], **y[1]}, {**x[2], **y[2]}))
+    return out, pairs
 
 
 def suggest(brief, build_spec, restarts=3, generations=100, seed=0):
-    """Try each variant of the brief with the GA; report which fit (no hard violation) and how well."""
-    results = []
-    for label, top, prog in _variants(brief):
+    """Try brief changes with the GA and report which fit (no hard violation) and how well. Pairs of
+    changes are tried only when no single change fits. Every result says what still does not fit."""
+    singles, pairs = _variants(brief)
+
+    def attempt(label, top, prog):
         b = brief.model_copy(deep=True, update=top)
         if prog:
             b.programme = b.programme.model_copy(update=prog)
         spec = build_spec(b)
         hof, p, _ = run(b, spec, generations=generations, seed=seed, restarts=restarts)
         hard, soft, why, _ = evaluate(hof[0], p, detail=True)
-        results.append({"change": label, "fits": hard == 0, "score": round(hard + soft, 3), "problems": why,
-                        "brief": b})
+        return {"change": label, "fits": hard == 0, "score": round(hard + soft, 3), "problems": why, "brief": b}
+
+    results = [attempt(*v) for v in singles]
+    if not any(r["fits"] for r in results):
+        results += [attempt(*v) for v in pairs]
     results.sort(key=lambda r: (not r["fits"], r["change"].count(" and "), r["score"]))
     return results

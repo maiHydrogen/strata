@@ -194,7 +194,62 @@ def test_g_plus_text_overrides_a_wrong_llm_storey_count():
 
 
 def test_naming_one_point_keeps_the_other_appliance_defaults():
-    s = BriefSession(ScriptedClient([{"tv_rooms": ["living", "bedroom"]}]))
+    llm = ScriptedClient([{}, {"tv_rooms": ["living", "bedroom"]}])  # main extraction, then the preferences call
+    s = BriefSession(llm)
     s.reply("TV points in the hall and bedrooms")
+    assert llm.calls[1]["schema"].__name__ == "PrefExtraction"
     e = s.brief.electrical
     assert e.tv_rooms == ["living", "bedroom"] and e.ac_rooms == ["bedroom"] and e.geyser  # A12 defaults kept
+
+
+def test_a_bad_field_is_dropped_and_the_rest_kept():
+    """Gemma filled unmentioned fields with 0 / -1 (bedrooms 0, road 0 m, extra_sockets -1): one bad field
+    used to fail the whole message three times over."""
+    bad = {"building_use": "home_with_shop", "bedrooms": 0, "plot_width": {"value": 9, "unit": "m"},
+           "plot_depth": {"value": 15, "unit": "m"}, "roads": [{"side": "front", "width": {"value": 0, "unit": "m"}}]}
+    s = BriefSession(ScriptedClient([bad, bad, bad]))  # the model repeats the mistake on every retry
+    reply = s.reply("Small home with a shop at the front, 2BHK above, plot 9 m by 15 m, road 7.5 m")
+    assert not reply.startswith("Sorry")
+    assert s.brief.building_use == "home_with_shop" and s.brief.site.plot.width == 9.0
+    assert s.brief.programme.bedrooms == 2  # bedrooms 0 dropped, then "2BHK" read from the text
+    assert s.brief.site.roads == []  # the 0 m road dropped, so asked about later
+
+
+def test_unsure_only_answers_the_open_question():
+    """Gemma marked every topic unsure on a first message; that must not accept defaults for the lot."""
+    s = BriefSession(ScriptedClient([{"building_use": "home_with_shop",
+                                      "unsure": ["family", "programme", "site.city", "site.plot"]}]))
+    s.reply("Small home with a shop at the front")
+    assert s.accepted_defaults == set() and s.asked == "floors_now"
+
+
+def test_preference_call_only_when_the_message_mentions_preferences():
+    llm = ScriptedClient([{"bedrooms": 3}])
+    BriefSession(llm).reply("3 bedrooms please")
+    assert len(llm.calls) == 1 and llm.calls[0]["schema"] is Extraction
+
+
+def test_bhk_in_the_text_sets_the_bedrooms():
+    from src.brief.chat import _bhk_from_text
+    assert _bhk_from_text("a 3BHK on 30x50", Extraction()).bedrooms == 3
+    assert _bhk_from_text("2 bhk above the shop", Extraction(bedrooms=1)).bedrooms == 2
+    assert _bhk_from_text("three bedrooms", Extraction()).bedrooms is None
+
+
+def test_the_model_is_told_its_error_and_its_correction_is_used():
+    llm = ScriptedClient([{"roads": [{"side": "front", "width": {"value": 0, "unit": "m"}}]},
+                          {"roads": [{"side": "front", "width": {"value": 7.5, "unit": "m"}}]}])
+    s = BriefSession(llm)
+    s.reply("road 7.5 m in front")
+    assert "invalid" in llm.calls[1]["prompt"] and s.brief.site.roads[0].width == 7.5
+
+
+def test_other_matrix_items_are_read_in_the_second_pass():
+    llm = ScriptedClient([{}, {"budget": "economy", "water_source": "borewell", "sewer": False, "power_phase": 1,
+                               "plot_below_road": {"value": 2, "unit": "ft"}, "soil_bearing_capacity": 150}])
+    s = BriefSession(llm)
+    s.reply("tight budget, borewell water, no sewer so a septic tank, single phase, plot 2 feet below the road, SBC 150")
+    b, src = s.brief, s.brief.sources
+    assert (b.budget, b.water_source, b.site.sewer, b.site.power_phase) == ("economy", "borewell", False, 1)
+    assert b.site.plot_level_below_road == 0.61 and b.site.soil_bearing_capacity == 150
+    assert src["site.sewer"] == "client" and src["budget"] == "client"

@@ -2,8 +2,9 @@
 
 The LLM only ever returns JSON matching a given schema; the caller validates it with
 pydantic and never executes anything it returns. Providers are swappable: Gemini
-(Google AI Studio free tier) is the one in use; `ScriptedClient` replays canned
-responses so tests run offline.
+(Google AI Studio free tier, the default) and Groq (free Developer plan, open-weight models);
+`make_client` picks one from STRATA_LLM_PROVIDER. `ScriptedClient` replays canned responses
+so tests run offline.
 """
 
 import json
@@ -27,8 +28,8 @@ class RateLimiter:
     """Client-side pacing: waits before a call so the last minute stays under the request and
     token limits and the day under the daily request limit. Tokens are counted after each call."""
 
-    def __init__(self, rpm, tpm, rpd, clock=time.monotonic, sleep=time.sleep):
-        self.rpm, self.tpm, self.rpd = rpm, tpm, rpd
+    def __init__(self, rpm, tpm, rpd, tpd=None, clock=time.monotonic, sleep=time.sleep):
+        self.rpm, self.tpm, self.rpd, self.tpd = rpm, tpm, rpd, tpd
         self.clock, self.sleep = clock, sleep
         self.calls = []  # (time, tokens) in the last 24 h
 
@@ -38,6 +39,8 @@ class RateLimiter:
             self.calls = [c for c in self.calls if now - c[0] < 86_400]
             if len(self.calls) >= self.rpd:
                 raise LLMError(f"daily request limit ({self.rpd}) reached")
+            if self.tpd and sum(t for _, t in self.calls) + expected_tokens > self.tpd:
+                raise LLMError(f"daily token limit ({self.tpd}) reached")
             minute = [c for c in self.calls if now - c[0] < 60]
             if len(minute) < self.rpm and sum(t for _, t in minute) + expected_tokens <= self.tpm:
                 return
@@ -98,6 +101,8 @@ class GeminiClient:
     errors are retried with a growing pause, since the free tier allows few requests a minute.
     """
 
+    name = "gemini"
+
     def __init__(self, model=None, api_key=None, retries=4):
         from google import genai  # imported here so offline tests do not need the SDK configured
 
@@ -137,3 +142,115 @@ class GeminiClient:
                     raise LLMError(f"Gemini {self.model}: timed out after {self.retries + 1} tries") from e
                 time.sleep(5)
         raise LLMError("unreachable")
+
+
+# Groq free (Developer plan) limits, Nov 2026: 30 requests/min, 1K/day, 8K tokens/min, 200K tokens/day
+# for each of these models, counted separately per model. About 80% of each, as for Gemini.
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_DEFAULT_MODEL = "openai/gpt-oss-120b"
+GROQ_LIMITS = {m: (24, 6_500, 800, 160_000) for m in
+               ("openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b")}
+GROQ_DEFAULT_LIMITS = (10, 4_000, 300, 80_000)
+# Models with strict structured outputs (constrained decoding to the schema); others get JSON object mode.
+GROQ_STRICT = {"openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b"}
+# Keep the hidden reasoning short: it counts against the output cap and the token quota.
+GROQ_EXTRA = {"openai/gpt-oss-120b": {"reasoning_effort": "low"},
+              "openai/gpt-oss-20b": {"reasoning_effort": "low"},
+              "qwen/qwen3.8-27b": {"reasoning_effort": "none"}}
+GROQ_MAX_OUTPUT = 2048  # reasoning tokens share this cap
+
+
+def strict_schema(schema):
+    """`model_schema` reshaped for strict structured outputs: every property listed in `required`
+    (optional ones are already a union with null), `additionalProperties: false` on every object,
+    no defaults, and nothing beside a `$ref`. Pydantic still checks the answer as before."""
+    def fix(node):
+        if isinstance(node, list):
+            return [fix(v) for v in node]
+        if not isinstance(node, dict):
+            return node
+        if "$ref" in node:
+            return {"$ref": node["$ref"]}
+        out = {k: fix(v) for k, v in node.items() if k not in ("default", "title")}
+        if "properties" in node:
+            out["properties"] = {k: fix(v) for k, v in node["properties"].items()}
+            out["required"] = list(node["properties"])
+            out["additionalProperties"] = False
+        if "$defs" in node:
+            out["$defs"] = {k: fix(v) for k, v in node["$defs"].items()}
+        return out
+    return fix(model_schema(schema))
+
+
+class GroqClient:
+    """Groq's OpenAI-compatible chat API over httpx; key from GROQ_API_KEY, model from
+    STRATA_LLM_MODEL (default gpt-oss-120b). Temperature 0, strict schema output where the model
+    supports it, the same retries and client-side pacing as GeminiClient."""
+
+    name = "groq"
+
+    def __init__(self, model=None, api_key=None, retries=4, http=None):
+        self.key = api_key or os.environ.get("GROQ_API_KEY")
+        if not self.key:
+            raise LLMError("GROQ_API_KEY is not set (put it in .env)")
+        self.model = model or os.environ.get("STRATA_LLM_MODEL") or GROQ_DEFAULT_MODEL
+        self.retries = retries
+        self.http = http or httpx.Client(timeout=TIMEOUT_MS / 1000)
+        self.limiter = RateLimiter(*GROQ_LIMITS.get(self.model, GROQ_DEFAULT_LIMITS))
+        self.extra = dict(GROQ_EXTRA.get(self.model, {}))
+
+    def _body(self, system, prompt, schema):
+        if self.model in GROQ_STRICT:
+            fmt = {"type": "json_schema",
+                   "json_schema": {"name": schema.__name__, "strict": True, "schema": strict_schema(schema)}}
+        else:
+            fmt = {"type": "json_object"}
+            system = f"{system}\n\nReturn one JSON object matching this JSON schema:\n{json.dumps(model_schema(schema))}"
+        return {"model": self.model, "temperature": 0, "max_completion_tokens": GROQ_MAX_OUTPUT,
+                "response_format": fmt, **self.extra,
+                "messages": [{"role": "system", "content": system}, {"role": "user", "content": prompt}]}
+
+    def complete_json(self, system, prompt, schema):
+        for attempt in range(self.retries + 1):
+            self.limiter.wait(self.limiter.typical_tokens())
+            try:
+                r = self.http.post(GROQ_URL, json=self._body(system, prompt, schema),
+                                   headers={"Authorization": f"Bearer {self.key}"})
+            except httpx.TransportError as e:
+                self.limiter.record(0)
+                if attempt == self.retries:
+                    raise LLMError(f"Groq {self.model}: {type(e).__name__} after {self.retries + 1} tries") from e
+                time.sleep(5)
+                continue
+            if r.status_code == 200:
+                data = r.json()
+                self.limiter.record((data.get("usage") or {}).get("total_tokens") or self.limiter.typical_tokens())
+                return data["choices"][0]["message"]["content"] or ""
+            self.limiter.record(0)
+            message = _groq_error(r)
+            if r.status_code == 400 and self.extra and "reasoning" in message.lower():
+                self.extra = {}  # this model does not take the reasoning setting: retry without it
+                continue
+            if r.status_code not in (429, 500, 502, 503, 504) or attempt == self.retries:
+                raise LLMError(f"Groq {self.model}: {r.status_code} {message}")
+            wait = r.headers.get("retry-after")
+            time.sleep(min(60, float(wait)) if wait and wait.replace(".", "", 1).isdigit() else min(60, 5 * 2 ** attempt))
+        raise LLMError(f"Groq {self.model}: no answer after {self.retries + 1} tries")
+
+
+def _groq_error(r):
+    try:
+        return r.json()["error"]["message"]
+    except Exception:
+        return r.text[:200]
+
+
+PROVIDERS = {"gemini": GeminiClient, "groq": GroqClient}
+
+
+def make_client(provider=None, model=None):
+    """The LLM client named by `provider` or STRATA_LLM_PROVIDER (default gemini)."""
+    name = (provider or os.environ.get("STRATA_LLM_PROVIDER") or "gemini").lower()
+    if name not in PROVIDERS:
+        raise LLMError(f"unknown LLM provider {name!r} (choose from {', '.join(PROVIDERS)})")
+    return PROVIDERS[name](model=model)

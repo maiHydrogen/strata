@@ -35,7 +35,7 @@ def proposals(name, p, brief, refresh):
             cached = json.load(f)
         if cached.get("sketches"):
             return [Sketch(**s) for s in cached["sketches"]], cached.get("examples", [])
-    from src.brief.llm import GeminiClient
+    from src.brief.llm import make_client
     examples = []
     try:
         from src.spatial.library import describe, load_index, load_layouts, retrieve
@@ -45,7 +45,7 @@ def proposals(name, p, brief, refresh):
         examples = [describe(lay) for lay in load_layouts([r["id"] for r in rows])]
     except FileNotFoundError:
         pass  # no plan library here: propose without examples
-    sketches, log = propose(GeminiClient(), p, examples, count=4)
+    sketches, log = propose(make_client(), p, examples, count=4)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         json.dump({"examples": examples, "sketches": [s.model_dump() for s in sketches], "log": log}, f, indent=1)

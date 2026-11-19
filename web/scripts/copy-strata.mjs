@@ -12,8 +12,9 @@ const skip = (p) => !p.includes("__pycache__") && !p.endsWith("library.py");
 rmSync(lib, { recursive: true, force: true });
 mkdirSync(join(lib, "src"), { recursive: true });
 writeFileSync(join(lib, "src", "__init__.py"), "");
-for (const pkg of ["brief", "inference", "spatial"]) {
+for (const pkg of ["brief", "inference", "spatial", "structure", "services", "execution"]) {
   cpSync(join(repo, "src", pkg), join(lib, "src", pkg), { recursive: true, filter: skip });
 }
+for (const f of ["webapi.py", "orchestrator.py"]) cpSync(join(repo, "src", f), join(lib, "src", f));
 cpSync(join(repo, "data", "knowledge_graph"), join(lib, "data", "knowledge_graph"), { recursive: true });
-console.log("copied src/{brief,inference,spatial} and data/knowledge_graph into api/_lib");
+console.log("copied src/{brief,inference,spatial,structure,services,execution}, webapi.py, orchestrator.py and data/knowledge_graph into api/_lib");

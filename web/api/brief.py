@@ -17,7 +17,7 @@ from http.server import BaseHTTPRequestHandler
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "_lib"))
 
 from src.brief.chat import QUESTIONS, BriefSession  # noqa: E402
-from src.brief.llm import GeminiClient, LLMError  # noqa: E402
+from src.brief.llm import LLMError, make_client  # noqa: E402
 from src.brief.schema import MUST  # noqa: E402
 
 MAX_MESSAGE = 2000  # characters
@@ -25,7 +25,20 @@ MAX_BODY = 64_000  # bytes
 LABELS = {"building_use": "Use", "floors_now": "Floors", "family": "Household", "programme": "Rooms",
           "site.plot": "Plot", "site.north": "Front faces", "site.roads": "Roads", "site.city": "City",
           "finishes": "Finishes", "electrical": "Electrical points"}
-OPTIONAL = ("finishes", "electrical")  # Should items: asked once, defaults from the finish level (A11/A12)
+# The rest of the information requirements matrix (sections A and B): defaults until the client says
+# otherwise. (path, label, matrix item)
+OPTIONAL = [
+    ("parking", "Parking", "A6"), ("balcony_per_bedroom_floor", "Balconies", "A7"), ("lift", "Lift", "A7"),
+    ("budget", "Budget", "A8"), ("vastu", "Vastu", "A9"), ("kitchen", "Kitchen", "A10"),
+    ("finishes", "Finishes", "A11"), ("electrical", "Electrical points", "A12"),
+    ("water_source", "Water source", "A13"), ("rental_unit", "Rental unit", "A14"),
+    ("site.plot_level_below_road", "Plot level", "B6"), ("site.soil_bearing_capacity", "Soil", "B7"),
+    ("site.water_table_below_foundation", "Water table", "B8"), ("site.water_main", "Water and sewer", "B11"),
+    ("site.power_phase", "Power supply", "B12"), ("site.storm_drain", "Storm drain", "B13"),
+    ("site.neighbour_noc", "Common wall", "bye-law 26"),
+]
+KITCHEN = {"separate_dining": "closed kitchen, separate dining", "with_dining": "kitchen with dining",
+           "with_store": "kitchen with a store"}
 USE = {"single_family": "Home for one family", "home_with_shop": "Home with a shop", "rental_floors": "Floors to rent"}
 NORTH = {"N": "North", "NE": "North east", "E": "East", "SE": "South east", "S": "South", "SW": "South west",
          "W": "West", "NW": "North west"}
@@ -57,6 +70,42 @@ def _text(path, b):
         return ", ".join(f"{r.side} {r.width:.1f} m" for r in b.site.roads)
     if path == "site.city":
         return b.site.city
+    s = b.site
+    yes = lambda v, a, b_: a if v else b_  # noqa: E731
+    if path == "parking" and b.parking:
+        p = b.parking
+        return (", ".join(x for x in (f"{p.cars} car" if p.cars else "", f"{p.two_wheelers} two-wheeler"
+                                      if p.two_wheelers else "") if x) or "none") + (", covered" if p.covered else "")
+    if path == "balcony_per_bedroom_floor":
+        return yes(b.balcony_per_bedroom_floor, "a balcony on each bedroom floor", "no balconies")
+    if path == "lift":
+        return yes(b.lift, "lift", "no lift")
+    if path == "budget":
+        return (b.budget or "").replace("_", " ")
+    if path == "vastu":
+        return yes(b.vastu, "follow Vastu", "not needed")
+    if path == "kitchen" and b.programme:
+        return KITCHEN.get(b.programme.kitchen, b.programme.kitchen)
+    if path == "water_source":
+        return {"municipal": "municipal supply", "borewell": "borewell", "both": "municipal and borewell"}.get(
+            b.water_source, b.water_source)
+    if path == "rental_unit":
+        return yes(b.rental_unit, "a unit to rent out", "none")
+    if path == "site.plot_level_below_road":
+        v = s.plot_level_below_road
+        return "level with the road" if not v else f"{v:.2f} m below the road" if v > 0 else f"{-v:.2f} m above the road"
+    if path == "site.soil_bearing_capacity":
+        return f"bearing capacity {s.soil_bearing_capacity:g} kN/m2" if s.soil_bearing_capacity else "not known"
+    if path == "site.water_table_below_foundation":
+        return yes(s.water_table_below_foundation, "below the foundation", "high, above the foundation")
+    if path == "site.water_main":
+        return f"{yes(s.water_main, 'water main', 'no water main')}, {yes(s.sewer, 'sewer', 'septic tank (no sewer)')}"
+    if path == "site.power_phase":
+        return f"{s.power_phase}-phase" if s.power_phase else "not known"
+    if path == "site.storm_drain":
+        return yes(s.storm_drain, "storm drain on the road", "no storm drain")
+    if path == "site.neighbour_noc":
+        return yes(s.neighbour_noc, "neighbour agrees to a common wall", "no common wall")
     if path == "finishes" and b.finishes:
         f = b.finishes
         return (f"{f.floor_living} in living areas, {f.floor_bedrooms} in bedrooms, bathroom tiles to "
@@ -86,19 +135,24 @@ def panel(session):
             status, value = "missing", None
         items.append({"path": path, "label": LABELS[path], "status": status, "value": value,
                       "asking": session.asked == path})
-    for path in OPTIONAL:
-        if session.brief.sources.get(path) == "client":
-            status, value = "given", _text(path, final or session.brief)
-        elif session.prefs_asked and final is not None:
-            status, value = "assumed", _text(path, final)
-        else:
-            continue  # not shown until the optional question comes up
-        items.append({"path": path, "label": LABELS[path], "status": status, "value": value,
-                      "asking": session.asked == "preferences"})
-    return {"items": items, "given": sum(i["status"] == "given" for i in items), "total": len(items)}
+    for it in items:
+        it["group"] = "needed"
+    full = session.final_brief()  # defaults filled, so every item can show what would be assumed
+    src = session.brief.sources
+    for path, label, item in OPTIONAL:
+        key = "programme" if path == "kitchen" else path
+        given = src.get(key) == "client" or (path == "site.water_main" and src.get("site.sewer") == "client")
+        if path == "kitchen":
+            given = src.get("programme.kitchen") == "client"
+        items.append({"path": path, "label": label, "item": item, "group": "also",
+                      "status": "given" if given else "assumed", "value": _text(path, full) or "-",
+                      "asking": session.asked == "preferences" and path in ("finishes", "electrical")})
+    needed = [i for i in items if i["group"] == "needed"]
+    return {"items": items, "given": sum(i["status"] == "given" for i in needed), "total": len(needed),
+            "also_given": sum(i["status"] == "given" for i in items if i["group"] == "also")}
 
 
-def turn(body, llm_factory=GeminiClient):
+def turn(body, llm_factory=make_client):
     state, message = body.get("state"), body.get("message")
     if message is not None and (not isinstance(message, str) or not message.strip()):
         return 400, {"error": "empty message"}

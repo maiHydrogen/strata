@@ -34,6 +34,11 @@ class Length(BaseModel):
         return round(self.value * (FT if self.unit == "ft" else 1.0), 3)
 
 
+class SignedLength(BaseModel):
+    value: float  # negative allowed (a plot above the road)
+    unit: Literal["m", "ft"]
+
+
 class RoadSaid(BaseModel):
     side: Literal["front", "left", "right", "rear"]
     width: Length
@@ -72,6 +77,12 @@ class Extraction(BaseModel):
     city: str | None = None
     vastu: bool | None = None
     lift: bool | None = None
+    unsure: list[Topic] = []  # questions the client says they cannot answer
+
+
+class PrefExtraction(BaseModel):
+    """Optional preferences (finishes, appliance points, a common wall), read in a second, small call so the
+    main extraction keeps the schema it was evaluated with. Leave out what was not said."""
     finish_level: Literal["economy", "standard", "premium"] | None = None
     floor_living: FloorSaid | None = None
     floor_bedrooms: FloorSaid | None = None
@@ -81,8 +92,25 @@ class Extraction(BaseModel):
     tv_rooms: list[Literal["living", "bedroom"]] | None = None
     geyser: bool | None = None
     extra_sockets: int | None = Field(None, ge=0, le=6)
-    unsure: list[Topic] = []  # questions the client says they cannot answer
+    neighbour_noc: bool | None = None  # the neighbour agrees to a common wall on the boundary
+    budget: Literal["economy", "mid_range", "premium"] | None = None
+    balcony: bool | None = None
+    rental_unit: bool | None = None
+    water_source: Literal["municipal", "borewell", "both"] | None = None
+    water_main: bool | None = None
+    sewer: bool | None = None
+    power_phase: Literal[1, 3] | None = None
+    soil_bearing_capacity: float | None = Field(None, gt=0)  # kN/m2 from a soil test
+    plot_below_road: SignedLength | None = None  # how far the plot is BELOW the road (negative if above)
+    storm_drain: bool | None = None
 
+
+PREF_WORDS = re.compile(r"\b(marble|granite|vitrified|tiles?|wood(en)?|kota|mosaic|ceramic|paint|texture|distemper|"
+                        r"emulsion|dado|finish(es|ing)?|premium|luxury|economy|budget|basic|ac|a/c|air.?condition\w*|"
+                        r"tv|television|geyser|water heater|sockets?|plugs?|points?|neighbou?r|common wall|shared wall|"
+                        r"balcon(y|ies)|rent(al|ed)?|tenant|borewell|bore well|municipal|water (supply|connection|main)|"
+                        r"sewer|septic|drain|phase|soil|bearing|low.?lying|below the road|above the road|lakh|crore|cost)\b",
+                        re.I)
 
 SYSTEM = """You help collect a house-design brief in India. Read the client's latest message and
 return JSON with ONLY the facts it states. Never guess or fill in values the client did not give.
@@ -108,7 +136,12 @@ Rules:
 - building_use: only when the message says who the house is for or mentions a shop or renting:
   single_family when it is for the client's own family or household ("for my family", "for 4 of us",
   "for a couple with one kid"), home_with_shop if a shop is included, rental_floors if floors will be
-  rented out. Never from the word "house" alone.
+  rented out. Never from the word "house" alone."""
+
+PREF_SYSTEM = """You read a house-design client's message for their finish and electrical preferences
+and return JSON with ONLY what the message states. Never guess: leave out every field the message does
+not mention (an empty object is a fine answer).
+
 - Finishes, only when said: finish_level "economy" (basic, low cost), "standard", "premium" (luxury, high
   end). floor_living is the floor of the living/dining/hall, floor_bedrooms of the bedrooms ("marble in the
   hall" -> floor_living marble; "wooden flooring in bedrooms" -> floor_bedrooms wooden; "tiles" -> vitrified).
@@ -117,8 +150,15 @@ Rules:
 - Electrical, only when said: ac_rooms lists the room kinds that need an AC ("AC in all bedrooms and the
   hall" -> bedroom, living); tv_rooms where TV points go; geyser false only if they say no geyser;
   extra_sockets: how many more sockets per room ("a couple of extra plugs" -> 2).
-- When the question asked was about preferences and the client says no preference or "standard is fine",
-  add "preferences" to "unsure"."""
+- budget: "economy" (tight, low cost), "mid_range", "premium" (no limit, luxury). balcony: true/false only
+  when they ask for or rule out balconies. rental_unit: true when part of the house will be rented out.
+- water_source: municipal supply, borewell, or both. water_main / sewer: whether the road has a water main or
+  a sewer line ("no sewer, we need a septic tank" -> sewer false). power_phase 1 or 3 when said.
+- soil_bearing_capacity in kN/m2 only from a soil test the client quotes ("SBC 150" -> 150; "15 t/m2" -> 147).
+- plot_below_road: how far the plot is below the road ("plot is 2 feet below the road" -> 2 ft; above the road
+  -> a negative value). storm_drain: whether there is a road-side drain.
+- neighbour_noc: true only when the client says a neighbour agrees to a common/shared wall or to building
+  on the boundary."""
 
 # Brief path each Extraction field writes to. While a question is open, only that question's
 # path may overwrite a value the client already gave; other fields only fill empty paths.
@@ -199,9 +239,19 @@ class BriefSession:
         if self.summarised and YES.match(text):
             self.done = True
             return "Thank you, the brief is confirmed."
-        extraction = self._extract(text)
-        if extraction is not None:
-            extraction = _floors_from_text(text, extraction)
+        prefs_turn = self.asked == "preferences"
+        extraction = None if prefs_turn else self._extract(text)
+        if prefs_turn or PREF_WORDS.search(text):
+            prefs = self._extract(text, PrefExtraction, PREF_SYSTEM)
+            if prefs is not None:
+                try:
+                    self._apply_prefs(prefs)
+                except ValidationError:
+                    pass
+            if prefs_turn:  # an answer to the optional question; nothing in it is required
+                extraction = Extraction()
+        if extraction is not None and not prefs_turn:
+            extraction = _bhk_from_text(text, _floors_from_text(text, extraction))
             try:
                 self._apply(extraction)
             except ValidationError:  # a value the brief itself rejects; ask again rather than crash
@@ -224,7 +274,8 @@ class BriefSession:
 
     # ---- LLM step ----
 
-    def _extract(self, text):
+    def _extract(self, text, schema=None, system=None):
+        schema, system = schema or Extraction, system or SYSTEM
         asked = f"The question just asked was about '{self.asked}'." if self.asked else "No question asked yet."
         prompt = f"{asked}\nClient's message:\n{text}"
         error = None
@@ -233,8 +284,11 @@ class BriefSession:
                                                  "Return corrected JSON.")
             raw, parsed, error = None, None, None
             try:
-                raw = self.llm.complete_json(SYSTEM, full, Extraction)
-                parsed = Extraction.model_validate(first_json_object(raw))
+                raw = self.llm.complete_json(system, full, schema)
+                data = first_json_object(raw)
+                # strict first, so the model gets its error back and corrects it (it usually does); only the
+                # last attempt keeps the valid fields and drops the broken ones
+                parsed = _lenient(data, schema) if attempt == RETRIES - 1 else schema.model_validate(data)
             except ValidationError as e:
                 error = str(e).splitlines()[0] + " " + "; ".join(f"{x['loc']}: {x['msg']}" for x in e.errors()[:5])
             except json.JSONDecodeError as e:
@@ -275,7 +329,7 @@ class BriefSession:
         """
         if self.asked is None:
             return x
-        drop = {f: None for f, path in FIELD_PATH.items() if getattr(x, f) is not None
+        drop = {f: None for f, path in FIELD_PATH.items() if getattr(x, f, None) is not None
                 and path != self.asked and self.brief.sources.get(path) == "client"}
         return x.model_copy(update=drop) if drop else x
 
@@ -302,6 +356,8 @@ class BriefSession:
                                     "study", "store", "wc_type") if (v := getattr(x, k)) is not None}
             if "bedrooms" in data:
                 self._set("programme", Programme(**data))
+                if x.kitchen is not None:  # A10 has its own row in the brief panel
+                    self.brief.sources["programme.kitchen"] = "client"
         if x.cars is not None or x.two_wheelers is not None:
             self._set("parking", Parking(cars=x.cars or 0, two_wheelers=x.two_wheelers or 0))
         if x.plot_width and x.plot_depth:
@@ -315,6 +371,26 @@ class BriefSession:
             if "guwahati" in x.city.lower():  # Guwahati Municipal Corporation area (bye-law 24(b))
                 self.brief.site.in_ulb = True
                 self.brief.sources["site.in_ulb"] = "derived (city)"
+        for path in x.unsure:
+            if path != self.asked or path == "preferences":  # "don't know" answers the open question only
+                continue
+            if QUESTIONS[path][1] is not None:  # the plot has no default
+                self.accepted_defaults.add(path)
+
+    def _apply_prefs(self, x):
+        b = self.brief
+        for name, path in (("budget", "budget"), ("balcony", "balcony_per_bedroom_floor"), ("rental_unit", "rental_unit"),
+                           ("water_source", "water_source"), ("water_main", "site.water_main"), ("sewer", "site.sewer"),
+                           ("power_phase", "site.power_phase"), ("soil_bearing_capacity", "site.soil_bearing_capacity"),
+                           ("storm_drain", "site.storm_drain")):
+            if getattr(x, name, None) is not None:
+                self._set(path, getattr(x, name))
+        if x.plot_below_road is not None:
+            v = x.plot_below_road.value * (FT if x.plot_below_road.unit == "ft" else 1.0)
+            self._set("site.plot_level_below_road", round(v, 3))
+        if x.neighbour_noc is not None:
+            self.brief.site.neighbour_noc = x.neighbour_noc
+            self.brief.sources["site.neighbour_noc"] = "client"
         if x.finish_level:
             self._set("finish_level", x.finish_level)
         said = {k: getattr(x, k) for k in ("floor_living", "floor_bedrooms", "paint") if getattr(x, k) is not None}
@@ -328,11 +404,6 @@ class BriefSession:
             old = (b.electrical.model_dump() if b.electrical and b.sources.get("electrical") == "client"
                    else electrical_from(b.electrical_loads or ["AC in bedrooms", "geyser in bathrooms"]).model_dump())
             self._set("electrical", ElectricalPrefs(**(old | said)))
-        for path in x.unsure:
-            if path == "preferences":
-                continue
-            if QUESTIONS[path][1] is not None:  # the plot has no default
-                self.accepted_defaults.add(path)
 
     # ---- deterministic questions and summary ----
 
@@ -419,6 +490,32 @@ def _floors_from_text(text, x):
     elif x.floors_future is not None and x.floors_future < counts[0]:
         update["floors_future"] = counts[0]
     return x.model_copy(update=update)
+
+
+_BHK = re.compile(r"\b([1-9])\s*-?\s*BHK\b", re.I)
+
+
+def _bhk_from_text(text, x):
+    """'3BHK' means 3 bedrooms; read it from the client's words (Gemma has returned -1 for it)."""
+    m = _BHK.search(text)
+    return x.model_copy(update={"bedrooms": int(m.group(1))}) if m else x
+
+
+def _lenient(data, schema=None):
+    """Validate an extraction, dropping only the fields that break the schema: a small model fills fields the
+    client never mentioned with 0 or -1 (bedrooms 0, a road 0 m wide), and one such field must not throw away
+    the facts it got right. A dropped field counts as not said, so the chatbot asks about it later."""
+    schema = schema or Extraction
+    try:
+        return schema.model_validate(data)
+    except ValidationError as e:
+        if not isinstance(data, dict):
+            raise
+        bad = {err["loc"][0] for err in e.errors() if err["loc"]}
+        kept = {k: v for k, v in data.items() if k not in bad}
+        if not kept or len(bad) >= len(data):
+            raise
+        return schema.model_validate(kept)
 
 
 def _any(x, *names):

@@ -34,7 +34,7 @@ def main():
     seeds = []
     if args.llm_seeds:
         from dotenv import load_dotenv
-        from src.brief.llm import GeminiClient
+        from src.brief.llm import make_client
         from src.spatial.ga import problem
         from src.spatial.proposals import genome_from_proposal, propose
         load_dotenv(os.path.join(ROOT, ".env"))
@@ -48,7 +48,7 @@ def main():
             examples = [describe(lay) for lay in load_layouts([r["id"] for r in rows])]
         except FileNotFoundError:
             pass
-        sketches, _ = propose(GeminiClient(), p0, examples)
+        sketches, _ = propose(make_client(), p0, examples)
         seeds = [genome_from_proposal(s, p0) for s in sketches]
         print(f"{len(seeds)} LLM sketches added to the starting population")
     genomes, p = alternatives(brief, spec, count=args.top, restarts=args.restarts, seed=args.seed, seeds=seeds)

@@ -41,7 +41,7 @@
 - [ ] Check Param Kamrupa onboarding docs (`kamrupasupport@iitg.ac.in`) for module-load conventions (CUDA/Python versions) and scratch-storage quota
 - [x] STAAD.Pro installed with an education license on the Windows side
 - [x] Note the STAAD.Pro version and which IS code versions it supports (IS 1893:2016, IS 13920:2016)
-- [ ] Confirm pyRevit (or an alternative: C# add-in, Dynamo Python) supports Revit 2027
+- [x] Confirm pyRevit (or an alternative: C# add-in, Dynamo Python) supports Revit 2027 — pyRevit 7 on Revit 2027: Routes listener builds models (IronPython engine)
 - [x] Update `CLAUDE.md` for the new architecture
 - [ ] Add `docs/methodology.md`
 
@@ -50,6 +50,7 @@
 - [x] Pick one target building typology — G+1/G+2 individual houses, Guwahati reference
 - [x] Draft the pre-BIM information requirements matrix (76 items, 5 sources × 5 layers) and share with supervisor
 - [ ] Verify every † code value in the matrix against NBC 2016 and the IS code texts — D1–D4, D6–D9, D12 transcribed from the NBC 2016 text (two matrix values were wrong: water demand is 150–200 lphd for cities over 1 lakh, and a second habitable room may be 7.5 m²); a person still has to sign them off (`unverified` query); D5, D10, D11, D13–D18 not yet encoded
+- [x] Small-plot setbacks, bye-law 26(3)(iv) N.B. (c): 0.9 m sides on 53.56-93.73 m2, nil one side with the neighbour's NOC on 93.73-134 m2, applied to G+1 only — interpretation to confirm with the supervisor (marked assumed)
 - [x] Encode the Guwahati bye-laws as a jurisdiction layer — the governing text is the Assam Unified Building Construction (Regulation) Byelaws 2022 (amended 2024, 2025, 2026), which replaced the GMDA 2014 bye-laws under the Assam Building Construction (Regulation) Act; setbacks, minimum plot, FAR, parking, rainwater harvesting encoded (`data/knowledge_graph/local/`). No residential coverage % (setbacks govern); height limits start above G+3. FAR marked assumed: the 2025 amendment retitled the 26(a) table to commercial/institutional
 - [ ] Identify the NBC/IS clauses that gate the typology across all 5 layers (room sizes, heights, stairs, ventilation, loads, seismic, water, drainage, electrical) — done for room sizes, heights, stairs, ventilation, parapet, plinth, loads, seismic, wind, water demand; drainage and electrical cited in `src/services/templates.py` (Phase 6)
 - [x] Encode those clauses as RDF triples in a `.ttl` file using `rdflib`, each value with its clause citation — NBC 2016 per supervisor (not NBCS 2026); every value carries clause, printed page, quote and status, enforced by SHACL (`data/knowledge_graph/`)
@@ -66,6 +67,7 @@
 - [x] Define the brief schema (pydantic) from the matrix's Must and Should items — `src/brief/schema.py`; matrix defaults applied with their source recorded
 - [x] Build the chatbot: asks only for missing Must items in plain language, offers defaults for the rest, confirms a summary with the user — `src/brief/chat.py` (LLM only extracts facts; questions, units, merging and summary are code), terminal `scripts/brief_chat.py`, web app `web/` (Next.js + Vercel Python function)
 - [x] Enforce schema-valid output with automatic retries; pin model version, temperature 0, log every prompt and response — Gemma 4 26B (free tier), 3 retries with the error, client-side rate limiter, numeric bounds checked in pydantic (Gemma's constrained decoding stalls on them)
+- [x] Second LLM provider: Groq (free Developer plan, gpt-oss-120b / gpt-oss-20b / qwen3.8-27b) beside Gemini — `GroqClient` and `make_client` in `src/brief/llm.py`, chosen by STRATA_LLM_PROVIDER or `eval_briefs.py --provider groq --model ...`; strict structured outputs (schema-constrained decoding), the same pydantic checks and retries; client pacing includes Groq's 200K tokens/day per model
 - [x] Build a test set of 20–30 synthetic client briefs, including deliberate omissions — 25 cases in `evaluation/brief_test_set.json`
 - [x] Measure brief-completeness accuracy on the test set — final run: extraction recall 98.7%, precision 100%, 0 wrong or invented values, exact omission detection 92%, 23/25 briefs complete and correct (baseline before fixes: 96.9%, 97.8%, 5 wrong, 84%, 20/25); `scripts/eval_briefs.py`, results in `output/eval/`
 - [ ] PaddleOCR + LayoutLMv3 path (`src/ingestion/{ocr,layout}.py`): parked unless uploads need it
@@ -98,6 +100,7 @@
 - [x] Result parser: utilisation, steel required, pass/fail per member, member-level errors
 - [x] Resize-and-rerun loop until all members pass (steel-first for IS 13920 cl. 7.2; G+1 test house passes in 8 rounds, uniform 400x400 columns)
 - [x] Layout to frame (`src/structure/from_layout.py`): grid on wall centrelines, plinth beams, columns only under each storey's own cells (terraces become roofs with parapets), walls per beam net of openings, partitions off the grid as IS 875 Part 2 cl. 3.1.2 slab loads, stair cell loads, a stair cabin (mumty) storey over the stair well; all three 40x60 G+1 GA layouts and the 30x50 G+2 layout pass in STAAD in 5 rounds
+- [x] Design for the storeys the client plans later (brief.floors_future): STAAD runs the frame with the top floor repeated, sizes and results carry to the as-built frame, footings take the future load (`src/structure/pipeline.py`)
 - [x] Send infeasible layouts back to Phase 4 with the constraint that failed (`layout_feedback`: a shorter maximum span for the GA, rerun up to 3 times; `scripts/design_structure.py`)
 - [ ] Size columns that stop under a terrace separately: two terrace-edge joints set the whole ground storey's column size (450 against 350) through IS 13920 cl. 7.2.1
 - [x] Per-joint strong-column/weak-beam resizing from STAAD's `<name>_13920.txt` joint report (roof joints checked: IS 13920 cl. 7.2.1.3 waives them only above 4 storeys); bigger column bars (MINMAIN) before bigger sections
@@ -116,7 +119,7 @@
 
 - [x] Define the building JSON schema: levels, grids, wall types with layers, walls, hosted doors/windows, floors, roofs, stairs, rooms, columns, beams, footings, fixtures, finishes (v0.5 adds rooms with type and outline, fixtures, stacks, tank, circuits and finishes; v0.4 has levels incl. foundation and stair-cabin roof, wall types, walls incl. parapets and the stair cabin, openings, floors with stair openings, rooms, dog-leg stairs (runs + landing), columns, beams, footings; built from the layout and the designed frame by `src/execution/layout_to_building.py`; the stair cabin is in the STAAD frame)
 - [x] Spike: script on Revit 2027 builds walls, doors, windows, floor and rooms for a 2-room flat from JSON (run via Dynamo; pyRevit button also written)
-- [ ] Revit listener: pyRevit Routes, or a folder-watch add-in as fallback
+- [x] Revit listener: pyRevit Routes — run in Revit 2027 (pyRevit 7) on 19 Nov: web_1115050457-b3d4 (G+1, 48 columns, 69 beams, 13 footings) built in 47 s with no one at the screen, IFC 17/17; `revit/STRATA.extension/startup.py` (`/strata/status`, `/strata/build`: new project from `STRATA_template.rte`, build, stairs, IFC, save .rvt, dialogs answered automatically), `src/webapi.py` `start_revit` + `/api/revit`, `/api/files`, `/api/health`; tested against a mock listener
 - [x] Full deterministic builder for all 5 layers with native families and types (no LLM in this step) — structure, walls, openings, slabs, rooms, stairs and pipes native; fixtures and the tank as typed DirectShapes (no MEP families to load), IFC-mapped
 - [ ] Write STAAD results into Revit element parameters (utilisation, steel required, check status)
 - [x] Export IFC from Revit; validate it with IfcOpenShell (`scripts/check_ifc.py`: counts per class, openings in walls, storeys, services found by id and typed; the 40x60 house passes 11/11 before services)
@@ -125,10 +128,11 @@
 ## Phase 8 — Integration & Web App (2 weeks)
 
 - [x] Orchestrator: one folder per job, one file per step, resumable after a failure — `scripts/strata.py` / `src/orchestrator.py` chain brief → spec → layouts → approval → STAAD → services → building JSON with a run.json manifest (40x60 brief: 38 s); `--resume` reuses finished stages (STAAD result kept in structure.pkl), a changed brief or a different `--pick` redoes from that stage
-- [ ] Web app (Python, running locally): chat, plan preview and approval, "Generate BIM" with progress, 3D IFC viewer, downloads (RVT, IFC, PDF plans)
+- [x] Web app (Python, running locally): chat, plan preview and approval, "Generate BIM" with progress, 3D IFC viewer, downloads (RVT, IFC, PDF plans) — Brief, Standards (cited spec), Layout (approval), Structure (live STAAD rounds), Services, Building JSON (download) and Revit model (steps + IFC upload check) pages; STAAD stages need the local API, a hosted build shows the saved demo run; 3D viewer dropped for now
 - [ ] Expose STRATA as an MCP server (`design_house`, `revise_layout`) so any LLM can call it
+- [x] Robustness run on 14 varied briefs (`scripts/robustness.py`): no crashes; stopped runs report brief changes that fit or the closest attempt
 - [x] Full end-to-end test: client brief in → native Revit model + IFC out — 40x60 brief: building JSON in 38 s, Dynamo build, Revit IFC export passes 17/17 checks (Revit and IFC steps manual)
-- [ ] Single machine, single operator for the BTP; no public deployment
+- [ ] Single machine, single operator for the BTP; no public deployment — hosted demo chain: Vercel -> ngrok -> workstation API (STAAD + Revit on student licences); browser calls the workstation directly (`NEXT_PUBLIC_STRATA_WORKER_URL`, CORS, access code), falls back to the Vercel functions and the demo run; status light in the menu; `scripts/demo_up.sh`, `docs/demo_runbook.md`
 
 ## Phase 9 — Evaluation Protocol (2 weeks)
 

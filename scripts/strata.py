@@ -35,9 +35,9 @@ from src.structure.staad_runner import DEFAULT_WORKDIR, ManualRunner, StaadRunne
 def chat(name):
     from dotenv import load_dotenv
     from src.brief.chat import BriefSession
-    from src.brief.llm import GeminiClient
+    from src.brief.llm import make_client
     load_dotenv(os.path.join(ROOT, ".env"))
-    session = BriefSession(GeminiClient(), log_path=os.path.join(ROOT, "output", "logs", f"{name}.jsonl"))
+    session = BriefSession(make_client(), log_path=os.path.join(ROOT, "output", "logs", f"{name}.jsonl"))
     print(f"STRATA: {session.start()}")
     while not session.done:
         try:

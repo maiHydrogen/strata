@@ -153,6 +153,9 @@ strata:waterDemand a strata:Quantity ; strata:key "water_demand" .
 strata:frontSetback a strata:Quantity ; strata:key "front_setback" .
 strata:rearSetback a strata:Quantity ; strata:key "rear_setback" .
 strata:sideSetback a strata:Quantity ; strata:key "side_setback" .
+strata:smallPlotSideSetback a strata:Quantity ; strata:key "small_plot_side_setback" .
+strata:smallPlotFrontRearSetback a strata:Quantity ; strata:key "small_plot_front_rear_setback" .
+strata:nilSideWithNoc a strata:Quantity ; strata:key "nil_side_with_noc" .
 strata:groundCoverage a strata:Quantity ; strata:key "ground_coverage" .
 strata:far a strata:Quantity ; strata:key "far" ;
     rdfs:comment "Floor area ratio allowed without premium (base FAR), as a ratio (bye-law '125' = 1.25)." .
