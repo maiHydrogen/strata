@@ -117,6 +117,8 @@ strata:CarSpace a strata:ElementType ; rdfs:label "Car parking space (with its s
 strata:Driveway a strata:ElementType ; rdfs:label "Parking circulation driveway" ; strata:key "driveway" .
 strata:Site a strata:ElementType ; rdfs:label "Site location (facts about the place)" ; strata:key "site" .
 strata:ExitDoor a strata:ElementType ; rdfs:label "Exit doorway (main entrance door of the dwelling)" ; strata:key "exit_door" .
+strata:InnerCourtyard a strata:ElementType ; rdfs:label "Inner courtyard (chowk) open to the sky inside the building" ;
+    strata:key "courtyard" .
 strata:Corridor a strata:ElementType ; rdfs:label "Corridor or passageway inside the dwelling" ; strata:key "corridor" .
 strata:RCConcrete a strata:ElementType ; rdfs:label "Reinforced concrete" ; strata:key "rc_concrete" .
 strata:Reinforcement a strata:ElementType ; rdfs:label "Steel reinforcement in the RC frame" ; strata:key "reinforcement" .
@@ -133,6 +135,9 @@ strata:riserHeight a strata:Quantity ; strata:key "riser" .
 strata:risersPerFlight a strata:Quantity ; strata:key "risers_per_flight" .
 strata:openingArea a strata:Quantity ; rdfs:comment "Aggregate window/ventilator area excluding doors, as a fraction of floor area." ;
     strata:key "opening_ratio" .
+strata:heightFraction a strata:Quantity ;
+    rdfs:comment "Area at least the square of this fraction of the height of the highest abutting wall." ;
+    strata:key "height_fraction" .
 strata:imposedLoad a strata:Quantity ; strata:key "imposed_load" .
 strata:ventilatorArea a strata:Quantity ; rdfs:comment "Area of the window or ventilator to a shaft or open space." ;
     strata:key "ventilator_area" .

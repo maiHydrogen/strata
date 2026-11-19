@@ -197,7 +197,7 @@ def building_from_layout(layout, model, outcome, footings=(), code_note="", name
                     for x, y in list(r.shape.exterior.coords)[:-1]]
             rooms.append({"id": f"{lvl}-R{len(rooms) + 1}", "level": lvl, "name": r.name or r.type.replace("_", " "),
                           "point": (round(pt.x, 4), round(pt.y, 4)), "stair": r.type == "stair",
-                          "type": r.type, "polygon": poly})
+                          "type": r.type, "polygon": poly, **({"open": True} if r.open else {})})
 
     slabs = []
     ground = unary_union([r.shape for r in floors[0].rooms])
@@ -296,6 +296,11 @@ def building_from_layout(layout, model, outcome, footings=(), code_note="", name
                       "width": ft.width, "length": ft.length, "thickness": ft.thickness,
                       "design": {"columns": [(nodes[j][0], nodes[j][2]) for j in ft.joints],
                                  "service_kn": ft.service_kn, "governing": ft.governing,
-                                 "bearing_kn_m2": ft.pressure, "allowed_kn_m2": ft.allowed}}
+                                 "bearing_kn_m2": ft.pressure, "allowed_kn_m2": ft.allowed,
+                                 "status": "pass" if ft.pressure <= ft.allowed + 1e-6 else "fail",
+                                 "utilisation": round(ft.pressure / ft.allowed, 3) if ft.allowed else None,
+                                 "steel": "not designed at LOD 200",
+                                 "code": "IS 456:2000 cl. 34 (size, punching and one-way shear); "
+                                         "bearing on the brief's SBC, +50% under EQ (IS 1893 cl. 6.3.5.2)"}}
                      for ft in footings]
     return b

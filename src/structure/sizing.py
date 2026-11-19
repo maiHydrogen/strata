@@ -255,6 +255,8 @@ def initial_sizes(frame: Frame) -> list:
         frame.sections[g] = Section(next((d for d in BEAM_DEPTHS if d >= need - 1e-9), BEAM_DEPTHS[-1]), BEAM_WIDTH)
     for k in range(frame.storeys):
         frame.sections.setdefault(f"column-{k}", COLUMN_SIZES[0])
+    for i in frame.terrace_edge_columns():
+        frame.sections.setdefault(frame.group_of(i), COLUMN_SIZES[0])
     for lvl in levels:
         g = f"beam-{lvl}"
         span = _group_span(frame, g)

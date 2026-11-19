@@ -88,7 +88,8 @@ def design_structure(layout, spec, runner, name, brief=None, max_rounds=10, on_r
     footings = []
     if outcome.passed:
         sbc, src = soil_bearing(brief)
-        col = outcome.frame.sections["column-0"]
+        # pads sized for the largest ground column (terrace-edge columns may be larger than the rest)
+        col = max((outcome.frame.sections[g] for g in outcome.frame.column_groups(0)), key=lambda c: c.width * c.depth)
         footings = design_footings(outcome.frame, outcome.results.reactions, sbc, min(col.width, col.depth))
         notes.append(footing_basis(sbc, src))
     if extra:

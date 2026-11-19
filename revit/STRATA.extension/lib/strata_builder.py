@@ -22,10 +22,10 @@ clr.AddReference("RevitAPI")
 from Autodesk.Revit.DB import (  # noqa: E402
     Arc, Category, DirectShape, GeometryCreationUtilities, GeometryObject,
     BuiltInCategory, BuiltInParameter, Color, CompoundStructure, CompoundStructureLayer,
-    CurveLoop, Element, ElementLevelFilter, ElementTransformUtils, ElementTypeGroup, FailureProcessingResult,
+    CurveArray, CurveLoop, Element, ElementLevelFilter, ElementTransformUtils, ElementTypeGroup, FailureProcessingResult,
     FailureSeverity, FamilySymbol, FilteredElementCollector, Floor, FloorType, IFailuresPreprocessor, Level, Line,
-    Material, MaterialFunctionAssignment, ShellLayerType, StairsEditScope, Transaction, UnitTypeId, UnitUtils, UV, View, Wall,
-    WallKind, WallType, XYZ,
+    Material, MaterialFunctionAssignment, Plane, ShellLayerType, SketchPlane, StairsEditScope, Transaction, UnitTypeId,
+    UnitUtils, UV, View, ViewFamily, ViewFamilyType, ViewPlan, Wall, WallKind, WallType, XYZ,
 )
 from Autodesk.Revit.DB.Architecture import (  # noqa: E402
     StairsLanding, StairsRun, StairsRunJustification, StairsType,
@@ -57,6 +57,14 @@ STRUCTURAL_FAMILIES = {
              ("M_Concrete-Rectangular Beam", "Concrete-Rectangular Beam", "M_Concrete-Rectangular-Beam")),
 }
 FOOTING_FAMILIES = ("M_Footing-Rectangular", "Footing-Rectangular")
+# Shared instance parameters for each member's STAAD result: (name, kind, description)
+DESIGN_PARAMETERS = (
+    ("STRATA Member", "text", "Member id in the STRATA building JSON and the STAAD model"),
+    ("STRATA Design Status", "text", "pass or fail in the STAAD IS 456 / IS 13920 design (footings: bearing check)"),
+    ("STRATA Utilisation", "number", "Column interaction ratio; beam steel required/provided; footing bearing/allowed"),
+    ("STRATA Steel", "text", "Main bars and steel ratio (columns); steel required/provided and stirrups (beams)"),
+    ("STRATA Design Basis", "text", "Codes the member was designed to"),
+)
 
 
 def ft(metres):
@@ -338,7 +346,39 @@ class Builder(object):
             self.report["floors"] += 1
         self.doc.Regenerate()
 
+    def _plan_view(self, level):
+        """A floor plan of `level` (room separation lines are drawn in a plan view); made if missing."""
+        for v in FilteredElementCollector(self.doc).OfClass(ViewPlan):
+            if not v.IsTemplate and v.GenLevel is not None and v.GenLevel.Id == level.Id:
+                return v
+        vft = next(t for t in FilteredElementCollector(self.doc).OfClass(ViewFamilyType)
+                   if t.ViewFamily == ViewFamily.FloorPlan)
+        return ViewPlan.Create(self.doc, vft.Id, level.Id)
+
+    def separate_open_rooms(self):
+        """Open-sided rooms (a verandah round a courtyard) have no wall on some sides; room separation lines
+        along their outline let Revit bound them (lines over a wall are harmless and the warning is swallowed)."""
+        n = 0
+        for spec in self.data.get("rooms", []):
+            if not spec.get("open") or not spec.get("polygon"):
+                continue
+            level = self.levels[spec["level"]]
+            z = level.Elevation
+            sketch = SketchPlane.Create(self.doc, Plane.CreateByNormalAndOrigin(XYZ.BasisZ, XYZ(0, 0, z)))
+            curves = CurveArray()
+            pts = spec["polygon"]
+            for i in range(len(pts)):
+                a, b = pts[i], pts[(i + 1) % len(pts)]
+                curves.Append(Line.CreateBound(XYZ(ft(a[0]), ft(a[1]), z), XYZ(ft(b[0]), ft(b[1]), z)))
+            self.doc.Create.NewRoomBoundaryLines(sketch, curves, self._plan_view(level))
+            n += 1
+        if n:
+            self.doc.Regenerate()
+            self.report.setdefault("notes", []).append(
+                "{0} open-sided rooms bounded by room separation lines".format(n))
+
     def make_rooms(self):
+        self.separate_open_rooms()
         for spec in self.data.get("rooms", []):
             level = self.levels[spec["level"]]
             room = self.doc.Create.NewRoom(level, UV(ft(spec["point"][0]), ft(spec["point"][1])))
@@ -434,8 +474,66 @@ class Builder(object):
             self.doc.Regenerate()
         return sym
 
-    def _comment(self, element, design):
-        """Write the STAAD result summary into the element's Comments."""
+    def make_design_parameters(self):
+        """Shared instance parameters on structural columns, framing and foundations for the STAAD result
+        of each member (DESIGN_PARAMETERS), so it is in the model, in schedules and in the IFC. A failure
+        is a warning: the result is still in Comments."""
+        import os
+        import tempfile
+        from Autodesk.Revit.DB import ExternalDefinitionCreationOptions, GroupTypeId, SpecTypeId
+        app = self.doc.Application
+        old = app.SharedParametersFilename
+        path = os.path.join(tempfile.gettempdir(), "strata_shared_parameters.txt")
+        try:
+            if not os.path.exists(path):
+                open(path, "w").close()
+            app.SharedParametersFilename = path
+            shared = app.OpenSharedParameterFile()
+            group = shared.Groups.get_Item("STRATA") or shared.Groups.Create("STRATA")
+            cats = app.Create.NewCategorySet()
+            for bic in (BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming,
+                        BuiltInCategory.OST_StructuralFoundation):
+                cats.Insert(Category.GetCategory(self.doc, bic))
+            pgroup = getattr(GroupTypeId, "StructuralAnalysis", None) or GroupTypeId.Data
+            for name, kind, text in DESIGN_PARAMETERS:
+                definition = group.Definitions.get_Item(name)
+                if definition is None:
+                    options = ExternalDefinitionCreationOptions(
+                        name, SpecTypeId.Number if kind == "number" else SpecTypeId.String.Text)
+                    options.Description = text
+                    definition = group.Definitions.Create(options)
+                binding = app.Create.NewInstanceBinding(cats)
+                if not self.doc.ParameterBindings.Insert(definition, binding, pgroup):
+                    self.doc.ParameterBindings.ReInsert(definition, binding, pgroup)
+            self.design_parameters = True
+        except Exception as e:  # noqa: BLE001
+            self.warn("STRATA design parameters not added ({0}); results are in Comments only".format(e))
+        finally:
+            try:
+                app.SharedParametersFilename = old or ""
+            except Exception:  # noqa: BLE001
+                pass
+
+    def _design_values(self, element, member_id, design):
+        """Mark = the STRATA/STAAD member id; the STRATA parameters from the member's design record."""
+        mark = element.get_Parameter(BuiltInParameter.ALL_MODEL_MARK)
+        if member_id and mark is not None and not mark.IsReadOnly:
+            mark.Set(str(member_id))
+        if not getattr(self, "design_parameters", False) or not design:
+            return
+        values = {"STRATA Member": member_id, "STRATA Design Status": design.get("status"),
+                  "STRATA Utilisation": design.get("utilisation"), "STRATA Steel": design.get("steel"),
+                  "STRATA Design Basis": design.get("code")}
+        for name, kind, _ in DESIGN_PARAMETERS:
+            value = values.get(name)
+            p = element.LookupParameter(name)
+            if value is None or p is None or p.IsReadOnly:
+                continue
+            p.Set(float(value) if kind == "number" else str(value))
+
+    def _comment(self, element, design, member_id=None):
+        """Write the STAAD result summary into the element's Comments and the STRATA parameters."""
+        self._design_values(element, member_id, design)
         if not design:
             return
         if "bearing_kn_m2" in design:  # footing: sized from STAAD reactions
@@ -467,7 +565,7 @@ class Builder(object):
             col.get_Parameter(BuiltInParameter.FAMILY_TOP_LEVEL_PARAM).Set(top.Id)
             col.get_Parameter(BuiltInParameter.FAMILY_BASE_LEVEL_OFFSET_PARAM).Set(0.0)
             col.get_Parameter(BuiltInParameter.FAMILY_TOP_LEVEL_OFFSET_PARAM).Set(0.0)
-            self._comment(col, spec.get("design"))
+            self._comment(col, spec.get("design"), spec["id"])
             self.report["columns"] += 1
             if spec["base_level"] == "LF":
                 self._stubs.append(col)
@@ -484,7 +582,7 @@ class Builder(object):
             (x1, y1), (x2, y2) = spec["start"], spec["end"]
             line = Line.CreateBound(XYZ(ft(x1), ft(y1), level.Elevation), XYZ(ft(x2), ft(y2), level.Elevation))
             beam = self.doc.Create.NewFamilyInstance(line, sym, level, StructuralType.Beam)
-            self._comment(beam, spec.get("design"))
+            self._comment(beam, spec.get("design"), spec["id"])
             self.report["beams"] += 1
         self.doc.Regenerate()
 
@@ -525,7 +623,7 @@ class Builder(object):
             point = XYZ(ft(spec["at"][0]), ft(spec["at"][1]), level.Elevation)  # top of the pad at the level
             pad = self.doc.Create.NewFamilyInstance(point, sym, level, StructuralType.Footing)
             self._ifc_as(pad, "IfcFooting", "PAD_FOOTING")  # Revit's IFC2x3 export makes it IfcSlab otherwise
-            self._comment(pad, spec.get("design"))
+            self._comment(pad, spec.get("design"), spec["id"])
             self.doc.Regenerate()
             # Where Revit puts the pad depends on the family and the overload (the point's z can be read as an
             # offset from the level): measure it and move it so its top is at the level, centred on `at`
@@ -728,6 +826,7 @@ class Builder(object):
     def build(self):
         self.check_empty()
         self.check_families()
+        self.make_design_parameters()
         self.make_levels()
         self.make_wall_types()
         self.make_footings()

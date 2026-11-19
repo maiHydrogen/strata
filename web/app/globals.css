@@ -323,12 +323,19 @@ pre.json { margin: 0; padding: 12px 16px; font-size: 11.5px; line-height: 1.5; c
 .item-ref { color: var(--text-3); font-size: 10px; }
 
 /* workstation status in the menu */
-.status-light { all: unset; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px; width: calc(100% - 32px);
-  margin: 0 16px 10px; padding: 10px 12px; border-radius: 10px; background: var(--tile); cursor: pointer; font-size: 12px; }
+/* continues the wave's dark fade, so the card sits on one even background with equal gutters */
+.status-wrap { padding: 4px 16px 16px; background: rgba(29, 32, 62, 0.65); }
+.status-light { all: unset; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; width: 100%;
+  margin: 0; padding: 12px 14px; border-radius: 10px; background: var(--tile); cursor: pointer; font-size: 12px; }
 .status-light:hover { background: var(--tile-hi); }
 .status-light:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
 .status-light small { color: var(--text-2); line-height: 1.4; }
 .status-row { display: flex; align-items: center; gap: 8px; }
 .status-row.sub { justify-content: space-between; color: var(--text-2); padding-left: 18px; }
 .led.off { background: #ff5082; box-shadow: 0 0 8px rgba(255, 80, 130, 0.6); }
-@media (max-width: 860px) { .status-light { display: none; } }
+@media (max-width: 860px) { .status-light, .status-wrap { display: none; } }
+
+.ask-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.ask-row input { flex: 1 1 240px; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--tile); color: var(--text); font: inherit; }
+.ask-row .btn { margin-left: 0; }

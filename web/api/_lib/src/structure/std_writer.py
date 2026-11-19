@@ -106,9 +106,29 @@ class Frame:
     cabin: bool = False  # the top storey is a stair cabin (mumty) over the stair, not a full storey
 
     def group_of(self, member_id: int) -> str:
-        """Members are sized in groups: columns per storey, beams per floor level."""
+        """Members are sized in groups: columns per storey, beams per floor level.
+
+        Columns that stop under a terrace below the main roof (no column above them) form their own
+        group, "column-<storey>-edge": their top joints are roof joints with one column, which IS 13920
+        cl. 7.2.1 makes the hardest to satisfy, and they should not size the whole storey."""
         m = self.members[member_id]
+        if m.kind == "column" and member_id in self.terrace_edge_columns():
+            return f"column-{m.level}-edge"
         return f"{m.kind}-{m.level}"
+
+    def terrace_edge_columns(self) -> frozenset:
+        key = (len(self.members), self.storeys, self.cabin)
+        if getattr(self, "_edge_key", None) != key:
+            starts = {m.start for m in self.members.values() if m.kind == "column"}
+            top_full = self.storeys - 1 - (1 if self.cabin else 0)  # the main roof storey's columns
+            self._edge = frozenset(i for i, m in self.members.items()
+                                   if m.kind == "column" and m.level < top_full and m.end not in starts)
+            self._edge_key = key
+        return self._edge
+
+    def column_groups(self, level: int) -> list:
+        """The column groups of one storey that exist in this frame (main, and terrace edge)."""
+        return [g for g in (f"column-{level}", f"column-{level}-edge") if g in self.sections]
 
     def section(self, member_id: int) -> Section:
         return self.sections[self.group_of(member_id)]
@@ -119,7 +139,7 @@ class Frame:
     def beam_bar_cap(self, level: int) -> int:
         """Largest beam bar at floor `level`: IS 13920 cl. 7.1.1(a) needs every column
         meeting there (the storeys below and above) at least 20 x the beam bar diameter."""
-        meeting = [self.sections[g] for g in (f"column-{level - 1}", f"column-{level}") if g in self.sections]
+        meeting = [self.sections[g] for k in (level - 1, level) for g in self.column_groups(k)]
         least_mm = min(min(c.depth, c.width) for c in meeting) * 1000
         fitting = [d for d in BAR_SIZES if 20 * d <= least_mm + 1e-6]
         return fitting[-1] if fitting else BAR_SIZES[0]
@@ -293,11 +313,20 @@ def beam_gravity_udl(frame: Frame) -> dict:
 
 
 def _wrap(line, width=79):
-    """Split a long command at spaces; STAAD continues a line that ends with a hyphen."""
+    """Split a long command at spaces; STAAD continues a line that ends with a hyphen.
+
+    A member load's specification ("UNI GY -5.1") stays whole on the last line: STAAD rejected a line
+    that broke between UNI and its value. Only the member list before it is split."""
     if len(line) <= width:
         return [line]
+    tokens = line.split()
+    for kw in ("UNI", "CON", "LIN", "TRAP"):
+        if kw in tokens:
+            k = tokens.index(kw)
+            tokens = tokens[:k] + [" ".join(tokens[k:])]
+            break
     out, cur = [], ""
-    for tok in line.split():
+    for tok in tokens:
         if cur and len(cur) + 1 + len(tok) + 2 > width:
             out.append(cur + " -")
             cur = tok

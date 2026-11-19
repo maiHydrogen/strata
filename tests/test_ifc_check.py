@@ -67,3 +67,35 @@ def test_services_found_by_name_and_proxies_flagged(tmp_path):
     assert by["plumbing fixtures in the IFC"].passed and by["lighting fixtures in the IFC"].passed
     assert not by["electrical fixtures in the IFC"].passed and "socket_6a" in by["electrical fixtures in the IFC"].detail
     assert "1 typed, 1 proxies" in by["services exported as typed elements, not proxies"].detail
+
+
+# ---------------------------------------------------------------- Revit vs STAAD member check (helpers)
+
+def test_member_size_check_reads_revit_dimensions_in_mm():
+    from src.execution.ifc_check import _size_problem
+    col = {"width": 0.45, "depth": 0.35}
+    assert _size_problem("columns", col, {"b": 350.0, "h": 450.0}, 0.001) is None  # orientation free
+    assert "STAAD" in _size_problem("columns", col, {"b": 400.0, "h": 450.0}, 0.001)
+    beam = {"width": 0.23, "depth": 0.45}
+    assert _size_problem("beams", beam, {"b": 230.0, "h": 449.9999}, 0.001) is None
+    assert _size_problem("beams", beam, {"b": 450.0, "h": 230.0}, 0.001)  # beams are not orientation free
+    pad = {"width": 1.1, "length": 1.1, "thickness": 0.3}
+    assert _size_problem("footings", pad, {"Width": 1100, "Length": 1100, "Foundation Thickness": 300}, 0.001) is None
+    assert _size_problem("footings", pad, {"Width": 1100}, 0.001) == "size not in the IFC"
+
+
+def test_member_position_check_against_the_staad_frame():
+    from src.execution.ifc_check import _position_problem
+    elev = {"LF": -1.5, "L0": 0.0, "L1": 3.0}
+    col = {"at": [1.915, 3.715], "base_level": "LF", "top_level": "L0"}
+    assert _position_problem("columns", col, None, ((1.69, 3.49, -1.5), (2.14, 3.94, 0.0)), elev, 0.001) is None
+    assert "centre" in _position_problem("columns", col, None, ((1.72, 3.49, -1.5), (2.17, 3.94, 0.0)), elev, 0.001)
+    assert "z" in _position_problem("columns", col, None, ((1.69, 3.49, -1.0), (2.14, 3.94, 0.0)), elev, 0.001)
+    beam = {"start": [1.915, 3.715], "end": [4.87, 3.715], "level": "L0"}
+    # Revit trims the beam at the column faces: inside the span is fine
+    assert _position_problem("beams", beam, None, ((2.14, 3.6, -0.45), (4.645, 3.83, 0.0)), elev, 0.001) is None
+    assert _position_problem("beams", beam, None, ((2.14, 3.65, -0.45), (4.645, 3.88, 0.0)), elev, 0.001)
+    assert "top" in _position_problem("beams", beam, None, ((2.14, 3.6, 2.55), (4.645, 3.83, 3.0)), elev, 0.001)
+    slope = {"start": [0, 0], "end": [3, 4], "level": "L0"}
+    assert _position_problem("beams", slope, None, ((1.4, 1.9, -0.45), (1.6, 2.1, 0.0)), elev, 0.001) is None
+    assert "off the STAAD line" in _position_problem("beams", slope, None, ((1.9, 1.9, -0.45), (2.1, 2.1, 0.0)), elev, 0.001)

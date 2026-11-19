@@ -62,7 +62,10 @@ def test_grid_moves_to_wall_centrelines_and_upper_storey_covers_its_cells_only()
     # columns: 9 footing stubs + 9 ground storey + 6 first storey + 4 stair cabin;
     # beams: 12 plinth + 12 first floor + 7 roof + 4 cabin roof
     assert kinds.count("column") == 28 and kinds.count("beam") == 35
-    assert sorted(f.sections) == ["beam-0", "beam-1", "beam-2", "beam-3", "column-0", "column-1", "column-2"]
+    assert sorted(f.sections) == ["beam-0", "beam-1", "beam-2", "beam-3", "column-0", "column-0-edge", "column-1",
+                                  "column-2"]
+    edge = [f.members[i] for i in f.terrace_edge_columns()]
+    assert len(edge) == 3 and all(m.level == 0 for m in edge)  # 9 ground columns, 6 continue up
     assert f.storeys == 3 and f.cabin and model.cabin == {(1, 0)}
 
 

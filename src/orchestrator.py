@@ -306,8 +306,10 @@ def run_pipeline(brief, name, runner, out=None, pick=None, ask=None, top=3, rest
         run.manifest("failed", reason=f"{type(e).__name__}: {e}", brief_hash=_hash(brief_json),
                      seconds=round(time.time() - t0, 1))
         raise
-    next_steps = ["Revit: new project (Default-Multi-Discipline_Metric), load the concrete column, beam and "
-                  "footing families, run the Dynamo node on " + os.path.basename(run.files["building"]),
+    next_steps = ["Revit, automatic (Revit 2027 open with the STRATA pyRevit listener): python scripts/build_revit.py "
+                  + os.path.basename(run.files["building"]) + "  (or Build in Revit in the web app)",
+                  "Revit, by hand instead: new project (Default-Multi-Discipline_Metric), load the concrete column, beam "
+                  "and footing families, run the Dynamo node on " + os.path.basename(run.files["building"]),
                   "Revit: File > Export > IFC (IFC4) as " + layout.name + ".ifc in the same folder",
                   "WSL: python scripts/check_ifc.py " + run.files["building"]]
     return run.manifest("complete", layout=layout.name, brief_hash=_hash(brief_json),

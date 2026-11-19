@@ -70,7 +70,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                  className={busy ? "live" : ""} />
             ))}
           </div>
-          <StatusLight onHealth={setH} />
+          <div className="status-wrap"><StatusLight onHealth={setH} /></div>
           <div className="model">
             <span className={`led${busy ? " busy" : ""}`} />
             <div>

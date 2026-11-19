@@ -1,0 +1,69 @@
+{
+ "schema_version": "0.1",
+ "building_use": "single_family",
+ "floors_now": 1,
+ "floors_future": 1,
+ "family": {
+  "persons": 6,
+  "elderly": 0,
+  "children": 2,
+  "disabled": 0
+ },
+ "programme": {
+  "bedrooms": 4,
+  "bathrooms_attached": 4,
+  "bathrooms_common": 1,
+  "living": 1,
+  "dining": true,
+  "kitchen": "separate_dining",
+  "puja": false,
+  "study": false,
+  "store": false,
+  "wc_type": "western"
+ },
+ "parking": null,
+ "balcony_per_bedroom_floor": null,
+ "lift": null,
+ "budget": null,
+ "vastu": null,
+ "finish_level": null,
+ "electrical_loads": null,
+ "water_source": null,
+ "rental_unit": null,
+ "site": {
+  "plot": {
+   "width": 18.288,
+   "depth": 24.384
+  },
+  "north": "S",
+  "roads": [
+   {
+    "side": "front",
+    "width": 6.1
+   }
+  ],
+  "city": "Guwahati",
+  "in_ulb": true,
+  "plot_level_below_road": null,
+  "soil_bearing_capacity": null,
+  "water_table_below_foundation": null,
+  "water_main": null,
+  "sewer": null,
+  "power_phase": null,
+  "storm_drain": null
+ },
+ "sources": {
+  "building_use": "client",
+  "floors_now": "client",
+  "floors_future": "client",
+  "family": "client",
+  "programme": "client",
+  "site.plot": "client",
+  "site.north": "client",
+  "site.roads": "client",
+  "site.city": "client"
+ },
+ "courtyard": true,
+ "roof_stair": true,
+ "symmetric": true
+}

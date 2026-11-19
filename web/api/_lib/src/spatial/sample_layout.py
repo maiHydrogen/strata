@@ -72,11 +72,11 @@ def _ground():
         Door(id="D8", between=("passage", "bath_c"), at=_p(3.6, 10.1), width=0.75),
     ]
     windows = [
-        Window(id="W1", room="living", at=_p(3.3, 0), width=1.5, height=1.2),
-        Window(id="W2", room="living", at=_p(0, 2.0), width=1.5, height=1.2),
+        Window(id="W1", room="living", at=_p(4.2, 0), width=0.8, height=1.2),
+        Window(id="W2", room="living", at=_p(0, 2.0), width=2.4, height=1.2),
         Window(id="W3", room="bed1", at=_p(6.4, 0), width=1.8, height=1.2),
         Window(id="V1", room="bath1", at=_p(8.0, 4.8), width=0.6, height=0.6, sill=1.8, kind="ventilator"),
-        Window(id="W4", room="dining", at=_p(8.0, 7.0), width=1.2, height=1.2),
+        Window(id="W4", room="dining", at=_p(8.0, 6.5), width=1.2, height=1.2),
         Window(id="W5", room="kitchen", at=_p(8.0, 9.7), width=1.2, height=1.2, sill=1.05),
         Window(id="V2", room="bath_c", at=_p(1.8, 11.0), width=0.6, height=0.6, sill=1.8, kind="ventilator"),
     ]
@@ -104,8 +104,8 @@ def _first():
         Door(id="D5", between=("bed2", "balcony"), at=_p(4.8, 1.2), width=0.9),
     ]
     windows = [
-        Window(id="W1", room="bed2", at=_p(1.2, 0), width=1.5, height=1.2),
-        Window(id="W2", room="bed2", at=_p(3.4, 0), width=1.5, height=1.2),
+        Window(id="W1", room="bed2", at=_p(1.0, 0), width=1.5, height=1.2),
+        Window(id="W2", room="bed2", at=_p(2.7, 0), width=1.3, height=1.2),
         Window(id="V1", room="bath2", at=_p(8.0, 3.2), width=0.6, height=0.6, sill=1.8, kind="ventilator"),
         Window(id="W3", room="bed3", at=_p(8.0, 5.8), width=1.5, height=1.2),
     ]

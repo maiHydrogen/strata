@@ -13,7 +13,7 @@ failures fail the layout; practice failures are warnings.
 
 from collections import Counter, defaultdict
 
-from shapely.geometry import Point, Polygon, box
+from shapely.geometry import LineString, Point, Polygon, box
 from shapely.ops import unary_union
 
 from src.spatial.layout import EXTERNAL_WALL, INTERNAL_WALL, Layout
@@ -32,7 +32,7 @@ ELEMENT = {"living": "habitable_room", "bedroom": "habitable_room", "dining": "h
 # Checks with no clause that a layout must still pass: it is not a buildable plan otherwise.
 VALIDITY = ("room polygon is valid", "rooms do not overlap", "wall has length", "opening sits on a wall",
             "opening fits on wall", "openings do not overlap", "door leads to rooms", "door joins two",
-            "door is on the wall", "one main entrance", "room has a door", "window belongs", "window is on an external",
+            "door is on the wall", "one main entrance", "room has a door", "window belongs", "window is on an external", "window clears the columns",
             "every room reachable", "at least ", "a stair on every floor", "flights rise", "two flights", "flight plus",
             "every column stands", "stair is in the same place", "columns inside")
 
@@ -143,6 +143,7 @@ def check_layout(layout: Layout, spec: dict) -> dict:
                                 "carpet_basis": "inside walls" if walls else "to wall centrelines (no walls given)"})
         prev = floor
 
+    _courtyards(res, layout, req)
     _reachability(res, layout)
     _programme_check(res, layout, spec)
     _building(res, layout, req, areas)
@@ -154,6 +155,32 @@ def check_layout(layout: Layout, spec: dict) -> dict:
             "summary": {"checks": sum(r["pass"] is not None for r in res.items), "failures": len(code_fail),
                         "practice_warnings": len(warn), "skipped": sum(r["pass"] is None for r in res.items)},
             "areas": areas, "results": res.items}
+
+
+# ---- Part 3, 8.2.5 (a): inner courtyard ----
+
+def _courtyards(res, layout, req):
+    """Each inner courtyard (a hole through the floor plate): its narrowest side and its area against the
+    height of the highest wall abutting it (every storey up to the roof parapet)."""
+    floors = sorted(layout.floors, key=lambda f: f.level)
+    if not floors:
+        return
+    ground = unary_union([r.shape for r in floors[0].rooms])
+    courts = [Polygon(h.coords) for g in getattr(ground, "geoms", [ground]) for h in g.interiors]
+    height = sum(f.floor_to_floor for f in floors) + (layout.parapet_height or 0.0)
+    for k, c in enumerate(courts, 1):
+        rect = c.minimum_rotated_rectangle
+        xy = list(rect.exterior.coords)
+        sides = sorted(((xy[i][0] - xy[i + 1][0]) ** 2 + (xy[i][1] - xy[i + 1][1]) ** 2) ** 0.5 for i in range(2))
+        width = sides[0]
+        rq = req.get("courtyard", {}).get(("width", "ge"))
+        res.add("geometry", f"courtyard {k}", _label(rq) if rq else "inner courtyard width >= 3 m", round(width, 3),
+                width >= (rq["value"] if rq else 3.0) - TOL, rq["source"] if rq else None)
+        rq = req.get("courtyard", {}).get(("height_fraction", "ge"))
+        frac = rq["value"] if rq else 0.2
+        need = (frac * height) ** 2
+        res.add("geometry", f"courtyard {k}", f"area >= ({frac:g} x {height:g} m highest wall)^2 = {need:.2f} m2",
+                round(c.area, 3), c.area >= need - AREA_TOL, rq["source"] if rq else None)
 
 
 # ---- geometry: overlaps, envelope ----
@@ -197,13 +224,20 @@ def _walls(res, floor, tag, footprint):
                 note="length off any room edge, m")
     lines = [w.line.buffer(w.thickness / 2 + TOL, cap_style="flat") for w in floor.walls]
     walled = unary_union(lines) if lines else Polygon()
+    open_sides = _open_sides(floor)  # a verandah is open to other open spaces and to an inner courtyard
+    if not open_sides.is_empty:
+        walled = walled.union(open_sides)
     for r in floor.rooms:
         bare = r.shape.boundary.difference(walled).length
         res.add("walls", f"{tag} {r.id}", "every room edge has a wall", round(bare, 3), bare <= 0.05,
                 note="room edge length with no wall, m")
     # openings fit their walls without overlapping each other
     per_wall = defaultdict(list)
+    rooms_by_id = {r.id: r for r in floor.rooms}
     for o in list(floor.doors) + list(floor.windows):
+        if getattr(o, "kind", "") == "opening" and all(rooms_by_id.get(x) is not None and rooms_by_id[x].open
+                                                       for x in o.between):
+            continue  # between two open-sided spaces there is no wall to sit in
         w = _host_wall(floor.walls, o.at)
         if w is None:
             res.add("walls", f"{tag} {o.id}", "opening sits on a wall", "no wall", False)
@@ -325,6 +359,31 @@ def _segment_at(line, p, width):
     return 0.0
 
 
+def _opening_line(line, p, width):
+    """The stretch of `line` an opening of `width` centred at p occupies, along the straight piece it sits on."""
+    parts = list(line.geoms) if hasattr(line, "geoms") else [line]
+    for part in parts:
+        if part.geom_type == "LineString" and part.distance(p) <= TOL:
+            t = part.project(p)
+            a = part.interpolate(max(0.0, t - width / 2))
+            b = part.interpolate(min(part.length, t + width / 2))
+            return LineString([a, b])
+    return None
+
+
+def _open_sides(floor):
+    """Edges of open-sided rooms with no wall by design: shared with another open room, or on an inner court."""
+    opens = [r.shape for r in floor.rooms if r.open]
+    if not opens:
+        return Polygon()
+    foot = unary_union([r.shape for r in floor.rooms])
+    holes = [LineString(h.coords) for g in getattr(foot, "geoms", [foot]) for h in g.interiors]
+    parts = [a.boundary.intersection(b.boundary) for i, a in enumerate(opens) for b in opens[i + 1:]]
+    parts += [o.boundary.intersection(h) for o in opens for h in holes]
+    parts = [x for x in parts if not x.is_empty]
+    return unary_union(parts).buffer(TOL) if parts else Polygon()
+
+
 def _openings(res, floor, tag, footprint, carpet, req):
     rooms = {r.id: r for r in floor.rooms}
     enclosed = unary_union([r.shape for r in floor.rooms if r.type not in OPEN_AIR])
@@ -395,6 +454,12 @@ def _openings(res, floor, tag, footprint, carpet, req):
                      note="a window on an internal wall opens into another room")
         if ok:
             win_of[w.room].append(w)
+            span = _opening_line(edge, Point(w.at), w.width)
+            hit = [c.id for c in floor.columns
+                   if span is not None and span.intersection(box(c.at[0] - c.width / 2, c.at[1] - c.depth / 2,
+                                                                 c.at[0] + c.width / 2, c.at[1] + c.depth / 2)).length > TOL]
+            res.add("windows", subject, "window clears the columns", ", ".join(hit) or "clear", not hit,
+                    note="a window cannot pass through a column; move it or split it into two")
     for r in floor.rooms:
         el = ELEMENT.get(r.type)
         subject = f"{tag} {r.id} ({r.type})"

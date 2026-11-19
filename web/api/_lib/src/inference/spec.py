@@ -9,6 +9,7 @@ are kept apart from code values.
 """
 
 import math
+import re
 
 from src.brief.schema import Brief
 from src.inference.kg import KnowledgeGraph
@@ -119,13 +120,24 @@ def _envelope(site, plot_entries):
             "setbacks": gap, "unit": "m"}
 
 
+def _jurisdiction(kg, city):
+    """The most specific encoded place named in the city text: "Guwahati, Assam" and "Guwahati city" are
+    Guwahati (a client's or a model's wording must not drop the bye-law layer)."""
+    text = (city or "").strip().lower()
+    candidates = [text] + [w for w in re.split(r"[^a-z]+", text) if w and w != text]
+    for c in candidates:
+        rows = kg.query("jurisdictions", siteKey=c)
+        if rows:
+            return c, {r["jurKey"] for r in rows}
+    return text, set()
+
+
 def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
     """The design spec for a brief. Defaults are applied first and their sources kept."""
     kg = kg or KnowledgeGraph()
     brief = brief.with_defaults()
     site = brief.site
-    jurisdiction = (site.city or "").strip().lower()
-    known = {r["jurKey"] for r in kg.query("jurisdictions", siteKey=jurisdiction)}
+    jurisdiction, known = _jurisdiction(kg, site.city)
     notes = []
     if jurisdiction not in known:
         notes.append(f"No bye-law layer for '{site.city}'; national (NBC 2016) values only.")
@@ -175,6 +187,7 @@ def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
         s.get("headroom", "habitable_room"),
         *s.all(("width", "height"), "exit_door"),
         s.get("width", "corridor"),
+        *s.all(("width", "height_fraction"), "courtyard"),  # applied only when the layout has a courtyard
     ] if e]
     materials = s.all(("grade",), "rc_concrete") + s.all(("elongation", "proof_stress"), "reinforcement")
 

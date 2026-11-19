@@ -113,6 +113,7 @@ class Room(BaseModel):
     stair: bool = False  # a stair room: over the stair well, so not over a slab on upper levels
     type: str | None = None  # layout room type (bedroom, kitchen, bath_wc, ...), for the services templates
     polygon: list[Point] | None = None  # centreline outline, building coordinates
+    open: bool = False  # open-sided (a verandah round a courtyard): Revit bounds it with room separation lines
 
 
 class StairRun(BaseModel):

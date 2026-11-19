@@ -52,6 +52,8 @@ SOURCES = {
                             "corner. Written for public buildings; applied here because the household includes "
                             "elderly or wheelchair users."),
     "loads": _default("Connected load per point: LED light 20 W, fan 60 W, 6 A socket 100 W, 16 A outlet 1000 W."),
+    "stack_clearance": _default("Stacks kept 75 mm clear of column faces for pipe clamps and access, 40 mm of "
+                                "beam faces (beams are flush with the wall; practice; NBC Part 9 Section 2 asks that stacks be accessible but gives no figure)."),
     "finishes": _default("Finish schedule by room type: typical Guwahati residential specification."),
 }
 

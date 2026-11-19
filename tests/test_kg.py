@@ -187,3 +187,24 @@ def test_guwahati_rainwater_harvesting(kg):
     assert kg.lookup("rainwater_storage", "plot", building_type="house", plot_area=200.0).text == "required"
     with pytest.raises(LookupError):
         kg.lookup("rainwater_storage", "plot", building_type="house", plot_area=120.0)
+
+
+def test_knowledge_graph_is_safe_on_the_threaded_api_server():
+    """rdflib's SPARQL parser is not thread-safe; parallel requests used to corrupt each other's parse."""
+    import threading
+
+    from src.inference.kg import KnowledgeGraph
+    errors = []
+
+    def build():
+        try:
+            KnowledgeGraph().query("conditions")
+        except Exception as e:  # noqa: BLE001
+            errors.append(repr(e))
+
+    threads = [threading.Thread(target=build) for _ in range(6)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert errors == []

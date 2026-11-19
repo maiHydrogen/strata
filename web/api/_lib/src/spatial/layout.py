@@ -40,6 +40,7 @@ class Room(BaseModel):
     name: str = ""
     ceiling_height: float | None = None  # clear height if not floor-to-floor minus slab (e.g. a false ceiling)
     stair: Stair | None = None
+    open: bool = False  # open-sided (a verandah): no wall to another open space or to an inner courtyard
 
     @property
     def shape(self) -> Polygon:
@@ -132,6 +133,14 @@ def derive_walls(floor: Floor, external=EXTERNAL_WALL, internal=INTERNAL_WALL) -
         edges += [LineString([c[i], c[i + 1]]) for i in range(len(c) - 1)]
     pieces = unary_union(edges)  # nodes every crossing
     pieces = list(pieces.geoms) if hasattr(pieces, "geoms") else [pieces]
+    open_rooms = [r.shape for r in floor.rooms if r.open]
+    if open_rooms:  # open sides: between two open spaces, and from an open space to an inner courtyard
+        holes = [LineString(h.coords) for g in getattr(footprint, "geoms", [footprint]) for h in g.interiors]
+        skip = [a.boundary.intersection(b.boundary) for i, a in enumerate(open_rooms) for b in open_rooms[i + 1:]]
+        skip += [o.boundary.intersection(h) for o in open_rooms for h in holes]
+        skip = unary_union([s for s in skip if not s.is_empty]).buffer(1e-4) if skip else None
+        if skip is not None and not skip.is_empty:
+            pieces = [pc for pc in pieces if not pc.within(skip)]
     walls = []
     for is_ext in (True, False):
         group = [p for p in pieces if p.within(outline) == is_ext]

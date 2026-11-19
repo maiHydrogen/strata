@@ -36,6 +36,7 @@ OPTIONAL = [
     ("site.water_table_below_foundation", "Water table", "B8"), ("site.water_main", "Water and sewer", "B11"),
     ("site.power_phase", "Power supply", "B12"), ("site.storm_drain", "Storm drain", "B13"),
     ("site.neighbour_noc", "Common wall", "bye-law 26"),
+    ("form", "Plan form", "client wish"),
 ]
 KITCHEN = {"separate_dining": "closed kitchen, separate dining", "with_dining": "kitchen with dining",
            "with_store": "kitchen with a store"}
@@ -104,6 +105,10 @@ def _text(path, b):
         return f"{s.power_phase}-phase" if s.power_phase else "not known"
     if path == "site.storm_drain":
         return yes(s.storm_drain, "storm drain on the road", "no storm drain")
+    if path == "form":
+        wishes = [w for w, on in (("central courtyard with a verandah", b.courtyard), ("stair up to the terrace",
+                  b.roof_stair), ("symmetrical", b.symmetric)) if on]
+        return ", ".join(wishes) or "STRATA chooses"
     if path == "site.neighbour_noc":
         return yes(s.neighbour_noc, "neighbour agrees to a common wall", "no common wall")
     if path == "finishes" and b.finishes:
@@ -144,6 +149,8 @@ def panel(session):
         given = src.get(key) == "client" or (path == "site.water_main" and src.get("site.sewer") == "client")
         if path == "kitchen":
             given = src.get("programme.kitchen") == "client"
+        if path == "form":
+            given = any(src.get(k) == "client" for k in ("courtyard", "roof_stair", "symmetric"))
         items.append({"path": path, "label": label, "item": item, "group": "also",
                       "status": "given" if given else "assumed", "value": _text(path, full) or "-",
                       "asking": session.asked == "preferences" and path in ("finishes", "electrical")})

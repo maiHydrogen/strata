@@ -33,14 +33,21 @@ def read_report(workdir, name):
 LINGER = 15  # s the engine may stay open after its report is complete
 
 
-def _analysis_finished(anl_path):
-    """True once STAAD has written the closing banner of the .anl."""
+def _ends_with_banner(path):
     try:
-        with open(anl_path, "rb") as f:
-            f.seek(max(0, os.path.getsize(anl_path) - 2000))
+        with open(path, "rb") as f:
+            f.seek(max(0, os.path.getsize(path) - 2000))
             return b"END OF ANALYSIS" in f.read().upper()
     except OSError:
         return False
+
+
+def _analysis_finished(anl_path):
+    """True once STAAD has finished the run: the closing banner is in the run's .log (STAAD 2026 writes it
+    there, not in the .anl), or in the .anl (older versions), and the .anl exists."""
+    if not os.path.exists(anl_path):
+        return False
+    return _ends_with_banner(anl_path[:-4] + ".log") or _ends_with_banner(anl_path)
 
 
 def _windows_path(path):
@@ -59,7 +66,7 @@ class StaadRunner:
         os.makedirs(self.workdir, exist_ok=True)
         std_path = os.path.join(self.workdir, f"{name}.std")
         anl_path = os.path.join(self.workdir, f"{name}.anl")
-        for stale in (anl_path, joint_report_path(self.workdir, name)):
+        for stale in (anl_path, os.path.join(self.workdir, f"{name}.log"), joint_report_path(self.workdir, name)):
             if os.path.exists(stale):
                 os.remove(stale)
         with open(std_path, "w", encoding="ascii", newline="\r\n") as f:

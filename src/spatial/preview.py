@@ -7,7 +7,7 @@ rule-checker check are outlined in red when a checker result is passed in.
 
 from html import escape
 
-from shapely.geometry import Point
+from shapely.geometry import Point, Polygon
 from shapely.ops import unary_union
 
 FILL = {"living": "#5b7fd6", "dining": "#6f8fe0", "bedroom": "#9775dc", "study": "#a685e3", "kitchen": "#1bb1d0",
@@ -67,6 +67,17 @@ def render_svg(layout, check=None, scale=42, gap=60, margin=1.5):
             bad = f"{tag} {r.id}" in failed
             out.append(f'<polygon points="{pts}" fill="{FILL.get(r.type, "#444")}" fill-opacity="0.55" '
                        f'stroke="{"#ff5f7a" if bad else "rgba(255,255,255,0.15)"}" stroke-width="{3 if bad else 1}"/>')
+        foot = unary_union([r.shape for r in floor.rooms])
+        for g in getattr(foot, "geoms", [foot]):  # inner courtyards: open to the sky, drawn green and labelled
+            for hole in g.interiors:
+                pts = " ".join(f"{X(x):.1f},{Y(y):.1f}" for x, y in hole.coords)
+                out.append(f'<polygon points="{pts}" fill="#2f7d5b" fill-opacity="0.45" stroke="rgba(255,255,255,0.3)" '
+                           f'stroke-dasharray="4 4"/>')
+                c = Polygon(hole.coords).representative_point()
+                out.append(f'<text x="{X(c.x):.1f}" y="{Y(c.y) - 2:.1f}" fill="#fff" font-size="12" font-weight="700" '
+                           f'text-anchor="middle">Courtyard</text>')
+                out.append(f'<text x="{X(c.x):.1f}" y="{Y(c.y) + 13:.1f}" fill="rgba(255,255,255,0.7)" font-size="11" '
+                           f'text-anchor="middle">open, {Polygon(hole.coords).area:.1f} m2</text>')
         for w in floor.walls or []:
             out.append(f'<line x1="{X(w.start[0]):.1f}" y1="{Y(w.start[1]):.1f}" x2="{X(w.end[0]):.1f}" '
                        f'y2="{Y(w.end[1]):.1f}" stroke="#e9e6ff" stroke-width="{max(1.5, w.thickness * scale):.1f}" '
@@ -92,6 +103,8 @@ def render_svg(layout, check=None, scale=42, gap=60, margin=1.5):
             c = r.shape.representative_point()
             area = carpets.get((tag, r.id), r.shape.area)
             label = NAME.get(r.type, r.type)
+            if r.type == "corridor" and r.name and r.name.split(" (")[0] in ("Verandah", "Lobby"):
+                label = r.name.split(" (")[0]
             if r.type in ("bedroom", "study") and r.name:
                 label = r.name
             out.append(f'<text x="{X(c.x):.1f}" y="{Y(c.y) - 2:.1f}" fill="#fff" font-size="12" font-weight="700" '

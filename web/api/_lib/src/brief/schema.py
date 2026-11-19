@@ -138,6 +138,10 @@ class Brief(BaseModel):
     electrical: ElectricalPrefs | None = None  # client preferences; default from electrical_loads
     water_source: Literal["municipal", "borewell", "both"] | None = None
     rental_unit: bool | None = None
+    # plan form the client asks for (None: not said; the layout GA then picks the form)
+    courtyard: bool | None = None  # rooms around a central open courtyard (chowk) with a verandah round it
+    roof_stair: bool | None = None  # a stair up to the roof terrace even on a single-storey house
+    symmetric: bool | None = None  # rooms arranged symmetrically (soft objective in the GA)
     site: Site = Field(default_factory=Site)
     sources: dict[str, str] = Field(default_factory=dict)  # field path -> "client", "upload" or "default (A2)"
 

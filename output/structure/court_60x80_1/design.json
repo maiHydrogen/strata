@@ -1,0 +1,760 @@
+{
+ "passed": true,
+ "reason": "",
+ "rounds": [
+  {
+   "round": 1,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "300x300",
+    "column-1": "300x300"
+   },
+   "column_bars": {
+    "column-0": 12,
+    "column-1": 12
+   },
+   "passed": false,
+   "changes": [
+    "column-0: bars 12d -> 16d min (IS 456 cl. 26.5.3.1(a): column 1 steel 0.50% < 0.8% of gross area)",
+    "column-1: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 107 XZ, 108 XZ, 113 XZ, 114 XZ, 127 X, 128 X, 130 X)"
+   ]
+  },
+  {
+   "round": 2,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "300x300",
+    "column-1": "300x300"
+   },
+   "column_bars": {
+    "column-0": 16,
+    "column-1": 25
+   },
+   "passed": false,
+   "changes": [
+    "column-0: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 44 X, 45 X, 46 X, 47 X, 49 Z, 50 XZ, 51 XZ, 52 XZ, 53 XZ, 54 Z, 55 Z, 56 XZ, 57 XZ, 58 XZ, 59 XZ, 60 Z, 61 Z, 62 XZ, 63 Z, 64 Z, 65 XZ, 66 Z, 67 Z, 68 XZ, 69 Z, 70 Z, 71 XZ, 72 Z, 73 Z, 74 XZ, 75 XZ, 76 XZ, 77 XZ, 78 Z, 80 X, 81 X, 82 X, 83 X, 85 XZ, 86 XZ, 87 XZ, 88 XZ, 89 XZ, 90 XZ, 91 XZ, 92 XZ, 93 XZ, 94 XZ, 95 XZ, 96 XZ, 97 XZ, 98 XZ, 99 XZ, 100 XZ, 101 XZ, 102 XZ, 103 XZ, 104 XZ, 105 XZ, 106 XZ, 107 XZ, 108 Z, 109 XZ, 110 XZ, 111 XZ, 112 XZ, 113 XZ, 114 Z, 115 XZ, 116 XZ, 117 XZ, 118 XZ, 119 XZ, 120 XZ, 121 XZ, 122 XZ, 123 XZ, 124 XZ, 125 XZ, 126 XZ)",
+    "column-1: 300x300 -> 350x350 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 107 XZ, 108 Z, 113 XZ, 114 Z)",
+    "column-0: 300x300 -> 350x350 (practice: not smaller than column-1 above it)"
+   ]
+  },
+  {
+   "round": 3,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "350x350",
+    "column-1": "350x350"
+   },
+   "column_bars": {
+    "column-0": 25,
+    "column-1": 25
+   },
+   "passed": false,
+   "changes": [
+    "column-0: 350x350 -> 400x400 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 86 X, 87 X, 88 X, 89 X, 91 Z, 92 XZ, 93 XZ, 94 XZ, 95 XZ, 96 Z, 97 Z, 98 XZ, 99 XZ, 100 XZ, 101 XZ, 102 Z, 103 Z, 104 XZ, 105 Z, 106 Z, 109 Z, 110 XZ, 111 Z, 112 Z, 115 Z, 116 XZ, 117 XZ, 118 XZ, 119 XZ, 120 Z, 122 X, 123 X, 124 X, 125 X)"
+   ]
+  },
+  {
+   "round": 4,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "400x400",
+    "column-1": "350x350"
+   },
+   "column_bars": {
+    "column-0": 25,
+    "column-1": 25
+   },
+   "passed": false,
+   "changes": [
+    "column-0: 400x400 -> 450x450 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 64 Z, 70 Z, 86 X, 87 X, 88 X, 89 X, 91 Z, 92 XZ, 93 XZ, 94 XZ, 95 XZ, 96 Z, 97 Z, 98 XZ, 99 XZ, 100 XZ, 101 XZ, 102 Z, 103 Z, 104 XZ, 105 Z, 106 Z, 109 Z, 110 XZ, 111 Z, 112 Z, 115 Z, 116 XZ, 117 XZ, 118 XZ, 119 XZ, 120 Z, 122 X, 123 X, 124 X, 125 X)"
+   ]
+  },
+  {
+   "round": 5,
+   "sections": {
+    "beam-0": "230x450",
+    "beam-1": "230x450",
+    "beam-2": "230x300",
+    "column-0": "450x450",
+    "column-1": "350x350"
+   },
+   "column_bars": {
+    "column-0": 25,
+    "column-1": 25
+   },
+   "passed": true,
+   "changes": []
+  }
+ ],
+ "sections": {
+  "beam-0": "230x450",
+  "beam-1": "230x450",
+  "beam-2": "230x300",
+  "column-0": "450x450",
+  "column-1": "350x350"
+ },
+ "slab_mm": 135,
+ "base_shear": {
+  "X": {
+   "period": 0.3399,
+   "coeff": 0.09,
+   "weight": 4541.59,
+   "vb": 408.74
+  },
+  "Z": {
+   "period": 0.3399,
+   "coeff": 0.09,
+   "weight": 4541.59,
+   "vb": 408.74
+  }
+ },
+ "members": {
+  "columns": 88,
+  "beams": 142,
+  "failed": []
+ },
+ "warnings": [
+  "DEPTH OF BEAM # 100 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 102 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 105 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 106 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 109 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 110 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 113 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 115 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 118 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 120 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 123 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 126 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 127 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 129 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 132 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 133 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 135 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 138 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 139 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 141 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 144 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 145 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 147 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 150 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 151 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 153 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 156 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 157 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 159 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 161 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 164 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 166 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 169 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 171 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 174 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 175 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 178 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 179 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 182 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 184 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 187 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 189 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 192 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 195 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 196 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 198 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 201 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 202 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 204 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 207 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 208 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 210 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 213 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 214 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 216 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 219 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 220 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 222 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 225 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 226 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 90 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 92 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 95 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER.",
+  "DEPTH OF BEAM # 97 SHALL PREFERABLY BE LESS THAN THE 1/4TH OF CLEAR SPAN ASSUMING IT TO BE SPANNING BETWEEN SUPPORTS. IF NOT, USE COMBINE PARAMETER."
+ ],
+ "footings": [
+  {
+   "joint": 1,
+   "at": [
+    1.915,
+    3.715
+   ],
+   "size_m": 1.25,
+   "thickness_m": 0.3,
+   "service_kn": 135.0,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 95.0,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 2,
+   "at": [
+    5.456,
+    3.715
+   ],
+   "size_m": 1.25,
+   "thickness_m": 0.3,
+   "service_kn": 136.8,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.3,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 3,
+   "at": [
+    6.956,
+    3.715
+   ],
+   "size_m": 1.2,
+   "thickness_m": 0.3,
+   "service_kn": 125.6,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.0,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 4,
+   "at": [
+    10.633,
+    3.715
+   ],
+   "size_m": 1.2,
+   "thickness_m": 0.3,
+   "service_kn": 125.7,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.0,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 5,
+   "at": [
+    12.133,
+    3.715
+   ],
+   "size_m": 1.25,
+   "thickness_m": 0.3,
+   "service_kn": 136.8,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.3,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 6,
+   "at": [
+    15.674,
+    3.715
+   ],
+   "size_m": 1.25,
+   "thickness_m": 0.3,
+   "service_kn": 137.1,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.5,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 7,
+   "at": [
+    1.915,
+    8.599
+   ],
+   "size_m": 1.3,
+   "thickness_m": 0.3,
+   "service_kn": 153.5,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 99.9,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 8,
+   "at": [
+    5.456,
+    8.599
+   ],
+   "size_m": 1.3,
+   "thickness_m": 0.3,
+   "service_kn": 143.9,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 93.6,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 9,
+   "at": [
+    6.956,
+    8.599
+   ],
+   "size_m": 1.2,
+   "thickness_m": 0.3,
+   "service_kn": 126.2,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.4,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 10,
+   "at": [
+    10.633,
+    8.599
+   ],
+   "size_m": 1.2,
+   "thickness_m": 0.3,
+   "service_kn": 126.3,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.5,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 11,
+   "at": [
+    12.133,
+    8.599
+   ],
+   "size_m": 1.3,
+   "thickness_m": 0.3,
+   "service_kn": 144.0,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 93.7,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 12,
+   "at": [
+    15.674,
+    8.599
+   ],
+   "size_m": 1.35,
+   "thickness_m": 0.3,
+   "service_kn": 156.4,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 94.4,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 13,
+   "at": [
+    1.915,
+    10.099
+   ],
+   "size_m": 1.1,
+   "thickness_m": 0.3,
+   "service_kn": 108.5,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 98.6,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 14,
+   "at": [
+    5.456,
+    10.099
+   ],
+   "size_m": 1.1,
+   "thickness_m": 0.3,
+   "service_kn": 100.6,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 91.4,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 15,
+   "at": [
+    6.956,
+    10.099
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 84.7,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 93.2,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 16,
+   "at": [
+    10.633,
+    10.099
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 84.4,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 92.8,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 17,
+   "at": [
+    12.133,
+    10.099
+   ],
+   "size_m": 1.1,
+   "thickness_m": 0.3,
+   "service_kn": 101.0,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 91.8,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 18,
+   "at": [
+    15.674,
+    10.099
+   ],
+   "size_m": 1.15,
+   "thickness_m": 0.3,
+   "service_kn": 110.8,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 92.1,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 19,
+   "at": [
+    1.915,
+    13.599
+   ],
+   "size_m": 1.3,
+   "thickness_m": 0.3,
+   "service_kn": 145.8,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 94.9,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 20,
+   "at": [
+    5.456,
+    13.599
+   ],
+   "size_m": 1.25,
+   "thickness_m": 0.3,
+   "service_kn": 135.9,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 95.6,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 21,
+   "at": [
+    6.956,
+    13.599
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 72.0,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 79.2,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 22,
+   "at": [
+    10.633,
+    13.599
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 74.6,
+   "governing": "DL+0.8LL-0.8EQX",
+   "bearing_kn_m2": 139.0,
+   "allowed_kn_m2": 150.0
+  },
+  {
+   "joint": 23,
+   "at": [
+    12.133,
+    13.599
+   ],
+   "size_m": 1.55,
+   "thickness_m": 0.3,
+   "service_kn": 215.6,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 98.7,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 24,
+   "at": [
+    15.674,
+    13.599
+   ],
+   "size_m": 1.6,
+   "thickness_m": 0.3,
+   "service_kn": 224.5,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.5,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 25,
+   "at": [
+    1.915,
+    16.199
+   ],
+   "size_m": 1.1,
+   "thickness_m": 0.3,
+   "service_kn": 108.1,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 98.3,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 26,
+   "at": [
+    5.456,
+    16.199
+   ],
+   "size_m": 1.1,
+   "thickness_m": 0.3,
+   "service_kn": 102.8,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 93.4,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 27,
+   "at": [
+    6.956,
+    16.199
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 55.7,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 61.3,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 28,
+   "at": [
+    10.633,
+    16.199
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 58.3,
+   "governing": "DL+0.8LL-0.8EQX",
+   "bearing_kn_m2": 105.7,
+   "allowed_kn_m2": 150.0
+  },
+  {
+   "joint": 29,
+   "at": [
+    12.133,
+    16.199
+   ],
+   "size_m": 1.4,
+   "thickness_m": 0.3,
+   "service_kn": 177.2,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 99.4,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 30,
+   "at": [
+    15.674,
+    16.199
+   ],
+   "size_m": 1.45,
+   "thickness_m": 0.3,
+   "service_kn": 181.3,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 94.8,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 31,
+   "at": [
+    1.915,
+    17.658
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 78.9,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 86.8,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 32,
+   "at": [
+    5.456,
+    17.658
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 76.0,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 83.6,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 33,
+   "at": [
+    6.956,
+    17.658
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 70.8,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 77.9,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 34,
+   "at": [
+    10.633,
+    17.658
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 70.1,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 77.1,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 35,
+   "at": [
+    12.133,
+    17.658
+   ],
+   "size_m": 1.05,
+   "thickness_m": 0.3,
+   "service_kn": 92.0,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 91.8,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 36,
+   "at": [
+    15.674,
+    17.658
+   ],
+   "size_m": 1.05,
+   "thickness_m": 0.3,
+   "service_kn": 97.4,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 97.2,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 37,
+   "at": [
+    1.915,
+    19.043
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 84.6,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 93.1,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 38,
+   "at": [
+    5.456,
+    19.043
+   ],
+   "size_m": 1.05,
+   "thickness_m": 0.3,
+   "service_kn": 97.5,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 97.3,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 39,
+   "at": [
+    6.956,
+    19.043
+   ],
+   "size_m": 1.05,
+   "thickness_m": 0.3,
+   "service_kn": 96.9,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.7,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 40,
+   "at": [
+    10.633,
+    19.043
+   ],
+   "size_m": 1.05,
+   "thickness_m": 0.3,
+   "service_kn": 96.3,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 96.1,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 41,
+   "at": [
+    12.133,
+    19.043
+   ],
+   "size_m": 1.05,
+   "thickness_m": 0.3,
+   "service_kn": 96.0,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 95.8,
+   "allowed_kn_m2": 100.0
+  },
+  {
+   "joint": 42,
+   "at": [
+    15.674,
+    19.043
+   ],
+   "size_m": 1.0,
+   "thickness_m": 0.3,
+   "service_kn": 84.6,
+   "governing": "DL+LL",
+   "bearing_kn_m2": 93.1,
+   "allowed_kn_m2": 100.0
+  }
+ ],
+ "notes": [
+  "Overhead tank 750 l, 7.86 kN full, on the stair cabin roof: +0.85 kN/m2 dead load over 9.2 m2 (NBC 2016 Part 9 Section 1 cl. 4.4.10: half a day's demand).",
+  "Grid 6 x 7 lines; 130 joints, 88 columns, 142 beams.",
+  "Fixed supports at the top of the footings, 1.5 m below ground-floor level (assumed); plinth beams at ground-floor level carry the ground-floor walls.",
+  "Walls: burnt clay brick 20 kN/m3 plus 0.5 kN/m2 plaster (IS 875 Part 1), less door and window areas; parapets 1 m on roof and terrace edges.",
+  "Partitions between grid lines: slab load of at least one third of their weight per metre, minimum 1 kN/m2 (IS 875 Part 2 cl. 3.1.2).",
+  "Imposed loads 2 (rooms), 3 (corridors, stairs, stores), 1.5 kN/m2 (roofs): National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, cl. 3.3.1, Table 1 (i)(a), National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, cl. 3.4.1, Table 2 (i).",
+  "Stair: 8.031 kN/m2 on plan (0.15 m waist, steps, finish) over the stair cell.",
+  "Finishes 1 kN/m2 on floors, 1.5 kN/m2 on roofs (practice).",
+  "Slab 135 mm: shortest-side span up to 3.68 m, span/depth 28 (IS 456 cl. 24.1 Note 2, x 0.8 for Fe 500).",
+  "Seismic: IS 1893 (Part 1):2016, Z = 0.36 (National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, Annex K (cl. 5.3.4.2)), R = 5 (SMRF, IS 13920 detailing), I = 1.0, medium soil (assumed); 100% + 30% orthogonal combinations (cl. 6.3.4.1).",
+  "IS 875 (Part 3):2015 wind: Vb 50 m/s, k1 1.0, k2 terrain category 3 (Table 2, assumed), k3 1.0, k4 1.0; pd = Kd Ka Kc pz with Kd 0.9, Ka 1.0, Kc 0.9; net Cp 1 (Table 5: windward +0.7, leeward -0.3); Vb source: National Building Code of India 2016 (SP 7:2016), Vol 1, Part 6 Section 1, Annex C (cl. 4.4.2).",
+  "beam-0: 230x450 for spans up to 4.88 m (D >= span/12, >= 300 mm)",
+  "beam-1: 230x450 for spans up to 4.88 m (D >= span/12, >= 300 mm)",
+  "beam-2: 230x300 for spans up to 3.54 m (D >= span/12, >= 300 mm)",
+  "column-0: 300x300, largest Pu 372 kN incl. 30% for seismic moments, needs 28092 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+  "column-1: 300x300, largest Pu 39 kN incl. 30% for seismic moments, needs 2974 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+  "4 ground-floor partition(s) between grid lines stand on the slab on grade.",
+  "Stair cabin over the stair well: 4 columns rise one storey (3 m) above the roof; 230 mm brick walls on the roof beams, door area not deducted; cabin roof imposed load 0.75 kN/m2 (IS 875 Part 2 Table 2, no access except for maintenance).",
+  "Isolated footings, combined where pads would overlap, on 100 kN/m2 safe bearing capacity (brief), +50% under earthquake combinations (IS 1893 Part 1 cl. 6.3.5.2); thickness from punching and one-way shear (IS 456 cl. 31.6.3.1, 34.2.4.1); reinforcement not designed at LOD 200."
+ ],
+ "layout": "court_60x80_1"
+}

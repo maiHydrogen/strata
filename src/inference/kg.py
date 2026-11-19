@@ -10,11 +10,16 @@ specific jurisdiction governs, because the local bye-law is the binding document
 requirements left at that level, the strictest applies.
 """
 
+import threading
 from dataclasses import dataclass
 from pathlib import Path
 
 import pyshacl
 import rdflib
+from rdflib.plugins.sparql import prepareQuery
+
+_SPARQL_LOCK = threading.RLock()
+_PREPARED = {}  # query name -> parsed query
 
 ROOT = Path(__file__).resolve().parents[2]
 KG_DIR = ROOT / "data" / "knowledge_graph"
@@ -76,7 +81,8 @@ class KnowledgeGraph:
 
     def validate(self):
         """SHACL violations as messages; empty when the graph conforms."""
-        conforms, report, _ = pyshacl.validate(self.graph, shacl_graph=self.shapes)
+        with _SPARQL_LOCK:  # pyshacl parses SPARQL too (see query)
+            conforms, report, _ = pyshacl.validate(self.graph, shacl_graph=self.shapes)
         if conforms:
             return []
         sh = rdflib.Namespace("http://www.w3.org/ns/shacl#")
@@ -84,11 +90,18 @@ class KnowledgeGraph:
                       for r in report.subjects(rdflib.RDF.type, sh.ValidationResult))
 
     def query(self, name, **bindings):
-        """Run src/inference/queries/<name>.rq; bindings become SPARQL variables."""
-        text = (QUERY_DIR / f"{name}.rq").read_text()
+        """Run src/inference/queries/<name>.rq; bindings become SPARQL variables.
+
+        rdflib's SPARQL parser (pyparsing) is not thread-safe: two requests building a spec at once on the
+        threaded API server corrupted each other's parse. Each query is parsed once, under a lock, and the
+        whole query runs under the same lock (they take milliseconds)."""
         init = {k: rdflib.Literal(v) for k, v in bindings.items() if v is not None}
-        result = self.graph.query(text, initBindings=init)
-        return [{str(var): _py(row[var]) for var in result.vars} for row in result]
+        with _SPARQL_LOCK:
+            prepared = _PREPARED.get(name)
+            if prepared is None:
+                prepared = _PREPARED[name] = prepareQuery((QUERY_DIR / f"{name}.rq").read_text())
+            result = self.graph.query(prepared, initBindings=init)
+            return [{str(var): _py(row[var]) for var in result.vars} for row in result]
 
     def _load_conditions(self):
         self.conditions = {}

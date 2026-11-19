@@ -40,6 +40,10 @@ BATH_SIDE = 1.6  # m: or down the outer side of the cell when the band is too sh
 BED_MIN = 2.4  # m: bedroom side left after carving (2.1 m clear plus walls, rounded up)
 FLOOR_TO_FLOOR = 3.0
 WINDOW_H = 1.2
+COLUMN_CLEAR = 0.35  # m, column centre to window jamb: half a 450 mm column plus a 125 mm jamb (practice)
+JAMB = 0.2  # m of wall kept at each end of a wall stretch (practice)
+DOOR_CLEAR = 0.7  # m, main door centre to the nearest window jamb
+MIN_WINDOW = 0.6  # m
 COMFORT = {"living": 16.0, "bedroom": 11.0, "dining": 9.0, "study": 8.0, "kitchen": 7.5, "bath_wc": 3.5,
            "store": 4.0}
 SMALL = {"bath_wc", "store"}
@@ -68,6 +72,12 @@ class Brief:
     opening: dict  # layout type -> opening ratio
     ground_bedrooms: int = 1  # practice: one bedroom downstairs (guests, parents); more if elderly live there
     max_span: float = MAX_SPAN  # lowered when the structural design sends a layout back (see src/structure)
+    wishes: list = field(default_factory=list)  # client change requests (src/spatial/revise.py), soft
+    court: bool = False  # courtyard plan type (src/spatial/court.py)
+    roof_stair: bool = False  # a stair to the roof even on one storey
+    symmetric: bool = False  # soft: matching room kinds either side
+    court_min: float = 3.0  # NBC 2016 Part 3 cl. 8.2.5 (a), from the spec when present
+    court_fraction: float = 0.2
 
 
 def programme(brief, spec):
@@ -93,8 +103,19 @@ def programme(brief, spec):
     return units
 
 
+class NoEnvelope(ValueError):
+    """The spec has no buildable area: no setback rules apply to the plot (no bye-law layer for its city)."""
+
+    def __init__(self, notes):
+        self.notes = notes
+        super().__init__("no setback rules for this plot, so there is no buildable area to plan on"
+                         + (f" ({'; '.join(notes)})" if notes else ""))
+
+
 def problem(brief, spec, max_span=MAX_SPAN):
-    env = next(c["actual"] for c in spec["checks"] if c["check"].startswith("buildable envelope"))
+    env = next((c["actual"] for c in spec["checks"] if c["check"].startswith("buildable envelope")), None)
+    if env is None:
+        raise NoEnvelope(spec.get("notes") or [])
     s = env["setbacks"]
     plot = brief.site.plot
     req, principal, opening = {}, {}, {}
@@ -115,12 +136,24 @@ def problem(brief, spec, max_span=MAX_SPAN):
                 else:
                     req[(t, q["quantity"])] = max(req.get((t, q["quantity"]), 0), q["value"])
     far = next((e["value"] for e in spec["plot"] if e["quantity"] == "far"), None)
+    court_min, court_fraction = 3.0, 0.2
+    for r in spec.get("building", []):
+        if r.get("element") == "courtyard":
+            if r["quantity"] == "width":
+                court_min = r["value"]
+            elif r["quantity"] == "height_fraction":
+                court_fraction = r["value"]
+    # a plot too wide for rooms either side of one passage (each side over the beam limit) takes the court plan
+    too_wide = s["left"] is not None and env["width"] * 0.85 > 2 * max_span + SPINE + 1e-6
     elderly = brief.family.elderly if brief.family else 0
     beds = brief.programme.bedrooms if brief.programme else 0
     ground = min(beds, max(1, math.ceil(elderly / 2))) if brief.floors_now > 1 else beds
     return Brief(floors=brief.floors_now, units=programme(brief, spec), ground_bedrooms=ground,
                  envelope=(s["left"], s["front"], env["width"], env["depth"]), plot=(plot.width, plot.depth),
-                 req=req, principal=principal, far=far, opening=opening, max_span=max_span)
+                 req=req, principal=principal, far=far, opening=opening, max_span=max_span,
+                 court=bool(getattr(brief, "courtyard", None)) or too_wide,
+                 roof_stair=bool(getattr(brief, "roof_stair", None)), symmetric=bool(getattr(brief, "symmetric", None)),
+                 court_min=court_min, court_fraction=court_fraction)
 
 
 def placed(p):
@@ -157,9 +190,13 @@ class Plan:
     notes: list = field(default_factory=list)
     single: bool = False
     spine_w: float = SPINE
+    kind: str = "spine"  # or "court" (src/spatial/court.py)
 
 
 def decode(g, p):
+    if p.court:
+        from src.spatial import court
+        return court.decode(g, p)
     W = p.envelope[2] * (0.85 + 0.15 * g[0])
     single = W < 2 * MIN_CELL + SPINE  # side spine: one room per band
     least = MIN_ROW if single else MIN_CELL
@@ -182,7 +219,8 @@ def decode(g, p):
     else:
         sx = round(lo + (hi - lo) * g[7], 3)
     stair_slots = [(b, s) for b in range(1, n) for s in ("L" if single else "LR")]
-    stair = stair_slots[min(int(g[8] * len(stair_slots)), len(stair_slots) - 1)] if p.floors > 1 else None
+    stair = stair_slots[min(int(g[8] * len(stair_slots)), len(stair_slots) - 1)] if (p.floors > 1 or p.roof_stair) \
+        else None
 
     # each room's floor (fixed, or from its gene), then its place in the fill order
     per_floor = {f: [] for f in range(p.floors)}
@@ -271,7 +309,7 @@ def _fill(cell, grp):
             cell.rooms.append((u.name, "bedroom", x0, y0, x1, cut))
             cell.rooms.append((f"Bath of {u.name}", "bath_wc", x0, cut, x1, y1))
         elif u.attached:  # bath down the outer side (external wall); the bedroom keeps the spine side
-            if cell.side == "R":
+            if cell.side in ("R", "F"):  # F (beside the living room) is right of the spine: its door is on x0
                 cut = round(x1 - BATH_SIDE, 3)
                 cell.rooms.append((u.name, "bedroom", x0, y0, cut, y1))
                 cell.rooms.append((f"Bath of {u.name}", "bath_wc", cut, y0, x1, y1))
@@ -317,6 +355,40 @@ def external_edge(room, plan, floor):
     return edges
 
 
+def posts(plan, floor):
+    """Column centres of a floor (y from the envelope front), the grid the frame stands on."""
+    if plan.kind == "court":
+        from src.spatial import court
+        return court.posts(plan)
+    F0, D = plan.extent[floor]
+    xs = sorted({0.0, plan.spine, round(plan.spine + plan.spine_w, 3), plan.width})
+    ys = [y for y in plan.bands if F0 - 1e-6 <= y <= D + 1e-6]
+    return [(x, y) for x in xs for y in ys]
+
+
+def free_spans(room, plan, floor, cols=None, avoid=None):
+    """Stretches of a room's external walls where a window can go: clear of the wall ends, of every column
+    on the wall and of the main door at `avoid`. (axis, v, a, b) as external_edge, at least MIN_WINDOW long."""
+    cols = posts(plan, floor) if cols is None else cols
+    out = []
+    for axis, v, a, b in external_edge(room, plan, floor):
+        on = [u for cx, cy in cols if abs((cx if axis == "x" else cy) - v) < 1e-3
+              and a - COLUMN_CLEAR < (u := cy if axis == "x" else cx) < b + COLUMN_CLEAR]
+        blocked = [(a, a + JAMB), (b - JAMB, b)] + [(u - COLUMN_CLEAR, u + COLUMN_CLEAR) for u in on]
+        if avoid and axis == "y" and abs(v - avoid[1]) < 1e-6:
+            blocked.append((avoid[0] - DOOR_CLEAR, avoid[0] + DOOR_CLEAR))
+        at = a
+        for lo, hi in sorted(blocked):
+            if lo >= b:
+                break
+            if lo - at >= MIN_WINDOW - 1e-6:
+                out.append((axis, v, at, min(lo, b)))
+            at = max(at, hi)
+        if b - at >= MIN_WINDOW - 1e-6:
+            out.append((axis, v, at, b))
+    return out
+
+
 def stair_design(f2f=FLOOR_TO_FLOOR, riser_max=0.19):
     n = math.ceil(f2f / riser_max)
     n += n % 2
@@ -336,15 +408,21 @@ def evaluate(g, p, detail=False):
     if plan.overflow:
         bad(HARD * plan.overflow, f"{plan.overflow} rooms did not fit")
     W = plan.width
-    for span, label in ((plan.spine, "left bay"), (W - plan.spine - plan.spine_w, "right bay")) if not plan.single else (
-            (plan.spine, "bay"),):
-        if span > p.max_span + 1e-6:
-            bad(HARD * (span - p.max_span), f"{label} span {span:.2f} m")
+    if plan.kind == "court":
+        from src.spatial import court
+        court.hard_terms(plan, p, bad)
+        soft += court.soft_terms(plan, p)
+    else:
+        for span, label in ((plan.spine, "left bay"), (W - plan.spine - plan.spine_w, "right bay")) if not plan.single \
+                else ((plan.spine, "bay"),):
+            if span > p.max_span + 1e-6:
+                bad(HARD * (span - p.max_span), f"{label} span {span:.2f} m")
     st = stair_design()
     wet_below, wet_above = set(), set()
     built = 0.0
     for f, cells in enumerate(plan.floors):
         built += W * (plan.extent[f][1] - plan.extent[f][0])
+        cols = posts(plan, f)
         for cell in cells:
             for room in cell.rooms:
                 name, t, x0, y0, x1, y1 = room
@@ -363,16 +441,18 @@ def evaluate(g, p, detail=False):
                     need_a, need_w = p.principal.get("area", 9.5), p.principal.get("width", 2.4)
                 else:
                     need_a, need_w = p.req.get((t, "area"), 0), p.req.get((t, "width"), 0)
-                if area < need_a:
+                if area < need_a - 1e-6:
                     bad(HARD * (need_a - area), f"{name} {area:.3f} m2 < {need_a} m2")
-                if width < need_w:
+                if width < need_w - 1e-6:
                     bad(HARD * (need_w - width), f"{name} {width:.3f} m wide < {need_w} m")
                 ext = external_edge(room, plan, f)
                 if t == "bath_wc" and not ext:
                     bad(HARD, f"{name} has no external wall")
                 ratio = p.opening.get(t)
                 if ratio:
-                    capacity = sum(max(0.0, (e[3] - e[2]) - 0.4) * WINDOW_H for e in ext)
+                    door = None if t != "living" else ((W / 2, 0.0) if plan.kind == "court"
+                                                         else (plan.spine + plan.spine_w / 2, 0.0))  # main door
+                    capacity = sum((e[3] - e[2]) * WINDOW_H for e in free_spans(room, plan, f, cols, avoid=door))
                     if capacity < ratio * area:
                         bad(HARD * (ratio * area - capacity), f"{name} cannot get enough window")
                 if t in COMFORT:
@@ -401,8 +481,12 @@ def evaluate(g, p, detail=False):
     # kitchen next to dining (same side, adjacent bands): 96% of library plans join them
     g0 = {r[1]: c for c in plan.floors[0] for r in c.rooms}
     k, d = g0.get("kitchen"), g0.get("dining")
-    if k and d and not (k.side == d.side and abs(k.band - d.band) == 1):
+    side = (lambda c: {"FL": "L", "FR": "R"}.get(c.side, c.side))
+    if k and d and not (side(k) == side(d) and abs(k.band - d.band) == 1):
         soft += 1.0
+    if p.wishes:
+        from src.spatial.revise import wish_penalty
+        soft += wish_penalty(g, plan, p)
     if detail:
         return hard, soft, why, plan
     return (hard + soft,)
@@ -426,23 +510,36 @@ def alternatives(brief, spec, count=3, restarts=8, seed=0, seeds=(), **kw):
     Independent runs settle on different arrangements, which gives the client real choices."""
     found, seen = [], set()
     p = None
-    for k in range(restarts):
+    k = 0
+    # extra restarts (up to twice as many) while fewer than `count` distinct options meet every hard constraint
+    while k < restarts or (k < 2 * restarts and sum(f < HARD for f, _ in found) < count):
         hof, p, _ = _run(brief, spec, kw.get("pop_size", 150), kw.get("generations", 150), seed + 1000 * k, seeds,
-                         kw.get("max_span", MAX_SPAN))
+                         kw.get("max_span", MAX_SPAN), kw.get("p"))
         for g in hof:
-            plan = decode(g, p)
-            key = tuple((r[0], round(r[2], 1), round(r[3], 1)) for cells in plan.floors for c in cells for r in c.rooms)
+            key = arrangement(decode(g, p))
             if key not in seen:
                 seen.add(key)
                 found.append((g.fitness.values[0], list(g)))
+        k += 1
     found.sort(key=lambda t: t[0])
     return [g for _, g in found[:count]], p
 
 
-def _run(brief, spec, pop_size, generations, seed, seeds, max_span=MAX_SPAN):
+def arrangement(plan):
+    """What a client would call the plan: which kind of room sits in which cell on which floor, the passage
+    side and the stair. Names and centimetres are left out, so two runs that only relabel the bedrooms or
+    move a wall a little count as one option."""
+    cells = sorted((f, c.band, c.side, tuple(sorted(r[1] for r in c.rooms)))
+                   for f, cs in enumerate(plan.floors) for c in cs)
+    return (len(plan.bands), plan.stair, round(plan.spine / max(plan.width, 1e-9), 1), getattr(plan, "kind", "spine"),
+            tuple(cells))
+
+
+def _run(brief, spec, pop_size, generations, seed, seeds, max_span=MAX_SPAN, p=None):
     """Evolve layouts; returns (best genomes, problem). `seeds` are genomes to start from
-    (e.g. from library plans or LLM proposals)."""
-    p = problem(brief, spec, max_span)
+    (e.g. from library plans or LLM proposals); `p` replaces the problem built from the brief
+    (a revision carries the client's change requests in it)."""
+    p = p or problem(brief, spec, max_span)
     n = genome_length(p)
     if not hasattr(creator, "LayoutFitness"):
         creator.create("LayoutFitness", base.Fitness, weights=(-1.0,))
@@ -493,6 +590,11 @@ def to_layout(g, p, name="ga_layout"):
     st = stair_design()
     for f, cells in enumerate(plan.floors):
         F0, D = plan.extent[f]
+        fname = ["Ground floor", "First floor", "Second floor"][f]
+        if plan.kind == "court":
+            from src.spatial import court
+            floors.append(court.floor(plan, p, f, cells, P, fname))
+            continue
         rooms, doors, windows = [], [], []
         ids = {}
 
@@ -537,45 +639,49 @@ def to_layout(g, p, name="ga_layout"):
                 _windows(windows, rid, room, plan, f, p.opening.get(t), t, P)
         xs = sorted({0.0, sx, round(sx + SW, 3), W})
         ys = [y for y in plan.bands if F0 - 1e-6 <= y <= D + 1e-6]
-        columns = [Column(id=f"C{i}{j}", at=P(x, y)) for i, x in enumerate(xs) for j, y in enumerate(ys)]
+        columns = [Column(id=f"C{xs.index(x)}{ys.index(y)}", at=P(x, y)) for x, y in posts(plan, f)]
         fl = Floor(level=f, name=["Ground floor", "First floor", "Second floor"][f], floor_to_floor=FLOOR_TO_FLOOR,
                    rooms=rooms, doors=doors, windows=windows, columns=columns)
         fl.walls = derive_walls(fl)
         floors.append(fl)
-    return Layout(name=name, source={"kind": "GA", "fitness_hard": round(hard, 3), "fitness_soft": round(soft, 3),
+    layout = Layout(name=name, source={"kind": "GA", "fitness_hard": round(hard, 3), "fitness_soft": round(soft, 3),
                                      "genome": [round(v, 5) for v in g], "violations": why},
                   plot={"width": round(p.plot[0], 4), "depth": round(p.plot[1], 4)}, floors=floors,
                   plinth_height=0.45, parapet_height=1.0,
                   materials=Materials(concrete_grade=25, steel_proof_stress=500, steel_elongation=14.5,
                                       masonry="burnt clay brick"))
+    if any(e.op == "door" for e in getattr(p, "wishes", None) or ()):
+        from src.spatial.revise import move_doors
+        move_doors(layout, p.wishes)
+    return layout
 
 
 def _windows(out, rid, room, plan, f, ratio, t, P, avoid=None):
+    """Windows on the free stretches of the external walls (never across a column or beside the main door),
+    longest stretch first, several smaller windows when one stretch is not enough."""
+    spans = free_spans(room, plan, f, avoid=avoid)
     if t == "bath_wc":
-        ext = external_edge(room, plan, f)
-        if ext:
+        if spans:
+            axis, v, a, b = max(spans, key=lambda e: e[3] - e[2])
+        else:
+            ext = external_edge(room, plan, f)
+            if not ext:
+                return
             axis, v, a, b = max(ext, key=lambda e: e[3] - e[2])
-            m = (a + b) / 2
-            out.append(Window(id=f"V_{rid}", room=rid, at=P(v, m) if axis == "x" else P(m, v), width=0.6, height=0.6,
-                              sill=1.8, kind="ventilator"))
+        m = (a + b) / 2
+        out.append(Window(id=f"V_{rid}", room=rid, at=P(v, m) if axis == "x" else P(m, v), width=0.6, height=0.6,
+                          sill=1.8, kind="ventilator"))
         return
     if not ratio:
         return
     cw, cd = clear(room, plan, f)
     need = ratio * cw * cd * 1.05
-    for k, (axis, v, a, b) in enumerate(sorted(external_edge(room, plan, f), key=lambda e: e[2] - e[3])):
+    for k, (axis, v, a, b) in enumerate(sorted(spans, key=lambda e: e[2] - e[3])):
         if need <= 0:
             break
-        length = b - a
-        centre = (a + b) / 2
-        if avoid and axis == "y" and abs(v - avoid[1]) < 1e-6:  # keep clear of the main door
-            usable = max(a, avoid[0] + 0.7), b
-            if usable[1] - usable[0] < 1.0:
-                usable = a, min(b, avoid[0] - 0.7)
-            a, b = usable
-            length, centre = b - a, (a + b) / 2
-        w = round(min(max(0.9, need / WINDOW_H), length - 0.4), 2)
-        if w < 0.6:
+        length, centre = b - a, (a + b) / 2
+        w = round(min(max(0.9, need / WINDOW_H), length), 2)
+        if w < MIN_WINDOW:
             continue
         out.append(Window(id=f"W_{rid}_{k}", room=rid, at=P(v, centre) if axis == "x" else P(centre, v), width=w,
                           height=WINDOW_H))

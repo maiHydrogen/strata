@@ -30,7 +30,10 @@ def _column_design(c, min_bar):
         errors.append(f"IS 456 cl. 26.5.3.1(a): steel {c.steel_ratio_pct}% < {MIN_COLUMN_STEEL_PCT}% of gross area")
     return {"bars": c.bars, "min_main_bar_mm": min_bar, "steel_ratio_pct": c.steel_ratio_pct,
             "interaction_ratio": c.interaction_ratio, "axial_kn": c.axial_kn,
-            "status": "fail" if c.failed or c.below_min_steel else "pass", "errors": errors}
+            "status": "fail" if c.failed or c.below_min_steel else "pass", "errors": errors,
+            # what Revit shows on the element (STRATA parameters) and the IFC check reads back
+            "utilisation": round(c.interaction_ratio, 3) if c.interaction_ratio is not None else None,
+            "steel": f"{c.bars}, {c.steel_ratio_pct}% of gross area"}
 
 
 def _beam_design(b):
@@ -40,7 +43,17 @@ def _beam_design(b):
             "bottom_steel_required_mm2": b.max_bottom_required,
             "bottom_steel_provided_mm2": b.max_bottom_provided,
             "min_stirrup_spacing_mm": b.min_stirrup_spacing_mm,
-            "status": "fail" if b.failed else "pass", "errors": b.errors}
+            "status": "fail" if b.failed else "pass", "errors": b.errors,
+            "utilisation": _beam_utilisation(b),
+            "steel": (f"top {b.max_top_required:.0f}/{b.max_top_provided:.0f} mm2, bottom {b.max_bottom_required:.0f}/"
+                      f"{b.max_bottom_provided:.0f} mm2 (required/provided), stirrups @{b.min_stirrup_spacing_mm} mm")}
+
+
+def _beam_utilisation(b):
+    """Steel required over provided at the worse face (STAAD's IS 456 design)."""
+    ratios = [r / p for r, p in ((b.max_top_required, b.max_top_provided), (b.max_bottom_required, b.max_bottom_provided))
+              if r is not None and p]
+    return round(max(ratios), 3) if ratios else None
 
 
 def outline(frame: Frame):

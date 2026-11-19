@@ -435,6 +435,22 @@ kg:req_bath_wc_opens_to_kitchen a strata:Requirement ;
     strata:valueText "no" ; strata:citedBy kg:nbc_3_12_4_4 ;
     strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D2" ; strata:status "transcribed" .
 
+# ---- Part 3, 8.2.5 Interior open spaces -----------------------------------------
+
+kg:nbc_3_8_2_5_a a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 8.2.5 (a)" ; strata:page "36" ;
+    strata:quote "Inner courtyard — In case the whole of one side of every room excepting bath, WC and store room, is not abutting on either the front, rear or side open spaces, it shall abut on an inner courtyard, whose minimum width shall be 3 m. Further, the inner courtyard shall have an area, throughout its height, of not less than the square of one-fifth the height of the highest wall abutting the courtyard." .
+kg:req_courtyard_width a strata:Requirement ;
+    strata:appliesTo strata:InnerCourtyard ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 3.0 ; strata:unit "m" ; strata:citedBy kg:nbc_3_8_2_5_a ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D4" ; strata:status "transcribed" ;
+    strata:note "Applies when a room takes its light and ventilation from the courtyard." .
+kg:req_courtyard_area a strata:Requirement ;
+    strata:appliesTo strata:InnerCourtyard ; strata:quantity strata:heightFraction ; strata:comparator "ge" ;
+    strata:value 0.2 ; strata:unit "fraction of the highest abutting wall" ; strata:citedBy kg:nbc_3_8_2_5_a ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D4" ; strata:status "transcribed" ;
+    strata:note "Area >= (0.2 x H)^2, H the height of the highest wall abutting the courtyard." .
+
 # ---- Part 4, 4.4.2.4.1-4.4.2.4.2 Exit doorway and corridors ----------------------
 
 kg:nbc_4_4_4_2_4_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;

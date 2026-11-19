@@ -212,7 +212,8 @@ def test_a_bad_field_is_dropped_and_the_rest_kept():
     assert not reply.startswith("Sorry")
     assert s.brief.building_use == "home_with_shop" and s.brief.site.plot.width == 9.0
     assert s.brief.programme.bedrooms == 2  # bedrooms 0 dropped, then "2BHK" read from the text
-    assert s.brief.site.roads == []  # the 0 m road dropped, so asked about later
+    # the 0 m road dropped; "road 7.5 m" in the message is then read by code
+    assert [(r.side, r.width) for r in s.brief.site.roads] == [("front", 7.5)]
 
 
 def test_unsure_only_answers_the_open_question():

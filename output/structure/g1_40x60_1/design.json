@@ -10,17 +10,20 @@
     "beam-2": "230x300",
     "beam-3": "230x300",
     "column-0": "300x300",
+    "column-0-edge": "300x300",
     "column-1": "300x300",
     "column-2": "300x300"
    },
    "column_bars": {
     "column-0": 12,
+    "column-0-edge": 12,
     "column-1": 12,
     "column-2": 12
    },
    "passed": false,
    "changes": [
     "column-0: bars 12d -> 16d min (IS 456 cl. 26.5.3.1(a): column 1 steel 0.50% < 0.8% of gross area)",
+    "column-0-edge: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 30 X, 31 X, 45 XZ, 46 XZ, 47 XZ, 48 XZ)",
     "column-1: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 33 XZ, 34 X, 35 X, 36 Z, 37 Z, 38 XZ, 39 XZ, 40 Z, 41 XZ, 42 XZ, 43 XZ, 44 Z, 49 XZ, 50 X, 51 XZ, 53 Z, 54 XZ, 55 XZ, 56 Z, 57 XZ, 58 X, 59 X)",
     "column-2: bars 16d -> 20d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 55 XZ, 56 Z, 59 X, 61 XZ, 62 Z, 63 X, 64 X)"
    ]
@@ -33,17 +36,20 @@
     "beam-2": "230x300",
     "beam-3": "230x300",
     "column-0": "300x300",
+    "column-0-edge": "300x300",
     "column-1": "300x300",
     "column-2": "300x300"
    },
    "column_bars": {
     "column-0": 16,
+    "column-0-edge": 25,
     "column-1": 25,
     "column-2": 20
    },
    "passed": false,
    "changes": [
-    "column-0: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 18 X, 19 X, 21 Z, 22 XZ, 23 XZ, 24 Z, 25 Z, 26 XZ, 27 XZ, 28 Z, 30 X, 31 X, 34 X, 35 X, 37 Z, 38 XZ, 39 XZ, 40 Z, 41 Z, 42 XZ, 43 XZ, 44 Z, 45 XZ, 46 XZ, 47 XZ, 48 XZ)",
+    "column-0: bars 20d -> 25d min (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 18 X, 19 X, 21 Z, 22 XZ, 23 XZ, 24 Z, 25 Z, 26 XZ, 27 XZ, 28 Z, 30 X, 31 X, 34 X, 35 X, 37 Z, 38 XZ, 39 XZ, 40 Z, 41 Z, 42 XZ, 43 XZ, 44 Z)",
+    "column-0-edge: 300x300 -> 350x350 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 30 X, 31 X, 46 X, 47 X, 48 Z)",
     "column-1: 300x300 -> 350x350 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 34 X, 35 X, 37 Z, 38 XZ, 39 XZ, 40 Z, 41 Z, 42 XZ, 43 XZ, 44 Z)",
     "column-0: 300x300 -> 350x350 (practice: not smaller than column-1 above it)"
    ]
@@ -56,17 +62,19 @@
     "beam-2": "230x300",
     "beam-3": "230x300",
     "column-0": "350x350",
+    "column-0-edge": "350x350",
     "column-1": "350x350",
     "column-2": "300x300"
    },
    "column_bars": {
     "column-0": 25,
+    "column-0-edge": 25,
     "column-1": 25,
     "column-2": 20
    },
    "passed": false,
    "changes": [
-    "column-0: 350x350 -> 400x400 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 46 X, 47 X)"
+    "column-0-edge: 350x350 -> 400x400 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 46 X, 47 X)"
    ]
   },
   {
@@ -76,18 +84,20 @@
     "beam-1": "230x450",
     "beam-2": "230x300",
     "beam-3": "230x300",
-    "column-0": "400x400",
+    "column-0": "350x350",
+    "column-0-edge": "400x400",
     "column-1": "350x350",
     "column-2": "300x300"
    },
    "column_bars": {
     "column-0": 25,
+    "column-0-edge": 25,
     "column-1": 25,
     "column-2": 20
    },
    "passed": false,
    "changes": [
-    "column-0: 400x400 -> 450x450 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 46 X, 47 X)"
+    "column-0-edge: 400x400 -> 450x450 (IS 13920 cl. 7.2.1, sum Mc < 1.4 sum Mb at joint 46 X, 47 X)"
    ]
   },
   {
@@ -97,12 +107,14 @@
     "beam-1": "230x450",
     "beam-2": "230x300",
     "beam-3": "230x300",
-    "column-0": "450x450",
+    "column-0": "350x350",
+    "column-0-edge": "450x450",
     "column-1": "350x350",
     "column-2": "300x300"
    },
    "column_bars": {
     "column-0": 25,
+    "column-0-edge": 25,
     "column-1": 25,
     "column-2": 20
    },
@@ -115,7 +127,8 @@
   "beam-1": "230x450",
   "beam-2": "230x300",
   "beam-3": "230x300",
-  "column-0": "450x450",
+  "column-0": "350x350",
+  "column-0-edge": "450x450",
   "column-1": "350x350",
   "column-2": "300x300"
  },
@@ -124,14 +137,14 @@
   "X": {
    "period": 0.43748,
    "coeff": 0.09,
-   "weight": 3067.69,
-   "vb": 276.09
+   "weight": 2947.69,
+   "vb": 265.29
   },
   "Z": {
    "period": 0.43748,
    "coeff": 0.09,
-   "weight": 3067.69,
-   "vb": 276.09
+   "weight": 2947.69,
+   "vb": 265.29
   }
  },
  "members": {
@@ -156,24 +169,24 @@
     1.915,
     3.715
    ],
-   "size_m": 1.4,
+   "size_m": 1.35,
    "thickness_m": 0.3,
-   "service_kn": 173.2,
+   "service_kn": 163.5,
    "governing": "DL+LL",
-   "bearing_kn_m2": 97.2,
+   "bearing_kn_m2": 98.7,
    "allowed_kn_m2": 100.0
   },
   {
    "joint": 2,
    "at": [
-    5.4918,
+    5.492,
     3.715
    ],
-   "size_m": 2.7,
+   "size_m": 2.65,
    "thickness_m": 0.3,
-   "service_kn": 358.0,
+   "service_kn": 342.4,
    "governing": "DL+LL",
-   "bearing_kn_m2": 97.2,
+   "bearing_kn_m2": 98.0,
    "allowed_kn_m2": 100.0
   },
   {
@@ -182,11 +195,11 @@
     8.988,
     3.715
    ],
-   "size_m": 1.45,
+   "size_m": 1.4,
    "thickness_m": 0.3,
-   "service_kn": 186.6,
+   "service_kn": 177.7,
    "governing": "DL+LL",
-   "bearing_kn_m2": 97.6,
+   "bearing_kn_m2": 99.7,
    "allowed_kn_m2": 100.0
   },
   {
@@ -195,24 +208,24 @@
     1.915,
     7.232
    ],
-   "size_m": 1.6,
+   "size_m": 1.55,
    "thickness_m": 0.3,
-   "service_kn": 225.4,
+   "service_kn": 214.4,
    "governing": "DL+LL",
-   "bearing_kn_m2": 96.9,
+   "bearing_kn_m2": 98.1,
    "allowed_kn_m2": 100.0
   },
   {
    "joint": 6,
    "at": [
-    5.5547,
+    5.5491,
     7.232
    ],
-   "size_m": 2.95,
+   "size_m": 2.9,
    "thickness_m": 0.3,
-   "service_kn": 488.9,
+   "service_kn": 470.8,
    "governing": "DL+LL",
-   "bearing_kn_m2": 98.5,
+   "bearing_kn_m2": 99.2,
    "allowed_kn_m2": 100.0
   },
   {
@@ -221,11 +234,11 @@
     8.988,
     7.232
    ],
-   "size_m": 1.9,
+   "size_m": 1.85,
    "thickness_m": 0.3,
-   "service_kn": 315.0,
+   "service_kn": 304.6,
    "governing": "DL+LL",
-   "bearing_kn_m2": 96.0,
+   "bearing_kn_m2": 97.9,
    "allowed_kn_m2": 100.0
   },
   {
@@ -234,24 +247,24 @@
     1.915,
     9.832
    ],
-   "size_m": 1.6,
+   "size_m": 1.55,
    "thickness_m": 0.3,
-   "service_kn": 224.3,
+   "service_kn": 214.7,
    "governing": "DL+LL",
-   "bearing_kn_m2": 96.4,
+   "bearing_kn_m2": 98.3,
    "allowed_kn_m2": 100.0
   },
   {
    "joint": 10,
    "at": [
-    5.5276,
+    5.5225,
     9.832
    ],
-   "size_m": 2.95,
+   "size_m": 2.9,
    "thickness_m": 0.3,
-   "service_kn": 498.4,
+   "service_kn": 482.4,
    "governing": "DL+LL",
-   "bearing_kn_m2": 97.8,
+   "bearing_kn_m2": 98.9,
    "allowed_kn_m2": 100.0
   },
   {
@@ -260,11 +273,11 @@
     8.988,
     9.832
    ],
-   "size_m": 1.85,
+   "size_m": 1.8,
    "thickness_m": 0.3,
-   "service_kn": 295.0,
+   "service_kn": 286.4,
    "governing": "DL+LL",
-   "bearing_kn_m2": 94.8,
+   "bearing_kn_m2": 97.2,
    "allowed_kn_m2": 100.0
   },
   {
@@ -275,22 +288,22 @@
    ],
    "size_m": 1.2,
    "thickness_m": 0.3,
-   "service_kn": 128.7,
+   "service_kn": 125.5,
    "governing": "DL+LL",
-   "bearing_kn_m2": 98.3,
+   "bearing_kn_m2": 95.9,
    "allowed_kn_m2": 100.0
   },
   {
    "joint": 14,
    "at": [
-    5.4648,
+    5.4652,
     14.717
    ],
    "size_m": 2.45,
    "thickness_m": 0.3,
-   "service_kn": 256.3,
+   "service_kn": 250.7,
    "governing": "DL+LL",
-   "bearing_kn_m2": 95.9,
+   "bearing_kn_m2": 93.8,
    "allowed_kn_m2": 100.0
   },
   {
@@ -301,9 +314,9 @@
    ],
    "size_m": 1.2,
    "thickness_m": 0.3,
-   "service_kn": 129.6,
+   "service_kn": 126.7,
    "governing": "DL+LL",
-   "bearing_kn_m2": 99.0,
+   "bearing_kn_m2": 96.7,
    "allowed_kn_m2": 100.0
   }
  ],
@@ -324,6 +337,7 @@
   "beam-2: 230x300 for spans up to 3.52 m (D >= span/12, >= 300 mm)",
   "beam-3: 230x300 for spans up to 2.92 m (D >= span/12, >= 300 mm)",
   "column-0: 300x300, largest Pu 539 kN incl. 30% for seismic moments, needs 40680 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
+  "column-0-edge: 300x300, largest Pu 104 kN incl. 30% for seismic moments, needs 7846 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
   "column-1: 300x300, largest Pu 217 kN incl. 30% for seismic moments, needs 16354 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
   "column-2: 300x300, largest Pu 32 kN incl. 30% for seismic moments, needs 2403 mm2 at 1% steel (IS 456 cl. 39.3; IS 13920 cl. 7.1.2 minimum 300 mm)",
   "2 ground-floor partition(s) between grid lines stand on the slab on grade.",

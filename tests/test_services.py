@@ -142,3 +142,27 @@ def test_elderly_household_gets_accessible_heights_and_the_check_passes():
     assert acc["pass"] and acc["source"]["clause"].endswith("cl. 7.2.3")
     assert checks["sockets above 200 mm from the floor"]["pass"]
     assert any("Accessible heights" in n for n in b["services"]["notes"])
+
+
+def test_stacks_clear_the_frame_and_the_check_reports_it(house):
+    from src.services.generate import _clashes, _frame_outlines
+    frame = _frame_outlines(house)
+    assert frame and not any(_clashes(p["at"], p["diameter"], frame, slack=1e-4) for p in house["pipes"])
+    check = next(c for c in house["services"]["checks"] if c["check"].startswith("stacks clear of columns"))
+    assert check["pass"]
+
+
+def test_a_column_on_the_stack_line_slides_the_stack_along_the_wall():
+    from src.services.generate import STACK_CLEAR, _clashes, _frame_outlines
+    _, plain = _building()
+    before = add_services(plain, tank_size(4, 3))["pipes"]
+    soil = next(p for p in before if p["kind"] == "soil")
+    _, b = _building()
+    b["columns"].append({"id": "CX", "at": list(soil["at"]), "base_level": "LF", "top_level": "L0",
+                         "width": 0.45, "depth": 0.45})
+    after = add_services(b, tank_size(4, 3))
+    moved = next(p for p in after["pipes"] if p["kind"] == "soil" and set(p["serves"]) & set(soil["serves"]))
+    gap = Point(moved["at"]).distance(Point(soil["at"]))
+    assert 0.225 + STACK_CLEAR + moved["diameter"] / 2 - 1e-6 <= gap < 1.0  # just past the column, same wall
+    assert not any(_clashes(p["at"], p["diameter"], _frame_outlines(after), slack=1e-4) for p in after["pipes"])
+    assert any("slid along their wall" in n for n in after["services"]["notes"])

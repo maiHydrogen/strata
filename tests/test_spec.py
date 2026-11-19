@@ -123,3 +123,39 @@ def test_small_plot_setbacks_and_the_neighbour_noc(kg):
     assert env(7.62, 10.67, floors=3)["left"] == 1.8  # a planned G+2 falls back to bye-law 24
     assert env(9.144, 12.19)["left"] == 1.8  # 111 m2 without the NOC
     assert env(9.144, 12.19, noc=True)["left"] == 0.0 and env(9.144, 12.19, noc=True)["right"] == 1.8
+
+
+@pytest.mark.parametrize("city", ["Guwahati, Assam", "Guwahati City", "guwahati (Assam)"])
+def test_city_wording_keeps_the_guwahati_bye_laws(city):
+    import json
+    from pathlib import Path
+
+    from src.brief.schema import Brief
+    from src.inference.spec import build_spec
+    b = json.loads((Path(__file__).resolve().parents[1] / "examples/court_60x80.brief.json").read_text())
+    b["site"]["city"] = city
+    s = build_spec(Brief.model_validate(b))
+    assert any(c["check"].startswith("buildable envelope") for c in s["checks"]), s.get("notes")
+
+
+def test_a_city_without_bye_laws_gives_a_clear_layout_error_not_a_crash():
+    import importlib.util
+    import json
+    from pathlib import Path
+
+    import pytest as _pt
+
+    from src.brief.schema import Brief
+    from src.inference.spec import build_spec
+    from src.spatial.ga import NoEnvelope, problem
+    root = Path(__file__).resolve().parents[1]
+    b = json.loads((root / "examples/court_60x80.brief.json").read_text())
+    b["site"].update(city="Delhi", in_ulb=False)
+    brief = Brief.model_validate(b).with_defaults()
+    with _pt.raises(NoEnvelope):
+        problem(brief, build_spec(brief))
+    spec_ = importlib.util.spec_from_file_location("wl", root / "web/api/layout.py")
+    web = importlib.util.module_from_spec(spec_)
+    spec_.loader.exec_module(web)
+    status, out = web.design({"brief": b, "seed": 1})
+    assert status == 422 and "Guwahati" in out["error"] and "Delhi" in out["error"]

@@ -103,13 +103,17 @@ class PrefExtraction(BaseModel):
     soil_bearing_capacity: float | None = Field(None, gt=0)  # kN/m2 from a soil test
     plot_below_road: SignedLength | None = None  # how far the plot is BELOW the road (negative if above)
     storm_drain: bool | None = None
+    courtyard: bool | None = None  # a central open courtyard / open verandah the rooms surround
+    roof_stair: bool | None = None  # a staircase up to the terrace (roof)
+    symmetric: bool | None = None  # rooms arranged symmetrically
 
 
 PREF_WORDS = re.compile(r"\b(marble|granite|vitrified|tiles?|wood(en)?|kota|mosaic|ceramic|paint|texture|distemper|"
                         r"emulsion|dado|finish(es|ing)?|premium|luxury|economy|budget|basic|ac|a/c|air.?condition\w*|"
                         r"tv|television|geyser|water heater|sockets?|plugs?|points?|neighbou?r|common wall|shared wall|"
                         r"balcon(y|ies)|rent(al|ed)?|tenant|borewell|bore well|municipal|water (supply|connection|main)|"
-                        r"sewer|septic|drain|phase|soil|bearing|low.?lying|below the road|above the road|lakh|crore|cost)\b",
+                        r"sewer|septic|drain|phase|soil|bearing|low.?lying|below the road|above the road|lakh|crore|cost|"
+                        r"court\s?yard|chowk|aangan|verandah?|varandah?|symmetr\w*|terrace)\b",
                         re.I)
 
 SYSTEM = """You help collect a house-design brief in India. Read the client's latest message and
@@ -119,7 +123,9 @@ Rules:
 - floors_now / floors_future count storeys including the ground floor: "G+1" or "two storey" = 2,
   "G+2" = 3. floors_future is the number of storeys planned later ("may add a floor" on G+1 = 3).
 - Lengths: give value and unit exactly as said ("30 by 50 feet" -> plot_width 30 ft, plot_depth 50 ft;
-  the first number is the width along the road). Do not convert units.
+  the first number is the width along the road). Do not convert units. "60 x 80 square feet" or
+  "60x80 sq ft plot" also means plot_width 60 ft, plot_depth 80 ft (the sides, not an area). If the client
+  says which side faces the road ("the 80 feet side faces the road"), that side is plot_width.
 - "2BHK" = 2 bedrooms; mention of a hall/living room needs no field. "All bathrooms attached" means
   bathrooms_common = 0.
 - Household: put a total the client states as a number in "persons". List every person or group the
@@ -212,6 +218,7 @@ class BriefSession:
         self.summarised = False
         self.done = False
         self.log_path = Path(log_path) if log_path else None
+        self.notices = []  # things the client should hear before the next question (a value not taken)
 
     def to_state(self):
         """Everything needed to resume the conversation (for stateless servers, e.g. a serverless API)."""
@@ -252,15 +259,22 @@ class BriefSession:
                 extraction = Extraction()
         if extraction is not None and not prefs_turn:
             extraction = _bhk_from_text(text, _floors_from_text(text, extraction))
+            extraction = _site_from_text(text, extraction)
             try:
                 self._apply(extraction)
             except ValidationError:  # a value the brief itself rejects; ask again rather than crash
                 extraction = None
+        for name, said in _form_from_text(text).items():  # plain words; the LLM may miss them
+            self._set(name, said)
+        if _NO_MORE.search(text) and self.brief.floors_now and not _G_PLUS.search(text):
+            self._set("floors_future", self.brief.floors_now)  # "no more floors later" on its own
         if extraction is None:
             return "Sorry, I could not follow that. " + (self._question() or self._summary())
+        told = " ".join(self.notices) + " " if self.notices else ""
+        self.notices = []
         nxt = self._question()
         if nxt:
-            return nxt
+            return told + nxt
         self.summarised = True
         return self._summary()
 
@@ -365,7 +379,14 @@ class BriefSession:
         if x.north:
             self._set("site.north", x.north)
         if x.roads:
-            self._set("site.roads", [Road(side=r.side, width=r.width.metres()) for r in x.roads])
+            roads = [Road(side=r.side, width=r.width.metres()) for r in x.roads]
+            wide = [r for r in roads if r.width > MAX_ROAD_M]
+            if wide:  # a misread ("20 feet" returned as 200): it would set a 7.5 m front setback
+                self.notices.append(f"A road {wide[0].width:.0f} m wide is wider than a residential street "
+                                    f"(over {MAX_ROAD_M:g} m), so I have not taken it.")
+                roads = [r for r in roads if r.width <= MAX_ROAD_M]
+            if roads:
+                self._set("site.roads", roads)
         if x.city:
             self._set("site.city", x.city.strip().title())
             if "guwahati" in x.city.lower():  # Guwahati Municipal Corporation area (bye-law 24(b))
@@ -388,6 +409,9 @@ class BriefSession:
         if x.plot_below_road is not None:
             v = x.plot_below_road.value * (FT if x.plot_below_road.unit == "ft" else 1.0)
             self._set("site.plot_level_below_road", round(v, 3))
+        for name in ("courtyard", "roof_stair", "symmetric"):
+            if getattr(x, name):
+                self._set(name, True)
         if x.neighbour_noc is not None:
             self.brief.site.neighbour_noc = x.neighbour_noc
             self.brief.sources["site.neighbour_noc"] = "client"
@@ -429,6 +453,10 @@ class BriefSession:
         lines = ["Here is what I have. Please check it:"]
         lines.append(f"- Use: {b.building_use.replace('_', ' ')}; {b.floors_now} storeys now "
                      f"(G+{b.floors_now - 1}), structure designed for {b.floors_future}")
+        wishes = [w for w, on in (("a central courtyard with a verandah round it", b.courtyard),
+                                  ("a stair up to the terrace", b.roof_stair), ("a symmetrical plan", b.symmetric)) if on]
+        if wishes:
+            lines.append("- Plan: " + ", ".join(wishes))
         lines.append(f"- Family: {b.family.persons} people" + (f", {b.family.elderly} elderly" if b.family.elderly else "")
                      + (f", {b.family.children} children" if b.family.children else ""))
         extras = [n for n in ("puja", "study", "store") if getattr(p, n)]
@@ -472,20 +500,40 @@ def first_json_object(raw):
 
 _G_PLUS = re.compile(r"\bG\s*\+\s*([0-2])\b", re.I)
 _STOREY = re.compile(r"\b(single|one|two|three|double|[123])[- ]?(?:stor(?:e)?y|stories|storeys|floors?)\b", re.I)
+_GROUND_ONLY = re.compile(r"\b(?:ground\s*-?\s*floor\s+only|only\s+(?:a\s+|the\s+)?ground\s*-?\s*floor|"
+                          r"ground\s*-?\s*floor\s+(?:only\s+)?(?:building|house|structure)\s+only|"
+                          r"no\s+upper\s+floors?)\b", re.I)
 _WORDS = {"single": 1, "one": 1, "1": 1, "two": 2, "double": 2, "2": 2, "three": 3, "3": 3}
+
+
+_LATER = re.compile(r"\b(?:for\s+now|later|in\s+(?:the\s+)?future|add(?:ing)?\s+(?:one|a|another|more|an?\s+extra)|"
+                    r"extend|expand|upper\s+floor\s+(?:later|afterwards))\b", re.I)
+_NO_MORE = re.compile(r"\b(?:no\s+(?:more|future|further|extra)\s+(?:floors?|storeys?|stor(?:e)?y)|"
+                      r"(?:won'?t|will\s+not|not|never)\s+(?:be\s+)?add(?:ing)?\s+(?:a|any|more|another)?\s*"
+                      r"(?:floors?|storeys?|stor(?:e)?y)|(?:G\s*\+\s*[0-2]|single[- ]stor(?:e)?y|one[- ]stor(?:e)?y)"
+                      r"\s+only)\b", re.I)
 
 
 def _floors_from_text(text, x):
     """'G+1' and 'two storey' are unambiguous, so they override the LLM's count (a small model has read
-    'G+1' as one storey). The first mention is what is built now; a larger later mention is the future."""
+    'G+1' as one storey). The first mention is what is built now; a larger later mention is the future.
+
+    "Ground floor only", "G+1 only" or "no more floors" also fix the future: the structure is designed for
+    the storeys built now, not for the matrix default of one more (A2)."""
     counts = [int(m.group(1)) + 1 for m in _G_PLUS.finditer(text)]
+    only = bool(_NO_MORE.search(text))
+    if not counts and _GROUND_ONLY.search(text):
+        counts = [1]
+        only = only or not _LATER.search(text)  # "only the ground floor for now, one more later" plans ahead
     if not counts:
         counts = [_WORDS[m.group(1).lower()] for m in _STOREY.finditer(text)
                   if not re.match(r"\s*(?:bed|bhk|room)", text[m.end():], re.I)]
     if not counts:
         return x
     update = {"floors_now": counts[0]}
-    if max(counts) > counts[0]:
+    if only and max(counts) == counts[0]:
+        update["floors_future"] = counts[0]
+    elif max(counts) > counts[0]:
         update["floors_future"] = max(counts)
     elif x.floors_future is not None and x.floors_future < counts[0]:
         update["floors_future"] = counts[0]
@@ -499,6 +547,77 @@ def _bhk_from_text(text, x):
     """'3BHK' means 3 bedrooms; read it from the client's words (Gemma has returned -1 for it)."""
     m = _BHK.search(text)
     return x.model_copy(update={"bedrooms": int(m.group(1))}) if m else x
+
+
+_COURT = re.compile(r"\b(?:court\s?-?yard|chowk|aangan|angan|"
+                    r"(?:central|inner|middle)\s+(?:open\s+)?(?:court|verandah?|varandah?|veranda|space|area)|"
+                    r"open\s+(?:court|verandah?|varandah?|veranda)\s+(?:in\s+the\s+(?:middle|centre|center)|"
+                    r"surrounded|around|with\s+rooms))\b", re.I)
+_ROOF_STAIR = re.compile(r"\bstair(?:case|s|way)?\s+(?:to|for|up\s+to|leading\s+to|going\s+to)\s+(?:the\s+)?"
+                         r"(?:terrace|roof)", re.I)
+_SYMMETRIC = re.compile(r"\bsymmetric(?:al(?:ly)?)?\b", re.I)
+
+
+def _form_from_text(text):
+    """Plan-form wishes stated in plain words: a central courtyard or open verandah, a stair to the terrace,
+    a symmetrical plan. Only ever switches a wish on; saying nothing leaves the GA free."""
+    out = {}
+    if _COURT.search(text):
+        out["courtyard"] = True
+    if _ROOF_STAIR.search(text):
+        out["roof_stair"] = True
+    if _SYMMETRIC.search(text):
+        out["symmetric"] = True
+    return out
+
+
+MAX_ROAD_M = 30.0  # widest road taken without question; GMDA setbacks are tabulated for streets up to 30 m
+
+_LEN_UNIT = r"(?:ft|feet|foot|'|m|mtrs?|metres?|meters?)"
+_UNIT_AFTER = r"\s*(?:sq(?:uare)?\.?\s*)?(ft|feet|foot|'|m|mtrs?|metres?|meters?)\b"
+_PLOT = re.compile(r"(\d+(?:\.\d+)?)\s*" + r"(?:ft|feet|foot|'|m|mtrs?|metres?|meters?)?" +
+                   r"\s*(?:x|by|\*|×)\s*(\d+(?:\.\d+)?)" + _UNIT_AFTER, re.I)
+_ROAD_SIDE = re.compile(r"(\d+(?:\.\d+)?)\s*" + _LEN_UNIT + r"?\s*(?:long\s+)?side\s+(?:is\s+)?"
+                        r"(?:facing|faces|along|on|towards?)\s+(?:the\s+|a\s+)?(?:main\s+)?road", re.I)
+_ROAD_WIDTH = re.compile(r"road\s+(?:is\s+|of\s+|width\s+(?:is\s+|of\s+)?|about\s+)*(\d+(?:\.\d+)?)\s*"
+                         r"(ft|feet|foot|'|m|mtrs?|metres?|meters?)\b"
+                         r"|(\d+(?:\.\d+)?)\s*(ft|feet|foot|'|m|mtrs?|metres?|meters?)\s*(?:wide\s+)?road", re.I)
+
+
+def _unit(word):
+    return "m" if word.lower().startswith("m") else "ft"
+
+
+def _site_from_text(text, x):
+    """Plot sides and the front road width when the client's words state them plainly.
+
+    A small model has read "60 x 80 square feet" as an area and marked the plot unsure, turn after turn;
+    "W x D <unit>" is unambiguous, so code reads it (first number along the road, unless the client names
+    the road side). The plot only fills what the LLM did not give; a plainly stated front road width
+    replaces a different one from the LLM (a model has turned "20 feet" into 200 ft)."""
+    update = {}
+    m = _PLOT.search(text)
+    if m and not (x.plot_width and x.plot_depth):
+        a, b, unit = float(m.group(1)), float(m.group(2)), _unit(m.group(3))
+        side = _ROAD_SIDE.search(text)
+        if side and abs(float(side.group(1)) - b) < 1e-9 and abs(a - b) > 1e-9:
+            a, b = b, a  # the second number is the side on the road
+        if a > 0 and b > 0:
+            update.update(plot_width=Length(value=a, unit=unit), plot_depth=Length(value=b, unit=unit))
+    r = _ROAD_WIDTH.search(text)
+    if r:
+        value, unit = (r.group(1), r.group(2)) if r.group(1) else (r.group(3), r.group(4))
+        said = RoadSaid(side="front", width=Length(value=float(value), unit=_unit(unit)))
+        front = next((rd for rd in x.roads or [] if rd.side == "front"), None)
+        if float(value) > 0 and (front is None or abs(front.width.metres() - said.width.metres()) > 0.05):
+            # "road of 20 feet" is unambiguous; a model has returned it as 200 ft (61 m)
+            update["roads"] = [said] + [rd for rd in x.roads or [] if rd.side != "front"]
+    if not update:
+        return x
+    said = {"site.plot"} if "plot_width" in update else set()
+    said |= {"site.roads"} if "roads" in update else set()
+    update["unsure"] = [u for u in x.unsure if u not in said]
+    return x.model_copy(update=update)
 
 
 def _lenient(data, schema=None):

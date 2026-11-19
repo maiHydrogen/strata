@@ -24,6 +24,29 @@ END_MARGIN = 0.3  # m from a room corner
 VENT_ABOVE = 1.5  # m, stack vent above the roof it passes (assumed)
 STACK_D = {"soil": 0.110, "waste": 0.075}
 OUTSIDE_GAP = 0.05  # m between the external wall face and the stack
+STACK_CLEAR = 0.075  # m clear between a stack and a column face (practice, for clamps and access)
+BEAM_CLEAR = 0.04  # m: beams are flush with the wall face, so a stack OUTSIDE_GAP off the wall clears them
+SLIDE_STEP = 0.05  # m, step when sliding a stack along its wall away from a column
+
+
+# ---------------------------------------------------------------- frame clearance
+
+def _frame_outlines(building):
+    """Plan outlines of the designed columns and beams (stacks run full height, so plan is enough)."""
+    out = []
+    for c in building.get("columns", []):
+        x, y = c["at"]
+        w, dp = c.get("width", 0.3) / 2, c.get("depth", 0.3) / 2
+        out.append((Polygon([(x - w, y - dp), (x + w, y - dp), (x + w, y + dp), (x - w, y + dp)]), STACK_CLEAR))
+    for b in building.get("beams", []):
+        if b["start"] != b["end"]:
+            out.append((LineString([b["start"], b["end"]]).buffer(b.get("width", 0.23) / 2, cap_style=2), BEAM_CLEAR))
+    return out
+
+
+def _clashes(at, diameter, outlines, slack=0.0):
+    """True when the stack comes closer than each outline's clearance (less `slack`)."""
+    return any(Point(at).distance(o) < diameter / 2 + clear - slack for o, clear in outlines)
 
 
 # ---------------------------------------------------------------- tank (also used by the structure stage)
@@ -422,13 +445,29 @@ def add_services(building: dict, tank: dict, prefs=None) -> dict:
 
     # ---- stacks: on the external wall face outside the wet room, merged up the building
     pipes = []
+    frame = _frame_outlines(building)
+    moved = []
     for kind, face, t, room in stacks_raw:
         d = STACK_D[kind]
         below = [Polygon(fl["boundary"]) for fl in building["floors"] if elev[fl["level"]] <= elev[room["level"]]]
 
         def outside(f, tt):
-            q = f.at(min(max(tt, 0.15), f.length - 0.15), -(f.half * 2 + OUTSIDE_GAP + d / 2))
-            return q if not any(b.buffer(-0.01).contains(Point(q)) for b in below) else None
+            """Outside the wall over open air, slid along the face (nearest first) clear of the columns."""
+            lo, hi = 0.15, f.length - 0.15
+            base = min(max(tt, lo), hi)
+            steps = int((hi - lo) / SLIDE_STEP) + 1
+            for k in range(2 * steps + 1):
+                ts = base + (k + 1) // 2 * SLIDE_STEP * (1 if k % 2 else -1)
+                if not lo - 1e-9 <= ts <= hi + 1e-9:
+                    continue
+                q = f.at(ts, -(f.half * 2 + OUTSIDE_GAP + d / 2))
+                if any(b.buffer(-0.01).contains(Point(q)) for b in below):
+                    return None  # over a lower floor: not open to the ground on this face
+                if not _clashes(q, d, frame):
+                    if k:
+                        moved.append(f"{room['id']} {kind} {abs(ts - base):.2f} m")
+                    return q
+            return None
 
         # on an external face whose outside is open air down to the ground (not over a lower floor)
         cands = [face] + [f for f in room_faces(room, building, thick, openings) if f is not face]
@@ -455,6 +494,8 @@ def add_services(building: dict, tank: dict, prefs=None) -> dict:
                           "z0": 0.0, "z1": round(top, 3), "diameter": d, "outside": ext, "serves": [room["id"]]})
     for s in pipes:
         s["z1"] = round(s["z1"], 3)
+    if moved:
+        notes.append("Stacks slid along their wall to clear columns: " + "; ".join(moved) + ".")
 
     # ---- overhead tank on the highest slab (the stair cabin roof when there is one)
     top_floor = max(building["floors"], key=lambda f: elev[f["level"]])
@@ -511,6 +552,11 @@ def add_services(building: dict, tank: dict, prefs=None) -> dict:
            or (c["kind"] == "power" and len(c["points"]) > T.POWER_CIRCUIT_OUTLETS)]
     check("sub-circuits within ten points / 800 W, two 16 A outlets", not bad,
           f"{len(circuits)} circuits" + (f"; over: {[c['id'] for c in bad]}" if bad else ""), T.SOURCES["subcircuit"])
+    if frame:
+        hit = [s["id"] for s in pipes if _clashes(s["at"], s["diameter"], frame, slack=1e-4)]
+        check(f"stacks clear of columns by {STACK_CLEAR * 1000:.0f} mm and beams by {BEAM_CLEAR * 1000:.0f} mm", not hit,
+              f"{len(pipes) - len(hit)} of {len(pipes)} clear" + (f"; clashing: {hit}" if hit else ""),
+              T.SOURCES["stack_clearance"])
     check(f"overhead tank >= half a day's demand", tank["capacity_l"] >= tank["required_l"],
           f"{tank['capacity_l']} l for {tank['persons']} persons x {tank['demand_lphd']:g} l/day x "
           f"{T.OHT_FRACTION:g} = {tank['required_l']} l", T.SOURCES["overhead_tank"])

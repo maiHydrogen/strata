@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Check, Download, Restart, Spark } from "@/components/Icons";
 import { api } from "@/lib/api";
@@ -14,14 +14,18 @@ type Option = {
   areas: { plot_area?: number; built_up_total: number; carpet_total: number; far?: number };
   floors: { floor: string; built_up: number; carpet: number }[];
   failures: string[];
+  does_not_fit?: string[];
   rooms: Room[];
   layout: unknown;
+  genome?: number[];
+  wishes?: { edit: string; met: boolean; detail: string }[];
 };
 type Suggestion = { change: string; fits: boolean; brief: unknown };
 type Result = {
   envelope?: { width: number; depth: number; setbacks: Record<string, number> } | null;
   options: Option[];
   suggestions?: Suggestion[];
+  edits?: { edit: string; accepted: boolean; reason: string }[];
 };
 
 const STORE = "strata-layout-v1";
@@ -37,8 +41,13 @@ export default function LayoutView({ brief, code, onNeedCode, onApproved }: {
   const [error, setError] = useState<string | null>(null);
   const [seed, setSeed] = useState(1);
   const [approved, setApproved] = useState<string | null>(null);
+  const [ask, setAsk] = useState("");
+  const [asked, setAsked] = useState<string | null>(null);
+  const started = useRef(false);  // React runs the first effect twice in development: design once
 
   useEffect(() => {
+    if (started.current) return;
+    started.current = true;
     try {
       const saved = window.localStorage.getItem(STORE);
       if (saved) {
@@ -74,6 +83,31 @@ export default function LayoutView({ brief, code, onNeedCode, onApproved }: {
       setResult(data); setPick(0); setCurrent(b); setSeed(s);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not design layouts. Please try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function revise(o: Option) {
+    const text = ask.trim();
+    if (!text || !o.genome) return;
+    setBusy(true); setError(null); setApproved(null);
+    try {
+      const res = await api("/api/layout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(code ? { "X-Strata-Code": code } : {}) },
+        body: JSON.stringify({ action: "revise", brief: current, genome: o.genome, request: text, seed }),
+      });
+      if (res.status === 401) { onNeedCode(); return; }
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || `Server error ${res.status}`);
+      if (!data.options?.length) {
+        setResult((r) => r && { ...r, edits: data.edits });
+        throw new Error(data.error || "Nothing in the request could be applied.");
+      }
+      setResult(data); setPick(0); setAsked(text); setAsk("");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Could not apply the change. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -147,6 +181,13 @@ export default function LayoutView({ brief, code, onNeedCode, onApproved }: {
                   {o.areas.far != null && <div className="stat"><b>{o.areas.far.toFixed(2)}</b><small>FAR used</small></div>}
                 </div>
 
+                {(o.does_not_fit?.length ?? 0) > 0 && (
+                  <div className="panel-card bad">
+                    <h3>Why this plan does not fit</h3>
+                    <ul>{o.does_not_fit!.map((f) => <li key={f}>{f}</li>)}</ul>
+                  </div>
+                )}
+
                 {o.failures.length > 0 && (
                   <div className="panel-card bad">
                     <h3>Rules this option breaks</h3>
@@ -186,6 +227,34 @@ export default function LayoutView({ brief, code, onNeedCode, onApproved }: {
                     ))}
                   </div>
                 </div>
+
+                {result.edits && (
+                  <div className="panel-card">
+                    <h3>Your change request{asked ? `: “${asked}”` : ""}</h3>
+                    <ul>{result.edits.map((e) => (
+                      <li key={e.edit}><span className={`tag ${e.accepted ? "ok" : "bad"}`}>{e.accepted ? "applied" : "not applied"}</span>{" "}
+                        {e.edit}{e.reason ? `: ${e.reason}` : ""}
+                        {e.accepted && o.wishes && (() => {
+                          const w = o.wishes.find((x) => x.edit === e.edit);
+                          return w ? <em> ({w.met ? "met" : "not met"} in {o.name}: {w.detail})</em> : null;
+                        })()}
+                      </li>))}</ul>
+                  </div>
+                )}
+
+                {o.genome && (
+                  <div className="panel-card">
+                    <h3>Ask for a change</h3>
+                    <p>Describe it in your own words, for example “move the kitchen next to the dining room and make
+                      bedroom 2 bigger”. STRATA turns it into edits on {o.name}, redesigns around them and checks every
+                      rule again; anything that would break a rule is refused with the reason.</p>
+                    <form className="ask-row" onSubmit={(e) => { e.preventDefault(); void revise(o); }}>
+                      <input value={ask} onChange={(e) => setAsk(e.target.value)} maxLength={500}
+                        placeholder="What would you like changed?" aria-label="Change request" />
+                      <button type="submit" className="btn" disabled={!ask.trim() || busy}><Spark size={18} /> Apply</button>
+                    </form>
+                  </div>
+                )}
 
                 {o.pass && (
                   <div className="done-card">
