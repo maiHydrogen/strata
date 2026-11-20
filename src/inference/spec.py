@@ -187,6 +187,8 @@ def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
         s.get("headroom", "habitable_room"),
         *s.all(("width", "height"), "exit_door"),
         s.get("width", "corridor"),
+        s.get("length", "exit_route", comparator="le"),
+        *s.all(("gradient", "width"), "ramp"),  # entrance ramp, when the household has elderly or wheelchair users
         *s.all(("width", "height_fraction"), "courtyard"),  # applied only when the layout has a courtyard
     ] if e]
     materials = s.all(("grade",), "rc_concrete") + s.all(("elongation", "proof_stress"), "reinforcement")
@@ -234,8 +236,22 @@ def build_spec(brief: Brief, kg: KnowledgeGraph | None = None) -> dict:
     structure += s.all(("imposed_load",), "floor", room_use="circulation")
     structure += s.all(("imposed_load",), "floor", room_use="balcony")
     structure += s.all(("imposed_load",), "roof", roof_access="access")
+    # member rules (IS 456, IS 13920): covers, minimum sizes, steel limits, deflection by span/depth
+    structure += s.all(("cover", "width", "width_depth_ratio", "bar_diameter"), "beam")
+    structure += [e for e in (s.get("steel_ratio", "beam", comparator="le"),) if e]
+    structure += [e for sup in ("cantilever", "simply_supported", "continuous")
+                  if (e := s.get("span_depth_ratio", "beam", support=sup))]
+    structure += s.all(("cover", "width", "bar_diameter", "moment_ratio"), "column")
+    structure += [e for c in ("ge", "le") if (e := s.get("steel_ratio", "column", comparator=c))]
+    structure += s.all(("cover", "span_depth_ratio"), "slab") + s.all(("cover",), "footing")
     facts = [_entry(v) for v in kg.site_facts(jurisdiction).values()]
     services = s.all(("water_demand",), "building")  # city population from the site facts (census)
+    services += s.all(("occupants",), "dwelling_unit", bedrooms=brief.programme.bedrooms)
+    services += [e for c in ("ge", "le") if (e := s.get("storage_fraction", "overhead_tank", comparator=c))]
+    services += s.all(("points", "load"), "light_circuit") + s.all(("lighting_density", "power_density"), "building")
+    services += s.all(("height",), "socket_outlet") + s.all(("lightning_protection",), "building")
+    services += s.all(("width", "depth", "capacity", "pipe_diameter", "vent_diameter"), "septic_tank")
+    services += [e for c in ("ge", "le") if (e := s.get("length_width_ratio", "septic_tank", comparator=c))]
 
     return {
         "schema_version": SCHEMA_VERSION,

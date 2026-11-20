@@ -65,16 +65,20 @@ class ScriptedClient:
     model: str = "scripted"
     calls: list = field(default_factory=list)
 
-    def complete_json(self, system, prompt, schema):
+    def complete_json(self, system, prompt, schema, max_tokens=None):
         self.calls.append({"system": system, "prompt": prompt, "schema": schema})
         if not self.responses:
             raise LLMError("scripted client has no responses left")
         r = self.responses.pop(0)
         return r if isinstance(r, str) else json.dumps(r)
 
+    def complete_text(self, system, prompt, max_tokens=None):
+        return self.complete_json(system, prompt, None)
+
 
 # An extraction is a few hundred tokens; a cap stops a runaway answer in seconds instead of minutes.
 MAX_OUTPUT = 1024
+LONG_OUTPUT = 12_288  # Phase 9 arms that return a whole model or layout (Gemma free tier: ~20 min)
 _BOUNDS = {"minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum"}
 
 
@@ -103,7 +107,7 @@ class GeminiClient:
 
     name = "gemini"
 
-    def __init__(self, model=None, api_key=None, retries=4):
+    def __init__(self, model=None, api_key=None, retries=4, timeout_ms=TIMEOUT_MS):
         from google import genai  # imported here so offline tests do not need the SDK configured
 
         key = api_key or os.environ.get("GEMINI_API_KEY")
@@ -111,17 +115,30 @@ class GeminiClient:
             raise LLMError("GEMINI_API_KEY is not set (put it in .env)")
         self._genai = genai
         # without a timeout a stalled free-tier request hangs forever
-        self.client = genai.Client(api_key=key, http_options=genai.types.HttpOptions(timeout=TIMEOUT_MS))
+        self.client = genai.Client(api_key=key, http_options=genai.types.HttpOptions(timeout=timeout_ms))
         self.retries = retries
         self.model = model or os.environ.get("STRATA_LLM_MODEL") or DEFAULT_MODEL
         self.limiter = RateLimiter(*LIMITS.get(self.model, DEFAULT_LIMITS))
+        self.on_retry = lambda message: None  # e.g. print, to see a long wait in a batch run
+        self.long_output = LONG_OUTPUT
 
-    def complete_json(self, system, prompt, schema):
-        from google.genai import errors, types
+    def complete_json(self, system, prompt, schema, max_tokens=None):
+        from google.genai import types
 
-        config = types.GenerateContentConfig(
+        return self._generate(prompt, types.GenerateContentConfig(
             system_instruction=system, temperature=0.0, response_mime_type="application/json",
-            response_json_schema=model_schema(schema), max_output_tokens=MAX_OUTPUT)
+            response_json_schema=model_schema(schema), max_output_tokens=max_tokens or MAX_OUTPUT))
+
+    def complete_text(self, system, prompt, max_tokens=None):
+        """Free text, for the Phase 9 baseline arm only (its agents answer in prose and code)."""
+        from google.genai import types
+
+        return self._generate(prompt, types.GenerateContentConfig(
+            system_instruction=system or None, temperature=0.0, max_output_tokens=max_tokens or self.long_output))
+
+    def _generate(self, prompt, config):
+        from google.genai import errors
+
         for attempt in range(self.retries + 1):
             try:
                 self.limiter.wait(self.limiter.typical_tokens())
@@ -136,10 +153,12 @@ class GeminiClient:
             except errors.APIError as e:
                 if e.code not in (429, 500, 503, 504) or attempt == self.retries:
                     raise LLMError(f"Gemini {self.model}: {e.code} {e.message}") from e
+                self.on_retry(f"Gemini {e.code}, try {attempt + 2} of {self.retries + 1}")
                 time.sleep(min(60, 5 * 2 ** attempt))
             except httpx.TimeoutException as e:
                 if attempt == self.retries:
                     raise LLMError(f"Gemini {self.model}: timed out after {self.retries + 1} tries") from e
+                self.on_retry(f"Gemini timed out, try {attempt + 2} of {self.retries + 1}")
                 time.sleep(5)
         raise LLMError("unreachable")
 
@@ -158,6 +177,9 @@ GROQ_EXTRA = {"openai/gpt-oss-120b": {"reasoning_effort": "low"},
               "openai/gpt-oss-20b": {"reasoning_effort": "low"},
               "qwen/qwen3.8-27b": {"reasoning_effort": "none"}}
 GROQ_MAX_OUTPUT = 2048  # reasoning tokens share this cap
+# Phase 9 arms that return a whole model or plan. On the free plan a request (prompt + output cap) above the
+# 8K tokens/min limit is refused outright, so the cap stays near 5K; raise it on a paid plan.
+GROQ_LONG_OUTPUT = int(os.environ.get("STRATA_GROQ_LONG_OUTPUT", "5000"))
 
 
 def strict_schema(schema):
@@ -198,28 +220,39 @@ class GroqClient:
         self.http = http or httpx.Client(timeout=TIMEOUT_MS / 1000)
         self.limiter = RateLimiter(*GROQ_LIMITS.get(self.model, GROQ_DEFAULT_LIMITS))
         self.extra = dict(GROQ_EXTRA.get(self.model, {}))
+        self.long_output = GROQ_LONG_OUTPUT
+        self.on_retry = lambda message: None
 
-    def _body(self, system, prompt, schema):
+    def _body(self, system, prompt, schema, max_tokens=None):
         if self.model in GROQ_STRICT:
             fmt = {"type": "json_schema",
                    "json_schema": {"name": schema.__name__, "strict": True, "schema": strict_schema(schema)}}
         else:
             fmt = {"type": "json_object"}
             system = f"{system}\n\nReturn one JSON object matching this JSON schema:\n{json.dumps(model_schema(schema))}"
-        return {"model": self.model, "temperature": 0, "max_completion_tokens": GROQ_MAX_OUTPUT,
+        return {"model": self.model, "temperature": 0, "max_completion_tokens": max_tokens or GROQ_MAX_OUTPUT,
                 "response_format": fmt, **self.extra,
                 "messages": [{"role": "system", "content": system}, {"role": "user", "content": prompt}]}
 
-    def complete_json(self, system, prompt, schema):
+    def complete_json(self, system, prompt, schema, max_tokens=None):
+        return self._post(lambda: self._body(system, prompt, schema, max_tokens))
+
+    def complete_text(self, system, prompt, max_tokens=None):
+        """Free text, for the Phase 9 baseline arm only (its agents answer in prose and code)."""
+        messages = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]
+        return self._post(lambda: {"model": self.model, "temperature": 0, **self.extra,
+                                   "max_completion_tokens": max_tokens or self.long_output, "messages": messages})
+
+    def _post(self, make_body):
         for attempt in range(self.retries + 1):
             self.limiter.wait(self.limiter.typical_tokens())
             try:
-                r = self.http.post(GROQ_URL, json=self._body(system, prompt, schema),
-                                   headers={"Authorization": f"Bearer {self.key}"})
+                r = self.http.post(GROQ_URL, json=make_body(), headers={"Authorization": f"Bearer {self.key}"})
             except httpx.TransportError as e:
                 self.limiter.record(0)
                 if attempt == self.retries:
                     raise LLMError(f"Groq {self.model}: {type(e).__name__} after {self.retries + 1} tries") from e
+                self.on_retry(f"Groq {type(e).__name__}, try {attempt + 2} of {self.retries + 1}")
                 time.sleep(5)
                 continue
             if r.status_code == 200:
@@ -233,6 +266,7 @@ class GroqClient:
                 continue
             if r.status_code not in (429, 500, 502, 503, 504) or attempt == self.retries:
                 raise LLMError(f"Groq {self.model}: {r.status_code} {message}")
+            self.on_retry(f"Groq {r.status_code}, try {attempt + 2} of {self.retries + 1}")
             wait = r.headers.get("retry-after")
             time.sleep(min(60, float(wait)) if wait and wait.replace(".", "", 1).isdigit() else min(60, 5 * 2 ** attempt))
         raise LLMError(f"Groq {self.model}: no answer after {self.retries + 1} tries")

@@ -81,6 +81,15 @@ def imposed_loads(spec):
     return loads, sources
 
 
+def member_value(spec, element, quantity, default, comparator=None):
+    """A member rule (cover, minimum size...) from the spec's structure entries, else the default."""
+    for e in (spec or {}).get("structure", []):
+        if (e.get("element"), e.get("quantity")) == (element, quantity) and isinstance(e.get("value"), (int, float)) \
+                and (comparator is None or e.get("comparator") == comparator):
+            return e["value"]
+    return default
+
+
 def site_value(spec, quantity, default):
     for e in (spec or {}).get("site", []):
         if e.get("quantity") == quantity and isinstance(e.get("value"), (int, float)):
@@ -221,6 +230,8 @@ def build_frame(layout: Layout, spec=None, tank=None) -> FrameModel:
     mat = layout.materials
     frame.fck = mat.concrete_grade or 25.0
     frame.fy = mat.steel_proof_stress or 500.0
+    frame.beam_cover = member_value(spec, "beam", "cover", frame.beam_cover)  # IS 456 Table 16
+    frame.column_cover = member_value(spec, "column", "cover", frame.column_cover)  # IS 456 cl. 26.4.2.1
     live, live_src = imposed_loads(spec)
     zone, zone_src = site_value(spec, "zone_factor", 0.36)
     vb, vb_src = site_value(spec, "wind_speed", 50.0)

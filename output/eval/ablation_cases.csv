@@ -1,0 +1,26 @@
+arm,id,status,produced,rule_pass,code_passed,code_checks,failures,reachable,programme,staad,building_valid,services,ifc_errors,seconds,llm_calls,first_failures
+C,b01_complete_feet,stopped:layout,False,False,54,54,3,True,False,,,,,161.2,0,bath_wc: at least 3 as in the brief; habitable_room: at least 5 as in the brief; kitchen: at least 1 as in the brief
+C,b02_omit_plot,complete,True,True,102,102,0,True,True,True,True,22/22,,76.7,0,
+C,b03_shop_omit_family,stopped:layout,False,False,42,42,2,True,False,,,,,70.1,0,bath_wc: at least 4 as in the brief; habitable_room: at least 4 as in the brief
+C,b04_rental_corner,stopped:layout,False,False,64,66,5,True,False,,,,,99.9,0,Second floor bedroom1 (bedroom): area >= 7.5 m2; Second floor bedroom2 (bedroom): area >= 7.5 m2; Second floor: every column stands on a column of First floor
+C,b05_minimal,stopped:layout,False,False,38,42,6,True,False,,,,,160.9,0,"Ground floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8}); Ground floor living (living): width >= 2.1 m (clear); Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)"
+C,b06_unsure_direction_road,stopped:layout,False,False,44,50,8,True,False,,,,,158.1,0,"Ground floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8}); Ground floor living (living): width >= 2.1 m (clear); Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)"
+C,b07_wheelchair_metres,stopped:layout,False,False,72,78,6,True,True,,,,,87.0,0,Ground floor living (living): width >= 2.1 m (clear); Ground floor bedroom2 (bedroom): area >= 7.5 m2; Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)
+C,b08_open_kitchen_study_store,stopped:layout,False,False,50,50,3,True,False,,,,,154.2,0,bath_wc: at least 4 as in the brief; habitable_room: at least 4 as in the brief; store: at least 1 as in the brief
+C,b09_hinglish,stopped:layout,False,False,61,64,5,True,False,,,,,133.6,0,Ground floor bath_wc1 (bath_wc): width >= 1.2 m (clear); Ground floor bath_wc2 (bath_wc): width >= 1.2 m (clear); First floor bedroom1 (bedroom): area >= 7.5 m2
+C,b10_parking,complete,True,True,86,86,0,True,True,True,True,18/18,,71.0,0,
+C,b11_other_city,failed,False,,,,,,,,,,,0.4,0,
+C,b12_future_floor,stopped:layout,False,False,23,25,4,True,False,,,,,124.4,0,Ground floor living (living): width >= 2.1 m (clear); Ground floor living (largest habitable room): principal room width >= 2.4 m (clear); bath_wc: at least 2 as in the brief
+C,b13_terse_typos,stopped:layout,False,False,44,50,8,True,False,,,,,160.9,0,"Ground floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8}); Ground floor living (living): width >= 2.1 m (clear); Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)"
+C,b14_omit_city,stopped:layout,False,False,50,50,2,True,False,,,,,125.2,0,bath_wc: at least 4 as in the brief; habitable_room: at least 5 as in the brief
+C,b15_vastu,stopped:layout,False,False,62,64,4,True,False,,,,,143.4,0,Ground floor bath_wc1 (bath_wc): width >= 1.2 m (clear); Ground floor bath_wc2 (bath_wc): width >= 1.2 m (clear); bath_wc: at least 4 as in the brief
+C,b16_indian_wc,stopped:layout,False,False,48,48,2,True,False,,,,,123.0,0,bath_wc: at least 2 as in the brief; habitable_room: at least 4 as in the brief
+C,b17_corner_right,stopped:layout,False,False,46,50,6,True,False,,,,,130.6,0,Ground floor living (living): width >= 2.1 m (clear); Ground floor bath_wc1 (bath_wc): width >= 1.2 m (clear); Ground floor bath_wc2 (bath_wc): width >= 1.2 m (clear)
+C,b18_family_listed,complete,True,True,78,78,0,True,True,True,True,14/14,,57.4,0,
+C,b19_omit_floors_rooms,stopped:layout,False,False,62,62,1,True,False,,,,,82.6,0,bath_wc: at least 3 as in the brief
+C,b20_self_correction,stopped:layout,False,False,57,58,3,True,False,,,,,133.5,0,First floor bath_wc1 (bath_wc): width >= 1.2 m (clear); bath_wc: at least 4 as in the brief; habitable_room: at least 6 as in the brief
+C,b21_katha_area_only,complete,True,True,74,74,0,True,True,True,True,15/15,,57.4,0,
+C,b22_narrow_lane,stopped:layout,False,False,50,50,2,True,False,,,,,127.7,0,bath_wc: at least 4 as in the brief; habitable_room: at least 4 as in the brief
+C,b23_unsure_family,stopped:layout,False,False,44,50,8,True,False,,,,,160.1,0,"Ground floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8}); Ground floor living (living): width >= 2.1 m (clear); Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)"
+C,b24_number_words,stopped:layout,False,False,61,64,5,True,False,,,,,135.1,0,Ground floor bath_wc1 (bath_wc): width >= 1.2 m (clear); Ground floor bath_wc2 (bath_wc): width >= 1.2 m (clear); First floor bedroom1 (bedroom): area >= 7.5 m2
+C,b25_depth_first,stopped:layout,False,False,72,72,2,True,False,,,,,116.2,0,bath_wc: at least 6 as in the brief; habitable_room: at least 6 as in the brief

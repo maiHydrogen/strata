@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 561" width="870" height="561" font-family="Comfortaa, system-ui, sans-serif">
+<rect width="870" height="561" fill="#1d203e"/>
+<text x="60.0" y="48.0" fill="#fff" font-size="16" font-weight="700" font-family="Unbounded, system-ui, sans-serif">Ground floor</text>
+<clipPath id="v0"><rect x="60.0" y="70.0" width="344.8" height="411.3"/></clipPath>
+<rect x="47.4" y="57.4" width="384.0" height="512.1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-dasharray="6 5" clip-path="url(#v0)"/>
+<text x="232.4" y="501.3" fill="rgba(255,255,255,0.55)" font-size="12" text-anchor="middle">road side</text>
+<polygon points="285.1,321.7 341.8,321.7 341.8,133.0 285.1,133.0" fill="#3a3e66" fill-opacity="0.55" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<polygon points="123.0,418.3 341.8,418.3 341.8,321.7 123.0,321.7" fill="#5b7fd6" fill-opacity="0.55" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<polygon points="123.0,321.7 285.1,321.7 285.1,228.6 123.0,228.6" fill="#9775dc" fill-opacity="0.55" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<polygon points="123.0,228.6 285.1,228.6 285.1,133.0 123.0,133.0" fill="#f0a6e6" fill-opacity="0.55" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<line x1="123.0" y1="413.4" x2="341.8" y2="413.4" stroke="#e9e6ff" stroke-width="9.7" stroke-linecap="square"/>
+<line x1="336.9" y1="418.3" x2="336.9" y2="133.0" stroke="#e9e6ff" stroke-width="9.7" stroke-linecap="square"/>
+<line x1="341.8" y1="137.8" x2="123.0" y2="137.8" stroke="#e9e6ff" stroke-width="9.7" stroke-linecap="square"/>
+<line x1="127.8" y1="133.0" x2="127.8" y2="418.3" stroke="#e9e6ff" stroke-width="9.7" stroke-linecap="square"/>
+<line x1="285.1" y1="321.7" x2="123.0" y2="321.7" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="285.1" y1="228.6" x2="123.0" y2="228.6" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="285.1" y1="321.7" x2="341.8" y2="321.7" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="285.1" y1="228.6" x2="285.1" y2="321.7" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="285.1" y1="133.0" x2="285.1" y2="228.6" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="292.4" y1="418.3" x2="334.4" y2="418.3" stroke="#1d203e" stroke-width="10.7"/>
+<circle cx="313.4" cy="418.3" r="5" fill="#f7cbfd"/>
+<line x1="292.4" y1="321.7" x2="334.4" y2="321.7" stroke="#1d203e" stroke-width="5.8"/>
+<line x1="285.1" y1="256.2" x2="285.1" y2="294.0" stroke="#1d203e" stroke-width="5.8"/>
+<line x1="285.1" y1="161.9" x2="285.1" y2="199.7" stroke="#1d203e" stroke-width="5.8"/>
+<line x1="174.8" y1="418.3" x2="233.2" y2="418.3" stroke="#7fe9f1" stroke-width="10.7"/>
+<line x1="123.0" y1="351.1" x2="123.0" y2="388.9" stroke="#7fe9f1" stroke-width="10.7"/>
+<line x1="123.0" y1="252.3" x2="123.0" y2="298.0" stroke="#7fe9f1" stroke-width="10.7"/>
+<rect x="116.7" y="412.0" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="116.7" y="315.4" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="116.7" y="222.3" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="116.7" y="126.7" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="278.8" y="412.0" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="278.8" y="315.4" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="278.8" y="222.3" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="278.8" y="126.7" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="335.5" y="412.0" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="335.5" y="315.4" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="335.5" y="222.3" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="335.5" y="126.7" width="12.6" height="12.6" fill="#f7cbfd"/>
+<text x="313.4" y="225.3" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Passage</text>
+<text x="232.4" y="368.0" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Living</text>
+<text x="232.4" y="383.0" fill="rgba(255,255,255,0.7)" font-size="11" text-anchor="middle">12.0 m2</text>
+<text x="204.0" y="273.1" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Bedroom 1</text>
+<text x="204.0" y="288.1" fill="rgba(255,255,255,0.7)" font-size="11" text-anchor="middle">8.5 m2</text>
+<text x="204.0" y="178.8" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Stair</text>
+<text x="204.0" y="193.8" fill="rgba(255,255,255,0.7)" font-size="11" text-anchor="middle">8.8 m2</text>
+<text x="464.8" y="48.0" fill="#fff" font-size="16" font-weight="700" font-family="Unbounded, system-ui, sans-serif">First floor</text>
+<clipPath id="v1"><rect x="464.8" y="70.0" width="344.8" height="411.3"/></clipPath>
+<rect x="452.2" y="57.4" width="384.0" height="512.1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-dasharray="6 5" clip-path="url(#v1)"/>
+<text x="637.2" y="501.3" fill="rgba(255,255,255,0.55)" font-size="12" text-anchor="middle">road side</text>
+<polygon points="689.9,418.3 746.6,418.3 746.6,133.0 689.9,133.0" fill="#3a3e66" fill-opacity="0.55" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<polygon points="527.8,418.3 689.9,418.3 689.9,321.7 527.8,321.7" fill="#1bb1d0" fill-opacity="0.55" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<polygon points="527.8,321.7 689.9,321.7 689.9,228.6 527.8,228.6" fill="#9775dc" fill-opacity="0.55" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<polygon points="527.8,228.6 689.9,228.6 689.9,133.0 527.8,133.0" fill="#f0a6e6" fill-opacity="0.55" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<line x1="527.8" y1="413.4" x2="746.6" y2="413.4" stroke="#e9e6ff" stroke-width="9.7" stroke-linecap="square"/>
+<line x1="741.7" y1="418.3" x2="741.7" y2="133.0" stroke="#e9e6ff" stroke-width="9.7" stroke-linecap="square"/>
+<line x1="746.6" y1="137.8" x2="527.8" y2="137.8" stroke="#e9e6ff" stroke-width="9.7" stroke-linecap="square"/>
+<line x1="532.6" y1="133.0" x2="532.6" y2="418.3" stroke="#e9e6ff" stroke-width="9.7" stroke-linecap="square"/>
+<line x1="689.9" y1="321.7" x2="527.8" y2="321.7" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="689.9" y1="228.6" x2="527.8" y2="228.6" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="689.9" y1="321.7" x2="689.9" y2="418.3" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="689.9" y1="228.6" x2="689.9" y2="321.7" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="689.9" y1="133.0" x2="689.9" y2="228.6" stroke="#e9e6ff" stroke-width="4.8" stroke-linecap="square"/>
+<line x1="689.9" y1="351.1" x2="689.9" y2="388.9" stroke="#1d203e" stroke-width="5.8"/>
+<line x1="689.9" y1="256.2" x2="689.9" y2="294.0" stroke="#1d203e" stroke-width="5.8"/>
+<line x1="689.9" y1="161.9" x2="689.9" y2="199.7" stroke="#1d203e" stroke-width="5.8"/>
+<line x1="581.3" y1="418.3" x2="636.3" y2="418.3" stroke="#7fe9f1" stroke-width="10.7"/>
+<line x1="527.8" y1="351.1" x2="527.8" y2="388.9" stroke="#7fe9f1" stroke-width="10.7"/>
+<line x1="527.8" y1="252.3" x2="527.8" y2="298.0" stroke="#7fe9f1" stroke-width="10.7"/>
+<rect x="521.5" y="412.0" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="521.5" y="315.4" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="521.5" y="222.3" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="521.5" y="126.7" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="683.6" y="412.0" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="683.6" y="315.4" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="683.6" y="222.3" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="683.6" y="126.7" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="740.3" y="412.0" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="740.3" y="315.4" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="740.3" y="222.3" width="12.6" height="12.6" fill="#f7cbfd"/>
+<rect x="740.3" y="126.7" width="12.6" height="12.6" fill="#f7cbfd"/>
+<text x="718.2" y="273.6" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Passage</text>
+<text x="608.8" y="368.0" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Kitchen</text>
+<text x="608.8" y="383.0" fill="rgba(255,255,255,0.7)" font-size="11" text-anchor="middle">8.9 m2</text>
+<text x="608.8" y="273.1" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Bedroom 2</text>
+<text x="608.8" y="288.1" fill="rgba(255,255,255,0.7)" font-size="11" text-anchor="middle">8.5 m2</text>
+<text x="608.8" y="178.8" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Stair</text>
+<text x="608.8" y="193.8" fill="rgba(255,255,255,0.7)" font-size="11" text-anchor="middle">8.8 m2</text>
+</svg>

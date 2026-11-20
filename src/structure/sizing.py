@@ -13,9 +13,9 @@ import re
 from src.structure.staad_results import MIN_COLUMN_STEEL_PCT, StaadResults
 from src.structure.std_writer import BAR_SIZES, Frame, Section
 
-# Square columns suit biaxial seismic action; 300 mm minimum per IS 13920 cl. 7.1.2
+# Square columns suit biaxial seismic action; 300 mm minimum per IS 13920 cl. 7.1.1 (b)
 COLUMN_SIZES = [Section(d, d) for d in (0.30, 0.35, 0.40, 0.45, 0.50)]
-# 230 mm beams match the brick wall; IS 13920 cl. 6.1.1 (width >= 200 mm, width/depth >= 0.3)
+# 230 mm beams match the brick wall; IS 13920 cl. 6.1.2 (width >= 200 mm) and 6.1.1 (width/depth >= 0.3)
 BEAM_WIDTH = 0.23
 BEAM_DEPTHS = (0.30, 0.35, 0.38, 0.40, 0.45, 0.50, 0.60)
 # Minimum main bar diameter steps for columns, mm (STAAD MINMAIN); IS 456 cl. 26.5.3.1(c) >= 12 mm

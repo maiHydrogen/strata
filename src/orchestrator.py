@@ -271,7 +271,8 @@ def run_pipeline(brief, name, runner, out=None, pick=None, ask=None, top=3, rest
         entry = None if fresh else _done(prev, "layout", *[f"{p}_{o['k']}" for o in
                                                           (_done(prev, "layout") or {}).get("options", [])
                                                           for p in ("layout", "check")])
-        if entry and entry.get("options"):
+        # a layout stage that found no passing option stopped the run: redo it (it gives the advice again)
+        if entry and any(o["pass"] and o["hard"] <= 0 for o in entry.get("options", [])):
             options = [{"k": o["k"], "layout": Layout.model_validate_json(_load(prev, f"layout_{o['k']}")),
                         "check": json.loads(_load(prev, f"check_{o['k']}")), "hard": o["hard"], "soft": o["soft"],
                         "why": None} for o in entry["options"]]

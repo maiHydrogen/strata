@@ -145,6 +145,7 @@ def check_layout(layout: Layout, spec: dict) -> dict:
 
     _courtyards(res, layout, req)
     _reachability(res, layout)
+    _travel(res, layout, req)
     _programme_check(res, layout, spec)
     _building(res, layout, req, areas)
     _materials(res, layout, req)
@@ -487,6 +488,34 @@ def _openings(res, floor, tag, footprint, carpet, req):
 
 
 # ---- reachability ----
+
+def _travel(res, layout, req):
+    """NBC Part 4 Table 5: travel distance to an exit. The exit is the main door on the ground floor and the
+    staircase above it. Measured from the farthest corner of every room, rectilinear (along the walls), which is
+    never shorter than the walking route through doors in a rectangular plan of this size."""
+    rq = req.get("exit_route", {}).get(("length", "le"))
+    if not rq:
+        return
+    for floor in layout.floors:
+        tag = floor.name or f"L{floor.level}"
+        main = next((d for d in floor.doors if d.main), None)
+        stair = next((r for r in floor.rooms if r.type == "stair"), None)
+        if floor.level == 0 and main is not None:
+            ex, what = main.at, "main door"
+        elif stair is not None:
+            c = stair.shape.centroid
+            ex, what = (c.x, c.y), "staircase"
+        else:
+            continue
+        worst, room = 0.0, None
+        for r in floor.rooms:
+            far = max(abs(x - ex[0]) + abs(y - ex[1]) for x, y in r.polygon)
+            if far > worst:
+                worst, room = far, r
+        res.add("circulation", f"{tag} {room.id}", f"travel distance to an exit <= {rq['value']:g} m", round(worst, 2),
+                _cmp(worst, rq), rq["source"],
+                note=f"farthest corner to the {what}, measured along the walls")
+
 
 def _reachability(res, layout):
     """Every room reachable from outside through doors; floors join through overlapping stair rooms."""

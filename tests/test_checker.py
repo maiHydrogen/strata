@@ -189,3 +189,15 @@ def test_main_door_too_narrow_fails_part_4(spec):
     lay.floors[0].doors[0].width = 0.9
     f = failures(check_layout(lay, spec))
     assert any("main entrance" in x["subject"] and "4.4.2.4.1" in x["source"]["clause"] for x in f)
+
+
+def test_travel_distance_to_the_exit_is_checked_against_nbc_part_4_table_5(spec):
+    r = check_layout(sample_layout(), spec)
+    rows = [x for x in r["results"] if x["check"].startswith("travel distance to an exit")]
+    assert len(rows) == 2 and all(x["pass"] for x in rows)  # ground floor to the main door, first floor to the stair
+    assert rows[0]["source"]["clause"].startswith("Vol 1, Part 4, Table 5") and rows[0]["source"]["page"] == "32"
+    far = sample_layout()
+    for room in far.floors[0].rooms:  # stretch the plan to 40 m deep
+        room.polygon = [(x, y if y < 5 else y * 4) for x, y in room.polygon]
+    rows = [x for x in check_layout(far, spec)["results"] if x["check"].startswith("travel distance")]
+    assert not rows[0]["pass"]

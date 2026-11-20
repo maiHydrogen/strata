@@ -1,0 +1,1347 @@
+{
+ "summary": {
+  "subset": {
+   "A": {
+    "system": "LLM writes the model (Text2BIM-style)",
+    "briefs": 2,
+    "plan_produced": 0.0,
+    "rule_check_pass": 0.0,
+    "code_checks_passed": 0.0,
+    "checks_passed_of_all": null,
+    "mean_failures": null,
+    "every_room_reachable": 0.0,
+    "programme_met": 0.0,
+    "staad_pass": null,
+    "staad_run": null,
+    "building_json_valid": null,
+    "ifc_written": 0.0,
+    "ifc_without_errors": 0.0,
+    "mean_seconds": null,
+    "mean_llm_calls": 0.0
+   },
+   "B": {
+    "system": "LLM + knowledge graph",
+    "briefs": 1,
+    "plan_produced": 0.0,
+    "rule_check_pass": 0.0,
+    "code_checks_passed": 0.0,
+    "checks_passed_of_all": null,
+    "mean_failures": null,
+    "every_room_reachable": 0.0,
+    "programme_met": 0.0,
+    "staad_pass": 0.0,
+    "staad_run": 0,
+    "building_json_valid": 0.0,
+    "ifc_written": null,
+    "ifc_without_errors": null,
+    "mean_seconds": 3668.3,
+    "mean_llm_calls": 0.0
+   },
+   "C": {
+    "system": "full STRATA",
+    "briefs": 10,
+    "plan_produced": 0.3,
+    "rule_check_pass": 0.3,
+    "code_checks_passed": 0.983,
+    "checks_passed_of_all": 0.985,
+    "mean_failures": 2.444,
+    "every_room_reachable": 0.9,
+    "programme_met": 0.4,
+    "staad_pass": 0.3,
+    "staad_run": 3,
+    "building_json_valid": 0.3,
+    "ifc_written": null,
+    "ifc_without_errors": null,
+    "mean_seconds": 87.58,
+    "mean_llm_calls": 0.0
+   }
+  },
+  "all": {
+   "A": {
+    "system": "LLM writes the model (Text2BIM-style)",
+    "briefs": 2,
+    "plan_produced": 0.0,
+    "rule_check_pass": 0.0,
+    "code_checks_passed": 0.0,
+    "checks_passed_of_all": null,
+    "mean_failures": null,
+    "every_room_reachable": 0.0,
+    "programme_met": 0.0,
+    "staad_pass": null,
+    "staad_run": null,
+    "building_json_valid": null,
+    "ifc_written": 0.0,
+    "ifc_without_errors": 0.0,
+    "mean_seconds": null,
+    "mean_llm_calls": 0.0
+   },
+   "B": {
+    "system": "LLM + knowledge graph",
+    "briefs": 1,
+    "plan_produced": 0.0,
+    "rule_check_pass": 0.0,
+    "code_checks_passed": 0.0,
+    "checks_passed_of_all": null,
+    "mean_failures": null,
+    "every_room_reachable": 0.0,
+    "programme_met": 0.0,
+    "staad_pass": 0.0,
+    "staad_run": 0,
+    "building_json_valid": 0.0,
+    "ifc_written": null,
+    "ifc_without_errors": null,
+    "mean_seconds": 3668.3,
+    "mean_llm_calls": 0.0
+   },
+   "C": {
+    "system": "full STRATA",
+    "briefs": 25,
+    "plan_produced": 0.16,
+    "rule_check_pass": 0.16,
+    "code_checks_passed": 0.969,
+    "checks_passed_of_all": 0.98,
+    "mean_failures": 3.542,
+    "every_room_reachable": 0.96,
+    "programme_met": 0.2,
+    "staad_pass": 0.16,
+    "staad_run": 4,
+    "building_json_valid": 0.16,
+    "ifc_written": null,
+    "ifc_without_errors": null,
+    "mean_seconds": 114.024,
+    "mean_llm_calls": 0.0
+   }
+  }
+ },
+ "records": [
+  {
+   "arm": "A",
+   "id": "b01_complete_feet",
+   "produced": false,
+   "status": "crash",
+   "layout": null,
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": null,
+   "notes": [
+    "LLMError: Gemini gemma-4-26b-a4b-it: timed out after 7 tries",
+    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/home/hydrogen/Dev/quarks/strata/src/brief/llm.py\", line 159, in _generate",
+    "    raise LLMError(f\"Gemini {self.model}: timed out after {self.retries + 1} tries\") from e",
+    "src.brief.llm.LLMError: Gemini gemma-4-26b-a4b-it: timed out after 7 tries"
+   ]
+  },
+  {
+   "arm": "A",
+   "id": "b02_omit_plot",
+   "produced": false,
+   "status": "crash",
+   "layout": null,
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": null,
+   "notes": [
+    "LLMError: Gemini gemma-4-26b-a4b-it: timed out after 7 tries",
+    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/home/hydrogen/Dev/quarks/strata/src/brief/llm.py\", line 159, in _generate",
+    "    raise LLMError(f\"Gemini {self.model}: timed out after {self.retries + 1} tries\") from e",
+    "src.brief.llm.LLMError: Gemini gemma-4-26b-a4b-it: timed out after 7 tries"
+   ]
+  },
+  {
+   "arm": "B",
+   "id": "b01_complete_feet",
+   "produced": false,
+   "status": "no valid layout JSON",
+   "layout": null,
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 3668.3,
+   "notes": [
+    "Gemini gemma-4-26b-a4b-it: timed out after 7 tries"
+   ],
+   "new_llm_calls": 0
+  },
+  {
+   "arm": "C",
+   "id": "b01_complete_feet",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 191,
+    "passed": 188,
+    "skipped": 0,
+    "code": [
+     54,
+     54
+    ],
+    "validity": [
+     68,
+     71
+    ],
+    "practice": [
+     66,
+     66
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 10,
+    "built_up": 92.732,
+    "failures": [
+     "bath_wc: at least 3 as in the brief",
+     "habitable_room: at least 5 as in the brief",
+     "kitchen: at least 1 as in the brief"
+    ],
+    "n_failures": 3
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 161.2,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit)"
+   ],
+   "advice": [
+    "one more storey and kitchen with dining (no separate dining room) (fits)",
+    "one more storey and one bedroom fewer (fits)",
+    "one more storey and one bathroom fewer (fits)"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b02_omit_plot",
+   "produced": true,
+   "status": "complete",
+   "layout": {
+    "pass": true,
+    "checks": 386,
+    "passed": 386,
+    "skipped": 0,
+    "code": [
+     102,
+     102
+    ],
+    "validity": [
+     143,
+     143
+    ],
+    "practice": [
+     141,
+     141
+    ],
+    "reachable": true,
+    "programme": true,
+    "floors": 3,
+    "rooms": 23,
+    "built_up": 197.423,
+    "failures": [],
+    "n_failures": 0
+   },
+   "staad": true,
+   "building_valid": true,
+   "services": [
+    22,
+    22
+   ],
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 76.7,
+   "notes": [],
+   "advice": []
+  },
+  {
+   "arm": "C",
+   "id": "b03_shop_omit_family",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 169,
+    "passed": 167,
+    "skipped": 0,
+    "code": [
+     42,
+     42
+    ],
+    "validity": [
+     65,
+     67
+    ],
+    "practice": [
+     60,
+     60
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 9,
+    "built_up": 79.866,
+    "failures": [
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 4 as in the brief"
+    ],
+    "n_failures": 2
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 70.1,
+   "notes": [
+    "no layout meets the hard rules on this plot (2 rooms did not fit)"
+   ],
+   "advice": [
+    "one more storey (fits)"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b04_rental_corner",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 242,
+    "passed": 237,
+    "skipped": 0,
+    "code": [
+     64,
+     66
+    ],
+    "validity": [
+     86,
+     89
+    ],
+    "practice": [
+     87,
+     87
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 3,
+    "rooms": 13,
+    "built_up": 104.448,
+    "failures": [
+     "Second floor bedroom1 (bedroom): area >= 7.5 m2",
+     "Second floor bedroom2 (bedroom): area >= 7.5 m2",
+     "Second floor: every column stands on a column of First floor",
+     "bath_wc: at least 6 as in the brief",
+     "habitable_room: at least 8 as in the brief"
+    ],
+    "n_failures": 5
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 99.9,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit; 4 rooms did not fit; Bedroom 1 5.570 m2 < 7.5 m2)"
+   ],
+   "advice": [
+    "closest: one bathroom fewer; still short: 3 rooms did not fit, Bedroom 5 5.570 m2 < 7.5 m2",
+    "closest: one attached bath becomes a common bath; still short: 4 rooms did not fit, Bedroom 5 5.570 m2 < 7.5 m2"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b05_minimal",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 153,
+    "passed": 147,
+    "skipped": 0,
+    "code": [
+     38,
+     42
+    ],
+    "validity": [
+     55,
+     57
+    ],
+    "practice": [
+     54,
+     54
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 8,
+    "built_up": 71.498,
+    "failures": [
+     "Ground floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+     "Ground floor living (living): width >= 2.1 m (clear)",
+     "Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)",
+     "First floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+     "bath_wc: at least 2 as in the brief",
+     "habitable_room: at least 5 as in the brief"
+    ],
+    "n_failures": 6
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 160.9,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit; Living room 2.012 m wide < 2.4 m)"
+   ],
+   "advice": [
+    "closest: one more storey; still short: 1 rooms did not fit, Living room 2.012 m wide < 2.4 m",
+    "closest: one bedroom fewer; still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b06_unsure_direction_road",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 174,
+    "passed": 166,
+    "skipped": 0,
+    "code": [
+     44,
+     50
+    ],
+    "validity": [
+     62,
+     64
+    ],
+    "practice": [
+     60,
+     60
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 9,
+    "built_up": 71.498,
+    "failures": [
+     "Ground floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+     "Ground floor living (living): width >= 2.1 m (clear)",
+     "Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)",
+     "First floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+     "First floor bath_wc1 (bath_wc): width >= 1.2 m (clear)",
+     "First floor bath_wc2 (bath_wc): width >= 1.2 m (clear)",
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 5 as in the brief"
+    ],
+    "n_failures": 8
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 158.1,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit; Common bathroom 1 1.035 m wide < 1.2 m; Common bathroom 2 1.035 m wide < 1.2 m)"
+   ],
+   "advice": [
+    "closest: one bedroom fewer; still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m",
+    "closest: kitchen with dining (no separate dining room); still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b07_wheelchair_metres",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 278,
+    "passed": 270,
+    "skipped": 0,
+    "code": [
+     72,
+     78
+    ],
+    "validity": [
+     104,
+     104
+    ],
+    "practice": [
+     94,
+     96
+    ],
+    "reachable": true,
+    "programme": true,
+    "floors": 2,
+    "rooms": 15,
+    "built_up": 149.76,
+    "failures": [
+     "Ground floor living (living): width >= 2.1 m (clear)",
+     "Ground floor bedroom2 (bedroom): area >= 7.5 m2",
+     "Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)",
+     "First floor bath_wc1 (bath_wc): width >= 1.2 m (clear)",
+     "First floor bath_wc2 (bath_wc): width >= 1.2 m (clear)",
+     "First floor bedroom2 (bedroom): area >= 7.5 m2"
+    ],
+    "n_failures": 6
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 87.0,
+   "notes": [
+    "no layout meets the hard rules on this plot (Bedroom 1 7.379 m2 < 7.5 m2; Bedroom 2 7.379 m2 < 7.5 m2; Common bathroom 1 1.035 m wide < 1.2 m)"
+   ],
+   "advice": [
+    "one more storey (fits)"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b08_open_kitchen_study_store",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 172,
+    "passed": 169,
+    "skipped": 0,
+    "code": [
+     50,
+     50
+    ],
+    "validity": [
+     59,
+     62
+    ],
+    "practice": [
+     60,
+     60
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 9,
+    "built_up": 78.424,
+    "failures": [
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 4 as in the brief",
+     "store: at least 1 as in the brief"
+    ],
+    "n_failures": 3
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 154.2,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit; stair cell 2.75 m long)"
+   ],
+   "advice": [
+    "closest: one bathroom fewer; still short: 2 rooms did not fit",
+    "closest: one bedroom fewer; still short: 2 rooms did not fit"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b09_hinglish",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 223,
+    "passed": 218,
+    "skipped": 0,
+    "code": [
+     61,
+     64
+    ],
+    "validity": [
+     79,
+     81
+    ],
+    "practice": [
+     78,
+     78
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 12,
+    "built_up": 109.106,
+    "failures": [
+     "Ground floor bath_wc1 (bath_wc): width >= 1.2 m (clear)",
+     "Ground floor bath_wc2 (bath_wc): width >= 1.2 m (clear)",
+     "First floor bedroom1 (bedroom): area >= 7.5 m2",
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 5 as in the brief"
+    ],
+    "n_failures": 5
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 133.6,
+   "notes": [
+    "no layout meets the hard rules on this plot (1 rooms did not fit; Bedroom 1 6.576 m2 < 7.5 m2; Bedroom 2 6.576 m2 < 7.5 m2)"
+   ],
+   "advice": [
+    "one more storey and kitchen with dining (no separate dining room) (fits)",
+    "one more storey and one bedroom fewer (fits)"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b10_parking",
+   "produced": true,
+   "status": "complete",
+   "layout": {
+    "pass": true,
+    "checks": 331,
+    "passed": 331,
+    "skipped": 0,
+    "code": [
+     86,
+     86
+    ],
+    "validity": [
+     128,
+     128
+    ],
+    "practice": [
+     117,
+     117
+    ],
+    "reachable": true,
+    "programme": true,
+    "floors": 3,
+    "rooms": 19,
+    "built_up": 163.91,
+    "failures": [],
+    "n_failures": 0
+   },
+   "staad": true,
+   "building_valid": true,
+   "services": [
+    18,
+    18
+   ],
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 71.0,
+   "notes": [],
+   "advice": []
+  },
+  {
+   "arm": "C",
+   "id": "b11_other_city",
+   "produced": false,
+   "status": "failed",
+   "layout": null,
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 0.4,
+   "notes": [
+    "NoEnvelope: no setback rules for this plot, so there is no buildable area to plan on (No bye-law layer for 'Shillong'; national (NBC 2016) values only.)",
+    "NoEnvelope: no setback rules for this plot, so there is no buildable area to plan on (No bye-law layer for 'Shillong'; national (NBC 2016) values only.)"
+   ],
+   "advice": []
+  },
+  {
+   "arm": "C",
+   "id": "b12_future_floor",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 81,
+    "passed": 77,
+    "skipped": 0,
+    "code": [
+     23,
+     25
+    ],
+    "validity": [
+     27,
+     29
+    ],
+    "practice": [
+     27,
+     27
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 1,
+    "rooms": 4,
+    "built_up": 35.441,
+    "failures": [
+     "Ground floor living (living): width >= 2.1 m (clear)",
+     "Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)",
+     "bath_wc: at least 2 as in the brief",
+     "habitable_room: at least 4 as in the brief"
+    ],
+    "n_failures": 4
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 124.4,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit; Living room 2.012 m wide < 2.4 m)"
+   ],
+   "advice": [
+    "closest: one bedroom fewer; still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m",
+    "closest: one bathroom fewer; still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b13_terse_typos",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 174,
+    "passed": 166,
+    "skipped": 0,
+    "code": [
+     44,
+     50
+    ],
+    "validity": [
+     62,
+     64
+    ],
+    "practice": [
+     60,
+     60
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 9,
+    "built_up": 71.498,
+    "failures": [
+     "Ground floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+     "Ground floor living (living): width >= 2.1 m (clear)",
+     "Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)",
+     "First floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+     "First floor bath_wc1 (bath_wc): width >= 1.2 m (clear)",
+     "First floor bath_wc2 (bath_wc): width >= 1.2 m (clear)",
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 5 as in the brief"
+    ],
+    "n_failures": 8
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 160.9,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit; Common bathroom 1 1.035 m wide < 1.2 m; Common bathroom 2 1.035 m wide < 1.2 m)"
+   ],
+   "advice": [
+    "closest: one bedroom fewer; still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m",
+    "closest: kitchen with dining (no separate dining room); still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b14_omit_city",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 171,
+    "passed": 169,
+    "skipped": 0,
+    "code": [
+     50,
+     50
+    ],
+    "validity": [
+     59,
+     61
+    ],
+    "practice": [
+     60,
+     60
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 9,
+    "built_up": 84.25,
+    "failures": [
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 5 as in the brief"
+    ],
+    "n_failures": 2
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 125.2,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit)"
+   ],
+   "advice": [
+    "one more storey and kitchen with dining (no separate dining room) (fits)",
+    "one more storey and one bedroom fewer (fits)"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b15_vastu",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 221,
+    "passed": 217,
+    "skipped": 0,
+    "code": [
+     62,
+     64
+    ],
+    "validity": [
+     77,
+     79
+    ],
+    "practice": [
+     78,
+     78
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 12,
+    "built_up": 121.852,
+    "failures": [
+     "Ground floor bath_wc1 (bath_wc): width >= 1.2 m (clear)",
+     "Ground floor bath_wc2 (bath_wc): width >= 1.2 m (clear)",
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 5 as in the brief"
+    ],
+    "n_failures": 4
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 143.4,
+   "notes": [
+    "no layout meets the hard rules on this plot (1 rooms did not fit; Bedroom 3 2.050 m wide < 2.1 m; Bedroom 3 2.079 m wide < 2.1 m)"
+   ],
+   "advice": [
+    "one more storey and kitchen with dining (no separate dining room) (fits)",
+    "one more storey and one bedroom fewer (fits)"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b16_indian_wc",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 174,
+    "passed": 172,
+    "skipped": 0,
+    "code": [
+     48,
+     48
+    ],
+    "validity": [
+     64,
+     66
+    ],
+    "practice": [
+     60,
+     60
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 9,
+    "built_up": 95.354,
+    "failures": [
+     "bath_wc: at least 2 as in the brief",
+     "habitable_room: at least 4 as in the brief"
+    ],
+    "n_failures": 2
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 123.0,
+   "notes": [
+    "no layout meets the hard rules on this plot (2 rooms did not fit)"
+   ],
+   "advice": [
+    "one bedroom fewer and one bathroom fewer (fits)",
+    "kitchen with dining (no separate dining room) and one bedroom fewer (fits)",
+    "kitchen with dining (no separate dining room) and one bathroom fewer (fits)"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b17_corner_right",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 170,
+    "passed": 164,
+    "skipped": 0,
+    "code": [
+     46,
+     50
+    ],
+    "validity": [
+     58,
+     60
+    ],
+    "practice": [
+     60,
+     60
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 9,
+    "built_up": 78.42,
+    "failures": [
+     "Ground floor living (living): width >= 2.1 m (clear)",
+     "Ground floor bath_wc1 (bath_wc): width >= 1.2 m (clear)",
+     "Ground floor bath_wc2 (bath_wc): width >= 1.2 m (clear)",
+     "Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)",
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 6 as in the brief"
+    ],
+    "n_failures": 6
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 130.6,
+   "notes": [
+    "no layout meets the hard rules on this plot (4 rooms did not fit; Common bathroom 1 1.035 m wide < 1.2 m; Common bathroom 2 1.035 m wide < 1.2 m)"
+   ],
+   "advice": [
+    "closest: one more storey; still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m",
+    "closest: kitchen with dining (no separate dining room); still short: 3 rooms did not fit, Living room 2.012 m wide < 2.4 m"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b18_family_listed",
+   "produced": true,
+   "status": "complete",
+   "layout": {
+    "pass": true,
+    "checks": 284,
+    "passed": 284,
+    "skipped": 0,
+    "code": [
+     78,
+     78
+    ],
+    "validity": [
+     114,
+     114
+    ],
+    "practice": [
+     92,
+     92
+    ],
+    "reachable": true,
+    "programme": true,
+    "floors": 2,
+    "rooms": 15,
+    "built_up": 135.638,
+    "failures": [],
+    "n_failures": 0
+   },
+   "staad": true,
+   "building_valid": true,
+   "services": [
+    14,
+    14
+   ],
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 57.4,
+   "notes": [],
+   "advice": []
+  },
+  {
+   "arm": "C",
+   "id": "b19_omit_floors_rooms",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 225,
+    "passed": 224,
+    "skipped": 0,
+    "code": [
+     62,
+     62
+    ],
+    "validity": [
+     84,
+     85
+    ],
+    "practice": [
+     78,
+     78
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 12,
+    "built_up": 121.466,
+    "failures": [
+     "bath_wc: at least 3 as in the brief"
+    ],
+    "n_failures": 1
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 82.6,
+   "notes": [
+    "no layout meets the hard rules on this plot (1 rooms did not fit)"
+   ],
+   "advice": [
+    "one bedroom fewer (fits)",
+    "kitchen with dining (no separate dining room) (fits)",
+    "one more storey (fits)"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b20_self_correction",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 208,
+    "passed": 205,
+    "skipped": 0,
+    "code": [
+     57,
+     58
+    ],
+    "validity": [
+     76,
+     78
+    ],
+    "practice": [
+     72,
+     72
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 11,
+    "built_up": 99.778,
+    "failures": [
+     "First floor bath_wc1 (bath_wc): width >= 1.2 m (clear)",
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 6 as in the brief"
+    ],
+    "n_failures": 3
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 133.5,
+   "notes": [
+    "no layout meets the hard rules on this plot (2 rooms did not fit; Common bathroom 1 1.182 m wide < 1.2 m; Common bathroom 2 1.182 m wide < 1.2 m)"
+   ],
+   "advice": [
+    "closest: one more storey; still short: 2 rooms did not fit",
+    "closest: kitchen with dining (no separate dining room); still short: 2 rooms did not fit, Common bathroom 2 1.182 m wide < 1.2 m"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b21_katha_area_only",
+   "produced": true,
+   "status": "complete",
+   "layout": {
+    "pass": true,
+    "checks": 266,
+    "passed": 266,
+    "skipped": 0,
+    "code": [
+     74,
+     74
+    ],
+    "validity": [
+     100,
+     100
+    ],
+    "practice": [
+     92,
+     92
+    ],
+    "reachable": true,
+    "programme": true,
+    "floors": 2,
+    "rooms": 15,
+    "built_up": 143.861,
+    "failures": [],
+    "n_failures": 0
+   },
+   "staad": true,
+   "building_valid": true,
+   "services": [
+    15,
+    15
+   ],
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 57.4,
+   "notes": [],
+   "advice": []
+  },
+  {
+   "arm": "C",
+   "id": "b22_narrow_lane",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 171,
+    "passed": 169,
+    "skipped": 0,
+    "code": [
+     50,
+     50
+    ],
+    "validity": [
+     59,
+     61
+    ],
+    "practice": [
+     60,
+     60
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 9,
+    "built_up": 87.014,
+    "failures": [
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 4 as in the brief"
+    ],
+    "n_failures": 2
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 127.7,
+   "notes": [
+    "no layout meets the hard rules on this plot (2 rooms did not fit)"
+   ],
+   "advice": [
+    "closest: one bedroom fewer; still short: 1 rooms did not fit",
+    "closest: kitchen with dining (no separate dining room); still short: 1 rooms did not fit"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b23_unsure_family",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 174,
+    "passed": 166,
+    "skipped": 0,
+    "code": [
+     44,
+     50
+    ],
+    "validity": [
+     62,
+     64
+    ],
+    "practice": [
+     60,
+     60
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 9,
+    "built_up": 71.498,
+    "failures": [
+     "Ground floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+     "Ground floor living (living): width >= 2.1 m (clear)",
+     "Ground floor living (largest habitable room): principal room width >= 2.4 m (clear)",
+     "First floor: footprint inside the buildable envelope (setbacks {'front': 3.6, 'rear': 1.8, 'left': 1.8, 'right': 1.8})",
+     "First floor bath_wc1 (bath_wc): width >= 1.2 m (clear)",
+     "First floor bath_wc2 (bath_wc): width >= 1.2 m (clear)",
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 5 as in the brief"
+    ],
+    "n_failures": 8
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 160.1,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit; Common bathroom 1 1.035 m wide < 1.2 m; Common bathroom 2 1.035 m wide < 1.2 m)"
+   ],
+   "advice": [
+    "closest: one bedroom fewer; still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m",
+    "closest: kitchen with dining (no separate dining room); still short: 2 rooms did not fit, Living room 2.012 m wide < 2.4 m"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b24_number_words",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 223,
+    "passed": 218,
+    "skipped": 0,
+    "code": [
+     61,
+     64
+    ],
+    "validity": [
+     79,
+     81
+    ],
+    "practice": [
+     78,
+     78
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 2,
+    "rooms": 12,
+    "built_up": 109.106,
+    "failures": [
+     "Ground floor bath_wc1 (bath_wc): width >= 1.2 m (clear)",
+     "Ground floor bath_wc2 (bath_wc): width >= 1.2 m (clear)",
+     "First floor bedroom1 (bedroom): area >= 7.5 m2",
+     "bath_wc: at least 4 as in the brief",
+     "habitable_room: at least 5 as in the brief"
+    ],
+    "n_failures": 5
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 135.1,
+   "notes": [
+    "no layout meets the hard rules on this plot (1 rooms did not fit; Bedroom 1 6.576 m2 < 7.5 m2; Bedroom 2 6.576 m2 < 7.5 m2)"
+   ],
+   "advice": [
+    "one more storey and kitchen with dining (no separate dining room) (fits)",
+    "one more storey and one bedroom fewer (fits)"
+   ]
+  },
+  {
+   "arm": "C",
+   "id": "b25_depth_first",
+   "produced": false,
+   "status": "stopped:layout",
+   "layout": {
+    "pass": false,
+    "checks": 259,
+    "passed": 257,
+    "skipped": 0,
+    "code": [
+     72,
+     72
+    ],
+    "validity": [
+     92,
+     94
+    ],
+    "practice": [
+     93,
+     93
+    ],
+    "reachable": true,
+    "programme": false,
+    "floors": 3,
+    "rooms": 14,
+    "built_up": 135.591,
+    "failures": [
+     "bath_wc: at least 6 as in the brief",
+     "habitable_room: at least 6 as in the brief"
+    ],
+    "n_failures": 2
+   },
+   "staad": null,
+   "building_valid": null,
+   "services": null,
+   "ifc_errors": null,
+   "llm_calls": 0,
+   "seconds": 116.2,
+   "notes": [
+    "no layout meets the hard rules on this plot (3 rooms did not fit)"
+   ],
+   "advice": [
+    "closest: one bathroom fewer; still short: 2 rooms did not fit",
+    "closest: kitchen with dining (no separate dining room); still short: 2 rooms did not fit"
+   ]
+  }
+ ]
+}

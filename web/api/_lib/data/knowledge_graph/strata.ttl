@@ -120,6 +120,19 @@ strata:ExitDoor a strata:ElementType ; rdfs:label "Exit doorway (main entrance d
 strata:InnerCourtyard a strata:ElementType ; rdfs:label "Inner courtyard (chowk) open to the sky inside the building" ;
     strata:key "courtyard" .
 strata:Corridor a strata:ElementType ; rdfs:label "Corridor or passageway inside the dwelling" ; strata:key "corridor" .
+strata:ExitRoute a strata:ElementType ;
+    rdfs:label "Travel route from any point of a floor to an exit (the main door, or the staircase above ground)" ;
+    strata:key "exit_route" .
+strata:OverheadTank a strata:ElementType ; rdfs:label "Overhead water tank" ; strata:key "overhead_tank" .
+strata:LightCircuit a strata:ElementType ; rdfs:label "Final sub-circuit of lights, fans and 6 A sockets" ;
+    strata:key "light_circuit" .
+strata:SocketOutlet a strata:ElementType ; rdfs:label "Ordinary socket-outlet" ; strata:key "socket_outlet" .
+strata:SepticTank a strata:ElementType ; rdfs:label "Septic tank" ; strata:key "septic_tank" .
+strata:Ramp a strata:ElementType ; rdfs:label "Entrance ramp (for elderly or wheelchair users)" ; strata:key "ramp" .
+strata:Beam a strata:ElementType ; rdfs:label "RC beam of the moment-resisting frame" ; strata:key "beam" .
+strata:Column a strata:ElementType ; rdfs:label "RC column of the moment-resisting frame" ; strata:key "column" .
+strata:Slab a strata:ElementType ; rdfs:label "RC solid floor or roof slab" ; strata:key "slab" .
+strata:Footing a strata:ElementType ; rdfs:label "RC isolated footing" ; strata:key "footing" .
 strata:RCConcrete a strata:ElementType ; rdfs:label "Reinforced concrete" ; strata:key "rc_concrete" .
 strata:Reinforcement a strata:ElementType ; rdfs:label "Steel reinforcement in the RC frame" ; strata:key "reinforcement" .
 
@@ -148,6 +161,30 @@ strata:opensToKitchen a strata:Quantity ; rdfs:comment "Whether a door, window o
     strata:key "opens_to_kitchen" .
 strata:concreteGrade a strata:Quantity ; rdfs:comment "Characteristic cube strength fck." ; strata:key "grade" .
 strata:elongation a strata:Quantity ; strata:key "elongation" .
+strata:occupants a strata:Quantity ; rdfs:comment "Persons per dwelling unit for water demand." ; strata:key "occupants" .
+strata:storageFraction a strata:Quantity ; rdfs:comment "Fraction of one day's water requirement stored." ;
+    strata:key "storage_fraction" .
+strata:points a strata:Quantity ; strata:key "points" .
+strata:load a strata:Quantity ; rdfs:comment "Connected load, W." ; strata:key "load" .
+strata:lightingDensity a strata:Quantity ; rdfs:comment "W per m2 of built-up area." ; strata:key "lighting_density" .
+strata:powerDensity a strata:Quantity ; rdfs:comment "W per m2 of built-up area." ; strata:key "power_density" .
+strata:depth a strata:Quantity ; strata:key "depth" .
+strata:capacity a strata:Quantity ; rdfs:comment "m3" ; strata:key "capacity" .
+strata:lengthWidthRatio a strata:Quantity ; strata:key "length_width_ratio" .
+strata:pipeDiameter a strata:Quantity ; rdfs:comment "m" ; strata:key "pipe_diameter" .
+strata:ventDiameter a strata:Quantity ; rdfs:comment "m" ; strata:key "vent_diameter" .
+strata:gradient a strata:Quantity ; rdfs:comment "Rise over run." ; strata:key "gradient" .
+strata:lightningProtection a strata:Quantity ; rdfs:comment "How the need for lightning protection is decided." ;
+    strata:key "lightning_protection" .
+strata:nominalCover a strata:Quantity ; rdfs:comment "Nominal concrete cover to the outermost reinforcement, m." ; strata:key "cover" .
+strata:barDiameter a strata:Quantity ; rdfs:comment "Main (longitudinal) bar diameter, m." ; strata:key "bar_diameter" .
+strata:steelRatio a strata:Quantity ; rdfs:comment "Longitudinal steel area as a fraction of the gross section (column) or of b d on one face (beam)." ;
+    strata:key "steel_ratio" .
+strata:widthDepthRatio a strata:Quantity ; strata:key "width_depth_ratio" .
+strata:spanDepthRatio a strata:Quantity ; rdfs:comment "Span to effective depth (beam) or to overall depth (slab)." ;
+    strata:key "span_depth_ratio" .
+strata:momentRatio a strata:Quantity ;
+    rdfs:comment "Sum of column moment capacities over sum of beam moment capacities at a joint." ; strata:key "moment_ratio" .
 strata:proofStress a strata:Quantity ; rdfs:comment "Permitted 0.2 percent proof stress grades." ; strata:key "proof_stress" .
 strata:seismicZone a strata:Quantity ; strata:key "seismic_zone" .
 strata:zoneFactor a strata:Quantity ; strata:key "zone_factor" .
@@ -189,6 +226,9 @@ strata:roomUse a strata:Parameter ; strata:contextKey "room_use" ;
 strata:climateZone a strata:Parameter ; strata:contextKey "climate" ;
     rdfs:comment "NBC 2016 Part 8 Section 1 Table 2 climatic zone." .
 strata:population a strata:Parameter ; strata:contextKey "population" .
+strata:bedrooms a strata:Parameter ; strata:contextKey "bedrooms" .
+strata:supportCondition a strata:Parameter ; strata:contextKey "support" ;
+    rdfs:comment "'cantilever', 'simply_supported' or 'continuous'." .
 strata:plotArea a strata:Parameter ; strata:contextKey "plot_area" ; rdfs:comment "m2" .
 strata:roadWidth a strata:Parameter ; strata:contextKey "road_width" ; rdfs:comment "m" .
 strata:storeys a strata:Parameter ; strata:contextKey "storeys" .

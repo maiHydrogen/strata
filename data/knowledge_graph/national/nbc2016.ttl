@@ -335,7 +335,7 @@ kg:req_load_roof_maintenance a strata:Requirement ;
 # ---- Site facts for Guwahati ---------------------------------------------------
 
 kg:nbc_6_1_annex_k a strata:Clause ; strata:inStandard kg:NBC2016 ;
-    strata:clauseId "Vol 1, Part 6 Section 1, Annex K (cl. 5.3.4.2)" ; strata:page "121" ;
+    strata:clauseId "Vol 1, Part 6 Section 1, Annex K (cl. 5.3.4.2)" ; strata:page "120" ;
     strata:quote "LIST OF SOME IMPORTANT TOWNS AND THEIR SEISMIC ZONE FACTOR (Z) ... Guwahati V 0.36" .
 kg:fact_guwahati_zone a strata:Requirement ;
     strata:appliesTo strata:Site ; strata:quantity strata:seismicZone ; strata:comparator "eq" ;
@@ -459,16 +459,155 @@ kg:nbc_4_4_4_2_4_1 a strata:Clause ; strata:inStandard kg:NBC2016 ;
 kg:nbc_4_4_4_2_4_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
     strata:clauseId "Vol 1, Part 4, cl. 4.4.2.4.2 (a)" ; strata:page "32" ;
     strata:quote "Corridors and passageways shall be of width not less than the calculated aggregate width of exit doorways leading from them in the direction of travel to the exit." .
+kg:nbc_4_table_5 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 4, Table 5 (cl. 4.4.2.1 and 4.4.2.2)" ; strata:page "32" ;
+    strata:quote "Table 5 Travel Distance (Based on Occupancy and Construction Type) ... Maximum Travel Distance m ... Types 1 and 2 ... Types 3 and 4 ... i) Residential (Group A) 30.00 22.50" .
+kg:req_travel_distance a strata:Requirement ;
+    strata:appliesTo strata:ExitRoute ; strata:quantity strata:length ; strata:comparator "le" ;
+    strata:value 30.0 ; strata:unit "m" ; strata:citedBy kg:nbc_4_table_5 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D5" ; strata:status "transcribed" ;
+    strata:note "Construction Types 1 and 2; an RC frame house is taken as Type 1 or 2 (assumed, Part 4 Table 1). Types 3 and 4: 22.50 m." .
 kg:req_exit_door_width a strata:Requirement ;
     strata:appliesTo strata:ExitDoor ; strata:quantity strata:width ; strata:comparator "ge" ;
     strata:value 1.0 ; strata:unit "m" ; strata:citedBy kg:nbc_4_4_4_2_4_1 ;
-    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D5" ; strata:status "transcribed" .
 kg:req_exit_door_height a strata:Requirement ;
     strata:appliesTo strata:ExitDoor ; strata:quantity strata:height ; strata:comparator "ge" ;
     strata:value 2.0 ; strata:unit "m" ; strata:citedBy kg:nbc_4_4_4_2_4_1 ;
-    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D5" ; strata:status "transcribed" .
 kg:req_corridor_width a strata:Requirement ;
     strata:appliesTo strata:Corridor ; strata:quantity strata:width ; strata:comparator "ge" ;
     strata:value 1.0 ; strata:unit "m" ; strata:citedBy kg:nbc_4_4_4_2_4_2 ;
-    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D13" ; strata:status "transcribed" ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D5" ; strata:status "transcribed" ;
     strata:note "Equal to the 1.0 m exit doorway it leads to (cl. 4.4.2.4.1 (b)); one dwelling, one exit." .
+
+# ---- Services (Vol 2 Part 8 Section 2, Part 9 Section 1; Vol 1 Part 3 cl. 12.15.2) ------------------
+# Pages are printed pages of the Part or Section. Used by src/services (the constants there are tested
+# against these values).
+
+kg:nbc_9_1_4_1_a a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 2, Part 9 Section 1, cl. 4.1 (a)" ; strata:page "10" ;
+    strata:quote "a) Residential buildings: Accommodation Population Requirements 1 bedroom dwelling unit 4 2 bedroom dwelling unit 5 3 bedroom dwelling unit 6 4 bedroom dwelling unit 7 and above" .
+kg:req_occupants_1bed a strata:Requirement ;
+    strata:appliesTo strata:DwellingUnit ; strata:quantity strata:occupants ; strata:comparator "eq" ;
+    strata:value 4.0 ; strata:unit "persons" ; strata:citedBy kg:nbc_9_1_4_1_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:bedrooms ; strata:maxInclusive 1 ] ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "transcribed" .
+kg:req_occupants_2bed a strata:Requirement ;
+    strata:appliesTo strata:DwellingUnit ; strata:quantity strata:occupants ; strata:comparator "eq" ;
+    strata:value 5.0 ; strata:unit "persons" ; strata:citedBy kg:nbc_9_1_4_1_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:bedrooms ; strata:equals "2" ] ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "transcribed" .
+kg:req_occupants_3bed a strata:Requirement ;
+    strata:appliesTo strata:DwellingUnit ; strata:quantity strata:occupants ; strata:comparator "eq" ;
+    strata:value 6.0 ; strata:unit "persons" ; strata:citedBy kg:nbc_9_1_4_1_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:bedrooms ; strata:equals "3" ] ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "transcribed" .
+kg:req_occupants_4bed a strata:Requirement ;
+    strata:appliesTo strata:DwellingUnit ; strata:quantity strata:occupants ; strata:comparator "eq" ;
+    strata:value 7.0 ; strata:unit "persons" ; strata:citedBy kg:nbc_9_1_4_1_a ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:bedrooms ; strata:minInclusive 4 ] ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "transcribed" .
+
+kg:nbc_9_1_4_4_10 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 2, Part 9 Section 1, cl. 4.4.10, NOTE (a)" ; strata:page "14-15" ;
+    strata:quote "Minimum requirements for calculation of capacity of these storage tanks are as follows: a) In case only OHT is provided, it may be taken as 33.33 to 50 percent of one day's requirement" .
+kg:req_oht_min a strata:Requirement ;
+    strata:appliesTo strata:OverheadTank ; strata:quantity strata:storageFraction ; strata:comparator "ge" ;
+    strata:value 0.3333 ; strata:unit "of one day's requirement" ; strata:citedBy kg:nbc_9_1_4_4_10 ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "transcribed" .
+kg:req_oht_max a strata:Requirement ;
+    strata:appliesTo strata:OverheadTank ; strata:quantity strata:storageFraction ; strata:comparator "le" ;
+    strata:value 0.5 ; strata:unit "of one day's requirement" ; strata:citedBy kg:nbc_9_1_4_4_10 ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D12" ; strata:status "transcribed" ;
+    strata:note "STRATA sizes the tank at the upper bound." .
+
+kg:nbc_8_2_5_4_4_3 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 2, Part 8 Section 2, cl. 5.4.4.3" ; strata:page "39-40" ;
+    strata:quote "Such sub-circuit shall not have more than a total of ten points of light, fans and 6 A socket outlets. The load of such circuit shall be restricted to 800 W" .
+kg:req_light_circuit_points a strata:Requirement ;
+    strata:appliesTo strata:LightCircuit ; strata:quantity strata:points ; strata:comparator "le" ;
+    strata:value 10.0 ; strata:unit "points" ; strata:citedBy kg:nbc_8_2_5_4_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "E" ; strata:matrixItem "D14" ; strata:status "transcribed" .
+kg:req_light_circuit_load a strata:Requirement ;
+    strata:appliesTo strata:LightCircuit ; strata:quantity strata:load ; strata:comparator "le" ;
+    strata:value 800.0 ; strata:unit "W" ; strata:citedBy kg:nbc_8_2_5_4_4_3 ;
+    strata:jurisdiction strata:India ; strata:layer "E" ; strata:matrixItem "D14" ; strata:status "transcribed" .
+
+kg:nbc_8_2_5_9_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 2, Part 8 Section 2, cl. 5.9.2" ; strata:page "45" ;
+    strata:quote "Where nothing is specified, for lighting demand of any type of building a maximum of 13 W/m2 of all built-up areas including balconies. ... Power requirements shall be considered at least 55 W/m2 with an overall diversity not exceeding 50 percent." .
+kg:req_lighting_density a strata:Requirement ;
+    strata:appliesTo strata:Building ; strata:quantity strata:lightingDensity ; strata:comparator "le" ;
+    strata:value 13.0 ; strata:unit "W/m2" ; strata:citedBy kg:nbc_8_2_5_9_2 ;
+    strata:jurisdiction strata:India ; strata:layer "E" ; strata:matrixItem "D15" ; strata:status "transcribed" .
+kg:req_power_density a strata:Requirement ;
+    strata:appliesTo strata:Building ; strata:quantity strata:powerDensity ; strata:comparator "ge" ;
+    strata:value 55.0 ; strata:unit "W/m2" ; strata:citedBy kg:nbc_8_2_5_9_2 ;
+    strata:jurisdiction strata:India ; strata:layer "E" ; strata:matrixItem "D14" ; strata:status "transcribed" .
+
+kg:nbc_8_2_7_2_3 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 2, Part 8 Section 2, cl. 7.2.3" ; strata:page "56" ;
+    strata:quote "Ordinary socket-outlet may be fixed at any convenient place at a height above 200 mm from the floor level and shall be away from danger of mechanical injury." .
+kg:req_socket_height a strata:Requirement ;
+    strata:appliesTo strata:SocketOutlet ; strata:quantity strata:height ; strata:comparator "ge" ;
+    strata:value 0.2 ; strata:unit "m" ; strata:citedBy kg:nbc_8_2_7_2_3 ;
+    strata:jurisdiction strata:India ; strata:layer "E" ; strata:matrixItem "D14" ; strata:status "transcribed" .
+
+kg:nbc_3_12_15_2 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, cl. 12.15.2 (a), (d), (f)" ; strata:page "48" ;
+    strata:quote "Dimensions of septic tanks — Septic tanks shall have a minimum width of 750 mm, a minimum depth of 1 m below the water level and a minimum liquid capacity of 1 m3. The length of tanks shall be 2 to 4 times the width; ... The minimum nominal diameter of the pipe shall be 100 mm. ... Every septic tank shall be provided with ventilating pipe of at least 50 mm diameter." .
+kg:req_septic_width a strata:Requirement ;
+    strata:appliesTo strata:SepticTank ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 0.75 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_15_2 ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+kg:req_septic_depth a strata:Requirement ;
+    strata:appliesTo strata:SepticTank ; strata:quantity strata:depth ; strata:comparator "ge" ;
+    strata:value 1.0 ; strata:unit "m below the water level" ; strata:citedBy kg:nbc_3_12_15_2 ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+kg:req_septic_capacity a strata:Requirement ;
+    strata:appliesTo strata:SepticTank ; strata:quantity strata:capacity ; strata:comparator "ge" ;
+    strata:value 1.0 ; strata:unit "m3 liquid" ; strata:citedBy kg:nbc_3_12_15_2 ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+kg:req_septic_length_min a strata:Requirement ;
+    strata:appliesTo strata:SepticTank ; strata:quantity strata:lengthWidthRatio ; strata:comparator "ge" ;
+    strata:value 2.0 ; strata:unit "length / width" ; strata:citedBy kg:nbc_3_12_15_2 ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+kg:req_septic_length_max a strata:Requirement ;
+    strata:appliesTo strata:SepticTank ; strata:quantity strata:lengthWidthRatio ; strata:comparator "le" ;
+    strata:value 4.0 ; strata:unit "length / width" ; strata:citedBy kg:nbc_3_12_15_2 ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+kg:req_drain_pipe a strata:Requirement ;
+    strata:appliesTo strata:SepticTank ; strata:quantity strata:pipeDiameter ; strata:comparator "ge" ;
+    strata:value 0.1 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_15_2 ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D13" ; strata:status "transcribed" ;
+    strata:note "Pipes into the tank and between manholes." .
+kg:req_septic_vent a strata:Requirement ;
+    strata:appliesTo strata:SepticTank ; strata:quantity strata:ventDiameter ; strata:comparator "ge" ;
+    strata:value 0.05 ; strata:unit "m" ; strata:citedBy kg:nbc_3_12_15_2 ;
+    strata:jurisdiction strata:India ; strata:layer "P" ; strata:matrixItem "D13" ; strata:status "transcribed" .
+
+# ---- D16 lightning protection, D18 accessibility ---------------------------------------------
+
+kg:nbc_8_2_11_3 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 2, Part 8 Section 2, cl. 11.3" ; strata:page "85" ;
+    strata:quote "11.3 Risk Assessment The need for protection, the economic benefits of installing protection measures and the selection of adequate protection measures should be determined in terms of risk assessment. The protection measures should ensure that the calculated risk is less than the tolerable risk" .
+kg:req_lightning_assessment a strata:Requirement ;
+    strata:appliesTo strata:Building ; strata:quantity strata:lightningProtection ; strata:comparator "eq" ;
+    strata:valueText "by risk assessment" ; strata:citedBy kg:nbc_8_2_11_3 ;
+    strata:jurisdiction strata:India ; strata:layer "E" ; strata:matrixItem "D16" ; strata:status "transcribed" ;
+    strata:note "Risk per IS/IEC 62305 (Part 2), not in data/reference_docs: STRATA reports the need for an assessment and does not size a protection system." .
+
+kg:nbc_3_b_table_10 a strata:Clause ; strata:inStandard kg:NBC2016 ;
+    strata:clauseId "Vol 1, Part 3, Annex B, Table 10 (cl. B-6.2.2)" ; strata:page "87" ;
+    strata:quote "Table 10 Requirements for Ramp (Clause B-6.2.2) ... ii) 301 mm to 750 mm 1:12 1 500 Landings after every 5 m of ramp run" .
+kg:req_ramp_gradient a strata:Requirement ;
+    strata:appliesTo strata:Ramp ; strata:quantity strata:gradient ; strata:comparator "le" ;
+    strata:value 0.0833 ; strata:unit "rise / run (1:12)" ; strata:citedBy kg:nbc_3_b_table_10 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D18" ; strata:status "transcribed" ;
+    strata:note "Level difference 301 to 750 mm: the 450 mm plinth. Handrails on both sides; a landing after every 5 m of run. Applies when the household includes elderly or wheelchair users." .
+kg:req_ramp_width a strata:Requirement ;
+    strata:appliesTo strata:Ramp ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 1.5 ; strata:unit "m" ; strata:citedBy kg:nbc_3_b_table_10 ;
+    strata:jurisdiction strata:India ; strata:layer "A" ; strata:matrixItem "D18" ; strata:status "transcribed" ;
+    strata:note "Level difference 301 to 750 mm." .

@@ -95,6 +95,8 @@ class Frame:
     fck: float = 25.0  # MPa
     fy: float = 500.0  # MPa
     ductile: bool = True  # IS 13920 design
+    beam_cover: float = 0.03  # m, nominal cover: IS 456 Table 16, moderate exposure (STAAD's default is 25 mm)
+    column_cover: float = 0.04  # m, IS 456 cl. 26.4.2.1
     base_y: float = 0.0  # level of the fixed supports (top of footings)
     # Frames from a layout: walls per beam as [(kN/m2 of wall face net of openings, "storey" | "parapet")];
     # a storey wall rises to the soffit of the beam above, a parapet is loads.parapet_height tall
@@ -511,6 +513,11 @@ def write_std(frame: Frame, title="STRATA frame") -> str:
         f"FYMAIN {_num(frame.fy)} ALL",
         f"FYSEC {_num(frame.fy)} ALL",
         "TRACK 2 ALL",
+        # clear covers (STAAD: CLT/CLB/CLS beams, CLEAR columns), from the spec's IS 456 values
+        f"CLT {_num(frame.beam_cover * 1000)} ALL",
+        f"CLB {_num(frame.beam_cover * 1000)} ALL",
+        f"CLS {_num(frame.beam_cover * 1000)} ALL",
+        f"CLEAR {_num(frame.column_cover * 1000)} ALL",
     ]
     # Bigger column bars raise the column's moment capacity (IS 13920 cl. 7.2) and its steel ratio
     for group, bar in sorted(frame.column_bars.items()):

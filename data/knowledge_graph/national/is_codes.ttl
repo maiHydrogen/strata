@@ -33,3 +33,127 @@ kg:req_reinforcement_proof_stress a strata:Requirement ;
     strata:appliesTo strata:Reinforcement ; strata:quantity strata:proofStress ; strata:comparator "eq" ;
     strata:valueText "415, 500 or 550" ; strata:citedBy kg:is13920_5_3_1 ;
     strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "E10" ; strata:status "transcribed" .
+
+# ---- IS 456:2000 cover, column steel, deflection (span/depth) ------------------------
+# Pages are the printed pages (PDF page = printed + 13 in data/reference_docs/is.456.2000.pdf).
+
+kg:is456_26_4_2 a strata:Clause ; strata:inStandard kg:IS456 ;
+    strata:clauseId "cl. 26.4.2, Table 16" ; strata:page "47" ;
+    strata:quote "Table 16 Nominal Cover to Meet Durability Requirements (Clause 26.4.2) Exposure Mild Moderate Severe Very severe Extreme Nominal Concrete Cover in mm not Less Than 20 30 45 50 75" .
+kg:req_beam_cover a strata:Requirement ;
+    strata:appliesTo strata:Beam ; strata:quantity strata:nominalCover ; strata:comparator "ge" ;
+    strata:value 0.03 ; strata:unit "m" ; strata:citedBy kg:is456_26_4_2 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "assumed" ;
+    strata:note "Moderate exposure assumed, as for the concrete grade (IS 456 Table 3); beams and slabs." .
+kg:req_slab_cover a strata:Requirement ;
+    strata:appliesTo strata:Slab ; strata:quantity strata:nominalCover ; strata:comparator "ge" ;
+    strata:value 0.03 ; strata:unit "m" ; strata:citedBy kg:is456_26_4_2 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "assumed" ;
+    strata:note "Moderate exposure assumed (IS 456 Table 3)." .
+
+kg:is456_26_4_2_1 a strata:Clause ; strata:inStandard kg:IS456 ;
+    strata:clauseId "cl. 26.4.2.1 and 26.4.2.2" ; strata:page "46" ;
+    strata:quote "However for a longitudinal reinforcing bar in a column nominal cover shall in any case not be less than 40 mm, or less than the diameter of such bar. ... For footings minimum cover shall be 50 mm." .
+kg:req_column_cover a strata:Requirement ;
+    strata:appliesTo strata:Column ; strata:quantity strata:nominalCover ; strata:comparator "ge" ;
+    strata:value 0.04 ; strata:unit "m" ; strata:citedBy kg:is456_26_4_2_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" .
+kg:req_footing_cover a strata:Requirement ;
+    strata:appliesTo strata:Footing ; strata:quantity strata:nominalCover ; strata:comparator "ge" ;
+    strata:value 0.05 ; strata:unit "m" ; strata:citedBy kg:is456_26_4_2_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" .
+
+kg:is456_26_5_3_1 a strata:Clause ; strata:inStandard kg:IS456 ;
+    strata:clauseId "cl. 26.5.3.1 (a) and (c)" ; strata:page "48" ;
+    strata:quote "The cross-sectional area of longitudinal reinforcement, shall be not less than 0.8 percent nor more than 6 percent of the gross cross-sectional area of the column. ... Bars of longitudinal reinforcement shall not be less than 12 mm in diameter." .
+kg:req_column_steel_min a strata:Requirement ;
+    strata:appliesTo strata:Column ; strata:quantity strata:steelRatio ; strata:comparator "ge" ;
+    strata:value 0.008 ; strata:unit "fraction of the gross section" ; strata:citedBy kg:is456_26_5_3_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" .
+kg:req_column_steel_max a strata:Requirement ;
+    strata:appliesTo strata:Column ; strata:quantity strata:steelRatio ; strata:comparator "le" ;
+    strata:value 0.06 ; strata:unit "fraction of the gross section" ; strata:citedBy kg:is456_26_5_3_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" ;
+    strata:note "The NOTE to (a) recommends 4 percent where bars are lapped; STRATA designs to 2.5 percent." .
+kg:req_column_bar a strata:Requirement ;
+    strata:appliesTo strata:Column ; strata:quantity strata:barDiameter ; strata:comparator "ge" ;
+    strata:value 0.012 ; strata:unit "m" ; strata:citedBy kg:is456_26_5_3_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" .
+
+kg:is456_23_2_1 a strata:Clause ; strata:inStandard kg:IS456 ;
+    strata:clauseId "cl. 23.2.1 (a)" ; strata:page "37" ;
+    strata:quote "The vertical deflection limits may generally be assumed to be satisfied provided that the span to depth ratios are not greater than the values obtained as below: a) Basic values of span to effective depth ratios for spans up to 10 m: Cantilever 7 Simply supported 20 Continuous 26" .
+kg:req_beam_span_depth_cantilever a strata:Requirement ;
+    strata:appliesTo strata:Beam ; strata:quantity strata:spanDepthRatio ; strata:comparator "le" ;
+    strata:value 7.0 ; strata:unit "span / effective depth" ; strata:citedBy kg:is456_23_2_1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:supportCondition ; strata:equals "cantilever" ] ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" ;
+    strata:note "Basic value, before the tension and compression steel modification factors (Fig. 4, 5)." .
+kg:req_beam_span_depth_simple a strata:Requirement ;
+    strata:appliesTo strata:Beam ; strata:quantity strata:spanDepthRatio ; strata:comparator "le" ;
+    strata:value 20.0 ; strata:unit "span / effective depth" ; strata:citedBy kg:is456_23_2_1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:supportCondition ; strata:equals "simply_supported" ] ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" ;
+    strata:note "Basic value, before the modification factors." .
+kg:req_beam_span_depth_continuous a strata:Requirement ;
+    strata:appliesTo strata:Beam ; strata:quantity strata:spanDepthRatio ; strata:comparator "le" ;
+    strata:value 26.0 ; strata:unit "span / effective depth" ; strata:citedBy kg:is456_23_2_1 ;
+    strata:condition [ a strata:Condition ; strata:onParameter strata:supportCondition ; strata:equals "continuous" ] ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" ;
+    strata:note "Basic value, before the modification factors." .
+
+kg:is456_24_1 a strata:Clause ; strata:inStandard kg:IS456 ;
+    strata:clauseId "cl. 24.1, NOTE 2" ; strata:page "39" ;
+    strata:quote "For two-way slabs of shorter spans (up to 3.5 m) with mild steel reinforcement, the span to overall depth ratios given below may generally be assumed to satisfy vertical deflection limits for loading class up to 3 kN/m2. Simply supported slabs 35 Continuous slabs 40 For high strength deformed bars of grade Fe 415, the values given above should be multiplied by 0.8." .
+kg:req_slab_span_depth a strata:Requirement ;
+    strata:appliesTo strata:Slab ; strata:quantity strata:spanDepthRatio ; strata:comparator "le" ;
+    strata:value 28.0 ; strata:unit "short span / overall depth" ; strata:citedBy kg:is456_24_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "assumed" ;
+    strata:note "35 x 0.8 = 28: simply supported (conservative for continuous panels) with HYSD bars; the 0.8 factor is stated for Fe 415 and applied to Fe 500 (assumed); shorter span up to 3.5 m, load class up to 3 kN/m2." .
+
+# ---- IS 13920:2016 member geometry and joints (text read from the page images: the PDF's text layer is
+# font-encoded and cannot be searched). Pages are printed pages (PDF page = printed + 2).
+
+kg:is13920_6_1_1 a strata:Clause ; strata:inStandard kg:IS13920 ;
+    strata:clauseId "cl. 6.1.1 and 6.1.2" ; strata:page "4" ;
+    strata:quote "Beams shall preferably have width-to-depth ratio of more than 0.3. ... Beams shall not have width less than 200 mm." .
+kg:req_beam_width a strata:Requirement ;
+    strata:appliesTo strata:Beam ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 0.2 ; strata:unit "m" ; strata:citedBy kg:is13920_6_1_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" .
+kg:req_beam_width_depth a strata:Requirement ;
+    strata:appliesTo strata:Beam ; strata:quantity strata:widthDepthRatio ; strata:comparator "ge" ;
+    strata:value 0.3 ; strata:unit "width / overall depth" ; strata:citedBy kg:is13920_6_1_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" ;
+    strata:note "\"preferably\": a recommendation, not a strict limit." .
+
+kg:is13920_6_2 a strata:Clause ; strata:inStandard kg:IS13920 ;
+    strata:clauseId "cl. 6.2.1 (a) and 6.2.2" ; strata:page "5" ;
+    strata:quote "Beams shall have at least two 12 mm diameter bars each at the top and bottom faces. ... Maximum longitudinal steel ratio pmax provided on any face at any section is 0.025." .
+kg:req_beam_bar a strata:Requirement ;
+    strata:appliesTo strata:Beam ; strata:quantity strata:barDiameter ; strata:comparator "ge" ;
+    strata:value 0.012 ; strata:unit "m" ; strata:citedBy kg:is13920_6_2 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" ;
+    strata:note "At least two such bars at the top and at the bottom." .
+kg:req_beam_steel_max a strata:Requirement ;
+    strata:appliesTo strata:Beam ; strata:quantity strata:steelRatio ; strata:comparator "le" ;
+    strata:value 0.025 ; strata:unit "fraction of b d, one face" ; strata:citedBy kg:is13920_6_2 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" .
+
+kg:is13920_7_1_1 a strata:Clause ; strata:inStandard kg:IS13920 ;
+    strata:clauseId "cl. 7.1.1" ; strata:page "7" ;
+    strata:quote "The minimum dimension of a column shall not be less than, a) 20 db, where db is diameter of the largest diameter longitudinal reinforcement bar in the beam passing through or anchoring into the column at the joint, or b) 300 mm (see Fig. 7)." .
+kg:req_column_width a strata:Requirement ;
+    strata:appliesTo strata:Column ; strata:quantity strata:width ; strata:comparator "ge" ;
+    strata:value 0.3 ; strata:unit "m" ; strata:citedBy kg:is13920_7_1_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" ;
+    strata:note "And at least 20 x the largest beam bar through the joint (applied by capping beam bars, MAXMAIN). Fig. 7 of the same edition shows 15 db; the text governs until the amendments are checked." .
+
+kg:is13920_7_2_1 a strata:Clause ; strata:inStandard kg:IS13920 ;
+    strata:clauseId "cl. 7.2.1 and 7.2.1.3" ; strata:page "8" ;
+    strata:quote "At each beam-column joint of a moment-resisting frame, the sum of nominal design strength of columns meeting at that joint ... shall be at least 1.4 times the sum of nominal design strength of beams meeting at that joint in the same plane ... This check shall be waived at all joints at roof level only, in buildings more than 4 storeys tall." .
+kg:req_strong_column a strata:Requirement ;
+    strata:appliesTo strata:Column ; strata:quantity strata:momentRatio ; strata:comparator "ge" ;
+    strata:value 1.4 ; strata:unit "sum Mc / sum Mb" ; strata:citedBy kg:is13920_7_2_1 ;
+    strata:jurisdiction strata:India ; strata:layer "C" ; strata:matrixItem "D10" ; strata:status "transcribed" ;
+    strata:note "Roof joints included: the waiver applies only above 4 storeys." .

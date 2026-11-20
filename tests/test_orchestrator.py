@@ -150,3 +150,23 @@ def test_a_missing_structure_file_redoes_the_structure(staged, tmp_path):
     staged.clear()
     _go(tmp_path, resume=True)
     assert staged == ["structure", "building"]
+
+
+def test_a_layout_stage_with_no_passing_option_is_redone_on_resume(staged, tmp_path, monkeypatch):
+    """A run stopped at the layout stage must not resume into approval with nothing to approve."""
+    import time
+    from test_from_layout import _layout
+    lay = _layout()
+
+    def failing(run, brief, spec, **kw):
+        staged.append("layout")
+        run.write("layout_1", "x_1.layout.json", lay.model_dump_json())
+        run.write("check_1", "x_1.check.json", {"pass": False})
+        run.stage("layout", time.time(), options=[{"k": 1, "pass": False, "hard": 1400.0, "soft": 1.0}])
+        raise O.StageError("layout", "no layout meets the hard rules on this plot", ["a wider plot"])
+
+    monkeypatch.setattr(O, "stage_layouts", failing)
+    assert _go(tmp_path)["stopped_at"] == "layout"
+    staged.clear()
+    m = _go(tmp_path, resume=True)
+    assert staged == ["layout"] and m["status"] == "stopped" and m["advice"] == ["a wider plot"]

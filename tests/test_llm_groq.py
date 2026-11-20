@@ -138,3 +138,18 @@ def test_rate_limiter_stops_at_the_daily_token_limit():
     lim.wait(2_000); lim.record(2_000)
     with pytest.raises(L.LLMError, match="daily token limit"):
         lim.wait(2_000)
+
+
+def test_free_text_call_has_no_json_format_and_the_long_output_cap():
+    """Phase 9 arm A on Groq: prose and code back, capped to fit the free plan's per-minute limit."""
+    sent = []
+
+    def handler(request):
+        sent.append(json.loads(request.content))
+        return _ok("```python\nx = 1\n```")
+
+    c = _client(handler)
+    assert c.complete_text(None, "write code") == "```python\nx = 1\n```"
+    body = sent[0]
+    assert "response_format" not in body and body["max_completion_tokens"] == c.long_output == L.GROQ_LONG_OUTPUT
+    assert body["messages"] == [{"role": "user", "content": "write code"}]
